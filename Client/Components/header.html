@@ -16,20 +16,22 @@
 
     <!-- header.css -->
   <link rel="stylesheet" href="../Client/Assets/CSS/header.css" />
+    <!-- main.css -->
+  <link rel="stylesheet" href="../Client/Assets/CSS/main.css" />
 
 
 
 
   </style>
 </head>
-<body style="background-color: whitesmoke">
+<body >
  <nav class="navbar px-1" >
   <div class="container-fluid d-flex flex-wrap flex-row align-items-center navbar-container">
 
     <!-- Logo -->
     <div class="logo">
       <a class="navbar-brand text-black fw-bold d-flex align-items-center" href="#" id="logo">
-        <i class="ri-shining-fill text-black"></i> Alexa
+        <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill " ></i> Alexa
       </a>
     </div>
 
@@ -49,16 +51,30 @@
 
     <!-- Icons -->
     <div class="d-flex gap-3 text-black fs-5 icons" id="icons">
-<i class="fa-regular fa-user"></i>    
-<i class="fa-regular fa-heart"></i>
-<i class="fa-solid fa-cart-shopping"></i>    </div>
+<i class="fa-regular fa-user cursor-pointer"></i>    
+<i class="fa-regular fa-heart cursor-pointer"></i>
+<i class="fa-solid fa-cart-shopping cursor-pointer"></i>     </div>
 
   </div>
 </nav >
 
-<nav class="bg-info px-2 py-1">
-<i class="ri-bar-chart-horizontal-line">BROWSE ALL CATEGORY</i>
-</nav>
+<div class="navbar1 ">
+  <div class="browse " id="browse"><i class="ri-align-left px-1"></i>Browse All Categories</div>
+
+  <div class="nav-links" id="navLinks">
+    <a href="#" >Electronics</a>
+    <a href="#" >Health & Beauty</a>
+    <a href="#" >Home & Lifestyle</a>
+    <a href="#" >TV & Home Appliances</a>
+    <a href="#" >Fashions</a>
+    <a href="#" >Books & Stationery</a>
+
+  </div>
+</div>
+
+
+
+
 
 
 </body>

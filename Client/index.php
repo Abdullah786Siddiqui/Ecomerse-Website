@@ -1,6 +1,9 @@
  <?php
- include 'Components/header.html' 
- ?>
+  include 'Components/header.html'
+  ?>
+
+
+
 
 
 
@@ -14,5 +17,5 @@
 
 
  <?php
- include 'Components/footer.html' 
- ?>
+  include 'Components/footer.html'
+  ?>
