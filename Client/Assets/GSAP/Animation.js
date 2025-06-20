@@ -88,3 +88,32 @@ tl.from("#logo", {
     ease: "power2.out",
     delay: 1
   });
+
+
+   gsap.from("#proCarousel", {
+  opacity: 0,        // fade from transparent
+  x: -300,           // slide in from the left
+  duration: 1.2,
+  ease: "power2.out",
+  delay: 0.5          // optional delay
+});
+
+
+
+// const carouselElement = document.querySelector('#proCarousel .carousel-inner');
+// const slideCount = carouselElement.children.length;
+// let currentIndex = 0;
+
+// setInterval(() => {
+//   const nextIndex = (currentIndex + 1) % slideCount;
+
+//   // GSAP slide animation
+//   gsap.to(carouselElement, {
+//     x: `-${nextIndex * 100}%`,
+//     duration: 0.8,
+//     ease: "power2.inOut"
+//   });
+
+//   currentIndex = nextIndex;
+// }, 5000);
+
