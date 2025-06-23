@@ -70,50 +70,36 @@ tl.from("#logo", {
   );
 
 
-   gsap.from(".img_group img", {
-    y: 80,
-    scale: 0.7,
-    opacity: 0,
-    filter: "blur(10px)",
-    stagger: 0.2,
-    duration: 1.2,
-    ease: "power3.out"
-  });
-
-  // Animate text group after images
-  gsap.to(".text_group", {
-    opacity: 1,
-    y: -30,
-    duration: 1.2,
-    ease: "power2.out",
-    delay: 1
-  });
 
 
-   gsap.from("#proCarousel", {
-  opacity: 0,        // fade from transparent
-  x: -300,           // slide in from the left
-  duration: 1.2,
-  ease: "power2.out",
-  delay: 0.5          // optional delay
-});
+const track = document.getElementById("track");
+const carousel = document.getElementById("carousel");
+const productItems = track.querySelectorAll(".product");
+const productWidth = productItems[0].offsetWidth + 10; // 10px margin
+const productCount = productItems.length;
+let position = 0;
+let interval;
 
+function startScroll() {
+  interval = setInterval(() => {
+    position += productWidth;
+    track.style.transition = 'transform 1.2s ease-in-out';
+    track.style.transform = `translateX(-${position}px)`;
 
+    if (position >= productWidth * productCount) {
+      setTimeout(() => {
+        track.style.transition = 'none';
+        position = 0;
+        track.style.transform = `translateX(0)`;
+      }, 500);
+    }
+  }, 4000);
+}
 
-// const carouselElement = document.querySelector('#proCarousel .carousel-inner');
-// const slideCount = carouselElement.children.length;
-// let currentIndex = 0;
+function stopScroll() {
+  clearInterval(interval);
+}
 
-// setInterval(() => {
-//   const nextIndex = (currentIndex + 1) % slideCount;
-
-//   // GSAP slide animation
-//   gsap.to(carouselElement, {
-//     x: `-${nextIndex * 100}%`,
-//     duration: 0.8,
-//     ease: "power2.inOut"
-//   });
-
-//   currentIndex = nextIndex;
-// }, 5000);
-
+startScroll();
+carousel.addEventListener('mouseenter', stopScroll);
+carousel.addEventListener('mouseleave', startScroll);
