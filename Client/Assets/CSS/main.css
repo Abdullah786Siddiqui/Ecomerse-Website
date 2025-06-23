@@ -1,4 +1,4 @@
-/* Carousel image size */
+Carousel image size
 .carousel-item {
   transition: opacity 0.8s ease-in-out;
   height: 500px;
@@ -29,14 +29,12 @@
   }
 }
 
-
-/* Section title */
+/* Typography & Underline */
 .title {
   font-size: 24px;
   font-weight: bold;
   text-align: left;
 }
-
 .underline {
   width: 120px;
   height: 4px;
@@ -45,7 +43,7 @@
   margin-bottom: 20px;
 }
 
-/* Mobile adjustments */
+/* Mobile Title Fix */
 @media (max-width: 767px) {
   .title {
     text-align: center !important;
@@ -62,66 +60,81 @@
   }
 }
 
-/* Horizontal product carousel */
+/* Carousel */
 .carousel {
   overflow-x: auto;
   position: relative;
+  display: flex;
   width: 100%;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none; /* Firefox */
+  scrollbar-width: none;
 }
-
 .carousel::-webkit-scrollbar {
-  display: none; /* Chrome, Safari */
+  display: none;
 }
-
 .product-track {
   display: flex;
   width: max-content;
   transition: transform 0.5s ease-in-out;
 }
 
-.product {
-  min-width: 180px;
-  flex-shrink: 0;
-  background-color: #fff;
-  margin-right: 10px;
-  border-radius: 10px;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
-  text-align: center;
-}
-
-.product img {
+/* Product Card */
+.product-card {
   width: 100%;
-  height: 120px;
+  min-width: 180px;
+  max-width: 220px;
+  background-color: #fff;
+  border-radius: 1rem;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.06);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  flex-shrink: 0;
+}
+.product-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+}
+.product-image {
+  width: 100%;
+  height: 140px;
   object-fit: cover;
-  border-radius: 8px;
-  margin-bottom: 8px;
+  border-radius: 0.75rem;
 }
 
-.product-name {
-  font-size: 16px;
-  font-weight: bold;
+/* Discount & Text */
+.discount-badge {
+  font-size: 0.75rem;
+}
+.old-price {
+  font-size: 0.85rem;
+}
+.rating {
+  font-size: 0.85rem;
 }
 
+/* Responsive Tuning */
 @media (max-width: 600px) {
-  .product {
-    min-width: 140px;
+  .product-card {
+    min-width: 150px;
+    padding: 0.75rem;
   }
-
-  .product img {
-    height: 100px;
+  .product-image {
+    height: 110px;
   }
-
   .product-name {
-    font-size: 14px;
+    font-size: 0.9rem;
+  }
+  .rating {
+    font-size: 0.75rem;
   }
 }
+
+@media (max-width: 575.98px) {
+  .offcanvas-mobile-75 {
+    width: 75% !important;
+  }
+}
+
+
 
 
 

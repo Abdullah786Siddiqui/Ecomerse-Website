@@ -21,6 +21,8 @@
   </div>
 </div>
 
+
+
 <!-- Featured Products -->
 <div class="section mx-5 w-100">
   <div class="title mt-4">Featured Product</div>
@@ -29,102 +31,320 @@
   <div class="carousel" id="carousel">
     <div class="product-track" id="track">
 
-      <!-- Product Items -->
-     <!-- Product Items -->
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+      <!-- Product Card 1 -->
+      <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+
+     <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      <div class="product">
-        <div class="product-card">
-          <div class="discount-badge">25% OFF</div>
-          <img src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-fluid mb-2" alt="Product">
-          <h6 class="mb-1">Tressfix Hair fall & Anti-Dandruff Shampoo</h6>
-          <p class="mb-1 fw-bold">Rs. 840 <span class="old-price">Rs. 1,120</span></p>
-          <div class="rating">★★★★☆ (1)</div>
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
         </div>
       </div>
-      
+       <div class="product-card position-relative text-center p-3 rounded-4 shadow-sm bg-white me-3">
+        <!-- Discount Badge -->
+        <span class="discount-badge position-absolute top-0 start-0 m-2 px-2 py-1 bg-danger text-white rounded-pill small fw-semibold">
+          25% OFF
+        </span>
+
+        <!-- Product Image -->
+        <img 
+          src="./Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" 
+          alt="Tressfix Shampoo"
+          class="product-image mb-3 rounded-3 shadow-sm"
+        >
+
+        <!-- Product Name -->
+        <h6 class="product-name text-dark fw-semibold mb-2">
+          Tressfix Hair fall & Anti-Dandruff Shampoo
+        </h6>
+
+        <!-- Pricing -->
+        <p class="mb-1 fw-bold text-primary">
+          Rs. 840 <span class="old-price text-muted text-decoration-line-through fw-normal">Rs. 1,120</span>
+        </p>
+
+        <!-- Rating -->
+        <div class="rating text-warning small">
+          ★★★★☆ <span class="text-muted">(1)</span>
+        </div>
+      </div>
 
     </div>
   </div>
 </div>
+
 
 <?php include 'Components/footer.html'; ?>
