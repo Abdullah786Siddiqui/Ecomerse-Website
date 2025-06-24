@@ -1,6 +1,7 @@
 
 
 <?php
+session_start();
 include("../Admin-Panel/config/db.php");
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $email = $_POST['login_email'];
@@ -11,27 +12,26 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
     $hashed_Password = $row['password'];
 
     if (password_verify($password, $hashed_Password)) {
-      // $_SESSION['email'] = $row['email'];
-      // $_SESSION['role'] = $row['role'];
+
 
       if ($row['role'] === "admin") {
-        // $_SESSION['admin_Username'] = $row['name'];
+        $_SESSION['admin_id'] = $row['id'];
 
         header("Location: ../Admin-Panel/Dashbboard.php");
         exit();
       }
       if ($row['role'] === "user") {
-        // $_SESSION['username'] = $row['name'];
+        $_SESSION['user_id'] = $row['id'];
 
         header("Location: ../../Client/index.php");
         exit();
       }
     } else {
-      header("Location: ../../Client/index.php?password=invalid");
+      header("Location: ../../Client/login.php?password=invalid");
       exit();
     }
   } else {
-    header("Location: ../../Client/index.php?email=invalid");
+    header("Location: ../../Client/login.php?email=invalid");
     exit;
   }
 } else {

@@ -1,4 +1,9 @@
-<?php include 'Components/header.html'; ?>
+<?php
+ include 'Components/header.html';
+ include './includes/Navbar.php';
+
+
+?>
 
 <!-- Carousel Section -->
 <div id="proCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
@@ -345,6 +350,9 @@
     </div>
   </div>
 </div>
+<a href="logout.php" class="btn btn-danger">Logout</a>
+
+<?php include 'Components/footer.html';
 
 
-<?php include 'Components/footer.html'; ?>
+?>

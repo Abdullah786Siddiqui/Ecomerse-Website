@@ -103,3 +103,8 @@ function stopScroll() {
 startScroll();
 carousel.addEventListener('mouseenter', stopScroll);
 carousel.addEventListener('mouseleave', startScroll);
+
+
+
+
+  

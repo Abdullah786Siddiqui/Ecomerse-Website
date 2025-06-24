@@ -1,7 +1,21 @@
-<?php include 'Components/header.html'; ?>
-   <div class="container mt-4">
+<?php
+include 'Components/header.html';
+include './includes/Navbar.php';
+
+// if (session_status() === PHP_SESSION_NONE) {
+//   session_start();
+// }
+
+// if (!isset($_SESSION['user_id'])) {
+//   header("Location: ../index.php");
+//   exit();
+// }
+
+?>
+
+<div class="container mt-4">
   <div class="row justify-content-center">
-    
+
     <!-- Billing Form -->
     <div class="col-12 col-lg-8 mb-4">
       <h4 class="text-center fs-1 mb-3" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:black">Billing Address</h4>
@@ -178,6 +192,6 @@
   </div>
 </div>
 
-    
 
- <?php include 'Components/footer.html'; ?>
+
+<?php include 'Components/footer.html'; ?>

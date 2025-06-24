@@ -118,3 +118,22 @@ body {
   }
 }
 
+
+
+
+/* Disable Bootstrap default animation */
+.offcanvas {
+  transition: none !important;
+  visibility: hidden;
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.offcanvas.showing,
+.offcanvas.show {
+  display: block;
+}
+
+
+
+

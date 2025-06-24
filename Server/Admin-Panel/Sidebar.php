@@ -1,4 +1,17 @@
-<?php include("./includes/header.html"); ?>
+<?php
+
+include("./includes/header.html");
+include("./config/db.php");
+session_start();
+if (isset($_SESSION['admin_id'])) {
+    $admin_id = $_SESSION['admin_id'];
+    $sql = "SELECT * FROM users WHERE id = $admin_id  ";
+    $result = $conn->query($sql);
+    if ($row = $result->fetch_assoc()) {
+      $adminName = $row['name'];
+    }
+  }
+ ?>
 
 <!-- Container -->
 <div class="d-flex" id="sidebarContainer" style="min-height: 100vh;">
@@ -55,7 +68,7 @@
   <!-- Expanded Sidebar -->
   <div id="sidebar-expanded" class="d-flex flex-column flex-shrink-0 p-3 text-bg-dark" style="width: 280px;">
     <div class="d-flex align-items-center justify-content-between  text-white">
-      <span class="fs-4"><i class="fa-solid fa-user-tie me-2"></i> Admin Panel</span>
+      <span class="fs-4"><i class="fa-solid fa-user-tie me-2"></i> Admin <?= $adminName ?></span>
       <button class="btn btn-outline-secondary btn-sm" id="toggleSidebarBtn" title="Collapse Sidebar">
         <i class="fa fa-bars"></i>
       </button>

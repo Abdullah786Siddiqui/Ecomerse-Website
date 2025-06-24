@@ -10,6 +10,10 @@
 </head>
 
 <body>
+  <?php
+  $validity_email = $_GET['email'] ?? '';
+  $validity_password = $_GET['password'] ?? '';
+  ?>
 
 
   <div class="d-flex justify-content-center align-items-center vh-100">
@@ -22,22 +26,22 @@
           <label class="form-label">Email</label>
           <input type="email" class="form-control" name="login_email" placeholder="Enter Your Email" required>
           <!-- PHP Error Example -->
-          <!-- 
-        <div class="error text-danger mt-1">
-          <?= ($validity_email === "invalid") ? "Invalid Email" : "" ?>
-        </div> 
-        -->
+
+          <div class="error text-danger mt-1">
+            <?= ($validity_email === "invalid") ? "Invalid Email" : "" ?>
+          </div>
+
         </div>
 
         <!-- Password Input -->
         <div class="mb-3">
           <label class="form-label">Password</label>
           <input type="password" class="form-control" name="login_password" placeholder="Enter Your Password" required>
-          <!-- 
+         
         <div class="error text-danger mt-1">
           <?= ($validity_password === "invalid") ? "Invalid Password" : "" ?>
         </div> 
-        -->
+      
         </div>
 
         <!-- Submit Button -->

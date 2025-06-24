@@ -25,21 +25,34 @@ include("./Sidebar.php");
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td>1</td>
-          <td>Ali Khan</td>
-          <td>ali@example.com</td>
-          <td>+1234567890</td>
-          <td><span class="badge bg-secondary text-white">User</span></td>
-          <td><span class="badge bg-success">Active</span></td>
-          <td>2025-06-23</td>
-          <td>
-            <a href="#" class="btn btn-sm btn-primary">View</a>
-            <a href="#" class="btn btn-sm btn-success">Mark Done</a>
-            <a href="#" class="btn btn-sm btn-danger">Delete</a>
-          </td>
-        </tr>
-        <!-- More rows -->
+        <?php
+        $sql = "SELECT * FROM users ORDER BY id";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+
+        ?>
+          <tr>
+            <td><?= $row['id'] ?></td>
+            <td><?= $row['name'] ?></td>
+            <td><?= $row['email'] ?></td>
+            <td><?= $row['phone'] ?></td>
+            <td><span class="badge bg-primary"><?= $row['role'] ?></span></td>
+            <td><span class="badge bg-success"><?= $row['status'] ?></span></td>
+            <td><?= $row['created_at'] ?></td>
+            <td>
+              <a href="#" class="btn btn-sm btn-primary">View</a>
+              <a href="#" class="btn btn-sm btn-success">Mark Done</a>
+              <a href="#" class="btn btn-sm btn-danger">Delete</a>
+            </td>
+
+
+          </tr>
+        <?php
+
+
+        }
+        ?>
+
       </tbody>
     </table>
   </div>
