@@ -1,5 +1,6 @@
  <?php
   include("../Server/Admin-Panel/config/db.php");
+  include("../Client/Components/header.html");
   session_start();
 
   if (isset($_SESSION['user_id'])) {
@@ -17,18 +18,22 @@
 
 
 
- <nav class="navbar px-1 position-sticky">
+
+
+
+ <nav class="navbar  position-fixed top-0 start-0 w-100 shadow bg-white py-0" style="z-index: 1030;">
+
    <div class="container-fluid d-flex flex-wrap flex-row align-items-center navbar-container">
 
      <!-- Logo -->
-     <div class="logo">
+     <div class="logo mb-0">
        <a class="navbar-brand text-black fw-bold d-flex align-items-center " href="./index.php" id="logo">
-         <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill "></i> Alexa
+         <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill  "></i> Alexa
        </a>
      </div>
 
      <!-- Search Bar -->
-     <div class="search-wrapper d-flex justify-content-center " style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
+     <div class="search-wrapper d-flex justify-content-center  mt-2 " style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
        <form class="w-100 d-flex justify-content-center" role="search">
          <div class="input-group custom-width w-100">
            <input type="text" class="form-control" placeholder="Search! What ever you Wants" aria-label="Search" />
@@ -63,6 +68,8 @@
            </ul>
          </div>
        <?php
+          // header("Location: ./index.php");
+          // exit();
         }
 
 
@@ -74,21 +81,26 @@
      </div>
 
    </div>
+     <div style="background-color: #2563EB;" class="navbar1 w-100 p-2 mt-3">
+  <div class="nav-links" id="navLinks">
+       <a href="#" id='browse' class="text-black  ">Browse All Categories</a>
+       <a href="#">Electronics</a>
+       <a href="#">Health & Beauty</a>
+       <a href="#">Home & Lifestyle</a>
+       <a href="#">TV & Home Appliances</a>
+       <a href="#">Fashions</a>
+       <a href="#">Books & Stationery</a>
+       
+
+     </div>
+
+    
+</div>
+</div>
+
  </nav>
 
- <div class="navbar1">
-   <div class="browse " id="browse"><i class="ri-align-left px-1"></i>Browse All Categories</div>
 
-   <div class="nav-links" id="navLinks">
-     <a href="#">Electronics</a>
-     <a href="#">Health & Beauty</a>
-     <a href="#">Home & Lifestyle</a>
-     <a href="#">TV & Home Appliances</a>
-     <a href="#">Fashions</a>
-     <a href="#">Books & Stationery</a>
-
-   </div>
- </div>
 
  <div class="offcanvas offcanvas-end offcanvas-mobile-75" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
    <div class="offcanvas-header border-bottom">
@@ -145,7 +157,7 @@
 
        <a href="./checkout.php" class="btn btn-success w-100 mt-4 fw-semibold">
          Proceed to Checkout
-      </a>
+       </a>
        <button style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
          View Cart
        </button>
@@ -154,80 +166,92 @@
    </div>
  </div>
 
+
  <script>
-  const offcanvas = document.getElementById("offcanvasRight");
-  const cartItems = offcanvas.querySelectorAll(".cart-item");
-  const buttons = offcanvas.querySelectorAll(".cart-summary button");
+   const offcanvas = document.getElementById("offcanvasRight");
+   const cartItems = offcanvas.querySelectorAll(".cart-item");
+   const buttons = offcanvas.querySelectorAll(".cart-summary button");
 
-  const openAnimation = () => {
-    // Pehle reset kar do sab
-    gsap.set(offcanvas, { x: "100%", opacity: 0, visibility: "hidden" });
-    gsap.set(cartItems, { opacity: 0, y: 30 });
-    gsap.set(buttons, { opacity: 0, y: 20 });
+   const openAnimation = () => {
+     // Pehle reset kar do sab
+     gsap.set(offcanvas, {
+       x: "100%",
+       opacity: 0,
+       visibility: "hidden"
+     });
+     gsap.set(cartItems, {
+       opacity: 0,
+       y: 30
+     });
+     gsap.set(buttons, {
+       opacity: 0,
+       y: 20
+     });
 
-    // Offcanvas slide-in
-    gsap.to(offcanvas, {
-      x: "0%",
-      opacity: 1,
-      visibility: "visible",
-      duration: 0.5,
-      ease: "power2.out",
-      onStart: () => offcanvas.classList.add("show"),
-      onComplete: () => {
-        // Cart items stagger animation
-        gsap.to(cartItems, {
-          opacity: 1,
-          y: 0,
-          stagger: 0.1,
-          duration: 0.4,
-          ease: "power1.out"
-        });
+     // Offcanvas slide-in
+     gsap.to(offcanvas, {
+       x: "0%",
+       opacity: 1,
+       visibility: "visible",
+       duration: 0.5,
+       ease: "power2.out",
+       onStart: () => offcanvas.classList.add("show"),
+       onComplete: () => {
+         // Cart items stagger animation
+         gsap.to(cartItems, {
+           opacity: 1,
+           y: 0,
+           stagger: 0.1,
+           duration: 0.4,
+           ease: "power1.out"
+         });
 
-        // Buttons animation
-        gsap.to(buttons, {
-          opacity: 1,
-          y: 0,
-          delay: 0.3,
-          duration: 0.3,
-          stagger: 0.1,
-          ease: "power1.out"
-        });
-      }
-    });
-  };
+         // Buttons animation
+         gsap.to(buttons, {
+           opacity: 1,
+           y: 0,
+           delay: 0.3,
+           duration: 0.3,
+           stagger: 0.1,
+           ease: "power1.out"
+         });
+       }
+     });
+   };
 
-  const closeAnimation = () => {
-    // Close items & buttons first
-    gsap.to([...cartItems, ...buttons], {
-      opacity: 0,
-      y: 20,
-      duration: 0.3,
-      ease: "power1.in"
-    });
+   const closeAnimation = () => {
+     // Close items & buttons first
+     gsap.to([...cartItems, ...buttons], {
+       opacity: 0,
+       y: 20,
+       duration: 0.3,
+       ease: "power1.in"
+     });
 
-    // Then hide offcanvas
-    gsap.to(offcanvas, {
-      x: "100%",
-      opacity: 0,
-      duration: 0.4,
-      ease: "power2.in",
-      delay: 0.2,
-      onComplete: () => {
-        offcanvas.classList.remove("show");
-        offcanvas.style.visibility = "hidden";
-      }
-    });
-  };
+     // Then hide offcanvas
+     gsap.to(offcanvas, {
+       x: "100%",
+       opacity: 0,
+       duration: 0.4,
+       ease: "power2.in",
+       delay: 0.2,
+       onComplete: () => {
+         offcanvas.classList.remove("show");
+         offcanvas.style.visibility = "hidden";
+       }
+     });
+   };
 
-  // Trigger open
-  document.querySelector('[data-bs-target="#offcanvasRight"]').addEventListener("click", (e) => {
-    e.preventDefault();
-    openAnimation();
-  });
+   // Trigger open
+   document.querySelector('[data-bs-target="#offcanvasRight"]').addEventListener("click", (e) => {
+     e.preventDefault();
+     openAnimation();
+   });
 
-  // Trigger close
-  document.querySelector("#offcanvasRight .btn-close").addEventListener("click", () => {
-    closeAnimation();
-  });
-</script>
+   // Trigger close
+   document.querySelector("#offcanvasRight .btn-close").addEventListener("click", () => {
+     closeAnimation();
+   });
+ </script>
 
+<?php  include("../Client/Components/footer.html"); ?>

@@ -1,15 +1,14 @@
 <?php
-include 'Components/header.html';
+
 include './includes/Navbar.php';
 
 // if (session_status() === PHP_SESSION_NONE) {
 //   session_start();
 // }
 
-// if (!isset($_SESSION['user_id'])) {
-//   header("Location: ../index.php");
-//   exit();
-// }
+if (!isset($_SESSION['user_id'])) {
+ echo "<script>window.location.href = './index.php'</script>";
+}
 
 ?>
 

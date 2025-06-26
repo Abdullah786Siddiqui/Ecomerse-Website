@@ -23,7 +23,7 @@ include("./Sidebar.php");
         </thead>
         <tbody>
           <?php
-          $sql = "SELECT products.id , products.name , products.description , products.price , brand.name , product_images.image_url  FROM products
+          $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
 INNER JOIN product_images on product_images.product_id = products.id
 INNER JOIN brand on brand.id = products.brand_id";
           $result = $conn->query($sql);
@@ -35,7 +35,7 @@ INNER JOIN brand on brand.id = products.brand_id";
               <td><?= $row['name'] ?></td>
               <td><?= $row['description'] ?></td>
               <td><?= $row['price'] ?></td>
-              <td><?= $row['name'] ?></td>
+              <td><?= $row['brand'] ?></td>
               <td><img style="border-radius: 50% ; object-fit: cover;" src="../uploads/<?= $row['image_url']; ?>" width="50" height="50" alt="Product_Image"></td>
               <td><a href="#" class="btn btn-success">Edit</a></td>
               <td><a href="#" class="btn btn-danger">Delete</a></td>

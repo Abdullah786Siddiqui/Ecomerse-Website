@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 24, 2025 at 01:10 PM
+-- Generation Time: Jun 26, 2025 at 10:57 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `ecomerse_website`
+-- Database: `ecommerce_website`
 --
 
 -- --------------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE `addresses` (
 
 CREATE TABLE `brand` (
   `id` int(11) NOT NULL,
-  `name` varchar(255) NOT NULL
+  `name` varchar(100) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
@@ -137,8 +137,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, `created_at`, `brand_id`) VALUES
-(4, 'iPhone 16 Pro Max', 'iphone is most expensive phone ever', 12000.00, 1, '2025-06-24 14:38:02', 1),
-(5, 'Core i5 Laptop', 'laptop is most expensive thing ever', 30000.00, 1, '2025-06-24 14:53:45', 2);
+(1, 'iPhone 16 pro max', 'iphone is most expensive phone ever', 12000.00, 73, '2025-06-26 13:55:46', 1);
 
 -- --------------------------------------------------------
 
@@ -157,8 +156,7 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
-(1, 4, '1750757882-mindless.jpg'),
-(2, 5, '1750758825-Picture1.jpg');
+(1, 1, '1750928146-mindless.jpg');
 
 -- --------------------------------------------------------
 
@@ -177,16 +175,73 @@ CREATE TABLE `subcategories` (
 --
 
 INSERT INTO `subcategories` (`id`, `name`, `category_id`) VALUES
-(1, 'Mobile Phone', 1),
-(2, 'Laptop & Computer', 1),
-(3, 'TV & Display', 1),
-(4, 'Audio Devices', 1),
-(5, 'Cameras', 1),
-(6, 'Wearables', 1),
-(7, 'Accessories ', 1),
-(8, 'Tablets', 1),
-(9, 'Home Application', 1),
-(10, 'Gaming', 1);
+(31, 'Home Decor', 3),
+(32, 'Furniture', 3),
+(33, 'Kitchen & Dining', 3),
+(34, 'Bedding & Bath', 3),
+(35, 'Lighting', 3),
+(36, 'Storage & Organizers', 3),
+(37, 'Clocks & Wall Art', 3),
+(38, 'Rugs & Carpets', 3),
+(39, 'Gardening Tools & Supplies', 3),
+(40, 'Candles & Fragrances', 3),
+(41, 'Televisions', 4),
+(42, 'Refrigerators', 4),
+(43, 'Washing Machines', 4),
+(44, 'Air Conditioners', 4),
+(45, 'Microwave Ovens', 4),
+(46, 'Kitchen Appliances', 4),
+(47, 'Vacuum Cleaners', 4),
+(48, 'Water Purifiers', 4),
+(49, 'Fans & Air Coolers', 4),
+(50, 'Geysers & Heaters', 4),
+(51, 'Men\'s Clothing', 5),
+(52, 'Women\'s Clothing', 5),
+(53, 'Kids & Baby Clothing', 5),
+(54, 'Footwear', 5),
+(55, 'Bags & Luggage', 5),
+(56, 'Watches', 5),
+(57, 'Sunglasses & Eyewear', 5),
+(58, 'Jewelry & Accessories', 5),
+(59, 'Innerwear & Sleepwear', 5),
+(60, 'Ethnic & Traditional Wear', 5),
+(61, 'Academic Books', 6),
+(62, 'Novels & Literature', 6),
+(63, 'Children\'s Books', 6),
+(64, 'Exam Preparation Books', 6),
+(65, 'Office Supplies', 6),
+(66, 'Notebooks & Diaries', 6),
+(67, 'Art Supplies', 6),
+(68, 'Pens & Writing Instruments', 6),
+(69, 'Files & Folders', 6),
+(70, 'Calculators', 6),
+(71, 'School Supplies', 6),
+(72, 'Greeting Cards & Gift Wrap', 6),
+(73, 'Mobile Phone', 1),
+(74, 'Laptop & Computer', 1),
+(75, 'TV & Display', 1),
+(76, 'Audio Devices', 1),
+(77, 'Cameras', 1),
+(78, 'Wearables', 1),
+(79, 'Accessories', 1),
+(80, 'Tablets', 1),
+(81, 'Home Application', 1),
+(82, 'Gaming Consoles', 1),
+(83, 'Gaming Laptops & PCs', 1),
+(84, 'Gaming Accessories', 1),
+(85, 'Video Games', 1),
+(86, 'VR Gaming', 1),
+(87, 'Gaming Chairs', 1),
+(88, 'Graphics Cards & Components', 1),
+(89, 'Skincare', 2),
+(90, 'Hair Care', 2),
+(91, 'Personal Care', 2),
+(92, 'Makeup', 2),
+(93, 'Fragrances', 2),
+(94, 'Beauty Tools', 2),
+(95, 'Health Devices', 2),
+(96, 'Vitamins & Supplements', 2),
+(97, 'Men\'s Grooming', 2);
 
 -- --------------------------------------------------------
 
@@ -259,7 +314,7 @@ ALTER TABLE `order_items`
 ALTER TABLE `products`
   ADD PRIMARY KEY (`id`),
   ADD KEY `subcategory_id` (`subcategory_id`),
-  ADD KEY `fk_brand` (`brand_id`);
+  ADD KEY `brand_id` (`brand_id`);
 
 --
 -- Indexes for table `product_images`
@@ -279,8 +334,7 @@ ALTER TABLE `subcategories`
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
-  ADD PRIMARY KEY (`id`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -320,25 +374,25 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -368,8 +422,8 @@ ALTER TABLE `order_items`
 -- Constraints for table `products`
 --
 ALTER TABLE `products`
-  ADD CONSTRAINT `fk_brand` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`),
-  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`);
+  ADD CONSTRAINT `products_ibfk_1` FOREIGN KEY (`subcategory_id`) REFERENCES `subcategories` (`id`),
+  ADD CONSTRAINT `products_ibfk_2` FOREIGN KEY (`brand_id`) REFERENCES `brand` (`id`);
 
 --
 -- Constraints for table `product_images`

@@ -1,5 +1,4 @@
-Carousel image size
-.carousel-item {
+Carousel image size .carousel-item {
   transition: opacity 0.8s ease-in-out;
   height: 500px;
 }
@@ -134,43 +133,37 @@ Carousel image size
   }
 }
 
+.discount-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: red;
+  color: white;
+  padding: 2px 6px;
+  font-size: 12px;
+  border-radius: 5px;
+}
 
+.product-card {
+  position: relative;
+  border: 1px solid #eee;
+  border-radius: 8px;
+  padding: 15px;
+  transition: 0.3s;
+  height: 100%;
+}
 
+.product-card:hover {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
 
+.old-price {
+  text-decoration: line-through;
+  color: gray;
+  font-size: 0.9rem;
+}
 
-
-        .discount-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background-color: red;
-            color: white;
-            padding: 2px 6px;
-            font-size: 12px;
-            border-radius: 5px;
-        }
-
-        .product-card {
-            position: relative;
-            border: 1px solid #eee;
-            border-radius: 8px;
-            padding: 15px;
-            transition: 0.3s;
-            height: 100%;
-        }
-
-        .product-card:hover {
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-
-        .old-price {
-            text-decoration: line-through;
-            color: gray;
-            font-size: 0.9rem;
-        }
-
-        .rating {
-            color: gold;
-            font-size: 14px;
-        }
-  
+.rating {
+  color: gold;
+  font-size: 14px;
+}

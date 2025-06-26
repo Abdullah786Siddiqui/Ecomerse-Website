@@ -33,7 +33,7 @@ include("./Sidebar.php");
     <!-- Category -->
     <div class="form-group mb-3">
       <label for="category">Category</label>
-      <select name="category_id" class="form-control" required>
+      <select name="category_id" id="category" class="form-control" required>
         <option hidden>Select Category</option>
         <?php
         $sql = "SELECT * FROM categories";
@@ -45,26 +45,36 @@ include("./Sidebar.php");
         }
         ?>
       </select>
+
     </div>
 
     <!-- Subcategory -->
     <div class="form-group mb-3">
-      <label for="subcategory">Subcategory</label>
+      <label for="category">Sub Category</label>
       <select name="subcategory_id" id="subcategory" class="form-control" required>
-
         <option hidden>Select Subcategory</option>
-        <?php
-        $sql = "SELECT * FROM subcategories ";
-        $result = $conn->query($sql);
-        while ($row = $result->fetch_assoc()) {
-          $subcategoriesName = $row['name'];
-          $category_Id = $row['category_id'];
-          echo "<option value='$category_Id'>$subcategoriesName</option>";
-        }
-        ?>
       </select>
     </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <script>
+      $(document).ready(function() {
+        $('#category').change(function() {
+          var categoryId = $(this).val();
+          
+          $.ajax({
+            url: 'get_subcategories.php',
+            type: 'POST',
+            data: {
+              category_id: categoryId
+            },
+            success: function(data) {
+              $('#subcategory').html(data);
+            }
+          });
+        });
+      });
+    </script>
 
 
     <!-- Price -->
