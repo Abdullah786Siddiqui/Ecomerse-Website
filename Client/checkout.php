@@ -1,4 +1,5 @@
 <?php
+ include './Components/header.html'; 
 
 include './includes/Navbar.php';
 
@@ -193,4 +194,4 @@ if (!isset($_SESSION['user_id'])) {
 
 
 
-<?php include 'Components/footer.html'; ?>
+<?php  include './Components/footer.html';  ?>

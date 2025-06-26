@@ -15,25 +15,52 @@
   }
 
   ?>
+ <style>
+   .dropdown-toggle-no-arrow {
+     background: transparent;
+     border: none;
+     box-shadow: none;
+     color: white;
+     padding: 0;
+   }
+
+   .dropdown-toggle-no-arrow::after {
+     display: none;
+     /* Hide default Bootstrap arrow */
+   }
+
+   .dropdown-menu a {
+     color: black;
+     /* Dropdown item text color */
+   }
+
+   .navbar-scrollable {
+     overflow-x: auto;
+     white-space: nowrap;
+     -webkit-overflow-scrolling: touch;
+   }
+
+   .navbar-scrollable>.dropdown {
+     display: inline-block;
+   }
+ </style>
+
+ <!-- Bootstrap CSS -->
+ <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" />
 
 
-
-
-
-
- <nav class="navbar  position-fixed top-0 start-0 w-100 shadow bg-white py-0" style="z-index: 1030;">
-
+ <nav class="navbar px-1 position-sticky">
    <div class="container-fluid d-flex flex-wrap flex-row align-items-center navbar-container">
 
      <!-- Logo -->
-     <div class="logo mb-0">
+     <div class="logo">
        <a class="navbar-brand text-black fw-bold d-flex align-items-center " href="./index.php" id="logo">
-         <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill  "></i> Alexa
+         <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill "></i> Alexa
        </a>
      </div>
 
      <!-- Search Bar -->
-     <div class="search-wrapper d-flex justify-content-center  mt-2 " style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
+     <div class="search-wrapper d-flex justify-content-center " style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
        <form class="w-100 d-flex justify-content-center" role="search">
          <div class="input-group custom-width w-100">
            <input type="text" class="form-control" placeholder="Search! What ever you Wants" aria-label="Search" />
@@ -68,8 +95,6 @@
            </ul>
          </div>
        <?php
-          // header("Location: ./index.php");
-          // exit();
         }
 
 
@@ -81,24 +106,136 @@
      </div>
 
    </div>
-     <div style="background-color: #2563EB;" class="navbar1 w-100 p-2 mt-3">
-  <div class="nav-links" id="navLinks">
-       <a href="#" id='browse' class="text-black  ">Browse All Categories</a>
-       <a href="#">Electronics</a>
-       <a href="#">Health & Beauty</a>
-       <a href="#">Home & Lifestyle</a>
-       <a href="#">TV & Home Appliances</a>
-       <a href="#">Fashions</a>
-       <a href="#">Books & Stationery</a>
-       
+ </nav>
+ <div class="bg-primary py-2">
+   <div class=" d-flex flex-column flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0">
+
+     <!-- Browse All Categories -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow text-black fw-bold " type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Browse All Categories
+       </button>
 
      </div>
 
-    
-</div>
-</div>
+     <!-- Electronics Dropdown -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Electronics
+       </button>
+       <ul class="dropdown-menu">
+         <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 1";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
 
- </nav>
+
+       </ul>
+     </div>
+
+     <!-- Health & Beauty -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Health & Beauty
+       </button>
+       <ul class="dropdown-menu">
+         <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 2 ";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
+       </ul>
+     </div>
+
+     <!-- Home & Lifestyle -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Home & Lifestyle
+       </button>
+       <ul class="dropdown-menu">
+  <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 3";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
+       </ul>
+     </div>
+
+     <!-- TV & Home Appliances -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         TV & Home Appliances
+       </button>
+       <ul class="dropdown-menu">
+         <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 4";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
+       </ul>
+     </div>
+
+     <!-- Fashions -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Fashions
+       </button>
+       <ul class="dropdown-menu">
+         <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 5";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
+       </ul>
+     </div>
+
+     <!-- Books & Stationery -->
+     <div class="dropdown">
+       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+         Books & Stationery
+       </button>
+       <ul class="dropdown-menu">
+         <?php
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 6";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $subcategory = $row['name'];
+            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+          }
+          ?>
+       </ul>
+     </div>
+
+   </div>
+ </div>
+
+
+ <script>
+   window.addEventListener('resize', function() {
+     const navbarHeight = document.querySelector('.navbar').offsetHeight;
+     document.querySelector('.navbar1').style.top = navbarHeight + 'px';
+   });
+
+   // Run once on page load
+   window.dispatchEvent(new Event('resize'));
+ </script>
+
 
 
 
@@ -253,5 +390,7 @@
      closeAnimation();
    });
  </script>
+ <!-- Bootstrap JS CDN -->
 
-<?php  include("../Client/Components/footer.html"); ?>
+ <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+ <?php include("../Client/Components/footer.html"); ?>
