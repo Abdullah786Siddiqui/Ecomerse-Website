@@ -3,12 +3,10 @@
 
 include './includes/Navbar.php';
 
-// if (session_status() === PHP_SESSION_NONE) {
-//   session_start();
-// }
+
 
 if (!isset($_SESSION['user_id'])) {
- echo "<script>window.location.href = './index.php'</script>";
+ echo "<script>window.location.href = './login.php'</script>";
 }
 
 ?>

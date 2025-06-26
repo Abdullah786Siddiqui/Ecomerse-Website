@@ -23,7 +23,9 @@
      color: white;
      padding: 0;
    }
-
+   .cursor-pointer{
+    cursor: pointer;
+   }
    .dropdown-toggle-no-arrow::after {
      display: none;
      /* Hide default Bootstrap arrow */
@@ -108,9 +110,9 @@
    </div>
  </nav>
  <div class="bg-primary py-2">
-   <div class=" d-flex flex-column flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0">
+   <div class=" d-flex flex-column  flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0">
 
-     <!-- Browse All Categories -->
+  
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow text-black fw-bold " type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Browse All Categories
@@ -118,18 +120,22 @@
 
      </div>
 
-     <!-- Electronics Dropdown -->
+   
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Electronics
        </button>
        <ul class="dropdown-menu">
+
+
          <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 1";
+          $sql = "SELECT * FROM subcategories WHERE  category_id  = 1 ";
           $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
             $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+            $subcategory_id = $row['category_id'];
+
+            echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item cursor-pointer' >$subcategory </a></li>";
           }
           ?>
 
@@ -137,24 +143,26 @@
        </ul>
      </div>
 
-     <!-- Health & Beauty -->
+ 
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Health & Beauty
        </button>
        <ul class="dropdown-menu">
-         <?php
+     <?php
           $sql = "SELECT * FROM subcategories WHERE  category_id  = 2 ";
           $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
             $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
+            $subcategory_id = $row['category_id'];
+
+            echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item cursor-pointer' >$subcategory </a></li>";
           }
           ?>
        </ul>
      </div>
 
-     <!-- Home & Lifestyle -->
+   
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Home & Lifestyle
@@ -171,7 +179,6 @@
        </ul>
      </div>
 
-     <!-- TV & Home Appliances -->
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          TV & Home Appliances
@@ -188,7 +195,7 @@
        </ul>
      </div>
 
-     <!-- Fashions -->
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Fashions
@@ -205,7 +212,7 @@
        </ul>
      </div>
 
-     <!-- Books & Stationery -->
+ 
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Books & Stationery
@@ -223,8 +230,7 @@
      </div>
 
    </div>
- </div>
-
+ </div>  
 
  <script>
    window.addEventListener('resize', function() {
@@ -295,9 +301,9 @@
        <a href="./checkout.php" class="btn btn-success w-100 mt-4 fw-semibold">
          Proceed to Checkout
        </a>
-       <button style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
+       <a href="./cart.php" style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
          View Cart
-       </button>
+  </a>
      </div>
 
    </div>

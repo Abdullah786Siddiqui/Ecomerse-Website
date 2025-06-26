@@ -29,7 +29,7 @@
 
 
 <!-- Featured Products -->
-<div class="section mx-5 w-100">
+<div class="section mx-2 w-100">
   <div class="title mt-4">Featured Product</div>
   <div class="underline"></div>
 
