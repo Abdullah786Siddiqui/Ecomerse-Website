@@ -4,3 +4,4 @@
   ordersToggle.addEventListener('click', () => {
     icon.classList.toggle('rotate');
   });
+

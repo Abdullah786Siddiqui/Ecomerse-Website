@@ -184,7 +184,8 @@ $subCategory_id = $_GET['subcategory_id']
                 <div>
                     <h6>Brand</h6>
                     <?php
-                    $sql = "SELECT * FROM brand";
+                    $sql = "SELECT  DISTINCT brand.id as id ,   brand.name , products.subcategory_id as subcategory_id FROM products
+INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id = $subCategory_id ";
                     $result = $conn->query($sql);
                     while ($row = $result->fetch_assoc()) {
                         $brand_id = $row['id'];
