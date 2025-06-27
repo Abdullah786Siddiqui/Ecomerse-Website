@@ -23,17 +23,17 @@
      color: white;
      padding: 0;
    }
-   .cursor-pointer{
-    cursor: pointer;
+
+   .cursor-pointer {
+     cursor: pointer;
    }
+
    .dropdown-toggle-no-arrow::after {
      display: none;
-     /* Hide default Bootstrap arrow */
    }
 
    .dropdown-menu a {
      color: black;
-     /* Dropdown item text color */
    }
 
    .navbar-scrollable {
@@ -45,74 +45,108 @@
    .navbar-scrollable>.dropdown {
      display: inline-block;
    }
+
+   /* 👉 Add this Responsive CSS */
+   @media (max-width: 768px) {
+     .navbar-container {
+       flex-direction: column;
+       align-items: flex-start;
+     }
+
+     .custom-width {
+       width: 100% !important;
+       margin-top: 10px;
+     }
+
+     #icons {
+       justify-content: center;
+       width: 100%;
+       margin-top: 10px;
+     }
+
+     .navbar {
+       padding: 10px 15px !important;
+     }
+       /* #mobileMenuToggle {
+      display: none !important;
+    } */
+   }
  </style>
+
 
  <!-- Bootstrap CSS -->
  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css" />
 
 
- <nav class="navbar px-1 position-sticky">
-   <div class="container-fluid d-flex flex-wrap flex-row align-items-center navbar-container">
-
-     <!-- Logo -->
-     <div class="logo">
-       <a class="navbar-brand text-black fw-bold d-flex align-items-center " href="./index.php" id="logo">
-         <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill "></i> Alexa
-       </a>
-     </div>
-
-     <!-- Search Bar -->
-     <div class="search-wrapper d-flex justify-content-center " style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
-       <form class="w-100 d-flex justify-content-center" role="search">
-         <div class="input-group custom-width w-100">
-           <input type="text" class="form-control" placeholder="Search! What ever you Wants" aria-label="Search" />
-           <span class="input-group-text bg-white">
-             <i class="fas fa-search"></i>
-           </span>
-         </div>
-       </form>
-     </div>
-
-
-
-     <!-- Icons -->
-     <div class="d-flex justify-content-center align-items-center gap-3 text-black fs-5 icons" id="icons">
-
-       <?php
-        if (isset($_SESSION['user_id'])) {
-          echo '<span class="fw-semibold text-dark">Welcome, ' . htmlspecialchars($username) . '</span>';
-        } else {
-        ?>
-         <div class="dropdown">
-           <a href="#" class="d-inline-block" data-bs-toggle="dropdown" aria-expanded="false">
-             <i class="fas fa-user-circle profile-img rounded-circle" style="width: 25px; height: 25px;"></i>
-           </a>
-           <ul class="dropdown-menu dropdown-menu-end ">
-             <li><a class="dropdown-item" href="#">Profile</a></li>
-             <li><a class="dropdown-item" href="#">Settings</a></li>
-             <li>
-               <hr class="dropdown-divider">
-             </li>
-             <li><a class="dropdown-item" href="#">Logout</a></li>
-           </ul>
-         </div>
-       <?php
-        }
-
-
-
-        ?>
-
-       <i class="fa-regular fa-heart cursor-pointer mt-1 "></i>
-       <i class="fa-solid fa-cart-shopping cursor-pointer mt-1 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
-     </div>
-
-   </div>
- </nav>
- <div class="bg-primary py-2">
-   <div class=" d-flex flex-column  flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0">
-
+ <div class="position-sticky top-0 bg-white" style="z-index: 1050;">
+   <nav class="navbar px-1 " >
+     <div class="container-fluid d-flex flex-wrap flex-row align-items-center navbar-container">
   
+       <!-- Logo -->
+       <div class="logo">
+         <a class="navbar-brand text-black fw-bold d-flex align-items-center " href="./index.php" id="logo">
+           <i style="color: #2563EB ;transform: rotate(45deg);" class="ri-shining-fill "></i> Alexa
+         </a>
+       </div>
+  
+       <!-- Search Bar -->
+       <div class="search-wrapper d-flex  justify-content-center p-0 gap-3" style="filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1))" id="search">
+         <form class="w-100 d-flex justify-content-center" role="search">
+           <div class="input-group custom-width w-100">
+             <input type="text" class="form-control" placeholder="Search! What ever you Wants" aria-label="Search" />
+             <span class="input-group-text bg-white">
+               <i class="fas fa-search"></i>
+             </span>
+           </div>
+         </form>
+         <!-- Hamburger Icon -->
+         <button class="navbar-toggler d-block  d-md-none border-0 bg-transparent mt-2" type="button" id="mobileMenuToggle">
+           <i class="fas fa-bars fs-3"></i>
+         </button>
+  
+       </div>
+  
+  
+  
+       <!-- Icons -->
+       <div class="d-flex justify-content-center align-items-center gap-3 text-black fs-5 icons" id="icons">
+  
+         <?php
+          if (isset($_SESSION['user_id'])) {
+            echo '<span class="fw-semibold text-dark">Welcome, ' . htmlspecialchars($username) . '</span>';
+          } else {
+          ?>
+           <div class="dropdown">
+             <a href="#" class="d-inline-block" data-bs-toggle="dropdown" aria-expanded="false">
+               <i class="fas fa-user-circle profile-img rounded-circle" style="width: 25px; height: 25px;"></i>
+             </a>
+             <ul class="dropdown-menu dropdown-menu-end ">
+               <li><a class="dropdown-item" href="#">Profile</a></li>
+               <li><a class="dropdown-item" href="#">Settings</a></li>
+               <li>
+                 <hr class="dropdown-divider">
+               </li>
+               <li><a class="dropdown-item" href="#">Logout</a></li>
+             </ul>
+           </div>
+         <?php
+          }
+  
+  
+  
+          ?>
+  
+         <i class="fa-regular fa-heart cursor-pointer mt-1 "></i>
+         <i class="fa-solid fa-cart-shopping cursor-pointer mt-1 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
+       </div>
+  
+     </div>
+   </nav>
+
+
+   <div class="d-none bg-primary  py-2 d-md-flex flex-column flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0" >
+
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow text-black fw-bold " type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Browse All Categories
@@ -120,7 +154,7 @@
 
      </div>
 
-   
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Electronics
@@ -143,13 +177,13 @@
        </ul>
      </div>
 
- 
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Health & Beauty
        </button>
        <ul class="dropdown-menu">
-     <?php
+         <?php
           $sql = "SELECT * FROM subcategories WHERE  category_id  = 2 ";
           $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
@@ -162,13 +196,13 @@
        </ul>
      </div>
 
-   
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Home & Lifestyle
        </button>
        <ul class="dropdown-menu">
-  <?php
+         <?php
           $sql = "SELECT * FROM subcategories WHERE  category_id  = 3";
           $result = $conn->query($sql);
           while ($row = $result->fetch_assoc()) {
@@ -212,7 +246,7 @@
        </ul>
      </div>
 
- 
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Books & Stationery
@@ -230,7 +264,154 @@
      </div>
 
    </div>
- </div>  
+
+
+
+ </div>
+
+
+
+
+
+
+
+
+
+
+   
+
+
+ <!-- Mobile Menu -->
+<div id="mobileMenu" class="mobile-menu bg-white position-fixed top-0 start-0 vh-100 vw-75 d-md-none shadow overflow-auto" style="transform: translateX(-100%); transition: transform 0.3s ease; z-index:1050;">
+  <div class="d-flex justify-content-between align-items-center p-3 border-bottom">
+    <h5 class="mb-0 fw-bold">Menu</h5>
+    <button class="btn-close" id="mobileMenuClose"></button>
+  </div>
+
+  <!-- PHP Categories (Same as top) -->
+  <div class="p-3 d-flex flex-column gap-2">
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Browse All Categories
+      </button>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Electronics
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 1";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          $subcategory_id = $row['category_id'];
+          echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Health & Beauty
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 2";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          $subcategory_id = $row['category_id'];
+          echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Home & Lifestyle
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 3";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          echo "<li><a class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        TV & Home Appliances
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 4";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          echo "<li><a class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Fashions
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 5";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          echo "<li><a class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+    <div class="dropdown">
+      <button class="btn w-100 text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+        Books & Stationery
+      </button>
+      <ul class="dropdown-menu w-100">
+        <?php
+        $sql = "SELECT * FROM subcategories WHERE category_id = 6";
+        $result = $conn->query($sql);
+        while ($row = $result->fetch_assoc()) {
+          $subcategory = $row['name'];
+          echo "<li><a class='dropdown-item'>$subcategory</a></li>";
+        }
+        ?>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  const mobileMenu = document.getElementById('mobileMenu');
+  const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+  const mobileMenuClose = document.getElementById('mobileMenuClose');
+
+  mobileMenuToggle.addEventListener('click', () => {
+    mobileMenu.style.transform = 'translateX(0)';
+  });
+
+  mobileMenuClose.addEventListener('click', () => {
+    mobileMenu.style.transform = 'translateX(-100%)';
+  });
+</script>
+
 
  <script>
    window.addEventListener('resize', function() {
@@ -303,7 +484,7 @@
        </a>
        <a href="./cart.php" style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
          View Cart
-  </a>
+       </a>
      </div>
 
    </div>
