@@ -23,9 +23,11 @@
      color: white;
      padding: 0;
    }
-   .cursor-pointer{
-    cursor: pointer;
+
+   .cursor-pointer {
+     cursor: pointer;
    }
+
    .dropdown-toggle-no-arrow::after {
      display: none;
      /* Hide default Bootstrap arrow */
@@ -112,7 +114,7 @@
  <div class="bg-primary py-2">
    <div class=" d-flex flex-column  flex-md-row flex-wrap justify-content-center gap-2 gap-md-4 px-2 px-md-0">
 
-  
+
      <div class="dropdown">
        <button class="dropdown-toggle-no-arrow text-black fw-bold " type="button" data-bs-toggle="dropdown" aria-expanded="false">
          Browse All Categories
@@ -120,117 +122,60 @@
 
      </div>
 
-   
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Electronics
-       </button>
-       <ul class="dropdown-menu">
 
-
-         <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 1 ";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            $subcategory_id = $row['category_id'];
-
-            echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item cursor-pointer' >$subcategory </a></li>";
-          }
-          ?>
-
-
-       </ul>
-     </div>
-
- 
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Health & Beauty
-       </button>
-       <ul class="dropdown-menu">
      <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 2 ";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            $subcategory_id = $row['category_id'];
+      // STEP 1: Get all categories from database
+      $category_sql = "SELECT * FROM categories";
+      $category_result = $conn->query($category_sql);
 
-            echo "<li><a href='./products.php?subcategory_id=$subcategory_id' class='dropdown-item cursor-pointer' >$subcategory </a></li>";
-          }
-          ?>
-       </ul>
-     </div>
+      while ($category_row = $category_result->fetch_assoc()) {
+        $category_id = $category_row['id'];
+        $category_name = $category_row['name'];
+      ?>
 
-   
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Home & Lifestyle
-       </button>
-       <ul class="dropdown-menu">
-  <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 3";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
-          }
-          ?>
-       </ul>
-     </div>
+       <!-- Dropdown for Each Category -->
+       <div class="dropdown">
+         <button class="dropdown-toggle-no-arrow text-black fw-bold" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+           <?php echo $category_name; ?>
+         </button>
 
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         TV & Home Appliances
-       </button>
-       <ul class="dropdown-menu">
-         <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 4";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
-          }
-          ?>
-       </ul>
-     </div>
+         <ul class="dropdown-menu">
+
+           <?php
+            // STEP 2: Get subcategories for this category
+            $subcategory_sql = "SELECT * FROM subcategories WHERE category_id = $category_id";
+            $subcategory_result = $conn->query($subcategory_sql);
+
+            // Check if subcategories exist
+            if ($subcategory_result->num_rows > 0) {
+              while ($sub_row = $subcategory_result->fetch_assoc()) {
+                $subcat_id = $sub_row['id'];
+                $subcat_name = $sub_row['name'];
+                echo "<li><a href='./products.php?subcategory_id=$subcat_id' class='dropdown-item'>$subcat_name</a></li>";
+              }
+            } else {
+              echo "<li><span class='dropdown-item'>No Subcategories</span></li>";
+            }
+            ?>
+
+         </ul>
+       </div>
+
+     <?php
+      } // End Category Loop
+      ?>
 
 
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Fashions
-       </button>
-       <ul class="dropdown-menu">
-         <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 5";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
-          }
-          ?>
-       </ul>
-     </div>
 
- 
-     <div class="dropdown">
-       <button class="dropdown-toggle-no-arrow" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-         Books & Stationery
-       </button>
-       <ul class="dropdown-menu">
-         <?php
-          $sql = "SELECT * FROM subcategories WHERE  category_id  = 6";
-          $result = $conn->query($sql);
-          while ($row = $result->fetch_assoc()) {
-            $subcategory = $row['name'];
-            echo "<li><a class='dropdown-item' >$subcategory </a></li>";
-          }
-          ?>
-       </ul>
-     </div>
+
+
+
+
+
+
 
    </div>
- </div>  
+ </div>
 
  <script>
    window.addEventListener('resize', function() {
@@ -303,7 +248,7 @@
        </a>
        <a href="./cart.php" style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
          View Cart
-  </a>
+       </a>
      </div>
 
    </div>

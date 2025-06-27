@@ -69,9 +69,6 @@ tl.from("#logo", {
     "-=0.3"
   );
 
-
-
-
 const track = document.getElementById("track");
 const carousel = document.getElementById("carousel");
 const productItems = track.querySelectorAll(".product");
@@ -83,12 +80,12 @@ let interval;
 function startScroll() {
   interval = setInterval(() => {
     position += productWidth;
-    track.style.transition = 'transform 1.2s ease-in-out';
+    track.style.transition = "transform 1.2s ease-in-out";
     track.style.transform = `translateX(-${position}px)`;
 
     if (position >= productWidth * productCount) {
       setTimeout(() => {
-        track.style.transition = 'none';
+        track.style.transition = "none";
         position = 0;
         track.style.transform = `translateX(0)`;
       }, 500);
@@ -101,10 +98,6 @@ function stopScroll() {
 }
 
 startScroll();
-carousel.addEventListener('mouseenter', stopScroll);
-carousel.addEventListener('mouseleave', startScroll);
+carousel.addEventListener("mouseenter", stopScroll);
+carousel.addEventListener("mouseleave", startScroll);
 
-
-
-
-  

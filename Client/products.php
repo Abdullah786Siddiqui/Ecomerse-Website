@@ -2,10 +2,18 @@
 include './Components/header.html';
 
 include './includes/Navbar.php';
+
+
+$subCategory_id = $_GET['subcategory_id']
 ?>
 <style>
     body {
         background-color: #f8f9fa;
+    }
+
+    .product-card-animate {
+        transform-style: preserve-3d;
+        perspective: 1000px;
     }
 
     .see-more {
@@ -175,15 +183,25 @@ include './includes/Navbar.php';
                 <hr>
                 <div>
                     <h6>Brand</h6>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand1"><label class="form-check-label" for="brand1">DELL</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Apple</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand3"><label class="form-check-label" for="brand3">Samsung</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand4"><label class="form-check-label" for="brand4">Sony</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand5"><label class="form-check-label" for="brand5">LG</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand6"><label class="form-check-label" for="brand6">HP</label></div>
-                    <div class="form-check"><input class="form-check-input" type="checkbox" id="brand7"><label class="form-check-label" for="brand7">Lenovo</label></div>
+                    <?php
+                    $sql = "SELECT * FROM brand";
+                    $result = $conn->query($sql);
+                    while ($row = $result->fetch_assoc()) {
+                        $brand_id = $row['id'];
+                        $brand_name = $row['name'];
 
+                    ?>
+                        <div class="form-check">
+                            <input class="form-check-input brand-filter" type="checkbox" value="<?= $brand_id ?>" id="brand<?= $brand_id ?>">
+                            <label class="form-check-label" for="brand<?= $brand_id ?>"><?= $brand_name ?></label>
+                        </div>
+                    <?php
+                    }
+                    ?>
                 </div>
+
+
+
                 <hr>
                 <div class="color-title ">
                     <h6> Color </h6>
@@ -256,30 +274,83 @@ include './includes/Navbar.php';
             <div class="col-md-9">
                 <button class="btn btn-primary d-md-none filter-btn-mobile" onclick="openSidebar()">Filters</button>
 
-                <div class="row mt-4">
-                    <?php
-                    $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
-INNER JOIN product_images on product_images.product_id = products.id
-INNER JOIN brand on brand.id = products.brand_id";
-                    $result = $conn->query($sql);
-                    while ($row = $result->fetch_assoc()) {
-                    ?>
-                        <div class="col-sm-6 col-md-4 mb-4">
-                            <div class="card p-3">
-                                <div class="discount-badge">25% OFF</div>
-                                <img src="../Server/uploads/<?= $row['image_url'];  ?>" class="img-fluid mb-2" alt="Product">
-                                <h6 class="mb-1"><?= $row['name'] ?></h6>
-                                <p class="mb-1 fw-bold">Rs.<?= $row['price'] ?><span class="old-price">Rs. 1,120</span></p>
-                                <div class="rating">★★★★☆ (1)</div>
+                <div id="product-list">
+                    <div class="row mt-4">
+                        <?php
+                        $sql = "SELECT products.id , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
+                FROM products
+                INNER JOIN product_images ON product_images.product_id = products.id
+                INNER JOIN brand ON brand.id = products.brand_id  
+                WHERE products.subcategory_id = $subCategory_id ";
+                        $result = $conn->query($sql);
+                        while ($row = $result->fetch_assoc()) {
+                        ?>
+                            <div class="col-sm-6 col-md-4 mb-4  product-card-animate">
+                                <div class="card p-3">
+                                    <div class="discount-badge">25% OFF</div>
+                                    <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid mb-2" alt="Product">
+                                    <h6 class="mb-1"><?= $row['name'] ?></h6>
+                                    <p class="mb-1 fw-bold">Rs.<?= $row['price'] ?><span class="old-price">Rs. 1,120</span></p>
+                                    <div class="rating">★★★★☆ (1)</div>
+                                </div>
                             </div>
-                        </div>
-
-                    <?php
-
-
-                    }
-                    ?>
+                        <?php } ?>
+                    </div>
                 </div>
+                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+                <script>
+                    function animateProductExit(callback) {
+                        gsap.to('.product-card-animate', {
+                            y: 30,
+                            opacity: 0,
+                            scale: 0.95,
+                            duration: 0.4,
+                            stagger: 0.05,
+                            ease: "power2.in",
+                            onComplete: callback
+                        });
+                    }
+
+                    function animateNewProducts() {
+                        gsap.from('.product-card-animate', {
+                            y: 20,
+                            opacity: 0,
+                            scale: 0.98,
+                            duration: 0.6,
+                            stagger: 0.1,
+                            ease: "power3.out"
+                        });
+                    }
+                    $(document).ready(function() {
+                        animateNewProducts();
+                    });
+
+                    $('.brand-filter').on('change', function() {
+                        var selectedBrands = [];
+
+                        $('.brand-filter:checked').each(function() {
+                            selectedBrands.push($(this).val());
+                        });
+
+                        animateProductExit(function() {
+                            $.ajax({
+                                url: 'filter_products.php',
+                                method: 'POST',
+                                data: {
+                                    brands: selectedBrands,
+                                    subcategory_id: <?= $subCategory_id ?>
+                                },
+                                success: function(response) {
+                                    $('#product-list').html(response);
+                                    animateNewProducts();
+                                }
+                            });
+                        });
+                    });
+                </script>
+
             </div>
 
         </div>
@@ -291,12 +362,7 @@ INNER JOIN brand on brand.id = products.brand_id";
         <div>
             <h6>Brand</h6>
             <div class="form-check"><input class="form-check-input" type="checkbox" id="brand1"><label class="form-check-label" for="brand1">DELL</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Apple</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand3"><label class="form-check-label" for="brand3">Samsung</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand4"><label class="form-check-label" for="brand4">Sony</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand5"><label class="form-check-label" for="brand5">LG</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand6"><label class="form-check-label" for="brand6">HP</label></div>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand7"><label class="form-check-label" for="brand7">Lenovo</label></div>
+
         </div>
         <hr>
         <div class="color-title">Color</div>
@@ -374,5 +440,6 @@ INNER JOIN brand on brand.id = products.brand_id";
             link.innerHTML = link.innerHTML.includes('More') ? '▲ See Less' : '▼ See More';
         }
     </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
 
     <?php include './Components/footer.html';  ?>
