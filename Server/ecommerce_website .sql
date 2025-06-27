@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 27, 2025 at 09:07 PM
+-- Generation Time: Jun 27, 2025 at 11:30 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -65,7 +65,9 @@ INSERT INTO `brand` (`id`, `name`) VALUES
 (7, 'Lenovo'),
 (8, 'canon'),
 (9, 'Nikon'),
-(10, 'Kodak');
+(10, 'Kodak'),
+(11, 'E.I.F'),
+(12, 'ANUA');
 
 -- --------------------------------------------------------
 
@@ -161,7 +163,14 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (32, 'LG K51 Unlocked Smartphone ', 'A phone packed with premium features that will keep you connected and fit your budget.\r\nIntroducing the impressive LG K51 that enables you to capture and experience life’s special moments.\r\n\r\n', 34800.00, 73, '2025-06-27 16:29:16', 5, NULL),
 (33, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:32', 9, NULL),
 (34, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:43', 9, NULL),
-(37, 'toy', 'adkajdkajdkjakdjakdjakdjak', 10000.00, 92, '2025-06-27 22:55:48', 3, 2);
+(37, 'toy', 'adkajdkajdkjakdjakdjakdjak', 10000.00, 92, '2025-06-27 22:55:48', 3, 2),
+(38, 'E.T.F SKIN Holy Hydration! Hydrated Ever After Skincare Mini Kit, Cleanser, ', 'A COMPLETE HYDRATION REGIMEN: This skincare kit has all of your favorite Holy Hydration necessities-', 25000.00, 89, '2025-06-28 01:09:29', 11, 2),
+(40, 'E.I.F. SKIN Bright Icon Vitamin C + E + Ferulic Serum', 'BRIGHTENING SERUM: A radiance-boosting serum formulated with a triple threat of 15% vitamin C, 1% vitamin E and 0.5% ferulic acid.', 650.00, 89, '2025-06-28 01:21:33', 11, 2),
+(41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2),
+(42, 'E.I.F. SKIN Holy Hydration!  Set Hydration Kit, Travel Friendly Hydrating  Set', 'FOR ALL SKIN TYPES: This skincare set is perfectly compatible with all skin types.', 560.00, 89, '2025-06-28 01:34:06', 11, 2),
+(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2),
+(45, 'ANUA Hydrating Gentle Foaming Cleanser, Panthenol, Korean Face', 'NON-STRIPPING FINISH : Contains Hyaluronic Acid and Panthenol to hydrate the skin for long hours even after cleansing, whilst helping to protect the skin barrier.', 660.00, 89, '2025-06-28 01:54:59', 12, 2),
+(46, 'ANUA Heartleaf LHA Moisture Peeling Gel, Hydrating Facial Peel', '[SOOTHING & HYDRATING FORMULA] Infused with 10,000ppm heartleaf extract, this peeling gel soothes sensitive skin while maintaining hydration, ensuring your skin feels refreshed and balanced after exfoliation.', 578.00, 89, '2025-06-28 01:58:09', 12, 2);
 
 -- --------------------------------------------------------
 
@@ -200,7 +209,14 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 (32, 32, '1751023756-18.jpg'),
 (33, 33, '1751038832-16.jpg'),
 (34, 34, '1751038843-16.jpg'),
-(35, 37, '1751046948-mindless.jpg');
+(35, 37, '1751046948-mindless.jpg'),
+(36, 38, '1751054969-EIF SKIN CARE.jpg'),
+(38, 40, '1751055693-EIF SKIN CAREC.jpg'),
+(39, 41, '1751056174-EIF SKIN CAR E.jpg'),
+(40, 42, '1751056446-61xHTzEr8SL._SX425_.jpg'),
+(42, 44, '1751057566-51Kpw2r-pIL._SX425_.jpg'),
+(43, 45, '1751057699-41cNBkQrJHL._SX425_.jpg'),
+(44, 46, '1751057889-71Tz1KeChGL._SX425_.jpg');
 
 -- --------------------------------------------------------
 
@@ -298,7 +314,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`) VALUES
 (2, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$nSWutBAVg8mnAkDv89FYHO694TO9HchMaaTmdEPoSZ.K5iPHk5BvS', NULL, 'admin', 'active', '2025-06-23 18:00:58', '2025-06-23 18:04:48'),
-(4, 'Mohsin', 'Mohsin333@gmail.com', '$2y$10$tkE/F3RHsLWS8855LA3nvuohw3Ko1k/XTEam/IMLKkK4h6qNwMubO', NULL, 'user', 'active', '2025-06-23 18:22:41', '2025-06-23 18:22:41');
+(4, 'Mohsin', 'Mohsin333@gmail.com', '$2y$10$tkE/F3RHsLWS8855LA3nvuohw3Ko1k/XTEam/IMLKkK4h6qNwMubO', NULL, 'user', 'active', '2025-06-23 18:22:41', '2025-06-23 18:22:41'),
+(5, ' mohsin', 'mohsin@gmail.com', '$2y$10$q79npd79GkVgfJn0273Xuu3c5sIhgv244xlzbcGfQYiIWlbAZENP2', NULL, 'admin', 'active', '2025-06-28 00:15:42', '2025-06-28 00:29:47');
 
 --
 -- Indexes for dumped tables
@@ -382,7 +399,7 @@ ALTER TABLE `addresses`
 -- AUTO_INCREMENT for table `brand`
 --
 ALTER TABLE `brand`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -406,13 +423,13 @@ ALTER TABLE `order_items`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
@@ -424,7 +441,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints for dumped tables
