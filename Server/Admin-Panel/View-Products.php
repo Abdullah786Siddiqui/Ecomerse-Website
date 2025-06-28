@@ -145,7 +145,7 @@ include("./Sidebar.php");
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
+      $sql = "SELECT products.id , products.name , products.status as status   , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
               INNER JOIN product_images on product_images.product_id = products.id
               INNER JOIN brand on brand.id = products.brand_id";
       $result = $conn->query($sql);
@@ -166,7 +166,7 @@ include("./Sidebar.php");
           <td>1,638</td>
           <td>20</td>
           <td>
-            <span class="badge text-bg-danger p-2 ">Out of Stock</span>
+            <span class="badge text-bg-danger p-2 "><?= $row['status'] ?></span>
           </td>
           <td>28 June 2025</td>
         </tr>

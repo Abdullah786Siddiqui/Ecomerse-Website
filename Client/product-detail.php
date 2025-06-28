@@ -150,7 +150,7 @@ $product_id = $_GET['productid'];
             </div>
 
             <!-- Add to Cart -->
-            <a href="./cart.php?productid=<?= $product_id ?>" class="btn btn-primary w-100 mt-3">Add to Cart</a>
+            <a href="../Server/Process/add-to-cart.php $product_id ?>" class="btn btn-primary w-100 mt-3">Add to Cart</a>
           </div>
         </div>
 
