@@ -2,7 +2,7 @@
 $host = "localhost";
 $username = "root";
 $password = "";
-$database = "ecommerce_website";
+$database = "adress-book";
 
 $conn = new mysqli($host, $username, $password, $database);
 if ($conn->connect_error) {

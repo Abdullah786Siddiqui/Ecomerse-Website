@@ -39,7 +39,7 @@ form.addEventListener("submit", function (e) {
     nameError.innerText = "Product name must be at least 3 characters long.";
     hasError = true;
   } else if (productName.length > 80) {
-    nameError.innerText = "Product name cannot exceed 50 characters.";
+    nameError.innerText = "Product name cannot exceed 80 characters.";
     hasError = true;
   }
   // } else if (!/^[a-zA-Z0-9\s]+$/.test(productName)) {
