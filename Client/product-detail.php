@@ -1,16 +1,16 @@
 <?php
 include './Components/header.html';
 include './includes/Navbar.php';
-  $product_id = $_GET['productid'];
+$product_id = $_GET['productid'];
 
 ?>
-  <style>
-    body {
-      background-color: #ffffff;
-      color: #333333;
-    }
+<style>
+  body {
+    background-color: #ffffff;
+    color: #333333;
+  }
 
-    .product-img {
+  .product-img {
     background-color: #f8f9fa;
     height: 300px;
     display: flex;
@@ -19,7 +19,8 @@ include './includes/Navbar.php';
     border-radius: 10px;
     text-align: center;
     border: 1px solid #dee2e6;
-    overflow: hidden; /* Prevent overflow */
+    overflow: hidden;
+    /* Prevent overflow */
   }
 
   .product-img img {
@@ -28,31 +29,31 @@ include './includes/Navbar.php';
     object-fit: contain;
   }
 
-    .thumbnail {
-      height: 60px;
-      background-color: #f1f1f1;
-      border-radius: 8px;
-      margin-bottom: 10px;
-      border: 1px solid #dee2e6;
-    }
+  .thumbnail {
+    height: 60px;
+    background-color: #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #dee2e6;
+  }
 
-    .section-title {
-      font-weight: bold;
-      margin-top: 20px;
-      color: #212529;
-    }
+  .section-title {
+    font-weight: bold;
+    margin-top: 20px;
+    color: #212529;
+  }
 
-    .card-light {
-      background-color: #fdfdfd;
-      border: 1px solid #dee2e6;
-      border-radius: 10px;
-    }
+  .card-light {
+    background-color: #fdfdfd;
+    border: 1px solid #dee2e6;
+    border-radius: 10px;
+  }
 
-    .price {
-      font-size: 1.5rem;
-      color: #28a745;
-    }
-  </style>
+  .price {
+    font-size: 1.5rem;
+    color: #28a745;
+  }
+</style>
 </head>
 
 <body>
@@ -82,7 +83,7 @@ include './includes/Navbar.php';
             <div class="col-12 col-md-10">
               <div class="product-img mb-3">
                 <img src="../Server/uploads/<?= $row['image_url'] ?>" alt="">
-                
+
               </div>
             </div>
           </div>
@@ -149,7 +150,7 @@ include './includes/Navbar.php';
             </div>
 
             <!-- Add to Cart -->
-            <button class="btn btn-primary w-100 mt-3">Add to Cart</button>
+            <a href="./cart.php?productid=<?= $product_id ?>" class="btn btn-primary w-100 mt-3">Add to Cart</a>
           </div>
         </div>
 
@@ -301,4 +302,4 @@ include './includes/Navbar.php';
     </style>
 
 
-        <?php include './Components/footer.html';  ?>
+    <?php include './Components/footer.html';  ?>
