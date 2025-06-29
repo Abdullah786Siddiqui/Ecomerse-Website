@@ -145,9 +145,18 @@ include("./Sidebar.php");
     </thead>
     <tbody>
       <?php
-      $sql = "SELECT products.id , products.name , products.status as status   , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
-              INNER JOIN product_images on product_images.product_id = products.id
-              INNER JOIN brand on brand.id = products.brand_id";
+      $sql = "SELECT DISTINCT 
+    products.id, 
+    products.name, 
+    products.status AS status, 
+    products.description, 
+    products.price, 
+    brand.name AS brand, 
+    product_images.image_url
+FROM products
+INNER JOIN product_images ON product_images.product_id = products.id
+INNER JOIN brand ON brand.id = products.brand_id
+ORDER BY products.id ASC";
       $result = $conn->query($sql);
       while ($row = $result->fetch_assoc()) {
       ?>

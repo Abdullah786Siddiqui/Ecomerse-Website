@@ -13,6 +13,7 @@
   <?php
   $validity_email = $_GET['email'] ?? '';
   $validity_password = $_GET['password'] ?? '';
+  $redirect_url = isset($_GET['redirect']) ? $_GET['redirect'] : 'index.php';
   ?>
 
 
@@ -37,12 +38,15 @@
         <div class="mb-3">
           <label class="form-label">Password</label>
           <input type="password" class="form-control" name="login_password" placeholder="Enter Your Password" required>
-         
-        <div class="error text-danger mt-1">
-          <?= ($validity_password === "invalid") ? "Invalid Password" : "" ?>
-        </div> 
-      
+
+
+          <div class="error text-danger mt-1">
+            <?= ($validity_password === "invalid") ? "Invalid Password" : "" ?>
+          </div>
+
         </div>
+        <input type="hidden" name="redirect" value="<?php echo htmlspecialchars($redirect_url); ?>">
+
 
         <!-- Submit Button -->
         <button type="submit" class="btn btn-primary w-100 fw-medium">Login</button>

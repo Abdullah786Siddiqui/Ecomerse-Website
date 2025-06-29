@@ -1,8 +1,9 @@
  <?php
-  include("../Server/Admin-Panel/config/db.php");
-  include("../Client/Components/header.html");
   session_start();
 
+  include("../Server/Admin-Panel/config/db.php");
+  include("../Client/Components/header.html");
+  $username = "";
   if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
 
@@ -80,11 +81,9 @@
      <!-- Icons -->
      <div class="d-flex justify-content-center align-items-center gap-3 text-black fs-5 icons" id="icons">
 
-       <?php
-        if (isset($_SESSION['user_id'])) {
-          echo '<span class="fw-semibold text-dark">Welcome, ' . htmlspecialchars($username) . '</span>';
-        } else {
-        ?>
+       <?php if (!empty($username)): ?>
+         <span class="fw-semibold text-dark">Welcome, <?= htmlspecialchars($username); ?></span>
+       <?php else: ?>
          <div class="dropdown">
            <a href="#" class="d-inline-block" data-bs-toggle="dropdown" aria-expanded="false">
              <i class="fas fa-user-circle profile-img rounded-circle" style="width: 25px; height: 25px;"></i>
@@ -98,12 +97,7 @@
              <li><a class="dropdown-item" href="#">Logout</a></li>
            </ul>
          </div>
-       <?php
-        }
-
-
-
-        ?>
+       <?php endif; ?>
 
        <i class="fa-regular fa-heart cursor-pointer mt-1 "></i>
        <i class="fa-solid fa-cart-shopping cursor-pointer mt-1 " type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasRight" aria-controls="offcanvasRight"></i>
@@ -190,7 +184,7 @@
 
 
 
- <div class="offcanvas offcanvas-end offcanvas-mobile-75 " tabindex="-1"  id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+ <div class="offcanvas offcanvas-end offcanvas-mobile-75 " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
    <div class="offcanvas-header border-bottom">
      <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">🛒 Your Cart</h5>
      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>

@@ -140,7 +140,7 @@ $product_id = $_GET['productid'];
               </div>
 
               <!-- Warranty -->
-              <div class="mb-3">
+              <!-- <div class="mb-3">
                 <label class="form-label">Add Extra Warranty</label>
                 <select class="form-select form-select-sm">
                   <option>1 year - $29</option>
@@ -148,10 +148,10 @@ $product_id = $_GET['productid'];
                   <option>3 years - $79</option>
                 </select>
               </div>
-            </div>
+            </div> -->
 
             <!-- Add to Cart -->
-           <button class="btn btn-primary fw-bold" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</button>
+           <button class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</button>
 
           </div>
         </div>

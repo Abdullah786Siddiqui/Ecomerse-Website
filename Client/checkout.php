@@ -3,12 +3,9 @@
 
 include './includes/Navbar.php';
 
-
-
-if (!isset($_SESSION['user_id'])) {
- echo "<script>window.location.href = './login.php'</script>";
+if (isset($_SESSION['cart_subtotal'])) {
+$subtotal = $_SESSION['cart_subtotal'];
 }
-
 ?>
 
 <div class="container mt-4">
@@ -148,44 +145,51 @@ if (!isset($_SESSION['user_id'])) {
         <hr class="my-4 text-black">
 
         <button class="w-100 btn btn-primary btn-lg" type="submit" id="checkoutbtn">Continue to checkout</button>
+        
       </form>
     </div>
 
     <!-- Cart Summary -->
-    <div class="col-12 col-lg-4">
-      <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-center fs-1" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:black">Your cart</span>
-        <span class="badge bg-primary rounded-pill">3</span>
-      </h4>
+ <div class="col-12 col-lg-4">
+  <h4 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-center fs-1" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:black">Your cart</span>
+    <span class="badge bg-primary rounded-pill"><?= count($_SESSION['cart']) ?></span>
+  </h4>
 
-      <ul class="list-group mb-3">
-        <li class="list-group-item d-flex justify-content-between lh-sm">
+  <ul class="list-group mb-3 shadow-sm rounded">
+    <?php foreach($_SESSION['cart'] as $items) : ?>
+      <li class="list-group-item d-flex justify-content-between lh-sm align-items-center py-3">
+        <div class="d-flex align-items-center w-75">
+          <!-- Product Image -->
+          <img src="../Server/uploads/<?= $items['image'] ?>" alt="<?= $items['name'] ?>" 
+               style="width: 70px; height: 70px; object-fit: cover; margin-right: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+
+          <!-- Product Details -->
           <div>
-            <h6 class="my-0">Product name</h6>
-            <small class="text-muted">Brief description</small>
+            <h6 class="my-0 fw-bold"><?= $items['name'] ?></h6>
+            <small class="text-muted">Brief description here...</small><br>
+            
+            <!-- Quantity Badge -->
+            <span class="badge bg-success mt-1">Qty: <?= $items['quantity'] ?></span>
           </div>
-          <span class="text-muted">$12</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Second product</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$8</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between lh-sm">
-          <div>
-            <h6 class="my-0">Third item</h6>
-            <small class="text-muted">Brief description</small>
-          </div>
-          <span class="text-muted">$5</span>
-        </li>
-        <li class="list-group-item d-flex justify-content-between">
-          <strong>Total (USD)</strong>
-          <strong>$25</strong>
-        </li>
-      </ul>
-    </div>
+        </div>
+
+        <!-- Product Price -->
+        <div class="text-end">
+          <span class="text-dark fw-bold">$<?= $items['price'] ?></span>
+        </div>
+      </li>
+    <?php endforeach; ?>
+
+    <!-- Total Price -->
+    <li class="list-group-item d-flex justify-content-between bg-light">
+      <strong>Total (USD)</strong>
+      <strong>$<?= $subtotal ?></strong>
+    </li>
+  </ul>
+</div>
+
+
 
   </div>
 </div>

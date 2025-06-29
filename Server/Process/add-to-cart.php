@@ -20,7 +20,7 @@ INNER JOIN   product_images on products.id = product_images.product_id where pro
       'name' => $product_name,
       'price' => $product_price,
       'image'=> $product_image,
-      'quantity' => 1
+      'quantity' => 1,
     ];
 
  

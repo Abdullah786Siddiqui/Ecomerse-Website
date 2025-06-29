@@ -11,46 +11,7 @@ $subCategory_id = $_GET['subcategory_id']
         background-color: #f8f9fa;
     }
 
-    .product-card-animate {
-        transform-style: preserve-3d;
-        perspective: 1000px;
-    }
-
-    .see-more {
-        color: #007185;
-        cursor: pointer;
-    }
-
-    .desktop-sidebar {
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-top: 10px;
-        height: auto;
-
-    }
-
-    .desktop-sidebar h5,
-    .desktop-sidebar h6 {
-        font-weight: 600;
-    }
-
-    .desktop-sidebar hr {
-        border-top: 1px solid #dee2e6;
-    }
-
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
+   
     #mobileSidebar {
         position: fixed;
         bottom: -100%;
@@ -134,40 +95,7 @@ $subCategory_id = $_GET['subcategory_id']
         border: 2px solid #007185;
     }
 
-    .discount-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: red;
-        color: white;
-        padding: 2px 6px;
-        font-size: 12px;
-        border-radius: 5px;
-    }
-
-    .product-card {
-        position: relative;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        padding: 15px;
-        transition: 0.3s;
-        height: 100%;
-    }
-
-    .product-card:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .old-price {
-        text-decoration: line-through;
-        color: gray;
-        font-size: 0.9rem;
-    }
-
-    .rating {
-        color: gold;
-        font-size: 14px;
-    }
+    
 </style>
 </head>
 
@@ -309,8 +237,8 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
                                     <div class="text-warning small mb-2">★★★★☆ <span class="text-muted">(1)</span></div>
 
                                     <!-- Action Button -->
-                                    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold">View Details</a>
-
+                                    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-3">View Details</a>
+  <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</a>
                                 </div>
                             </div>
 
