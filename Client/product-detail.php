@@ -58,6 +58,7 @@ $product_id = $_GET['productid'];
 
 <body>
   <?php
+  
   $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
               INNER JOIN product_images on product_images.product_id = products.id
               INNER JOIN brand on brand.id = products.brand_id where products.id = $product_id";
@@ -150,7 +151,8 @@ $product_id = $_GET['productid'];
             </div>
 
             <!-- Add to Cart -->
-            <a href="../Server/Process/add-to-cart.php $product_id ?>" class="btn btn-primary w-100 mt-3">Add to Cart</a>
+           <button class="btn btn-primary fw-bold" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</button>
+
           </div>
         </div>
 

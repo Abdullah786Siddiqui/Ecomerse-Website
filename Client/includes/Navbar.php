@@ -190,7 +190,7 @@
 
 
 
- <div class="offcanvas offcanvas-end offcanvas-mobile-75" tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
+ <div class="offcanvas offcanvas-end offcanvas-mobile-75 " tabindex="-1"  id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
    <div class="offcanvas-header border-bottom">
      <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">🛒 Your Cart</h5>
      <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -246,7 +246,7 @@
        <a href="./checkout.php" class="btn btn-success w-100 mt-4 fw-semibold">
          Proceed to Checkout
        </a>
-       <a href="./cart.php" style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
+       <a href="./view-cart.php" style="background-color: #2563EB;" class="btn btn-success w-100 mt-2 fw-semibold">
          View Cart
        </a>
      </div>
