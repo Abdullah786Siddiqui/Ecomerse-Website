@@ -22,9 +22,14 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
       }
       if ($row['role'] === "user") {
         $_SESSION['user_id'] = $row['id'];
-
-        header("Location: ../../Client/index.php");
-        exit();
+        $redirect_url = isset($_POST['redirect']) ? $_POST['redirect'] : 'index.php';
+        if (strpos($redirect_url, '/') === 0) {
+          header("Location: $redirect_url");
+          exit();
+        } else {
+          header("Location: ../../Client/index.php");
+          exit();
+        }
       }
     } else {
       header("Location: ../../Client/login.php?password=invalid");

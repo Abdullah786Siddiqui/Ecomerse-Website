@@ -11,46 +11,7 @@ $subCategory_id = $_GET['subcategory_id']
         background-color: #f8f9fa;
     }
 
-    .product-card-animate {
-        transform-style: preserve-3d;
-        perspective: 1000px;
-    }
-
-    .see-more {
-        color: #007185;
-        cursor: pointer;
-    }
-
-    .desktop-sidebar {
-        background: #ffffff;
-        border-radius: 10px;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-        padding: 20px;
-        margin-top: 10px;
-        height: auto;
-
-    }
-
-    .desktop-sidebar h5,
-    .desktop-sidebar h6 {
-        font-weight: 600;
-    }
-
-    .desktop-sidebar hr {
-        border-top: 1px solid #dee2e6;
-    }
-
-    .card {
-        border: none;
-        border-radius: 12px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
-        transition: transform 0.2s;
-    }
-
-    .card:hover {
-        transform: translateY(-5px);
-    }
-
+   
     #mobileSidebar {
         position: fixed;
         bottom: -100%;
@@ -134,40 +95,7 @@ $subCategory_id = $_GET['subcategory_id']
         border: 2px solid #007185;
     }
 
-    .discount-badge {
-        position: absolute;
-        top: 10px;
-        left: 10px;
-        background-color: red;
-        color: white;
-        padding: 2px 6px;
-        font-size: 12px;
-        border-radius: 5px;
-    }
-
-    .product-card {
-        position: relative;
-        border: 1px solid #eee;
-        border-radius: 8px;
-        padding: 15px;
-        transition: 0.3s;
-        height: 100%;
-    }
-
-    .product-card:hover {
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-
-    .old-price {
-        text-decoration: line-through;
-        color: gray;
-        font-size: 0.9rem;
-    }
-
-    .rating {
-        color: gold;
-        font-size: 14px;
-    }
+    
 </style>
 </head>
 
@@ -278,23 +206,42 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
                 <div id="product-list">
                     <div class="row mt-4">
                         <?php
-                        $sql = "SELECT products.id , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
+                        $sql = "SELECT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
                 FROM products
                 INNER JOIN product_images ON product_images.product_id = products.id
                 INNER JOIN brand ON brand.id = products.brand_id  
                 WHERE products.subcategory_id = $subCategory_id ";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
+                            $product_id = $row['productid']
                         ?>
-                            <div class="col-sm-6 col-md-4 mb-4  product-card-animate">
-                                <div class="card p-3">
-                                    <div class="discount-badge">25% OFF</div>
-                                    <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid mb-2" alt="Product">
-                                    <h6 class="mb-1"><?= $row['name'] ?></h6>
-                                    <p class="mb-1 fw-bold">Rs.<?= $row['price'] ?><span class="old-price">Rs. 1,120</span></p>
-                                    <div class="rating">★★★★☆ (1)</div>
+                            <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+                                <div class="card border-0 shadow-sm rounded-4 h-100 p-3 position-relative">
+
+                                    <!-- Discount Badge -->
+                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 small">25% OFF</span>
+
+                                    <!-- Product Image -->
+                                    <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid rounded-3 mb-2" alt="Product">
+
+                                    <!-- Product Name -->
+                                    <h6 class="fw-semibold mb-1 text-truncate"><?= $row['name'] ?></h6>
+
+                                    <!-- Price -->
+                                    <p class="mb-1">
+                                        <span class="fw-bold text-success">Rs.<?= $row['price'] ?></span>
+                                        <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+                                    </p>
+
+                                    <!-- Rating -->
+                                    <div class="text-warning small mb-2">★★★★☆ <span class="text-muted">(1)</span></div>
+
+                                    <!-- Action Button -->
+                                    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-3">View Details</a>
+  <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</a>
                                 </div>
                             </div>
+
                         <?php } ?>
                     </div>
                 </div>

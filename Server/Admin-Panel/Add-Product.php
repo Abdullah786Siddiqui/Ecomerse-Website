@@ -125,7 +125,7 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
     <div class="row g-3">
       <div class="col-md-6">
         <label class="form-label">Product Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter product name" id="product-name" maxlength="20" name="name">
+        <input type="text" class="form-control" placeholder="Enter product name" id="product-name"  name="name">
         <p class="text-danger  mx-2" id="name-error"></p>
       </div>
 
