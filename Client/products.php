@@ -104,7 +104,7 @@ $subCategory_id = $_GET['subcategory_id']
     <div id="sidebarOverlay" onclick="closeSidebar()"></div>
 
     <div class="container-fluid">
-        <div style="height: 1000px;" class="row ">
+        <div style="height: 1000px;" class="row  p-2">
 
             <div class="col-md-3 desktop-sidebar ">
                 <h5>Filters</h5>
@@ -206,11 +206,11 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
                 <div id="product-list">
                     <div class="row mt-4">
                         <?php
-                        $sql = "SELECT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
+                        $sql = "SELECT DISTINCT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
                 FROM products
                 INNER JOIN product_images ON product_images.product_id = products.id
                 INNER JOIN brand ON brand.id = products.brand_id  
-                WHERE products.subcategory_id = $subCategory_id ";
+                WHERE products.subcategory_id = $subCategory_id  ORDER BY products.id DESC";
                         $result = $conn->query($sql);
                         while ($row = $result->fetch_assoc()) {
                             $product_id = $row['productid']

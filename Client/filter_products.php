@@ -54,8 +54,9 @@ $result = $conn->query($sql);
                             </div>
     <?php } ?>
 </div>
+    ,<script src="../Client/Assets/JS/cart.js"></script>
 
  <?php
   
-  // include './Components/footer.html';
+  include './Components/footer.html';
 ?>

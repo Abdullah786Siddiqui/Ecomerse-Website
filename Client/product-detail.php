@@ -131,13 +131,7 @@ $product_id = $_GET['productid'];
               </div>
 
               <!-- Shipping -->
-              <div class="mb-3">
-                <label class="form-label">Pickup/Shipping</label>
-                <select class="form-select form-select-sm">
-                  <option>Shipping - $18</option>
-                  <option>Pickup from Store - Free</option>
-                </select>
-              </div>
+             <a href="../Server/Process/checkout-check.php " class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
 
               <!-- Warranty -->
               <!-- <div class="mb-3">
@@ -152,6 +146,7 @@ $product_id = $_GET['productid'];
 
             <!-- Add to Cart -->
            <button class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</button>
+
 
           </div>
         </div>

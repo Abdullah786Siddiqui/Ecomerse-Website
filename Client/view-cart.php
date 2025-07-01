@@ -85,6 +85,7 @@ $subtotal = 0;
         </div>
       <?php
       }
+      $_SESSION['cart_subtotal'] = $subtotal;
 
       ?>
 
@@ -101,7 +102,7 @@ $subtotal = 0;
 
       <div class="d-flex justify-content-between mb-2">
         <span class="text-muted">Subtotal</span>
-        <span class="fw-bold cart-subtotal">£<?= number_format($subtotal, 2) ?></span>
+        <span class="fw-bold cart-subtotal">£<?= $subtotal ?></span>
       </div>
 
       <div class="d-flex justify-content-between mb-2">
@@ -113,10 +114,10 @@ $subtotal = 0;
 
       <div class="d-flex justify-content-between mb-3 gap-2">
         <span class="fw-bold">Total (VAT included)</span>
-        <span class="fw-bold text-dark cart-subtotal">£<?= number_format($subtotal, 2) ?></span>
+        <span class="fw-bold text-dark cart-subtotal">£<?= $subtotal ?></span>
       </div>
 
-      <a href="../Server/Process/checkout-process.php " class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
+      <a href="../Server/Process/checkout-check.php " class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
       <a class="w-100 btn btn-warning text-white w-100 fw-bold py-2" type="submit">Continue Shopping</a>
     </div>
 

@@ -156,7 +156,7 @@ include("./Sidebar.php");
 FROM products
 INNER JOIN product_images ON product_images.product_id = products.id
 INNER JOIN brand ON brand.id = products.brand_id
-ORDER BY products.id ASC";
+ORDER BY products.id DESC";
       $result = $conn->query($sql);
       while ($row = $result->fetch_assoc()) {
       ?>

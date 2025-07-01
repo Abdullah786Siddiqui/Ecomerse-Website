@@ -1,199 +1,326 @@
-<?php
- include './Components/header.html'; 
-
+ <?php
+include("../Server/Admin-Panel/config/db.php");
+include './Components/header.html';
 include './includes/Navbar.php';
 
 if (isset($_SESSION['cart_subtotal'])) {
-$subtotal = $_SESSION['cart_subtotal'];
+  $subtotal = $_SESSION['cart_subtotal'];
 }
+
+$user_id = $_SESSION['user_id'];
+$sql = "SELECT * FROM addresses WHERE user_id = '$user_id' AND type = 'billing' LIMIT 1";
+$hasAddress = false;
+$result = $conn->query($sql);
+if ($row = $result->fetch_assoc()) {
+  $hasAddress = true;
+}
+
 ?>
 
-<div class="container mt-4">
-  <div class="row justify-content-center">
+<div class="cont p-5 ">
+  <div class="row g-3">
 
-    <!-- Billing Form -->
-    <div class="col-12 col-lg-8 mb-4">
-      <h4 class="text-center fs-1 mb-3" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:black">Billing Address</h4>
-      <form class="needs-validation p-4" novalidate>
-        <div class="row g-3">
-          <div class="col-12">
-            <label for="fullName" class="form-label text-black">Full Name</label>
-            <input type="text" class="form-control" id="fullName" placeholder="Enter Your Full Name" required>
-            <div class="invalid-feedback">Valid full name is required.</div>
-          </div>
+    <?php if ($hasAddress) : ?>
+  <div class="col-12 col-lg-8">
+  <div class="card shadow-sm rounded-4 border h-100">
+    <div class="card-body p-4 ">
+<div class="border rounded-3 mb-4">
 
-          <div class="col-12">
-            <label for="email" class="form-label text-black">Email</label>
-            <input type="email" class="form-control" id="email" placeholder="you@example.com">
-            <div class="invalid-feedback">Please enter a valid email address for shipping updates.</div>
-          </div>
+  <!-- Shipping & Billing Section Header -->
+  <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded-top">
+    <h5 class="mb-0 text-success">Shipping & Billing</h5>
+    <button class="btn btn-success btn-sm">Edit</button>
+  </div>
 
-          <div class="col-12">
-            <label for="address" class="form-label text-black">Address</label>
-            <input type="text" class="form-control" id="address" placeholder="1234 Main St" required>
-            <div class="invalid-feedback">Please enter your shipping address.</div>
-          </div>
-
-          <div class="col-12">
-            <label for="phone" class="form-label text-black">Phone</label>
-            <input type="text" class="form-control" id="phone" placeholder="+92300000000" required>
-            <div class="invalid-feedback">Please enter your Phone Number.</div>
-          </div>
-
-          <div class="col-md-5">
-            <label for="country" class="form-label text-black">Country</label>
-            <select class="form-select" id="country" required>
-              <option value="">Choose...</option>
-              <option>Pakistan</option>
-              <option>United States</option>
-              <option>India</option>
-              <option>France</option>
-            </select>
-            <div class="invalid-feedback">Please select a valid country.</div>
-          </div>
-
-          <div class="col-md-4">
-            <label for="state" class="form-label text-black">City</label>
-            <select class="form-select" id="state" required>
-              <option value="">Choose...</option>
-              <option>Lahore</option>
-              <option>Karachi</option>
-              <option>Multan</option>
-            </select>
-            <div class="invalid-feedback">Please provide a valid city.</div>
-          </div>
-
-          <div class="col-md-3">
-            <label for="zip" class="form-label text-black">Zip</label>
-            <input type="text" class="form-control" id="zip" required>
-            <div class="invalid-feedback">Zip code required.</div>
-          </div>
-        </div>
-
-        <hr class="my-4">
-
-        <!-- Shipping checkbox -->
-        <div class="form-check">
-          <input type="checkbox" class="form-check-input" id="same-address">
-          <label class="form-check-label text-black fw-bold" for="same-address">Shipping address is the same as my billing address</label>
-        </div>
-
-        <!-- Optional Shipping section -->
-        <div id="shipping-section" style="display: none;">
-          <h5 class="mt-3 text-black">Shipping Address</h5>
-
-          <div class="mb-3">
-            <label for="shippingName" class="form-label text-black">Full Name</label>
-            <input type="text" class="form-control" id="shippingName" required>
-            <div class="invalid-feedback">Full name is required.</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="shippingAddress" class="form-label text-black">Address</label>
-            <input type="text" class="form-control" id="shippingAddress" required>
-            <div class="invalid-feedback">Address is required.</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="shippingPhone" class="form-label text-black">Phone</label>
-            <input type="text" class="form-control" id="shippingPhone" required>
-            <div class="invalid-feedback">Phone is required.</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="shippingCountry" class="form-label text-black">Country</label>
-            <select class="form-select" id="shippingCountry" required>
-              <option value="">Choose...</option>
-              <option>Pakistan</option>
-              <option>India</option>
-              <option>USA</option>
-            </select>
-            <div class="invalid-feedback">Country is required.</div>
-          </div>
-
-          <div class="mb-3">
-            <label for="shippingCity" class="form-label text-black">City</label>
-            <select class="form-select" id="shippingCity" required>
-              <option value="">Choose...</option>
-              <option>Karachi</option>
-              <option>Lahore</option>
-              <option>Islamabad</option>
-            </select>
-            <div class="invalid-feedback">City is required.</div>
-          </div>
-        </div>
-
-        <hr class="my-4 text-black">
-
-        <h4 class="mb-3 text-black">Payment</h4>
-
-        <div class="my-3">
-          <div class="form-check">
-            <input id="credit" name="paymentMethod" type="radio" class="form-check-input" checked required>
-            <label class="form-check-label text-black" for="credit">Credit card</label>
-          </div>
-          <div class="form-check">
-            <input id="debit" name="paymentMethod" type="radio" class="form-check-input" required>
-            <label class="form-check-label text-black" for="debit">Debit card</label>
-          </div>
-          <div class="form-check">
-            <input id="paypal" name="paymentMethod" type="radio" class="form-check-input" required>
-            <label class="form-check-label text-black" for="paypal">Cash on delivery</label>
-          </div>
-        </div>
-
-        <hr class="my-4 text-black">
-
-        <button class="w-100 btn btn-primary btn-lg" type="submit" id="checkoutbtn">Continue to checkout</button>
-        
-      </form>
-    </div>
-
-    <!-- Cart Summary -->
- <div class="col-12 col-lg-4">
-  <h4 class="d-flex justify-content-between align-items-center mb-3">
-    <span class="text-center fs-1" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:black">Your cart</span>
-    <span class="badge bg-primary rounded-pill"><?= count($_SESSION['cart']) ?></span>
-  </h4>
-
-  <ul class="list-group mb-3 shadow-sm rounded">
-    <?php foreach($_SESSION['cart'] as $items) : ?>
-      <li class="list-group-item d-flex justify-content-between lh-sm align-items-center py-3">
-        <div class="d-flex align-items-center w-75">
-          <!-- Product Image -->
-          <img src="../Server/uploads/<?= $items['image'] ?>" alt="<?= $items['name'] ?>" 
-               style="width: 70px; height: 70px; object-fit: cover; margin-right: 12px; border-radius: 8px; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-
-          <!-- Product Details -->
-          <div>
-            <h6 class="my-0 fw-bold"><?= $items['name'] ?></h6>
-            <small class="text-muted">Brief description here...</small><br>
-            
-            <!-- Quantity Badge -->
-            <span class="badge bg-success mt-1">Qty: <?= $items['quantity'] ?></span>
-          </div>
-        </div>
-
-        <!-- Product Price -->
-        <div class="text-end">
-          <span class="text-dark fw-bold">$<?= $items['price'] ?></span>
-        </div>
-      </li>
-    <?php endforeach; ?>
-
-    <!-- Total Price -->
-    <li class="list-group-item d-flex justify-content-between bg-light">
-      <strong>Total (USD)</strong>
-      <strong>$<?= $subtotal ?></strong>
-    </li>
+  <!-- Address Details -->
+  <ul class="list-group list-group-flush">
+    <li class="list-group-item px-3 py-2"><strong>Name:</strong> <?= $row['full_name'] ?></li>
+    <li class="list-group-item px-3 py-2"><strong>Address:</strong> <?= $row['address_line1'] ?></li>
+    <li class="list-group-item px-3 py-2"><strong>Phone:</strong> <?= $row['phone'] ?></li>
+    <li class="list-group-item px-3 py-2"><strong>City:</strong> <?= $row['city'] ?></li>
   </ul>
+
 </div>
 
 
+      <!-- Cart Items -->
+      <?php
+      $subtotal = 0;
+      foreach (array_reverse($_SESSION['cart']) as $items) {
+        $totalprice = $items['price'] * $items['quantity'];
+        $subtotal += $totalprice;
+      ?>
+        <div class="mb-4 p-3 border rounded-4 shadow-sm bg-white bag-item" data-id="<?= $items['id'] ?>">
 
+          <!-- Product Details Row -->
+          <div class="d-flex flex-column flex-md-row gap-3">
+
+            <!-- Product Image -->
+            <div class="flex-shrink-0" style="width: 120px; height: 120px; overflow: hidden;">
+              <img src="../Server/uploads/<?= $items['image'] ?>" class="img-fluid rounded-3 h-100 w-100 object-fit-cover" alt="Product Image">
+            </div>
+
+            <!-- Product Info -->
+            <div class="flex-grow-1 d-flex flex-column justify-content-between">
+              <div>
+                <h6 class="fw-bold mb-1"><?= $items['name'] ?></h6>
+                <p class="mb-1 text-body-secondary small">Colour: <span class="text-dark">Blue</span></p>
+                <p class="mb-2 text-body-secondary small">Size: <span class="text-dark">40R</span></p>
+              </div>
+
+              <!-- Item Actions -->
+              <div class="d-flex flex-wrap gap-2">
+                <button class="btn btn-sm btn-outline-danger" onclick="removeCart(<?= $items['id'] ?>)">
+                  <i class="far fa-trash-alt me-1"></i> Remove
+                </button>
+                <button class="btn btn-sm btn-outline-secondary">
+                  <i class="far fa-heart me-1"></i> Move to Wishlist
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Divider -->
+          <hr class="my-3">
+
+          <!-- Quantity and Price Row -->
+          <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+
+            <!-- Quantity -->
+            <div class="quantity">
+              <select class="form-select form-select-sm" style="width: 70px;">
+                <option selected><?= $items['quantity'] ?></option>
+                <option>2</option>
+                <option>3</option>
+                <option>4</option>
+                <option>5</option>
+                <option>6</option>
+                <option>7</option>
+                <option>8</option>
+                <option>9</option>
+                <option>10</option>
+              </select>
+            </div>
+
+            <!-- Price -->
+            <div class="text-end">
+              <small class="text-muted text-decoration-line-through">£264.99</small><br>
+              <span class="fw-bold fs-5">£<?= $totalprice ?></span><br>
+              <small class="text-success">You save 40%</small>
+            </div>
+
+          </div>
+        </div>
+      <?php
+      }
+      $_SESSION['cart_subtotal'] = $subtotal;
+      ?>
+
+    </div>
   </div>
 </div>
 
 
 
-<?php  include './Components/footer.html';  ?>
+<?php else: ?>
+  <div class="col-12 col-lg-8">
+    <div class="card shadow-sm rounded-4">
+      <div class="card-body p-4">
+        <h2 class="text-center mb-4" style="font-family: 'Gill Sans', 'Trebuchet MS'; color:#333;">Delivery Address</h2>
+
+        <form id="address-form" novalidate>
+          <div class="row g-3">
+            <div class="col-12">
+              <label for="fullName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" name="checkout_name" id="fullName" placeholder="Enter Your Full Name" required>
+              <div id="fullName-error" class="text-danger"></div>
+            </div>
+
+            <input type="hidden" id="user_id" name="user_id" value="<?= $_SESSION['user_id'] ?>">
+
+            <div class="col-12">
+              <label for="address" class="form-label">Address</label>
+              <input type="text" class="form-control" name="checkout_address" id="address" placeholder="1234 Main St" required>
+              <div id="address-error" class="text-danger"></div>
+            </div>
+
+            <div class="col-12">
+              <label for="phone" class="form-label">Phone</label>
+              <input type="text" class="form-control" name="checkout_phone" id="phone" placeholder="+92300000000" required>
+              <div id="phone-error" class="text-danger"></div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="country" class="form-label">Country</label>
+              <select class="form-select" id="country" name="checkout_country" required>
+                <option value="">Choose...</option>
+                <option>Pakistan</option>
+                <option>United States</option>
+                <option>India</option>
+                <option>France</option>
+              </select>
+              <div id="country-error" class="text-danger"></div>
+            </div>
+
+            <div class="col-md-6">
+              <label for="city" class="form-label">City</label>
+              <select class="form-select" id="city" name="checkout_city" required>
+                <option value="">Choose...</option>
+                <option>Lahore</option>
+                <option>Karachi</option>
+                <option>Multan</option>
+              </select>
+              <div id="city-error" class="text-danger"></div>
+            </div>
+          </div>
+
+          <hr class="my-4">
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="same-address" name="check_address" value="1">
+            <label class="form-check-label fw-bold" for="same-address">Shipping address is the same as billing</label>
+          </div>
+
+          <div id="shipping-section" class="bg-light p-3 rounded-3" style="display:none;">
+            <h5 class="mb-3">Shipping Address</h5>
+
+            <div class="mb-3">
+              <label for="shippingName" class="form-label">Full Name</label>
+              <input type="text" class="form-control" name="checkout_shipping_name" id="shippingName">
+              <div id="shippingName-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="shippingAddress" class="form-label">Address</label>
+              <input type="text" class="form-control" name="checkout_shipping_address" id="shippingAddress">
+              <div id="shippingAddress-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="shippingPhone" class="form-label">Phone</label>
+              <input type="text" class="form-control" name="checkout_shipping_phone" id="shippingPhone">
+              <div id="shippingPhone-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="shippingCountry" class="form-label">Country</label>
+              <select class="form-select" name="checkout_shipping_country" id="shippingCountry">
+                <option value="">Choose...</option>
+                <option>Pakistan</option>
+                <option>India</option>
+                <option>USA</option>
+              </select>
+              <div id="shippingCountry-error" class="text-danger"></div>
+            </div>
+
+            <div class="mb-3">
+              <label for="shippingCity" class="form-label">City</label>
+              <select class="form-select" id="shippingCity" name="checkout_shipping_city">
+                <option value="">Choose...</option>
+                <option>Karachi</option>
+                <option>Lahore</option>
+                <option>Islamabad</option>
+              </select>
+              <div id="shippingCity-error" class="text-danger"></div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100 btn-lg mt-3" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+<?php endif; ?>
+<!-- Cart Summary -->
+<!-- <div class="col-12 col-lg-4">
+      <div class="card shadow-sm rounded-4">
+        <div class="card-body">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="fw-bold">Your Cart</span>
+            <span class="badge bg-primary rounded-pill"><?= count($_SESSION['cart']) ?></span>
+          </h4>
+
+          <ul class="list-group mb-3">
+            <?php foreach ($_SESSION['cart'] as $items) : ?>
+              <li class="list-group-item py-3">
+                <div class="d-flex align-items-start">
+                  <img src="../Server/uploads/<?= $items['image'] ?>"
+                       alt="<?= $items['name'] ?>"
+                       class="me-3 rounded-3 shadow-sm"
+                       style="width: 60px; height: 60px; object-fit: cover; flex-shrink: 0;">
+
+                  <div class="flex-grow-1">
+                    <h6 class="fw-semibold mb-1 text-wrap"><?= $items['name'] ?></h6>
+                    <small class="text-muted">Qty: <?= $items['quantity'] ?></small>
+                  </div>
+
+                  <div class="ms-2 text-end">
+                    <span class="fw-bold">$<?= $items['price'] ?></span>
+                  </div>
+                </div>
+              </li>
+            <?php endforeach; ?>
+
+            <li class="list-group-item d-flex justify-content-between bg-light">
+              <strong>Total (USD)</strong>
+              <strong>$<?= $subtotal ?></strong>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div> -->
+
+<div class="col-12 col-lg-4">
+  <div class="summary-section">
+
+    <div class="card shadow-sm rounded-4 p-3 mb-3">
+      <h4 class="mb-3">Order Summary</h4>
+
+      <div class="d-flex justify-content-between mb-2">
+        <span class="text-muted">Subtotal</span>
+        <span class="fw-bold cart-subtotal">£<?= $subtotal ?></span>
+      </div>
+
+      <div class="d-flex justify-content-between mb-2">
+        <span class="text-muted">Delivery</span>
+        <span class="fw-bold text-success">Free</span>
+      </div>
+
+      <hr>
+
+      <div class="d-flex justify-content-between mb-3">
+        <span class="fw-bold">Total (VAT included)</span>
+        <span class="fw-bold text-dark cart-subtotal">£<?= $subtotal ?></span>
+      </div>
+
+
+      <a href="./Payment.php" class="btn btn-primary text-white w-100 fw-bold py-2">Proceed to Pay</a>
+    </div>
+
+    <div class="card p-3">
+      <div class="d-flex justify-content-between align-items-center">
+        <label for="voucher" class="mb-0">Add a voucher <span class="text-muted">(Optional)</span></label>
+        <i class="fa-solid fa-chevron-down"></i>
+      </div>
+
+      <div class="mt-2">
+        <input type="text" class="form-control form-control-sm" placeholder="Enter voucher code">
+        <button class="btn btn-outline-secondary btn-sm mt-2">Apply</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+</div> <!-- End .row -->
+</div> <!-- End .container -->
+
+
+
+
+
+
+
+<script src="./Assets/JS/checkout.js"></script>
+
+<?php include './Components/footer.html';  ?>
