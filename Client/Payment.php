@@ -3,6 +3,7 @@ include_once 'Components/header.html';
 include_once './includes/Navbar.php';
 
 $subtotal = $_SESSION['cart_subtotal'];
+//  if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 ?>
 
 <style>
@@ -202,6 +203,9 @@ $subtotal = $_SESSION['cart_subtotal'];
 
   </div>
 </div>
+<?php
 
+
+?>
 <script src="./Assets/JS/payment.js"></script>
 <?php include 'Components/footer.html'; ?>

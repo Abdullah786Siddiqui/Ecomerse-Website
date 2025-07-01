@@ -1,12 +1,25 @@
 <?php
 session_start();
-$product_id = $_POST['productid'];
+include("../Admin-Panel/config/db.php");
+
+header('Content-Type: application/json');
+
+$response = [];
 
 if (!isset($_SESSION['user_id'])) {
-  $current_page = $_SERVER['REQUEST_URI'];
-  header("Location: ../../Client/login.php?redirect=$current_page");
-  exit();
-} else {
-  header("Location: ../../Client/checkout.php?productid=$product_id");
-  exit();
+    $response['success'] = false;
+    $response['login_required'] = true;
+    $response['message'] = "User not logged in";
+    echo json_encode($response);
+    exit();
 }
+
+if (!isset($_SESSION['cart']) || count($_SESSION['cart']) == 0) {
+    $response['success'] = false;
+    $response['message'] = "Your cart is empty";
+} else {
+    $response['success'] = true;
+}
+
+echo json_encode($response);
+?>

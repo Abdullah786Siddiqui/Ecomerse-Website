@@ -131,8 +131,8 @@ $product_id = $_GET['productid'];
               </div>
 
               <!-- Shipping -->
-             <a href="../Server/Process/checkout-check.php " class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
-
+             <!-- <a href="../Server/Process/checkout-check.php " onclick="addToCart(<?= $product_id ?>)" class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a> -->
+<a href="../Client/checkout.php "  class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
               <!-- Warranty -->
               <!-- <div class="mb-3">
                 <label class="form-label">Add Extra Warranty</label>

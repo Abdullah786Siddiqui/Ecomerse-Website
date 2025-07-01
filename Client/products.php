@@ -11,7 +11,7 @@ $subCategory_id = $_GET['subcategory_id']
         background-color: #f8f9fa;
     }
 
-   
+
     #mobileSidebar {
         position: fixed;
         bottom: -100%;
@@ -94,8 +94,6 @@ $subCategory_id = $_GET['subcategory_id']
     .color-box:hover {
         border: 2px solid #007185;
     }
-
-    
 </style>
 </head>
 
@@ -238,7 +236,7 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
 
                                     <!-- Action Button -->
                                     <a href="./product-detail.php?productid=<?= $product_id; ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-3">View Details</a>
-  <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</a>
+                                    <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id; ?>)">Add to Cart</a>
                                 </div>
                             </div>
 

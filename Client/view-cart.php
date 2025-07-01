@@ -13,12 +13,14 @@ $subtotal = 0;
     /* Bootstrap 5 Danger color */
   }
 </style>
+
 <div class="container">
+  
   <div class="bag-section ">
     <?php
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     ?>
-      <h2>Your bag (<span class="cart-count"><?= count($_SESSION['cart']) ?></span>)items</h2>
+      <h2 >Your bag (<span class="cart-count"><?= count($_SESSION['cart']) ?></span>)items</h2>
 
         <p id='bag-sec' class="mt-5"></p>
       <?php
@@ -117,7 +119,7 @@ $subtotal = 0;
         <span class="fw-bold text-dark cart-subtotal">£<?= $subtotal ?></span>
       </div>
 
-      <a href="../Server/Process/checkout-check.php " class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
+      <a onclick="checkCartBeforeCheckout()" class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
       <a class="w-100 btn btn-warning text-white w-100 fw-bold py-2" type="submit">Continue Shopping</a>
     </div>
 
@@ -150,5 +152,7 @@ $subtotal = 0;
 
 
 <?php }  ?>
+ <script src="./Assets/JS/cart.js"></script>
+
 
 <?php include './Components/footer.html';  ?>

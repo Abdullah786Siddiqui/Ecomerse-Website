@@ -1,7 +1,6 @@
 <?php
 include("../Server/Admin-Panel/config/db.php");
-// include './Components/header.html';
-// include './includes/Navbar.php';
+
 $brands = $_POST['brands'] ?? [];
 $subactegory_id = $_POST['subcategory_id'] ?? " ";
 $brandFilter = '';
@@ -25,38 +24,38 @@ $result = $conn->query($sql);
   <?php
   while ($row = $result->fetch_assoc()) {
   ?>
-     <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
-                                <div class="card border-0 shadow-sm rounded-4 h-100 p-3 position-relative">
+    <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+      <div class="card border-0 shadow-sm rounded-4 h-100 p-3 position-relative">
 
-                                    <!-- Discount Badge -->
-                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 small">25% OFF</span>
+        <!-- Discount Badge -->
+        <span class="badge bg-danger position-absolute top-0 start-0 m-2 small">25% OFF</span>
 
-                                    <!-- Product Image -->
-                                    <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid rounded-3 mb-2" alt="Product">
+        <!-- Product Image -->
+        <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid rounded-3 mb-2" alt="Product">
 
-                                    <!-- Product Name -->
-                                    <h6 class="fw-semibold mb-1 text-truncate"><?= $row['name'] ?></h6>
+        <!-- Product Name -->
+        <h6 class="fw-semibold mb-1 text-truncate"><?= $row['name'] ?></h6>
 
-                                    <!-- Price -->
-                                    <p class="mb-1">
-                                        <span class="fw-bold text-success">Rs.<?= $row['price'] ?></span>
-                                        <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
-                                    </p>
+        <!-- Price -->
+        <p class="mb-1">
+          <span class="fw-bold text-success">Rs.<?= $row['price'] ?></span>
+          <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+        </p>
 
-                                    <!-- Rating -->
-                                    <div class="text-warning small mb-2">★★★★☆ <span class="text-muted">(1)</span></div>
+        <!-- Rating -->
+        <div class="text-warning small mb-2">★★★★☆ <span class="text-muted">(1)</span></div>
 
-                                    <!-- Action Button -->
-                                    <a href="./product-detail.php?productid=<?= $row['id'] ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-2">View Details</a>
-                                    <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</a>
+        <!-- Action Button -->
+        <a href="./product-detail.php?productid=<?= $row['id'] ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-2">View Details</a>
+       <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $row['id'] ?>)">Add to Cart</a>
 
-                                </div>
-                            </div>
-    <?php } ?>
+      </div>
+    </div>
+  <?php } ?>
 </div>
-    ,<script src="../Client/Assets/JS/cart.js"></script>
+<script src="./Assets/JS/cart.js"></script>
 
- <?php
-  
-  include './Components/footer.html';
+<?php
+
+include './Components/footer.html';
 ?>
