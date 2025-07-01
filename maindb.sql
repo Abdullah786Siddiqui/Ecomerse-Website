@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 30, 2025 at 01:31 PM
+-- Generation Time: Jul 01, 2025 at 01:33 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -37,7 +37,7 @@ CREATE TABLE `addresses` (
   `country` varchar(100) DEFAULT 'Pakistan',
   `type` enum('billing','shipping') NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
-  `updated_at` timestamp NULL DEFAULT NULL
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -112,8 +112,18 @@ CREATE TABLE `orders` (
   `address_id` int(11) DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `status` enum('pending','shipped','delivered','cancelled') DEFAULT 'pending',
-  `created_at` datetime DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`) VALUES
+(3, 4, NULL, 156.00, 'pending', '2025-07-01 02:33:10'),
+(4, 4, NULL, 156.00, 'pending', '2025-07-01 09:00:42'),
+(5, 4, NULL, 156.00, 'pending', '2025-07-01 09:15:41'),
+(6, 4, NULL, 0.00, 'pending', '2025-07-01 09:26:02');
 
 -- --------------------------------------------------------
 
@@ -128,6 +138,14 @@ CREATE TABLE `order_items` (
   `quantity` int(11) DEFAULT NULL,
   `price` decimal(10,2) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `order_items`
+--
+
+INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
+(2, 4, 26, 1, 156.00),
+(3, 5, 26, 1, 156.00);
 
 -- --------------------------------------------------------
 
@@ -489,7 +507,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -507,13 +525,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `products`
