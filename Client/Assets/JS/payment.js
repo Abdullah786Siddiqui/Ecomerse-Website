@@ -68,7 +68,7 @@ document
       hasError = true;
     }
 
-    if (!hasError) showSuccessPopup("Payment Successful");
+    if (!hasError) placeOrder("Card");
   });
 
 //  NETBANKING VALIDATION
@@ -91,7 +91,7 @@ document
       hasError = true;
     }
 
-    if (!hasError) showSuccessPopup("Payment Successful");
+    if (!hasError) placeOrder("NETBANKING");
   });
 
 //  WALLET VALIDATION
@@ -118,22 +118,26 @@ document
       hasError = true;
     }
 
-    if (!hasError) showSuccessPopup("Payment Successful");
+    if (!hasError)  placeOrder("UPI");
   });
 
 // ---------- CASH ON DELIVERY VALIDATION ----------
 document.getElementById("payment_cod").addEventListener("click", function (e) {
   e.preventDefault();
 
-  showSuccessPopup("Order Confirmed");
+  placeOrder("Cash");
 });
 
-function showSuccessPopup() {
+function placeOrder(paymentMethod) {
   fetch("../Server/Process/order-process.php", {
     method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: `payment_method=${encodeURIComponent(paymentMethod)}`,
   })
-    .then(response => response.json())
-    .then(data => {
+    .then((response) => response.json())
+    .then((data) => {
       if (data.success) {
         Swal.fire({
           title: `
@@ -164,7 +168,7 @@ function showSuccessPopup() {
         });
       }
     })
-    .catch(error => {
+    .catch((error) => {
       Swal.fire({
         icon: "error",
         title: "Server Error",
@@ -172,4 +176,3 @@ function showSuccessPopup() {
       });
     });
 }
-

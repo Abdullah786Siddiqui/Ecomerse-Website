@@ -246,7 +246,7 @@ if (isset($_SESSION['admin_id'])) {
           <i class="bi bi-receipt"></i> Order
         </a>
         <div class="collapse submenu" id="orderMenu" data-bs-parent="#sidebarAccordion">
-          <a href="#" class="nav-link"><i class="bi bi-card-checklist me-2"></i>Order List</a>
+          <a href="./View-Orders.php" class="nav-link"><i class="bi bi-card-checklist me-2"></i>Order List</a>
           <a href="#" class="nav-link"><i class="bi bi-hourglass-split me-2"></i>Pending List</a>
           <a href="#" class="nav-link"><i class="bi bi-check2-circle me-2"></i>Completed List</a>
 

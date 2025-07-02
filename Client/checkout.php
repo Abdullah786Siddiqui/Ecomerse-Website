@@ -116,6 +116,7 @@
                <?php
 
                 }
+                $_SESSION['subtotal'] = $subtotal;
               } else {
                 ?>
 
@@ -251,7 +252,7 @@
 
            <div class="d-flex justify-content-between mb-2">
              <span class="text-muted">Subtotal</span>
-             <span class="fw-bold cart-subtotal">£<?= $subtotal ?></span>
+             <span class="fw-bold cart-subtotal">$ <?= $subtotal ?></span>
 
            </div>
 
@@ -264,7 +265,7 @@
 
            <div class="d-flex justify-content-between mb-3">
              <span class="fw-bold">Total (VAT included)</span>
-             <span class="fw-bold text-dark cart-subtotal">£ <?= $subtotal ?></span>
+             <span class="fw-bold text-dark cart-subtotal">$ <?= $subtotal ?></span>
 
            </div>
 

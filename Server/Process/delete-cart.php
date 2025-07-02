@@ -1,4 +1,6 @@
 <?php
+
+include("../Admin-Panel/config/db.php");
 session_start();
 header('Content-Type: application/json');
 $response = [
@@ -20,10 +22,7 @@ if (isset($_POST['productid'])) {
   foreach ($_SESSION['cart'] as $items) {
     $subtotal += $items['price'] *  $items['quantity'];
   };
-  if (empty($_SESSION['cart'])) {
-    $response['subtotal'] = 0;
-  }
-  $_SESSION['subtotal'] = $subtotal;
+   
   $response['success'] = true;
   $response['cart_count'] = count($_SESSION['cart']);
   $response['subtotal'] = $subtotal;

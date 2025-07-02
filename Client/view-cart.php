@@ -21,7 +21,7 @@ $subtotal = 0;
     <?php
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     ?>
-      <h2 class="" >Your bag (<span class="cart-count "><?= count($_SESSION['cart']) ?></span>)items</h2>
+      <h2 class="mt-4" >Your bag (<span class="cart-count "><?= count($_SESSION['cart']) ?></span>)items</h2>
 
         <p id='bag-sec' class="mt-5"></p>
       <?php

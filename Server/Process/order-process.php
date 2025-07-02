@@ -8,7 +8,7 @@ $response = [];
 $user_id = $_SESSION['user_id'];
 $cart_items = $_SESSION['cart'] ?? [];
 $subtotal = $_SESSION['cart_subtotal'] ?? 0;
-
+$payment_method = $_POST['payment_method'] ?? '';
 if (empty($cart_items)) {
     $response['success'] = false;
     $response['message'] = "Cart is empty.";
@@ -23,8 +23,8 @@ if ($row = $result->fetch_assoc()) {
     $address_id = $row['id'];
 
     // Insert order
-    $sql_order = "INSERT INTO orders (user_id, address_id, total, status)
-                  VALUES ($user_id, $address_id, $subtotal, 'pending')";
+    $sql_order = "INSERT INTO orders (user_id, address_id, total, status,payment_method)
+                  VALUES ($user_id, $address_id, $subtotal, 'pending','$payment_method')";
     if ($conn->query($sql_order)) {
         $order_id = $conn->insert_id;
 

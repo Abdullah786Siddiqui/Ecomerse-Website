@@ -2,7 +2,7 @@
 include_once 'Components/header.html';
 include_once './includes/Navbar.php';
 
-$subtotal = $_SESSION['cart_subtotal'];
+$subtotal = $_SESSION['subtotal'];
 //  if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 ?>
 

@@ -10,22 +10,25 @@ function addToCart(productId) {
     .then((data) => {
       console.log(data);
 
-      // Swal.fire({
-      //   position: "top-center",
-      //   icon: "success",
-      //   title: "Product Added!",
-      //   showConfirmButton: false,
-      //   timer: 1500,
-      //   customClass: {
-      //     popup: "swal2-small-toast",
-      //   },
-      //   showClass: {
-      //     popup: "animate__animated animate__fadeInDown",
-      //   },
-      //   hideClass: {
-      //     popup: "animate__animated animate__fadeOutUp",
-      //   },
-      // });
+     Swal.fire({
+  position: "top-end",
+  icon: "success",
+  title: "✅ Product successfully added!",
+  showConfirmButton: false,
+  timer: 2000,
+  toast: true,
+  customClass: {
+    popup: "custom-swal-toast",
+    title: "custom-swal-title",
+  },
+  showClass: {
+    popup: "animate__animated animate__fadeIn",
+  },
+  hideClass: {
+    popup: "animate__animated animate__fadeOut",
+  },
+});
+
     })
     .catch((error) => console.error("Error:", error));
 }
@@ -55,11 +58,9 @@ function removeCart(productid) {
       if (data.success) {
         document.querySelector(`.bag-item[data-id="${productid}"]`)?.remove();
 
-        if (data.cart_count === 0) {
-          document.getElementById("bag-sec").innerHTML = `
-      <h1 class="text-center">Your Cart is Empty!</h1>
-    `;
-        }
+     if (data.cart_count === 0) {
+  location.reload();
+}
 
         document.querySelectorAll(".cart-count").forEach((element) => {
           element.innerText = data.cart_count;
