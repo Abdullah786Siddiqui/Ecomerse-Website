@@ -12,6 +12,7 @@ $subtotal = 0;
     color: #dc3545 !important;
     /* Bootstrap 5 Danger color */
   }
+
 </style>
 
 <div class="container">
@@ -20,7 +21,7 @@ $subtotal = 0;
     <?php
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     ?>
-      <h2 >Your bag (<span class="cart-count"><?= count($_SESSION['cart']) ?></span>)items</h2>
+      <h2 class="" >Your bag (<span class="cart-count "><?= count($_SESSION['cart']) ?></span>)items</h2>
 
         <p id='bag-sec' class="mt-5"></p>
       <?php
@@ -32,9 +33,9 @@ $subtotal = 0;
 
       ?>
 
-        <div class="bag-item"  data-id=<?= $items['id'] ?>>
+        <div class="bag-item  "  data-id=<?= $items['id'] ?>>
 
-          <div style="display: flex; gap: 10px">
+          <div style="display: flex; gap: 10px" class="">
             <img src="../Server/uploads/<?= $items['image'] ?>">
             <div class="item-details">
               <h3><?= $items['name'] ?></h3>

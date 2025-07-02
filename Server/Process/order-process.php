@@ -1,11 +1,20 @@
 <?php
 session_start();
+header('Content-Type: application/json');
 include("../Admin-Panel/config/db.php");
+$response = [];
+
 
 $user_id = $_SESSION['user_id'];
-$cart_items = $_SESSION['cart'];
-$subtotal = $_SESSION['cart_subtotal'];
+$cart_items = $_SESSION['cart'] ?? [];
+$subtotal = $_SESSION['cart_subtotal'] ?? 0;
 
+if (empty($cart_items)) {
+    $response['success'] = false;
+    $response['message'] = "Cart is empty.";
+    echo json_encode($response);
+    exit();
+}
 
 $sql = "SELECT id FROM addresses WHERE user_id = $user_id LIMIT 1";
 $result = $conn->query($sql);
@@ -32,14 +41,14 @@ if ($row = $result->fetch_assoc()) {
 
         // Clear cart
         unset($_SESSION['cart']);
-
-        // Redirect
-        header("Location: http://localhost/ECOMERSE%20WEBSITE/Client/Profile.php?order_id=$order_id");
-        exit;
+        $response['success'] = true;
+        $response['message'] = "Order placed successfully.";
     } else {
-        echo "Order insertion failed: " . $conn->error;
+        $response['success'] = false;
+        $response['message'] = "Order insertion failed: " . $conn->error;
     }
 } else {
-    echo "No address found for this user.";
+    $response['success'] = false;
+    $response['message'] = "No address found for this user.";
 }
-?>
+echo json_encode($response);

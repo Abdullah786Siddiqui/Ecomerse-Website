@@ -58,7 +58,7 @@ $product_id = $_GET['productid'];
 
 <body>
   <?php
-  
+
   $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
               INNER JOIN product_images on product_images.product_id = products.id
               INNER JOIN brand on brand.id = products.brand_id where products.id = $product_id";
@@ -131,8 +131,8 @@ $product_id = $_GET['productid'];
               </div>
 
               <!-- Shipping -->
-             <!-- <a href="../Server/Process/checkout-check.php " onclick="addToCart(<?= $product_id ?>)" class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a> -->
-<a href="../Client/checkout.php "  class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
+              <!-- <a href="../Server/Process/checkout-check.php " onclick="addToCart(<?= $product_id ?>)" class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a> -->
+              <a onclick="buynow(<?= $product_id ?>)" class=" text-white btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
               <!-- Warranty -->
               <!-- <div class="mb-3">
                 <label class="form-label">Add Extra Warranty</label>
@@ -144,159 +144,159 @@ $product_id = $_GET['productid'];
               </div>
             </div> -->
 
-            <!-- Add to Cart -->
-           <button class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id ; ?>)">Add to Cart</button>
+              <!-- Add to Cart -->
+              <button class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id; ?>)">Add to Cart</button>
 
 
-          </div>
-        </div>
-
-      </div>
-    </div>
-  <?php
-  }
-
-  ?>
-  <section class="mt-5" id="reviews-section">
-    <!-- Average Rating Summary -->
-    <div class="text-center mb-5">
-      <h2 class="fw-bold mb-3">What Our Customers Say</h2>
-      <div class="d-flex justify-content-center align-items-center mb-2">
-        <div class="text-warning fs-2">★★★★★</div>
-        <span class="ms-2 fs-4 fw-semibold">4.8/5</span>
-      </div>
-      <small class="text-muted">Based on <span id="review-count">2</span> verified reviews</small>
-    </div>
-
-    <!-- Review List: One Below Another -->
-    <div class="review-list mb-5" id="review-list">
-      <!-- Review 1 -->
-      <div class="card mb-4 border-0 shadow rounded-4">
-        <div class="card-body">
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-semibold text-primary">Verified Purchase</span>
-            <div class="text-warning small">★★★★☆</div>
-          </div>
-          <p>The screen quality and performance blew me away. Delivery was super fast too!</p>
-          <small class="text-muted">Posted 3 days ago</small>
-        </div>
-      </div>
-
-      <!-- Review 2 -->
-      <div class="card mb-4 border-0 shadow rounded-4">
-        <div class="card-body">
-          <div class="d-flex justify-content-between mb-2">
-            <span class="fw-semibold text-primary">Satisfied User</span>
-            <div class="text-warning small">★★★★★</div>
-          </div>
-          <p>Super smooth experience with the M1 chip. Worth every penny!</p>
-          <small class="text-muted">Posted 1 week ago</small>
-        </div>
-      </div>
-    </div>
-
-    <!-- Review Form -->
-    <section class="mt-5" id="leave-review-section">
-      <div class="card border-0 shadow-lg rounded-4 p-4">
-        <h4 class="mb-4 fw-bold text-center text-gradient">Leave Your Review</h4>
-
-        <form id="review-form">
-
-          <!-- Star Rating -->
-          <div class="mb-4 text-center">
-            <label class="form-label fw-semibold d-block mb-2">Your Rating</label>
-            <div class="star-rating d-inline-flex flex-row-reverse gap-1">
-              <input type="radio" name="rating" id="star5" value="5" />
-              <label for="star5" title="5 stars">★</label>
-
-              <input type="radio" name="rating" id="star4" value="4" />
-              <label for="star4" title="4 stars">★</label>
-
-              <input type="radio" name="rating" id="star3" value="3" />
-              <label for="star3" title="3 stars">★</label>
-
-              <input type="radio" name="rating" id="star2" value="2" />
-              <label for="star2" title="2 stars">★</label>
-
-              <input type="radio" name="rating" id="star1" value="1" />
-              <label for="star1" title="1 star">★</label>
             </div>
           </div>
 
-          <!-- Feedback Text -->
-          <div class="mb-4">
-            <label for="reviewText" class="form-label fw-semibold">Your Feedback</label>
-            <textarea class="form-control rounded-3 shadow-sm" id="reviewText" rows="4" placeholder="Share your experience..."></textarea>
-          </div>
-
-          <!-- Submit Button -->
-          <button type="submit" class="btn btn-gradient w-100 py-2 fw-semibold">Submit Review</button>
-        </form>
+        </div>
       </div>
-    </section>
+    <?php
+  }
 
-    <!-- Custom CSS for Star Rating and Gradient -->
-    <style>
-      /* Star Rating Styles */
-      .star-rating input[type="radio"] {
-        display: none;
-      }
+    ?>
+    <section class="mt-5" id="reviews-section">
+      <!-- Average Rating Summary -->
+      <div class="text-center mb-5">
+        <h2 class="fw-bold mb-3">What Our Customers Say</h2>
+        <div class="d-flex justify-content-center align-items-center mb-2">
+          <div class="text-warning fs-2">★★★★★</div>
+          <span class="ms-2 fs-4 fw-semibold">4.8/5</span>
+        </div>
+        <small class="text-muted">Based on <span id="review-count">2</span> verified reviews</small>
+      </div>
 
-      .star-rating label {
-        font-size: 2rem;
-        color: #ddd;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
+      <!-- Review List: One Below Another -->
+      <div class="review-list mb-5" id="review-list">
+        <!-- Review 1 -->
+        <div class="card mb-4 border-0 shadow rounded-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-semibold text-primary">Verified Purchase</span>
+              <div class="text-warning small">★★★★☆</div>
+            </div>
+            <p>The screen quality and performance blew me away. Delivery was super fast too!</p>
+            <small class="text-muted">Posted 3 days ago</small>
+          </div>
+        </div>
 
-      .star-rating input[type="radio"]:checked~label,
-      .star-rating label:hover,
-      .star-rating label:hover~label {
-        color: #ffc107;
-      }
+        <!-- Review 2 -->
+        <div class="card mb-4 border-0 shadow rounded-4">
+          <div class="card-body">
+            <div class="d-flex justify-content-between mb-2">
+              <span class="fw-semibold text-primary">Satisfied User</span>
+              <div class="text-warning small">★★★★★</div>
+            </div>
+            <p>Super smooth experience with the M1 chip. Worth every penny!</p>
+            <small class="text-muted">Posted 1 week ago</small>
+          </div>
+        </div>
+      </div>
 
-      /* Gradient Button Style */
-      .btn-gradient {
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        color: white;
-        border: none;
-      }
+      <!-- Review Form -->
+      <section class="mt-5" id="leave-review-section">
+        <div class="card border-0 shadow-lg rounded-4 p-4">
+          <h4 class="mb-4 fw-bold text-center text-gradient">Leave Your Review</h4>
 
-      .btn-gradient:hover {
-        opacity: 0.9;
-      }
-    </style>
+          <form id="review-form">
+
+            <!-- Star Rating -->
+            <div class="mb-4 text-center">
+              <label class="form-label fw-semibold d-block mb-2">Your Rating</label>
+              <div class="star-rating d-inline-flex flex-row-reverse gap-1">
+                <input type="radio" name="rating" id="star5" value="5" />
+                <label for="star5" title="5 stars">★</label>
+
+                <input type="radio" name="rating" id="star4" value="4" />
+                <label for="star4" title="4 stars">★</label>
+
+                <input type="radio" name="rating" id="star3" value="3" />
+                <label for="star3" title="3 stars">★</label>
+
+                <input type="radio" name="rating" id="star2" value="2" />
+                <label for="star2" title="2 stars">★</label>
+
+                <input type="radio" name="rating" id="star1" value="1" />
+                <label for="star1" title="1 star">★</label>
+              </div>
+            </div>
+
+            <!-- Feedback Text -->
+            <div class="mb-4">
+              <label for="reviewText" class="form-label fw-semibold">Your Feedback</label>
+              <textarea class="form-control rounded-3 shadow-sm" id="reviewText" rows="4" placeholder="Share your experience..."></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <button type="submit" class="btn btn-gradient w-100 py-2 fw-semibold">Submit Review</button>
+          </form>
+        </div>
+      </section>
+
+      <!-- Custom CSS for Star Rating and Gradient -->
+      <style>
+        /* Star Rating Styles */
+        .star-rating input[type="radio"] {
+          display: none;
+        }
+
+        .star-rating label {
+          font-size: 2rem;
+          color: #ddd;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
+
+        .star-rating input[type="radio"]:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+          color: #ffc107;
+        }
+
+        /* Gradient Button Style */
+        .btn-gradient {
+          background: linear-gradient(90deg, #ff7e5f, #feb47b);
+          color: white;
+          border: none;
+        }
+
+        .btn-gradient:hover {
+          opacity: 0.9;
+        }
+      </style>
 
 
-    <!-- Star Rating CSS -->
-    <style>
-      .star-rating input[type="radio"] {
-        display: none;
-      }
+      <!-- Star Rating CSS -->
+      <style>
+        .star-rating input[type="radio"] {
+          display: none;
+        }
 
-      .star-rating label {
-        font-size: 2rem;
-        color: #ddd;
-        cursor: pointer;
-        transition: color 0.2s;
-      }
+        .star-rating label {
+          font-size: 2rem;
+          color: #ddd;
+          cursor: pointer;
+          transition: color 0.2s;
+        }
 
-      .star-rating input[type="radio"]:checked~label,
-      .star-rating label:hover,
-      .star-rating label:hover~label {
-        color: #ffc107;
-      }
+        .star-rating input[type="radio"]:checked~label,
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+          color: #ffc107;
+        }
 
-      .btn-gradient {
-        background: linear-gradient(90deg, #ff7e5f, #feb47b);
-        color: white;
-        border: none;
-      }
+        .btn-gradient {
+          background: linear-gradient(90deg, #ff7e5f, #feb47b);
+          color: white;
+          border: none;
+        }
 
-      .btn-gradient:hover {
-        opacity: 0.9;
-      }
-    </style>
+        .btn-gradient:hover {
+          opacity: 0.9;
+        }
+      </style>
 
 
-    <?php include './Components/footer.html';  ?>
+      <?php include './Components/footer.html';  ?>

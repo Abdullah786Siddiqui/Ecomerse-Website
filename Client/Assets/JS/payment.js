@@ -128,27 +128,48 @@ document.getElementById("payment_cod").addEventListener("click", function (e) {
   showSuccessPopup("Order Confirmed");
 });
 
-//  SWEETALERT SUCCESS FUNCTION
-function showSuccessPopup(message) {
-  Swal.fire({
-    title: `
-      <div style="display:flex; align-items:center; gap:6px; color:#28a745; font-size:15px; margin:0;">
-        <i class="fas fa-check-circle"></i>
-        <span>${message}</span>
-      </div>
-    `,
-    icon: "success",
-    iconColor: "#28a745",
-    background: "#f9fefb",
-    color: "#155724",
-    showConfirmButton: false,
-    timer: 1500,
-    width: 260,
-    padding: "0.5em",
-    customClass: {
-      popup: "super-compact-popup",
-    },
-  }).then(() => {
-    window.location.href = "http://localhost/ECOMERSE%20WEBSITE/Server/Process/order-process.php";
-  });
+function showSuccessPopup() {
+  fetch("../Server/Process/order-process.php", {
+    method: "POST",
+  })
+    .then(response => response.json())
+    .then(data => {
+      if (data.success) {
+        Swal.fire({
+          title: `
+            <div style="display:flex; align-items:center; gap:6px; color:#28a745; font-size:15px; margin:0;">
+              <i class="fas fa-check-circle"></i>
+              <span>${data.message}</span>
+            </div>
+          `,
+          icon: "success",
+          iconColor: "#28a745",
+          background: "#f9fefb",
+          color: "#155724",
+          showConfirmButton: false,
+          timer: 1500,
+          width: 260,
+          padding: "0.5em",
+          customClass: {
+            popup: "super-compact-popup",
+          },
+        }).then(() => {
+          window.location.href = "../Client/Profile.php";
+        });
+      } else {
+        Swal.fire({
+          icon: "error",
+          title: "Order Failed",
+          text: data.message,
+        });
+      }
+    })
+    .catch(error => {
+      Swal.fire({
+        icon: "error",
+        title: "Server Error",
+        text: "Something went wrong: " + error,
+      });
+    });
 }
+

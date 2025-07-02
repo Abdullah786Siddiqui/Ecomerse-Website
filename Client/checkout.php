@@ -1,11 +1,11 @@
  <?php
+
   include("../Server/Admin-Panel/config/db.php");
   include './Components/header.html';
   include './includes/Navbar.php';
 
-  if (isset($_SESSION['cart_subtotal'])) {
-    $subtotal = $_SESSION['cart_subtotal'];
-  }
+
+
 
   $user_id = $_SESSION['user_id'] ?? "";
   $sql = "SELECT * FROM addresses WHERE user_id = '$user_id' AND type = 'billing' LIMIT 1";
@@ -114,10 +114,11 @@
                    </div>
                  </div>
                <?php
+
                 }
-                $_SESSION['cart_subtotal'] = $subtotal;
               } else {
                 ?>
+
                <h1 class="text-center">Your Cart is Empty</h1>
              <?php
               }
@@ -250,7 +251,7 @@
 
            <div class="d-flex justify-content-between mb-2">
              <span class="text-muted">Subtotal</span>
-             <span class="fw-bold cart-subtotal">£<?= isset($_SESSION['cart_subtotal']) ? $_SESSION['cart_subtotal'] : 0 ?></span>
+             <span class="fw-bold cart-subtotal">£<?= $subtotal ?></span>
 
            </div>
 
@@ -263,12 +264,12 @@
 
            <div class="d-flex justify-content-between mb-3">
              <span class="fw-bold">Total (VAT included)</span>
-             <span class="fw-bold text-dark cart-subtotal">£<?= isset($_SESSION['cart_subtotal']) ? $_SESSION['cart_subtotal'] : 0 ?></span>
+             <span class="fw-bold text-dark cart-subtotal">£ <?= $subtotal ?></span>
 
            </div>
 
 
-           <a  onclick="checkCartBeforePay()" class="btn btn-primary text-white w-100 fw-bold py-2">Proceed to Pay</a>
+           <a onclick="checkCartBeforePay()" class="btn btn-primary text-white w-100 fw-bold py-2">Proceed to Pay</a>
          </div>
 
          <div class="card p-3">
@@ -288,7 +289,6 @@
 
    </div> <!-- End .row -->
  </div> <!-- End .container -->
-
 
 
 

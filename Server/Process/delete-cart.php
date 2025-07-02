@@ -20,7 +20,10 @@ if (isset($_POST['productid'])) {
   foreach ($_SESSION['cart'] as $items) {
     $subtotal += $items['price'] *  $items['quantity'];
   };
-   $_SESSION['cart_subtotal'] = $subtotal;
+  if (empty($_SESSION['cart'])) {
+    $response['subtotal'] = 0;
+  }
+  $_SESSION['subtotal'] = $subtotal;
   $response['success'] = true;
   $response['cart_count'] = count($_SESSION['cart']);
   $response['subtotal'] = $subtotal;
