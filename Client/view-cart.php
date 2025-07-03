@@ -88,7 +88,7 @@ $subtotal = 0;
         </div>
       <?php
       }
-      $_SESSION['cart_subtotal'] = $subtotal;
+      // $_SESSION['cart_subtotal'] = $subtotal;
 
       ?>
 

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 01, 2025 at 01:33 PM
+-- Generation Time: Jul 03, 2025 at 01:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -39,6 +39,14 @@ CREATE TABLE `addresses` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `addresses`
+--
+
+INSERT INTO `addresses` (`id`, `user_id`, `full_name`, `phone`, `address_line1`, `city`, `country`, `type`, `created_at`, `updated_at`) VALUES
+(20, 4, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-01 18:52:34', '2025-07-01 18:52:34'),
+(21, 4, 'Abdullah Siddiqui', '03160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'shipping', '2025-07-01 18:52:34', '2025-07-01 18:52:34');
 
 -- --------------------------------------------------------
 
@@ -112,18 +120,23 @@ CREATE TABLE `orders` (
   `address_id` int(11) DEFAULT NULL,
   `total` decimal(10,2) DEFAULT NULL,
   `status` enum('pending','shipped','delivered','cancelled') DEFAULT 'pending',
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `payment_method` enum('Cash','Card','UPI','Wallet') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `orders`
 --
 
-INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`) VALUES
-(3, 4, NULL, 156.00, 'pending', '2025-07-01 02:33:10'),
-(4, 4, NULL, 156.00, 'pending', '2025-07-01 09:00:42'),
-(5, 4, NULL, 156.00, 'pending', '2025-07-01 09:15:41'),
-(6, 4, NULL, 0.00, 'pending', '2025-07-01 09:26:02');
+INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`, `payment_method`) VALUES
+(24, 4, 20, 0.00, 'cancelled', '2025-07-03 03:36:26', 'Cash'),
+(35, 4, 20, 90000.00, 'pending', '2025-07-03 06:37:30', 'Cash'),
+(36, 4, 20, 90000.00, 'pending', '2025-07-03 06:38:51', 'Cash'),
+(37, 4, 20, 25000.00, 'pending', '2025-07-03 06:48:07', 'Cash'),
+(38, 4, 20, 80000.00, 'shipped', '2025-07-03 06:55:09', 'Cash'),
+(39, 4, 20, 125000.00, 'delivered', '2025-07-03 06:56:06', 'Cash'),
+(40, 4, 20, 12500.00, 'pending', '2025-07-03 11:14:33', 'Cash'),
+(41, 4, 20, 578.00, 'pending', '2025-07-03 11:30:31', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -144,8 +157,38 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(2, 4, 26, 1, 156.00),
-(3, 5, 26, 1, 156.00);
+(34, 24, 66, 1, 1500.00),
+(52, 35, 26, 1, 156.00),
+(53, 35, 25, 1, 145.00),
+(54, 36, 41, 1, 850.00),
+(55, 37, 34, 1, 12500.00),
+(56, 37, 33, 1, 12500.00),
+(57, 38, 76, 2, 40000.00),
+(58, 39, 87, 2, 50000.00),
+(59, 39, 88, 1, 25000.00),
+(60, 40, 34, 1, 12500.00),
+(61, 41, 46, 1, 578.00);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `otp_verification`
+--
+
+CREATE TABLE `otp_verification` (
+  `id` int(11) NOT NULL,
+  `phone_number` varchar(20) NOT NULL,
+  `otp_code` varchar(6) NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `otp_verification`
+--
+
+INSERT INTO `otp_verification` (`id`, `phone_number`, `otp_code`, `created_at`) VALUES
+(3, '03160116389', '149185', '2025-07-03 08:33:48'),
+(4, '03160116389', '811499', '2025-07-03 08:34:11');
 
 -- --------------------------------------------------------
 
@@ -471,6 +514,12 @@ ALTER TABLE `order_items`
   ADD KEY `product_id` (`product_id`);
 
 --
+-- Indexes for table `otp_verification`
+--
+ALTER TABLE `otp_verification`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `products`
 --
 ALTER TABLE `products`
@@ -507,7 +556,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -525,13 +574,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+
+--
+-- AUTO_INCREMENT for table `otp_verification`
+--
+ALTER TABLE `otp_verification`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `products`

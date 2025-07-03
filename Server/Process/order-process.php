@@ -7,7 +7,7 @@ $response = [];
 
 $user_id = $_SESSION['user_id'];
 $cart_items = $_SESSION['cart'] ?? [];
-$subtotal = $_SESSION['cart_subtotal'] ?? 0;
+$subtotal = $_SESSION['subtotal'] ?? 0;
 $payment_method = $_POST['payment_method'] ?? '';
 if (empty($cart_items)) {
     $response['success'] = false;

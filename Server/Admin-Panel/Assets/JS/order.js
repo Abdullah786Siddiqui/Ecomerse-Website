@@ -2,9 +2,21 @@ let selectedOrderId = null;
 let selectedStatus = null;
 
 function updateStatus(orderid, status) {
-
   selectedOrderId = orderid;
   selectedStatus = status;
+  console.log(status);
+
+  const flow = ["pending", "shipped", "delivered"];
+  let currentIndex = flow.indexOf(status);
+  let next =
+    currentIndex !== -1 && currentIndex < flow.length - 1
+      ? flow[currentIndex + 1]
+      : null;
+
+  const nextDiv = document.getElementById("nextsState");
+  if (next) {
+    nextDiv.innerHTML = `<span class="fw-semibold text-secondary">=></span> <span class="fw-bold text-success">${next}</span>`;
+  }
 
   document.querySelector(".modalOrderId").innerText = orderid;
   document.querySelector(".currentstatus").innerText = selectedStatus;
@@ -24,42 +36,50 @@ function submitStatusUpdate() {
         if (data.success) {
           console.log(data.nextstate);
 
-          closeModalAndCleanup();
-
-          // Success Alert
           Swal.fire({
             icon: "success",
-            title: "Status Updated!",
-            text: "Order status updated successfully.",
+            title:
+              "<h3 style='color: #155724; font-weight: bold;'>Status Updated!</h3>",
+            html: "<p style='color: #155724;'>Order status updated successfully.</p>",
+            background: "#d4edda", // light green background for success
+            iconColor: "#28a745", // deep green success icon
+            timer: 2000,
+            showConfirmButton: false,
+            toast: false,
+            position: "center",
+            customClass: {
+              popup: "swal2-rounded", // rounded corners
+            },
+            willClose: () => {
+              closeModalAndCleanup();
+            },
+          }).then(() => {
+            window.location.reload();
           });
-
-          // Optionally page reload
-          location.reload();
         } else {
-      Swal.fire({
-  icon: "error",
-  title: "<span class='text-danger fw-bold fs-5'>Action Failed!</span>",
-  html: `<div class="text-muted fs-6">${data.error}</div>`,
-  toast: true,
-  position: "center",
-  showConfirmButton: false,
-  timer: 2000,
-  timerProgressBar: true,
-  background: "#fff",
-  customClass: {
-    popup: "rounded-4 shadow-lg p-3 border border-danger-subtle",
-    title: "mb-2",
-    htmlContainer: "text-center",
-  },
-  showClass: {
-    popup: "animate__animated animate__fadeInDown",
-  },
-  hideClass: {
-    popup: "animate__animated animate__fadeOutUp",
-  }
-});
-
-
+          Swal.fire({
+            icon: "error",
+            title:
+              "<span class='text-danger fw-bold fs-5'>Action Failed!</span>",
+            html: `<div class="text-muted fs-6">${data.error}</div>`,
+            toast: true,
+            position: "center",
+            showConfirmButton: false,
+            timer: 2000,
+            timerProgressBar: true,
+            background: "#fff",
+            customClass: {
+              popup: "rounded-4 shadow-lg p-3 border border-danger-subtle",
+              title: "mb-2",
+              htmlContainer: "text-center",
+            },
+            showClass: {
+              popup: "animate__animated animate__fadeInDown",
+            },
+            hideClass: {
+              popup: "animate__animated animate__fadeOutUp",
+            },
+          });
 
           closeModalAndCleanup();
         }
@@ -108,3 +128,8 @@ function closeModalAndCleanup() {
   document.body.classList.remove("modal-open");
   document.body.style = "";
 }
+
+let stateSelect = document.getElementById("statusForm");
+stateSelect.addEventListener("change", function () {
+  stateSelect.submit();
+});

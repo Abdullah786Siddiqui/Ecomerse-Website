@@ -1,6 +1,9 @@
 <?php
+
 include("./includes/header.html");
 include("./Sidebar.php");
+$status = isset($_POST['status']) ? $_POST['status'] : '';
+
 ?>
 
 
@@ -10,6 +13,10 @@ include("./Sidebar.php");
   body {
     background-color: #f1f5f9;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+
+  .cursor-pointer {
+    cursor: pointer;
   }
 
   .order-card {
@@ -105,6 +112,38 @@ include("./Sidebar.php");
 
     /* Status dropdown ko chhota hi rehne do */
   }
+
+  .table-responsive {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  table {
+    min-width: 600px;
+  }
+
+  @keyframes slideFromBottom {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  .slide-up-row {
+    opacity: 0;
+    /* Start hidden, reveal with animation */
+    animation: slideFromBottom 0.5s ease-out forwards;
+  }
+
+  .modal-backdrop.show {
+    backdrop-filter: blur(5px);
+    background-color: rgba(255, 255, 255, 0.3);
+  }
 </style>
 </head>
 
@@ -130,14 +169,16 @@ include("./Sidebar.php");
       <div class="d-flex flex-row align-items-center mb-3 gap-2 responsive-flex">
 
         <!-- Status Dropdown -->
-        <div class="flex-shrink-0">
-          <select class="form-select shadow-sm" style="min-width: 130px; max-width: 150px;">
-            <option selected>Status</option>
-            <option value="pending">Pending</option>
-            <option value="cancelled">Cancelled</option>
-            <option value="fulfilled">Fulfilled</option>
+        <form method="POST" id="statusForm">
+          <select name="status" id="state-selcxt" class="form-select shadow-sm" style="min-width: 130px; max-width: 150px;" >
+            <option selected hidden>Status</option>
+            <option value="pending" <?= $status == 'pending' ? 'selected' : '' ?>>pending</option>
+            <option value="shipped" <?= $status == 'shipped' ? 'selected' : '' ?>>shipped</option>
+            <option value="delivered" <?= $status == 'delivered' ? 'selected' : '' ?>>delivered</option>
+            <option value="cancelled" <?= $status == 'cancelled' ? 'selected' : '' ?>>cancelled</option>
           </select>
-        </div>
+        </form>
+
 
         <!-- Search Box -->
         <div class="flex-grow-1 w-100 w-md-auto order-3 order-md-0">
@@ -161,16 +202,7 @@ include("./Sidebar.php");
 
 
 
-      <style>
-        .table-responsive {
-          overflow-x: auto;
-          -webkit-overflow-scrolling: touch;
-        }
 
-        table {
-          min-width: 600px;
-        }
-      </style>
 
       <div class="table-responsive">
         <div class="table-container">
@@ -181,6 +213,7 @@ include("./Sidebar.php");
                 <th>OrderID</th>
                 <th>Price</th>
                 <th>Quantity</th>
+                <th>Total</th>
                 <th>Payment</th>
                 <th>Status</th>
                 <th>Action</th>
@@ -189,23 +222,40 @@ include("./Sidebar.php");
             </thead>
             <tbody class="text-center">
               <?php
-              $sql = "SELECT DISTINCT orders.id as order_id , products.name , orders.payment_method  ,orders.status ,order_items.quantity ,orders.total ,product_images.image_url FROM orders INNER JOIN order_items ON orders.id = order_items.order_id
-INNER JOIN products ON order_items.product_id  = products.id
-INNER JOIN product_images ON products.id = product_images.product_id ";
+              $sql = "SELECT DISTINCT orders.id as order_id, products.name, orders.payment_method, orders.status, order_items.quantity, order_items.price  AS unit_price,
+  (order_items.price * order_items.quantity) AS total_price, product_images.image_url 
+FROM orders 
+INNER JOIN order_items ON orders.id = order_items.order_id
+INNER JOIN products ON order_items.product_id = products.id
+INNER JOIN product_images ON products.id = product_images.product_id";
+
+              if (!empty($status)) {
+                $sql .= " WHERE orders.status = '$status'";
+              }
+
+              $sql .= " ORDER BY order_id DESC";
               $result = $conn->query($sql);
+              if($result->num_rows == 0){
+                   echo "<tr><td colspan='7' class='text-center fw-bold text-muted py-4'>No orders found for $status  status.</td></tr>";
+              }else{
               while ($row = $result->fetch_assoc()) {
               ?>
                 <tr>
+
                   <td class="d-flex align-items-center ">
                     <img src="../uploads/<?= $row['image_url'] ?>" class="product-img" alt="Product">
-                    <?= $row['name'] ?>
+                    <span class="me-5"><?= $row['name'] ?></span>
+                    <span class="<?= $row['status'] === 'cancelled' ? 'text-danger fw-bold' : '' ?>">
+                      <?= $row['status'] === 'cancelled' ? 'This Order Cancel By User' : '' ?>
+                    </span>
                   </td>
                   <td>#<?= $row['order_id'] ?></td>
-                  <td>$<?= $row['total'] ?></td>
+                  <td>$<?= $row['unit_price'] ?></td>
                   <td><?= $row['quantity'] ?></td>
+                  <td><?= $row['total_price'] ?></td>
                   <td><?= $row['payment_method'] ?></td>
                   <td>
-                       <?php
+                    <?php
                     $colour = '';
                     if ($row['status'] === "pending") {
                       $colour = 'bg-warning';
@@ -213,21 +263,24 @@ INNER JOIN product_images ON products.id = product_images.product_id ";
                       $colour = 'bg-primary';
                     } elseif ($row['status'] === "delivered") {
                       $colour = 'bg-success';
+                    } elseif ($row['status'] === "cancelled") {
+                      $colour = 'bg-danger';
                     } ?>
-                    <span class="badge rounded-3 <?= $colour ?> px-3 py-2 text-white text-capitalize shadow-sm">
-                      <?= $row['status'] ?>
+                    <span class="badge rounded-3 <?= $colour ?> px-3 py-2   text-white <?= $row['status'] === 'cancelled' ? 'cursor-pointer ' : '' ?> text-capitalize shadow-sm">
+                      <?= $row['status'] === 'cancelled' ? 'Remove' : $row['status']  ?>
                     </span>
                   </td>
                   <td>
-                 
-                    <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 bg-danger px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+
+                    <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 btn  btn-danger <?= $row['status'] === 'delivered' ||  $row['status'] === 'cancelled' ? 'disabled' : ' '  ?>  bg-danger px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
                       Update status
                     </span>
                   </td>
 
 
                 </tr>
-              <?php } ?>
+              <?php } 
+              }?>
             </tbody>
           </table>
         </div>
@@ -235,43 +288,36 @@ INNER JOIN product_images ON products.id = product_images.product_id ";
 
     </div>
   </div>
-  <!-- Update Status Modal -->
-  <style>
-    /* Light blur on backdrop */
-    .modal-backdrop.show {
-      backdrop-filter: blur(5px);
-      background-color: rgba(255, 255, 255, 0.3);
-      /* Very light white blur, no dark overlay */
-    }
-  </style>
+
 
   <div class="modal fade" id="updateStatusModal" tabindex="-1" aria-labelledby="updateStatusModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content shadow-lg rounded-4 border-0 text-center" style="backdrop-filter: blur(8px); background-color: rgba(255, 255, 255, 0.95);">
 
         <div class="modal-header border-0 pb-0 d-flex flex-column align-items-center">
-          <h5 class="modal-title fw-bold text-dark" id="updateStatusModalLabel">Update Order Status</h5>
+          <h5 class="modal-title fw-bold text-dark fs-4" id="updateStatusModalLabel">Update Order Status</h5>
           <button type="button" class="btn-close position-absolute top-0 end-0 m-3" data-bs-dismiss="modal" aria-label="Close" onclick="handleCancel()"></button>
         </div>
         <div class="modal-body text-muted pt-2 pb-2">
           <p class="fs-5 fw-semibold text-dark mb-1">Are you sure you want to move to the next state?</p>
 
           <p class="mb-1">
-            <span class="fw-semibold text-secondary ">Order ID:</span>
-            <span class="fw-bold text-dark modalOrderId"></span>
+            <span class="fw-semibold text-secondary fs-5 ">Order ID:</span>
+            <span class="fw-bold text-dark modalOrderId fs-5 "></span>
           </p>
 
           <p class="mb-0">
-            <span class="fw-semibold text-secondary">Status Change:</span>
-            <span class="fw-bold text-success currentstatus"></span>
-          <div id="nextstate"></div>
+            <span class="fw-semibold text-secondary fs-5">Status Change:</span>
+            <span class="fw-bold text-success currentstatus fs-5"></span>
+            <span id="nextsState" class="fs-5">=></span>
           </p>
         </div>
 
 
         <div class="modal-footer border-0 d-flex justify-content-center gap-2 mt-0">
-          <button type="button" class="btn btn-outline-secondary btn-lg px-4" onclick="handleCancel()" data-bs-dismiss="modal">Cancel</button>
-          <button type="button" onclick="submitStatusUpdate()" class="btn btn-primary btn-lg px-4">Update</button>
+          <button type="button" style="background-color: #6c757d;
+color: white;" class="btn btn-lg " onclick="handleCancel()" data-bs-dismiss="modal">Cancel</button>
+          <button type="button" onclick="submitStatusUpdate()" class="btn btn-lg btn-primary ">Update</button>
 
         </div>
 
@@ -281,9 +327,23 @@ INNER JOIN product_images ON products.id = product_images.product_id ";
   </div>
 
 
+
+
+
+  <script>
+    // <!-- Animate rows from bottom to top on page load -->
+    document.addEventListener("DOMContentLoaded", function() {
+      const rows = document.querySelectorAll("tbody tr");
+      rows.forEach((row, index) => {
+        setTimeout(() => {
+          row.classList.add("slide-up-row");
+        }, index * 100); // Staggered delay per row
+      });
+    });
+  </script>
+
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
   <script src="./Assets/JS/order.js"></script>
-
   <?php include("./Includes/footer.html"); ?>
