@@ -1,10 +1,14 @@
 <?php
 session_start();
 include("../Admin-Panel/config/db.php");
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ./Client/login.php");
+  exit();
+}
 
 if (isset($_POST['productid'])) {
   $product_id = $_POST['productid'];
-  $isBuyNow = isset($_POST['buynow']) ? true : false;  
+  $isBuyNow = isset($_POST['buynow']) ? true : false;
 
   $response = [];
 

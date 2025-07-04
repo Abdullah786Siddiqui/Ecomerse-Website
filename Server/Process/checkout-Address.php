@@ -20,6 +20,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   // Billing address insert
   $sql = "INSERT INTO addresses (user_id, full_name, phone, address_line1, city, country, type) 
           VALUES ('$user_Id', '$billing_name', '$billing_phone', '$billing_address', '$billing_city', '$billing_country', 'billing')";
+  $sql2 = "INSERT INTO users (phone) values ('$billing_phone')";
+  $conn->query($sql2);
   $result = $conn->query($sql);
 
   // Shipping address insert (if checkbox not checked)
@@ -30,4 +32,3 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   }
   echo "success";
 }
-?>

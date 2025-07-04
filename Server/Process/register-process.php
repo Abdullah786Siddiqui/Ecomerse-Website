@@ -10,7 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   $sql = "INSERT INTO users (name,email,password) value ('$name','$email','$hashedPassword')";
   $result = $conn->query($sql);
   if ($result) {
-    header("Location: ../../Client/index.php?register=success");
+    header("Location: ../../Client/login.php");
   }
 } else {
   echo "Invalid request method.";

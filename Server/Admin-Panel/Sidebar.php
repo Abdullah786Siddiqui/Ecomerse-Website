@@ -10,6 +10,9 @@ if (isset($_SESSION['admin_id'])) {
   if ($row = $result->fetch_assoc()) {
     $adminName = $row['name'];
   }
+}else{
+  header("Location: ../Client/login.php");
+  exit();
 }
 ?>
 

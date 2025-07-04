@@ -10,6 +10,9 @@ $subtotal = $_SESSION['subtotal'];
   body {
     background-color: #f8f9fa;
   }
+  .cursor-pointer{
+    cursor: pointer;
+  }
 
   .payment-method-card:hover {
     border-color: #0d6efd;

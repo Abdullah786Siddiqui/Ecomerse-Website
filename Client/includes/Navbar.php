@@ -1,8 +1,10 @@
  <?php
   session_start();
 
+
   include("../Server/Admin-Panel/config/db.php");
   include("../Client/Components/header.html");
+
   $username = "";
   if (isset($_SESSION['user_id'])) {
     $user_id = $_SESSION['user_id'];
@@ -101,43 +103,43 @@
 
 
          <!-- Account Dropdown -->
- <div class="dropdown">
-  <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-    <img src="../Server/uploads/Abdullah.png" width="30" height="30" class="rounded-circle me-1">
-    My Account
-  </a>
+         <div class="dropdown">
+           <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
+             <img src="<?= isset($_SESSION['user_id']) ? '../Server/uploads/Abdullah.png' : './Assets/Images/user.png' ?>" width="30" height="30" class="rounded-circle me-1">
+             My Account
+           </a>
 
-  <?php if (isset($_SESSION['user_id'])): ?>
-    <div class="dropdown-menu dropdown-menu-end p-3" style="width: 250px; z-index: 1100; overflow: hidden">
-      <div class="text-center mb-2">
-       <img src="../Server/uploads/Abdullah.png" width="50" height="50" class="rounded-circle mb-2">
+           <?php if (isset($_SESSION['user_id'])): ?>
+             <div class="dropdown-menu dropdown-menu-end p-3" style="width: 250px; z-index: 1100; overflow: hidden">
+               <div class="text-center mb-2">
+                 <img src="../Server/uploads/Abdullah.png" width="50" height="50" class="rounded-circle mb-2">
 
-        <div><strong><?= htmlspecialchars($username) ?></strong></div>
-        <small class="text-muted d-block text-truncate"><?= htmlspecialchars($row['email']) ?></small>
-        <a href="./Profile.php" class="btn btn-outline-primary btn-sm w-100 mt-2">View Profile</a>
-      </div>
-      <hr>
-      <a class="dropdown-item" href="./Profile.php"><i class="bi bi-person me-2"></i> My Account</a>
-      <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-        <span><i class="bi bi-lightning-fill me-2"></i> Flowbite</span>
-        <span class="badge bg-primary">PRO</span>
-      </a>
-      <a class="dropdown-item" href="#"><i class="bi bi-wallet2 me-2"></i> My Wallet</a>
-      <a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i> My Orders</a>
-      <a class="dropdown-item" href="#"><i class="bi bi-geo-alt me-2"></i> Delivery Addresses</a>
-      <a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
-      <hr>
-      <a class="dropdown-item text-danger" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
-    </div>
+                 <div><strong><?= htmlspecialchars($username) ?></strong></div>
+                 <small class="text-muted d-block text-truncate"><?= htmlspecialchars($row['email']) ?></small>
+                 <a href="./Profile.php" class="btn btn-outline-primary btn-sm w-100 mt-2">View Profile</a>
+               </div>
+               <hr>
+               <a class="dropdown-item" href="./Profile.php"><i class="bi bi-person me-2"></i> My Account</a>
+               <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
+                 <span><i class="bi bi-lightning-fill me-2"></i> Flowbite</span>
+                 <span class="badge bg-primary">PRO</span>
+               </a>
+               <a class="dropdown-item" href="#"><i class="bi bi-wallet2 me-2"></i> My Wallet</a>
+               <a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i> My Orders</a>
+               <a class="dropdown-item" href="#"><i class="bi bi-geo-alt me-2"></i> Delivery Addresses</a>
+               <a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
+               <hr>
+               <a class="dropdown-item text-danger" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
+             </div>
 
-  <?php else: ?>
-    <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-      <li><a class="dropdown-item" href="./login.php"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
-      <li><a class="dropdown-item" href="./register.php"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
-      <li><a class="dropdown-item" href="./forgot-password.php"><i class="bi bi-key me-2"></i> Forgot Password</a></li>
-    </ul>
-  <?php endif; ?>
-</div>
+           <?php else: ?>
+             <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+               <li><a class="dropdown-item" href="./login.php"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
+               <li><a class="dropdown-item" href="./register.php"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
+               <li><a class="dropdown-item" href="./forgot-password.php"><i class="bi bi-key me-2"></i> Forgot Password</a></li>
+             </ul>
+           <?php endif; ?>
+         </div>
 
        </div>
      </div>
@@ -230,7 +232,7 @@
        </a>
 
        <!-- Cart -->
-       <a href="./view-cart.php"  class="nav-link position-relative" >
+       <a href="./view-cart.php" class="nav-link position-relative">
          <i class="bi bi-cart"></i> My Cart
        </a>
 
@@ -238,24 +240,24 @@
        <!-- User Dropdown -->
        <div class="dropdown">
          <a class="nav-link  p-0 d-flex align-items-center" href="#" role="button" data-bs-toggle="dropdown">
-           <img src="https://randomuser.me/api/portraits/men/75.jpg" width="32" height="32" class="rounded-circle border border-light shadow-sm">
+           <img src="../Server/uploads/Abdullah.png" width="32" height="32" class="rounded-circle border border-light shadow-sm">
          </a>
          <div class="dropdown-menu dropdown-menu-end p-2" style="width: 200px; font-size: 0.875rem;z-index: 1100;">
            <div class="text-center mb-2">
              <img src="../Server/uploads/Abdullah.png" width="40" height="40" class="rounded-circle mb-1">
              <div style="font-size: 0.9rem;"><strong>Hello, Jese</strong></div>
              <small class="text-muted" style="font-size: 0.75rem;">name@example.com</small>
-             <button class="btn btn-outline-primary btn-sm w-100 mt-1 py-1" style="font-size: 0.75rem;">View Profile</button>
+             <a href="./Profile.php" class="btn btn-outline-primary btn-sm w-100 mt-1 py-1" style="font-size: 0.75rem;">View Profile</a>
            </div>
            <hr class="my-1">
-           <a class="dropdown-item py-1" href="#"><i class="bi bi-person me-1"></i> My Account</a>
+           <a class="dropdown-item py-1" href="./Profile.php"><i class="bi bi-person me-1"></i> My Account</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-wallet2 me-1"></i> My Wallet</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-bag-check me-1"></i> My Orders</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-geo-alt me-1"></i> Addresses</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-gear me-1"></i> Settings</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-question-circle me-1"></i> Helpdesk</a>
            <hr class="my-1">
-           <a class="dropdown-item py-1 text-danger" href="#"><i class="bi bi-box-arrow-right me-1"></i> Log Out</a>
+           <a class="dropdown-item py-1 text-danger" href="./logout.php"><i class="bi bi-box-arrow-right me-1"></i> Log Out</a>
          </div>
        </div>
      </div>
@@ -294,44 +296,6 @@
      </div>
    </nav>
 
-   <div class="offcanvas offcanvas-end offcanvas-mobile-75 " tabindex="-1" id="offcanvasRight" aria-labelledby="offcanvasRightLabel">
-     <div class="offcanvas-header border-bottom">
-       <h5 class="offcanvas-title fw-bold" id="offcanvasRightLabel">🛒 Your Cart</h5>
-       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-     </div>
-
-     <div class="offcanvas-body d-flex flex-column justify-content-between py-3">
-
-       <!-- 🧾 Cart Items Section -->
-       <div class="cart-items overflow-auto" style="max-height: 60vh;">
-         <!-- Item 1 -->
-         <div class="cart-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded shadow-sm">
-           <img src="../Client/Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-thumbnail border-0 me-3" style="width: 60px; height: 60px; object-fit: cover;">
-
-           <div class="flex-grow-1">
-             <h6 class="mb-1">Tressfix Shampoo</h6>
-             <small class="text-muted">Qty: 1</small>
-             <p class="mb-0 fw-semibold text-primary">Rs. 840</p>
-           </div>
-
-           <button class="btn btn-sm btn-outline-danger ms-2" title="Remove">&times;</button>
-         </div>
-
-         <!-- Item 2 -->
-         <div class="cart-item d-flex align-items-center justify-content-between mb-3 p-2 border rounded shadow-sm">
-           <img src="../Client/Assets/Images/Wristwatches for Sale - Shop New & Used Watches - eBay.jpg" class="img-thumbnail border-0 me-3" style="width: 60px; height: 60px; object-fit: cover;">
-
-           <div class="flex-grow-1">
-             <h6 class="mb-1">Hair Serum</h6>
-             <small class="text-muted">Qty: 2</small>
-             <p class="mb-0 fw-semibold text-primary">Rs. 1,200</p>
-           </div>
-
-           <button class="btn btn-sm btn-outline-danger ms-2" title="Remove">&times;</button>
-         </div>
-       </div>
-     </div> <!-- offcanvas-body -->
-   </div> <!-- offcanvas -->
 
 
 

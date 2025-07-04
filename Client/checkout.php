@@ -4,10 +4,23 @@
   include './Components/header.html';
   include './includes/Navbar.php';
 
+if (!isset($_SESSION['user_id'])) {
+  // include("../Client/login.php")
+ echo '<script>window.location.href = "../Client/login.php"</script>';
+  
+}
 
 
 
   $user_id = $_SESSION['user_id'] ?? "";
+  $subtotal = 0;
+  if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
+    foreach ($_SESSION['cart'] as $items) {
+      $totalprice = $items['price'] * $items['quantity'];
+      $subtotal += $totalprice;
+    }
+    $_SESSION['subtotal'] = $subtotal;
+  }
   $sql = "SELECT * FROM addresses WHERE user_id = '$user_id' AND type = 'billing' LIMIT 1";
   $hasAddress = false;
   $result = $conn->query($sql);
