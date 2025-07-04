@@ -213,32 +213,37 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
                         while ($row = $result->fetch_assoc()) {
                             $product_id = $row['productid']
                         ?>
-                            <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
-                                <div class="card border-0 shadow-sm rounded-4 h-100 p-3 position-relative">
+                          <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="text-decoration-none">
+        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
 
-                                    <!-- Discount Badge -->
-                                    <span class="badge bg-danger position-absolute top-0 start-0 m-2 small">25% OFF</span>
+            <!-- Discount Badge -->
 
-                                    <!-- Product Image -->
-                                    <img src="../Server/uploads/<?= $row['image_url']; ?>" class="img-fluid rounded-3 mb-2" alt="Product">
+            <!-- Product Image -->
+            <div class="ratio ratio-1x1 mb-3">
+                <img 
+                    src="../Server/uploads/<?= $row['image_url']; ?>" 
+                    class="img-fluid rounded-3 object-fit-cover w-100 h-100" 
+                    alt="<?= htmlspecialchars($row['name']) ?>" 
+                    loading="lazy">
+            </div>
 
-                                    <!-- Product Name -->
-                                    <h6 class="fw-semibold mb-1 text-truncate"><?= $row['name'] ?></h6>
+            <!-- Product Name -->
+            <h5 class="fw-semibold mb-2 text-truncate text-dark"><?= $row['name'] ?></h5>
 
-                                    <!-- Price -->
-                                    <p class="mb-1">
-                                        <span class="fw-bold text-success">Rs.<?= $row['price'] ?></span>
-                                        <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
-                                    </p>
+            <!-- Price -->
+            <p class="mb-2">
+                <span class="fw-bold text-success fs-6">Rs.<?= $row['price'] ?></span>
+                <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
 
-                                    <!-- Rating -->
-                                    <div class="text-warning small mb-2">★★★★☆ <span class="text-muted">(1)</span></div>
+            <!-- Rating -->
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
 
-                                    <!-- Action Button -->
-                                    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="btn btn-sm btn-outline-primary w-100 fw-semibold mb-3">View Details</a>
-                                    <a class="btn btn-primary fw-bold w-100" onclick="addToCart(<?= $product_id; ?>)">Add to Cart</a>
-                                </div>
-                            </div>
+        </div>
+    </a>
+</div>
+
 
                         <?php } ?>
                     </div>
