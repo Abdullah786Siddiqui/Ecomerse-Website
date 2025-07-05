@@ -1,3 +1,46 @@
+
+   .search-box {
+     border-radius: 0;
+   }
+
+   .search-btn {
+     border-radius: 0 5px 5px 0;
+   }
+
+   @media (max-width: 768px) {
+     .offcanvas-mobile-75 {
+       width: 75% !important;
+     }
+   }
+
+   .dropdown-menu.show {
+     z-index: 1100;
+   }
+
+   .nav-link {
+     font-weight: 500;
+   }
+
+   .dropdown-menu-country {
+     min-width: 250px;
+     max-height: 300px;
+     overflow-y: auto;
+   }
+
+   .dropdown-item input {
+     margin-right: 10px;
+   }
+
+   .country-flag,
+   .lang-flag {
+     width: 20px;
+     margin-right: 10px;
+   }
+
+   .dropdown-menu .dropdown-item.active,
+   .dropdown-menu .dropdown-item:hover {
+     background-color: #f1f1f1;
+   }
 Carousel image size .carousel-item {
   transition: opacity 0.8s ease-in-out;
   height: 500px;

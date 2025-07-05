@@ -1,9 +1,5 @@
-<?php 
+<?php
 session_start();
 unset($_SESSION['user_id']);
 
-header("Location: ./index.php");  
-exit();
-
-
-?>
+echo '<script>window.location.href = "../Client/index.php"</script>';

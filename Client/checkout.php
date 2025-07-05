@@ -4,12 +4,6 @@
   include './Components/header.html';
   include './includes/Navbar.php';
 
-if (!isset($_SESSION['user_id'])) {
-  // include("../Client/login.php")
- echo '<script>window.location.href = "../Client/login.php"</script>';
-  
-}
-
 
 
   $user_id = $_SESSION['user_id'] ?? "";

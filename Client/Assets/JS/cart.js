@@ -93,27 +93,4 @@ function checkCartBeforePay() {
     });
 }
 
-function checkCartBeforeCheckout() {
-  fetch("../Server/Process/checkout-check.php", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: "productid=123",
-  })
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        window.location.href = `./checkout.php?${data.productId}`;
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: data.message,
-        });
-      }
-    })
-    .catch((error) => {
-      console.error("Fetch error:", error);
-    });
-}
+

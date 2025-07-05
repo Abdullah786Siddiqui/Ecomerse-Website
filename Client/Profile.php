@@ -47,23 +47,20 @@ $user_id = $_SESSION['user_id'];
   }
 </style>
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid" >
+  <div class="row" >
     <?php
     $sql = "SELECT * FROM users where  id = $user_id";
     $result = $conn->query($sql);
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-md-3 col-lg-2 sidebar p-0">
+     <div class="col-md-3 col-lg-2 sidebar p-0">
         <div class="p-4">
           <h5>Your Account</h5>
           <small class="text-muted d-block mb-3"><?= $row['name'] ?></small>
-          <a href="#" class="active">My Orders</a>
-          <a href="#">Your Addresses</a>
-          <a href="#">Login & Security</a>
-          <a href="#">Payments</a>
-          <a href="#">Archived Orders</a>
+          <a href="./homeprofile.php" id="Home" >Home</a>
+          <a href="./Profile.php" class="active" id='myorders'>My Orders</a>
           <a href="#">Saved Items</a>
           <hr />
           <a href="#">Customer Support</a>
@@ -82,7 +79,7 @@ $user_id = $_SESSION['user_id'];
           <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#current">In Progress</button>
         </li>
         <li class="nav-item" role="presentation">
-          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#unpaid">To Pay</button>
+          <button class="nav-link" data-bs-toggle="tab" data-bs-target="#unpaid">Complete</button>
         </li>
         <li class="nav-item" role="presentation">
           <button class="nav-link" data-bs-toggle="tab" data-bs-target="#all">All Orders</button>
@@ -90,7 +87,7 @@ $user_id = $_SESSION['user_id'];
       </ul>
       <!-- in Progress -->
       <div class="tab-content">
-        <div class="tab-pane fade show active" id="current">
+        <div >
           <?php
           $sql_pending_shipped = "
  
@@ -438,7 +435,12 @@ WHERE order_items.order_id = $order_id";
 
     </div>
   </div>
+ <script>
+  let myorders = document.getElementById('myorders')
+  let Home = document.getElementById('myorders')
 
+  document.getElementById('order-display')
+ </script>
 
 
 

@@ -149,7 +149,7 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
     </div>
 
     <!-- Subcategory & Brand -->
-    <div class="row g-3 mt-2">
+    <div class="row g-3 ">
       <div class="col-md-6">
         <label class="form-label">Subcategory <span class="text-danger">*</span></label>
         <select name="subcategory_id" id="subcategory" class="form-select">
@@ -199,7 +199,7 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
       });
     </script>
     <!-- Description -->
-    <div class="mt-3">
+    <div class="mt-1">
       <label class="form-label">Description <span class="text-danger">*</span></label>
       <textarea name="description" id="product-description" class="form-control" rows="3" placeholder="Enter product description" maxlength="100"></textarea>
       <p class="text-danger " id="description-error"></p>
@@ -259,6 +259,8 @@ document.getElementById('product-image').addEventListener('change', function(eve
 <!-- Then your custom JS files -->
 <script src="./assets/JS/add-Product.js"></script>
 <script src="./assets/JS/subcategory.js"></script>
+<script src="./assets/JS/admin.js"></script>
+
 
 
 

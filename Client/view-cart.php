@@ -15,9 +15,9 @@ $subtotal = 0;
 
 </style>
 
-<div class="container">
+<div  class="container">
   
-  <div class="bag-section ">
+  <div style="background-color: whitesmoke;" class="bag-section ">
     <?php
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     ?>
