@@ -14,18 +14,11 @@ $email = $_POST['register_email'] ?? '';
 $password = $_POST['register_password'] ?? '';
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
-// Insert user
-$sql = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$hashedPassword')";
-$result = $conn->query($sql);
 
-if (!$result) {
-    echo json_encode(['success' => false, 'message' => 'Failed to save user']);
-    exit;
-}
 
 // Insert OTP
 $otp = rand(100000, 999999);
-$sql = "INSERT INTO otp_verification (name, email, otp) VALUES ('$name','$email','$otp')";
+$sql = "INSERT INTO otp_verification (name, email, otp,password) VALUES ('$name','$email','$otp','$hashedPassword')";
 $result = $conn->query($sql);
 
 if (!$result) {

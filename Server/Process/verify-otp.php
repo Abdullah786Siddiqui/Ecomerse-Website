@@ -11,13 +11,38 @@ if (empty($email) || empty($inputOtp)) {
   exit;
 }
 
-$sql = "SELECT id FROM otp_verification WHERE email = '$email' AND otp = '$inputOtp' ORDER BY created_at DESC LIMIT 1";
+$sql = "SELECT * FROM otp_verification WHERE email = '$email' AND otp = '$inputOtp' ORDER BY created_at DESC LIMIT 1";
 
 $result = $conn->query($sql);
+if (!$result) {
+  echo json_encode([
+    'success' => false,
+    'message' => 'Database query failed: ' . $conn->error
+  ]);
+  exit;
+}
 
 if ($row = $result->fetch_assoc()) {
 
-  echo json_encode(['success' => true, 'message' => 'OTP verified']);
+  $name = $row['name'];
+  $hashedPassword = $row['password'];
+
+
+  $sqlInsert = "INSERT INTO users (name,email,password) VALUES ('$name','$email','$hashedPassword')";
+  if ($conn->query($sqlInsert)) {
+    $_SESSION['user_id'] = $conn->insert_id;
+
+    $sqlDelete = "DELETE FROM otp_verification WHERE email = '$email'";
+    $conn->query($sqlDelete);
+
+
+    echo json_encode(['success' => true, 'message' => 'OTP verified. Account created.']);
+    exit;
+  } else {
+    echo json_encode(['success' => false, 'message' => 'Failed to create user: ' . $conn->error]);
+    exit;
+  }
 } else {
   echo json_encode(['success' => false, 'message' => 'Invalid OTP']);
+  exit;
 }

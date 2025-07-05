@@ -10,6 +10,8 @@
     $result = $conn->query($sql);
     if ($row = $result->fetch_assoc()) {
       $username = $row['name'];
+      $email = $row['email'];
+
     }
   }
   ?>
@@ -307,7 +309,7 @@
            <div class="text-center mb-2">
              <img src="../Server/uploads/Abdullah.png" width="45" height="45" class="rounded-circle mb-1">
              <div><strong><?= htmlspecialchars($username) ?></strong></div>
-             <small class="text-muted text-truncate"><?= htmlspecialchars($row['email']) ?></small>
+             <small class="text-muted text-truncate"><?= htmlspecialchars($email) ?></small>
              <a href="./homeprofile.php" class="btn btn-outline-primary btn-sm w-100 mt-2">Profile</a>
            </div>
            <hr class="my-2">
