@@ -570,6 +570,7 @@
 <!-- <a href="logout.php" class="btn btn-danger">Logout</a> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+
 <?php include 'Components/footer.html';
 
 

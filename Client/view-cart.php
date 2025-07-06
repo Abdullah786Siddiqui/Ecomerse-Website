@@ -120,7 +120,7 @@ $subtotal = 0;
         <span class="fw-bold text-dark cart-subtotal">£<?= $subtotal ?></span>
       </div>
 
-      <a onclick="checkCartBeforeCheckout()" class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
+      <a href="./checkout.php" class="btn btn-primary w-100 fw-bold py-2 mb-2">Go to Checkout</a>
       <a class="w-100 btn btn-warning text-white w-100 fw-bold py-2" type="submit">Continue Shopping</a>
     </div>
 

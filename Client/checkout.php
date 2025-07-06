@@ -123,7 +123,7 @@
                <?php
 
                 }
-                $_SESSION['subtotal'] = $subtotal;
+                $_SESSION['final_subtotal'] = $subtotal;
               } else {
                 ?>
 
@@ -275,9 +275,14 @@
              <span class="fw-bold text-dark cart-subtotal">$ <?= $subtotal ?></span>
 
            </div>
+           <?php if (empty($_SESSION['cart'])): ?>
+             <a class="btn btn-primary disabled text-white w-100 fw-bold py-2" href="#">Proceed to Pay</a>
+           <?php else: ?>
+             <a class="btn btn-primary text-white w-100 fw-bold py-2" href="./Payment.php">Proceed to Pay</a>
+           <?php endif; ?>
 
 
-           <a onclick="checkCartBeforePay()" class="btn btn-primary text-white w-100 fw-bold py-2">Proceed to Pay</a>
+
          </div>
 
          <div class="card p-3">

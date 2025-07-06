@@ -87,7 +87,9 @@ $user_id = $_SESSION['user_id'];
       </ul>
       <!-- in Progress -->
       <div class="tab-content">
-        <div >
+         <div class="tab-pane fade show active" id="current">
+        
+        
           <?php
           $sql_pending_shipped = "
  
@@ -205,6 +207,7 @@ WHERE order_items.order_id = $order_id_ps";
 
         <!-- to pay -->
         <div class="tab-pane fade" id="unpaid">
+          
           <?php
           $sql_del = "
 SELECT
@@ -430,7 +433,7 @@ WHERE order_items.order_id = $order_id";
             </div>
           <?php } ?>
         </div>
-
+<div >
       </div>
 
     </div>

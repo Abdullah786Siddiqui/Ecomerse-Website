@@ -8,8 +8,6 @@ window.addToCart = function (productId) {
   })
     .then((response) => response.text())
     .then((data) => {
-     
-
       Swal.fire({
         position: "top-end",
         icon: "success",
@@ -28,11 +26,17 @@ window.addToCart = function (productId) {
         hideClass: {
           popup: "animate__animated animate__fadeOut",
         },
+      }).then(() => {
+        if (!isLoggedIn) {
+          if (window.location.href.includes("product-detail.php")) {
+            window.location.reload();
+          }
+        }
       });
     })
     .catch((error) => console.error("Error:", error));
 };
-window.buynow = function(productId) {
+window.buynow = function (productId) {
   fetch("../Server/Process/add-to-cart.php", {
     method: "POST",
     headers: {
@@ -44,7 +48,7 @@ window.buynow = function(productId) {
     .then(() => {
       window.location.href = "../Client/checkout.php";
     });
-}
+};
 function removeCart(productid) {
   fetch("../Server/Process/delete-cart.php", {
     method: "POST",
@@ -69,22 +73,9 @@ function removeCart(productid) {
         document.querySelectorAll(".cart-subtotal").forEach((element) => {
           element.innerText = "£" + data.subtotal;
         });
-      }
-    });
-}
-
-function checkCartBeforePay() {
-  fetch("../Server/Process/check-cart.php")
-    .then((response) => response.json())
-    .then((data) => {
-      if (data.success) {
-        window.location.href = "./Payment.php";
-      } else {
-        Swal.fire({
-          icon: "error",
-          title: "Oops...",
-          text: data.message,
-        });
+        //         if (window.location.pathname.includes('checkout.php') || window.location.pathname.includes('payment.php')) {
+        //     location.reload();
+        // }
       }
     });
 }

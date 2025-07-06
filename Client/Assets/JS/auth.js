@@ -142,27 +142,28 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
+          // agar login successful hai to swal show karo
           Swal.fire({
             icon: "success",
             title: `<span style="
-      font-size: 1.2rem;
-      font-weight: 600;
-      color: #2f855a;
-  ">Login Successful!</span>`,
+                font-size: 1.2rem;
+                font-weight: 600;
+                color: #2f855a;
+            ">Login Successful!</span>`,
             html: `
-    <p style="
-      color: #4a5568; 
-      font-size: 0.85rem; 
-      margin: 0;
-    ">Welcome back!</p>
-  `,
+              <p style="
+                color: #4a5568; 
+                font-size: 0.85rem; 
+                margin: 0;
+              ">Welcome back!</p>
+            `,
             position: "center",
             showConfirmButton: false,
             timer: 1000,
             timerProgressBar: true,
             background: "#f0fff4",
             color: "#2f855a",
-            width: "22rem", // smaller width
+            width: "22rem",
             customClass: {
               popup: "small-swal-popup",
             },
@@ -172,27 +173,31 @@ document.addEventListener("DOMContentLoaded", () => {
               popup.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
               popup.style.padding = "1rem";
             },
-          }).then(() => {
-            document.getElementById("authModal").classList.add("d-none");
 
-            const action = sessionStorage.getItem("postLoginAction");
-            sessionStorage.removeItem("postLoginAction");
-            const actionData2 = sessionStorage.getItem(
-              "postLoginActioncheckout"
-            );
-            sessionStorage.removeItem("postLoginActioncheckout");
-            if (action) {
-              window.location.href = action;
-            } else if (actionData2) {
-              const { productId, action } = JSON.parse(actionData2);
-              if (action === "buy") {
-                buynow(productId);
-              } else {
-                addToCart(productId);
+            // yahan redirect ka code shift kar diya
+            willClose: () => {
+              document.getElementById("authModal").classList.add("d-none");
+
+              const action = sessionStorage.getItem("postLoginAction");
+              sessionStorage.removeItem("postLoginAction");
+
+              const actionData2 = sessionStorage.getItem(
+                "postLoginActioncheckout"
+              );
+              sessionStorage.removeItem("postLoginActioncheckout");
+              if (action) {
+                window.location.href = action;
+              } else if (actionData2) {
+                const { productId, action } = JSON.parse(actionData2);
+                if (action === "buy") {
+                  buynow(productId);
+                } else {
+                  addToCart(productId);
+                }
+              } else if (data.redirect) {
+                window.location.href = data.redirect;
               }
-            } else {
-              window.location.reload();
-            }
+            },
           });
         } else {
           if (data.error === "email") {

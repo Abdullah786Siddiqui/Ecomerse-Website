@@ -2,7 +2,7 @@
 include_once 'Components/header.html';
 include_once './includes/Navbar.php';
 
-$subtotal = $_SESSION['subtotal'];
+$final_subtotal = $_SESSION['final_subtotal'] ?? 0;
 //  if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
 ?>
 
@@ -185,7 +185,7 @@ $subtotal = $_SESSION['subtotal'];
 
           <div class="d-flex justify-content-between mb-2">
             <span class="text-muted">Subtotal</span>
-            <span class="fw-bold cart-subtotal">£<?= $subtotal ?></span>
+            <span class="fw-bold cart-subtotal ">£<?= $final_subtotal?></span>
           </div>
 
           <div class="d-flex justify-content-between mb-2">
@@ -197,7 +197,7 @@ $subtotal = $_SESSION['subtotal'];
 
           <div class="d-flex justify-content-between mb-3">
             <span class="fw-bold">Total (VAT included)</span>
-            <span class="fw-bold text-dark cart-subtotal">£<?= $subtotal ?></span>
+            <span class="fw-bold text-dark cart-subtotal">£<?= $final_subtotal ?></span>
           </div>
 
         </div>
