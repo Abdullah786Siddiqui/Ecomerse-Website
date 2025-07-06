@@ -18,6 +18,7 @@ $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
 
 // Insert OTP
 $otp = rand(100000, 999999);
+ $_SESSION['otp_record'] = $otp;
 $sql = "INSERT INTO otp_verification (name, email, otp,password) VALUES ('$name','$email','$otp','$hashedPassword')";
 $result = $conn->query($sql);
 
@@ -58,7 +59,6 @@ try {
     ";
 
     $mail->send();
-
 } catch (Exception $e) {
     echo json_encode(['success' => false, 'message' => "Mailer Error: {$mail->ErrorInfo}"]);
     exit;

@@ -16,23 +16,22 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
 
       if ($row['role'] === "admin") {
         $_SESSION['admin_id'] = $row['id'];
-
-        header("Location: ../Admin-Panel/Dashbboard.php");
-        exit();
+        echo json_encode(['success' => true, 'redirect' => '../Server/Admin-Panel/Dashbboard.php']);
+        exit;
       }
       if ($row['role'] === "user") {
         $_SESSION['user_id'] = $row['id'];
-        header("Location: ../../Client/index.php");
-        exit();
+        echo json_encode(['success' => true, 'redirect' => '../Client/index.php']);
+        exit;
       }
     } else {
-      header("Location: ../../Client/includes/AuthModal.php?password=invalid");
+      echo json_encode(['success' => false, 'error' => 'password']);
       exit();
     }
   } else {
-    header("Location: ../../Client/includes/AuthModal.php?email=invalid");
+    echo json_encode(['success' => false, 'error' => 'email']);
     exit;
   }
 } else {
-  echo "Invalid request method.";
+  echo json_encode(['success' => false, 'message' => 'Invalid request method.']);
 }

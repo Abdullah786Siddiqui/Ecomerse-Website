@@ -12,27 +12,28 @@ $validity_password = $_GET['password'] ?? '';
       <div class="modal-body bg-light px-4 py-4">
 
         <!-- Login Form -->
-        <form id="loginForm" method="post" action="../Server/Process/login-process.php" class="auth-form">
+        <form id="loginForm" class="auth-form">
           <div class="mb-3">
             <label class="form-label text-muted small">Email</label>
             <input type="email" name="login_email" class="form-control" placeholder="you@example.com" required>
+            <div id="emailError" class="error text-danger mt-1"></div>
+
           </div>
-          <div class="error text-danger mt-1">
-            <?= ($validity_email === "invalid") ? "Invalid Email" : "" ?>
-          </div>
+
           <div class="mb-3">
             <label class="form-label text-muted small">Password</label>
             <input type="password" name="login_password" class="form-control" placeholder="Enter your password" required>
+            <div id="passwordError" class="error text-danger mt-1"></div>
+
           </div>
-          <div class="error text-danger mt-1">
-            <?= ($validity_password === "invalid") ? "Invalid Password" : "" ?>
-          </div>
+
           <button type="submit" class="btn btn-dark w-100 fw-semibold py-2">Login</button>
           <p class="text-center mt-3 small text-muted">
             Don't have an account?
             <a href="#" onclick="showSignup()" class="text-decoration-none">Signup</a>
           </p>
         </form>
+
 
         <!-- Signup Form -->
         <!-- Signup form -->
@@ -57,19 +58,25 @@ $validity_password = $_GET['password'] ?? '';
               Already have an account?
               <a href="#" onclick="showLogin()" class="text-decoration-none">Login</a>
             </p>
+
           </div>
 
 
         </form>
 
         <!-- OTP verification section -->
-       <div id="otp-section" class="auth-form d-none mt-3">
-  <div class="mb-3">
-    <label class="form-label text-muted small">Enter OTP sent to your email</label>
-    <input type="text" name="otp" class="form-control" placeholder="6-digit OTP" required>
-  </div>
-  <button type="button" id="verifyOtpBtn" class="btn btn-dark w-100 fw-semibold py-2">Verify OTP</button>
-</div>
+        <div id="otp-section" class="auth-form d-none mt-3">
+          <div class="mb-3">
+            <label class="form-label text-muted small">Enter OTP sent to your email</label>
+            <input type="text" name="otp" class="form-control" placeholder="6-digit OTP" required>
+          <div id="otperror" class="error text-danger mt-1"></div>
+          </div>
+
+          <button type="button" id="verifyOtpBtn" class="btn btn-dark w-100 fw-semibold py-2">Verify OTP</button>
+        </div>
+
+
+
 
 
 

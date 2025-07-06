@@ -1,3 +1,5 @@
+
+
 function checkauth() {
   if (isLoggedIn) {
     window.location.href = "./view-cart.php";
@@ -65,6 +67,7 @@ form.addEventListener("submit", function (e) {
 // Verify OTP
 document.getElementById("verifyOtpBtn").addEventListener("click", function () {
   const otp = document.querySelector('input[name="otp"]').value;
+  document.getElementById("otperror").textContent = "";
 
   fetch("../Server/Process/verify-otp.php", {
     method: "POST",
@@ -79,10 +82,47 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
         alert("Signup complete!");
         window.location.reload();
       } else {
-        alert(response.message || "Invalid OTP");
+        document.getElementById("otperror").textContent = "Invalid OTP";
       }
     })
     .catch(() => {
       alert("Something went wrong verifying OTP.");
     });
+});
+
+document.addEventListener("DOMContentLoaded", () => {
+  const form = document.getElementById("loginForm");
+
+  form.addEventListener("submit", (e) => {
+    e.preventDefault();
+
+    // Clear old errors
+    document.getElementById("emailError").textContent = "";
+    document.getElementById("passwordError").textContent = "";
+
+    const formData = new FormData(form);
+
+    fetch("../Server/Process/login-process.php", {
+      method: "POST",
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          window.location.href = data.redirect;
+        } else {
+          if (data.error === "email") {
+            document.getElementById("emailError").textContent = "Invalid email";
+          }
+          if (data.error === "password") {
+            document.getElementById("passwordError").textContent =
+              "Invalid password";
+          }
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+        alert("Something went wrong.");
+      });
+  });
 });
