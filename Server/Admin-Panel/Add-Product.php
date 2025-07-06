@@ -5,7 +5,7 @@ include("./Sidebar.php");
 <?php
 if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $name = $_POST['name'];
-  $description = mysqli_real_escape_string($conn, $_POST['description']);
+  $description =  $_POST['description'];
 
   $price = $_POST['price'];
   $category_id = $_POST['category_id'];

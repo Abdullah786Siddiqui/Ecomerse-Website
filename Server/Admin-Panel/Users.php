@@ -82,13 +82,13 @@ include("./Sidebar.php");
       </thead>
       <tbody>
         <?php
-        $sql = "SELECT users.name , users.id as user_id , users.role , users.status , users.email ,users.created_at ,addresses.phone FROM users INNER JOIN addresses on users.id = addresses.user_id";
+        $sql = "SELECT * from users";
         $result = $conn->query($sql);
         while ($row = $result->fetch_assoc()) {
 
         ?>
           <tr>
-            <td><?= $row['user_id'] ?></td>
+            <td><?= $row['id'] ?></td>
             <td><?= $row['name'] ?></td>
             <td><?= $row['email'] ?></td>
             <td><?= $row['phone'] ?></td>
