@@ -409,6 +409,10 @@ if ($row = $result->fetch_assoc()) {
               addToCart(productId);
             }
           } else {
+            sessionStorage.setItem('postLoginActioncheckout', JSON.stringify({
+              productId,
+              action
+            }));
             showLoginModal();
           }
         }

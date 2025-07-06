@@ -1,4 +1,4 @@
-function addToCart(productId) {
+window.addToCart = function (productId) {
   fetch("../Server/Process/add-to-cart.php", {
     method: "POST",
     headers: {
@@ -8,31 +8,31 @@ function addToCart(productId) {
   })
     .then((response) => response.text())
     .then((data) => {
-      console.log(data);
+     
 
-     Swal.fire({
-  position: "top-end",
-  icon: "success",
-  title: "✅ Product successfully added!",
-  showConfirmButton: false,
-  timer: 2000,
-  toast: true,
-  customClass: {
-    popup: "custom-swal-toast",
-    title: "custom-swal-title",
-  },
-  showClass: {
-    popup: "animate__animated animate__fadeIn",
-  },
-  hideClass: {
-    popup: "animate__animated animate__fadeOut",
-  },
-});
-
+      Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "✅ Product successfully added!",
+        showConfirmButton: false,
+        timer: 2000,
+        toast: true,
+        backdrop: false,
+        customClass: {
+          popup: "custom-swal-toast",
+          title: "custom-swal-title",
+        },
+        showClass: {
+          popup: "animate__animated animate__fadeIn",
+        },
+        hideClass: {
+          popup: "animate__animated animate__fadeOut",
+        },
+      });
     })
     .catch((error) => console.error("Error:", error));
-}
-function buynow(productId) {
+};
+window.buynow = function(productId) {
   fetch("../Server/Process/add-to-cart.php", {
     method: "POST",
     headers: {
@@ -58,9 +58,9 @@ function removeCart(productid) {
       if (data.success) {
         document.querySelector(`.bag-item[data-id="${productid}"]`)?.remove();
 
-     if (data.cart_count === 0) {
-  location.reload();
-}
+        if (data.cart_count === 0) {
+          location.reload();
+        }
 
         document.querySelectorAll(".cart-count").forEach((element) => {
           element.innerText = data.cart_count;
@@ -69,13 +69,9 @@ function removeCart(productid) {
         document.querySelectorAll(".cart-subtotal").forEach((element) => {
           element.innerText = "£" + data.subtotal;
         });
-
-
-
       }
     });
 }
-
 
 function checkCartBeforePay() {
   fetch("../Server/Process/check-cart.php")
@@ -92,5 +88,3 @@ function checkCartBeforePay() {
       }
     });
 }
-
-

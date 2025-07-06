@@ -66,10 +66,11 @@ $user_id = $_SESSION['user_id'];
       <div class="card shadow-lg border-0 rounded-4 mt-4 p-4 bg-white">
         <div class="card-body">
           <!-- Header -->
+         
           <div class="d-flex flex-column flex-sm-row align-items-center text-center text-sm-start gap-4 mb-4">
             <div>
               <img
-                src="../Server/uploads/Abdullah.png"
+                src=""
                 alt="User Avatar"
                 class="rounded-circle img-fluid shadow"
                 style="width: 120px; height: 120px; object-fit: cover;">

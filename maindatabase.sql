@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2025 at 01:31 PM
+-- Generation Time: Jul 06, 2025 at 01:05 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -45,8 +45,8 @@ CREATE TABLE `addresses` (
 --
 
 INSERT INTO `addresses` (`id`, `user_id`, `full_name`, `phone`, `address_line1`, `city`, `country`, `type`, `created_at`, `updated_at`) VALUES
-(20, 4, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-01 18:52:34', '2025-07-01 18:52:34'),
-(21, 4, 'Abdullah Siddiqui', '03160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'shipping', '2025-07-01 18:52:34', '2025-07-01 18:52:34');
+(22, 9, 'Haris', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-04 04:14:18', '2025-07-04 04:14:18'),
+(25, 41, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-06 01:44:07', '2025-07-06 01:44:07');
 
 -- --------------------------------------------------------
 
@@ -129,14 +129,10 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`, `payment_method`) VALUES
-(24, 4, 20, 0.00, 'cancelled', '2025-07-03 03:36:26', 'Cash'),
-(35, 4, 20, 90000.00, 'pending', '2025-07-03 06:37:30', 'Cash'),
-(36, 4, 20, 90000.00, 'pending', '2025-07-03 06:38:51', 'Cash'),
-(37, 4, 20, 25000.00, 'pending', '2025-07-03 06:48:07', 'Cash'),
-(38, 4, 20, 80000.00, 'shipped', '2025-07-03 06:55:09', 'Cash'),
-(39, 4, 20, 125000.00, 'delivered', '2025-07-03 06:56:06', 'Cash'),
-(40, 4, 20, 12500.00, 'pending', '2025-07-03 11:14:33', 'Cash'),
-(41, 4, 20, 578.00, 'pending', '2025-07-03 11:30:31', 'Cash');
+(53, 9, 22, 35378.00, 'pending', '2025-07-04 18:54:34', 'Cash'),
+(54, 9, 22, 41816.00, 'shipped', '2025-07-04 18:56:33', 'Cash'),
+(55, 9, 22, 578.00, 'delivered', '2025-07-05 10:48:26', 'Cash'),
+(57, 41, 25, 578.00, 'pending', '2025-07-06 01:44:10', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -157,17 +153,12 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(34, 24, 66, 1, 1500.00),
-(52, 35, 26, 1, 156.00),
-(53, 35, 25, 1, 145.00),
-(54, 36, 41, 1, 850.00),
-(55, 37, 34, 1, 12500.00),
-(56, 37, 33, 1, 12500.00),
-(57, 38, 76, 2, 40000.00),
-(58, 39, 87, 2, 50000.00),
-(59, 39, 88, 1, 25000.00),
-(60, 40, 34, 1, 12500.00),
-(61, 41, 46, 1, 578.00);
+(81, 53, 32, 1, 34800.00),
+(82, 54, 46, 2, 578.00),
+(83, 54, 45, 1, 660.00),
+(84, 54, 76, 1, 40000.00),
+(85, 55, 46, 1, 578.00),
+(90, 57, 46, 1, 578.00);
 
 -- --------------------------------------------------------
 
@@ -177,18 +168,12 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 
 CREATE TABLE `otp_verification` (
   `id` int(11) NOT NULL,
-  `phone_number` varchar(20) NOT NULL,
-  `otp_code` varchar(6) NOT NULL,
-  `created_at` timestamp NOT NULL DEFAULT current_timestamp()
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `otp` varchar(10) NOT NULL,
+  `created_at` datetime DEFAULT current_timestamp(),
+  `password` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `otp_verification`
---
-
-INSERT INTO `otp_verification` (`id`, `phone_number`, `otp_code`, `created_at`) VALUES
-(3, '03160116389', '149185', '2025-07-03 08:33:48'),
-(4, '03160116389', '811499', '2025-07-03 08:34:11');
 
 -- --------------------------------------------------------
 
@@ -469,10 +454,12 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`) VALUES
-(2, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$nSWutBAVg8mnAkDv89FYHO694TO9HchMaaTmdEPoSZ.K5iPHk5BvS', NULL, 'admin', 'active', '2025-06-23 18:00:58', '2025-06-23 18:04:48'),
-(4, 'Mohsin', 'Mohsin333@gmail.com', '$2y$10$tkE/F3RHsLWS8855LA3nvuohw3Ko1k/XTEam/IMLKkK4h6qNwMubO', NULL, 'user', 'active', '2025-06-23 18:22:41', '2025-06-23 18:22:41'),
-(5, ' mohsin', 'mohsin@gmail.com', '$2y$10$q79npd79GkVgfJn0273Xuu3c5sIhgv244xlzbcGfQYiIWlbAZENP2', NULL, 'admin', 'active', '2025-06-28 00:15:42', '2025-06-28 00:29:47'),
-(6, 'syeda', 'Syeda@gmail.com', '$2y$10$fMHGaC1MayHPq.OoDBJ0WuGkGBIPY9fN8aL8SV2voidVgpH2AsbIO', NULL, 'user', 'active', '2025-06-29 00:19:59', '2025-06-29 00:19:59');
+(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-04 09:07:46'),
+(14, 'Zubair', 'Zubair333@gmail.com', '$2y$10$gT2vJeyGiIabM77jDoLsu.6eID/YYSYiqlt5GTapmYV1z09tcsmL2', NULL, 'user', 'active', '2025-07-06 01:04:08', '2025-07-06 01:04:08'),
+(15, 'Laiba', 'laiba333@gmail.com', '$2y$10$jHa/2FycRJ.Ryxt9bKbLU.k9oF7UtZb2Hc.waX1sXXPuvN2g8ePEW', NULL, 'user', 'active', '2025-07-06 01:08:10', '2025-07-06 01:08:10'),
+(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00'),
+(41, 'Abdullah', 'abdullahsidzz444@gmail.com', '$2y$10$22YisuPbuB.KeRQo8ocqjeuj3ZRNpDcLnskceu4fX.dyzhVNeOfnW', NULL, 'user', 'active', '2025-07-06 06:43:48', '2025-07-06 06:43:48'),
+(42, '', '', '', '+923160116389', 'user', 'active', '2025-07-06 06:44:07', '2025-07-06 06:44:07');
 
 --
 -- Indexes for dumped tables
@@ -556,7 +543,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -574,19 +561,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
 --
 ALTER TABLE `otp_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -610,7 +597,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
 
 --
 -- Constraints for dumped tables

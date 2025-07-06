@@ -1,9 +1,8 @@
-
-
 function checkauth() {
   if (isLoggedIn) {
     window.location.href = "./view-cart.php";
   } else {
+    sessionStorage.setItem("postLoginAction", "./view-cart.php");
     showLoginModal();
   }
 }
@@ -41,7 +40,6 @@ function showAuthModal(type) {
 const form = document.getElementById("signupForm");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
-  console.log("sigup function chala");
 
   const form = e.target;
   const formData = new FormData(form);
@@ -56,7 +54,7 @@ form.addEventListener("submit", function (e) {
         document.getElementById("signup-section").classList.add("d-none");
         document.getElementById("otp-section").classList.remove("d-none");
       } else {
-        alert(response.message || "Signup failed");
+        alert("Signup failed");
       }
     })
     .catch(() => {
@@ -79,8 +77,43 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
     .then((res) => res.json())
     .then((response) => {
       if (response.success) {
-        alert("Signup complete!");
-        window.location.reload();
+        Swal.fire({
+          icon: "success",
+          title: `<span style="
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2f855a;
+  ">Register Successfuliy!</span>`,
+          html: `
+    <p style="
+      color: #4a5568; 
+      font-size: 0.85rem; 
+      margin: 0;
+    ">Welcome to Alexa!</p>
+  `,
+          position: "center",
+          showConfirmButton: false,
+          timer: 1000,
+          timerProgressBar: true,
+          background: "#f0fff4",
+          color: "#2f855a",
+          width: "22rem", // smaller width
+          customClass: {
+            popup: "small-swal-popup",
+          },
+          didOpen: () => {
+            const popup = Swal.getPopup();
+            popup.style.borderRadius = "0.75rem";
+            popup.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+            popup.style.padding = "1rem";
+          },
+        }).then(() => {
+          document.getElementById("otp-section").classList.remove("d-none");
+          window.location.reload();
+        });
+
+        // document.getElementById("otp-section").classList.remove("d-none");
+        // window.location.reload();
       } else {
         document.getElementById("otperror").textContent = "Invalid OTP";
       }
@@ -109,7 +142,58 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          window.location.href = data.redirect;
+          Swal.fire({
+            icon: "success",
+            title: `<span style="
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #2f855a;
+  ">Login Successful!</span>`,
+            html: `
+    <p style="
+      color: #4a5568; 
+      font-size: 0.85rem; 
+      margin: 0;
+    ">Welcome back!</p>
+  `,
+            position: "center",
+            showConfirmButton: false,
+            timer: 1000,
+            timerProgressBar: true,
+            background: "#f0fff4",
+            color: "#2f855a",
+            width: "22rem", // smaller width
+            customClass: {
+              popup: "small-swal-popup",
+            },
+            didOpen: () => {
+              const popup = Swal.getPopup();
+              popup.style.borderRadius = "0.75rem";
+              popup.style.boxShadow = "0 4px 12px rgba(0,0,0,0.1)";
+              popup.style.padding = "1rem";
+            },
+          }).then(() => {
+            document.getElementById("authModal").classList.add("d-none");
+
+            const action = sessionStorage.getItem("postLoginAction");
+            sessionStorage.removeItem("postLoginAction");
+            const actionData2 = sessionStorage.getItem(
+              "postLoginActioncheckout"
+            );
+            sessionStorage.removeItem("postLoginActioncheckout");
+            if (action) {
+              window.location.href = action;
+            } else if (actionData2) {
+              const { productId, action } = JSON.parse(actionData2);
+              if (action === "buy") {
+                buynow(productId);
+              } else {
+                addToCart(productId);
+              }
+            } else {
+              window.location.reload();
+            }
+          });
         } else {
           if (data.error === "email") {
             document.getElementById("emailError").textContent = "Invalid email";
