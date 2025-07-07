@@ -2,7 +2,7 @@
  include_once 'Components/header.html';
  include_once './includes/Navbar.php';
 
-
+ 
 ?>
 
 <!-- Carousel Section -->

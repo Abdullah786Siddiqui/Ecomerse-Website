@@ -1,7 +1,16 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ./index.php"); 
+    exit();
+}
 include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
+
 $user_id = $_SESSION['user_id'];
 
 ?>
@@ -11,6 +20,7 @@ $user_id = $_SESSION['user_id'];
 <style>
   body {
     background: #f5f6f8;
+     font-weight: 500;
   }
 
   .sidebar {

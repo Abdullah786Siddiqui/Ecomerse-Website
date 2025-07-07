@@ -1,7 +1,16 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+  header("Location: ./index.php");
+  exit();
+}
 include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
+
 $user_id = $_SESSION['user_id'];
 
 ?>
@@ -124,14 +133,16 @@ ORDER BY o.created_at DESC";
                     </div>
                   </div>
                   <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
-                    <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
-                      <i class="bi bi-download fs-6"></i>
-                      <span>Download Invoice</span>
-                    </button>
                     <?php if ($order_ps['status'] === 'delivered') { ?>
                       <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
+                    
+                    <?php } ?>
+                    <?php if ($order_ps['status'] === 'pending') { ?>
+                      <button onclick="orderCancel(<?= $order_ps['order_id']  ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-trash fs-6"></i>
+                        <span>Cancel</span>
                       </button>
                     <?php } ?>
                   </div>
@@ -361,16 +372,32 @@ ORDER BY o.created_at DESC";
 
                   </div>
                   <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
-                    <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
-                      <i class="bi bi-download fs-6"></i>
-                      <span>Download Invoice</span>
-                    </button>
-                    <?php if ($order['status'] === 'delivered') { ?>
+
+                    <?php if (isset($order) && is_array($order) && $order['status'] === 'delivered') { ?>
                       <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
+                      <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-download fs-6"></i>
+                        <span>Download Invoice</span>
+                      </button>
                     <?php } ?>
+                      <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
+                      <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-trash fs-6"></i>
+                        <span>Remove</span>
+                      </button>
+                     
+                    <?php } ?>
+
+                    <?php if (isset($order_ps) && is_array($order_ps) && $order_ps['status'] === 'pending') { ?>
+                      <button onclick="orderCancel(<?= $order_ps['order_id'] ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-trash fs-6"></i>
+                        <span>Cancel</span>
+                      </button>
+                    <?php } ?>
+
                   </div>
                 </div>
 
@@ -447,13 +474,9 @@ WHERE order_items.order_id = $order_id";
 
       </div>
     </div>
-    <script>
-      let myorders = document.getElementById('myorders')
-      let Home = document.getElementById('myorders')
 
-      document.getElementById('order-display')
-    </script>
 
+    <script src="./Assets/JS/order.js"></script>
 
 
 

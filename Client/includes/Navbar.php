@@ -1,7 +1,10 @@
  <?php
-  session_start();
+ if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
   include("../Server/Admin-Panel/config/db.php");
   include $_SERVER['DOCUMENT_ROOT'] . '/Ecomerse-Website/Client/Components/header.html';
+ 
   $is_logged_in = isset($_SESSION['user_id']);
   $username = "";
   if (isset($_SESSION['user_id'])) {
@@ -11,7 +14,6 @@
     if ($row = $result->fetch_assoc()) {
       $username = $row['name'];
       $email = $row['email'];
-
     }
   }
   ?>
@@ -123,6 +125,19 @@
    .auth-form p a:hover {
      text-decoration: underline;
    }
+
+   /* Make dropdowns push content below */
+   .static-dropdown {
+     position: static;
+     /* remove absolute positioning */
+     display: none;
+     /* hide by default */
+   }
+
+   .nav-item.show .static-dropdown {
+     display: block;
+     /* show on open */
+   }
  </style>
 
  <!-- DESKTOP & TABLET NAV -->
@@ -130,25 +145,35 @@
    <div class="container-fluid mx-2">
      <!-- Logo -->
      <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
-       <i class="bi bi-stars" style="color: #2563EB; transform: rotate(45deg);"></i>
-       <strong class="ms-1">Alexa</strong>
+       <strong class="mb-2"><img height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt="">Ecoverse</strong>
      </a>
 
      <!-- Search -->
-     <form class="d-flex flex-grow-1 mx-4" role="search">
+     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
        <div class="input-group flex-grow-1">
-         <select class="form-select" style="max-width: 150px;">
-           <option>All categories</option>
-           <option>Books</option>
-           <option>Music</option>
-           <option>PC</option>
-         </select>
-         <input class="form-control search-box" type="search" placeholder="What can we help you find today?">
-         <button class="btn btn-primary search-btn" type="submit">
+         <input
+           class="form-control search-box searchInput"
+           type="search"
+           placeholder="What can we help you find today?"
+           oninput="searchFunc(this.value)" />
+         <button id="search-btn" class="btn btn-primary " type="submit">
            <i class="bi bi-search"></i>
          </button>
        </div>
+
+       <!-- Card positioned absolutely -->
+       <div
+         class="card position-absolute start-0 w-100  d-none"
+         style="top: 100%; z-index: 1000;"
+         id="resultCard">
+         <div class="card " id='output'>
+         </div>
+       </div>
      </form>
+
+
+
+
 
      <!-- Icons -->
      <div class="d-flex align-items-center gap-3">
@@ -180,22 +205,17 @@
              </div>
              <hr>
              <a class="dropdown-item" href="./homeprofile.php"><i class="bi bi-person me-2"></i> My Account</a>
-             <a class="dropdown-item d-flex justify-content-between align-items-center" href="#">
-               <span><i class="bi bi-lightning-fill me-2"></i> Flowbite</span>
-               <span class="badge bg-primary">PRO</span>
-             </a>
-             <a class="dropdown-item" href="#"><i class="bi bi-wallet2 me-2"></i> My Wallet</a>
+
              <a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i> My Orders</a>
              <a class="dropdown-item" href="#"><i class="bi bi-geo-alt me-2"></i> Delivery Addresses</a>
-             <a class="dropdown-item" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
              <hr>
              <a class="dropdown-item text-danger" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
            </div>
 
          <?php else: ?>
            <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-             <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')" ><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
-             <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')" ><i class="bi bi-pencil-square me-2"></i> Register</a></li>
+             <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
+             <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
 
            </ul>
          <?php endif; ?>
@@ -228,7 +248,7 @@
 
               if ($sub_result->num_rows > 0) {
                 while ($sub_row = $sub_result->fetch_assoc()) {
-                  $subcat_id = $sub_row['id']; // 🔷 یہاں غلطی تھی
+                  $subcat_id = $sub_row['id'];
               ?>
                  <li>
                    <a class="dropdown-item" href="./products.php?subcategory_id=<?= $subcat_id ?>">
@@ -280,16 +300,12 @@
 
    <!-- Left: Brand -->
    <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
-     <i class="bi bi-stars" style="color: #2563EB; transform: rotate(45deg);"></i>
-     <strong class="ms-1">Alexa</strong>
+     <strong class="ms-1"><img height="29px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt="">Ecoverse</strong>
    </a>
 
    <!-- Middle: Icons -->
    <div class="d-flex align-items-center gap-3">
      <!-- Search -->
-     <a href="#" class="text-dark position-relative">
-       <i class="bi bi-search fs-5"></i>
-     </a>
 
      <!-- Cart -->
      <a onclick="checkauth()" class="nav-link position-relative cursor-pointer">
@@ -314,24 +330,19 @@
            </div>
            <hr class="my-2">
            <a class="dropdown-item py-1" href="./homeprofile.php"><i class="bi bi-person me-2"></i> Account</a>
-           <a class="dropdown-item py-1 d-flex justify-content-between align-items-center" href="#">
-             <span><i class="bi bi-lightning-fill me-2"></i> Flowbite</span>
-             <span class="badge bg-primary">PRO</span>
-           </a>
-           <a class="dropdown-item py-1" href="#"><i class="bi bi-wallet2 me-2"></i> Wallet</a>
+
            <a class="dropdown-item py-1" href="#"><i class="bi bi-bag-check me-2"></i> Orders</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-geo-alt me-2"></i> Addresses</a>
-           <a class="dropdown-item py-1" href="#"><i class="bi bi-gear me-2"></i> Settings</a>
            <hr class="my-2">
            <a class="dropdown-item text-danger py-1" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
          </div>
 
        <?php else: ?>
          <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-                   <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')" ><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
-             <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')" ><i class="bi bi-pencil-square me-2"></i> Register</a></li>
+           <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
+           <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
 
-           </ul>
+         </ul>
        <?php endif; ?>
      </div>
 
@@ -339,46 +350,95 @@
  </nav>
 
 
+
  <!-- MOBILE SEARCH & MENU -->
  <nav class="bg-white border-bottom py-2 px-3 d-lg-none  ">
-   <div class="input-group rounded border mb-2">
-     <input type="text" class="form-control border-0 bg-light text-secondary" placeholder="Search in all categories">
-     <button class="btn btn-primary btn-sm fw-bold rounded-3">Search</button>
-   </div>
-   <div class="d-flex align-items-center justify-content-between mb-2">
-     <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="collapse" data-bs-target="#mobileMenu">
-       <i class="bi bi-list"></i> Menu
-     </button>
-     <div class="dropdown">
-       <button class="btn btn-light btn-sm dropdown-toggle" type="button" data-bs-toggle="dropdown">
-         <i class="bi bi-geo-alt"></i> Deliver to: United States
-       </button>
-       <ul class="dropdown-menu dropdown-menu-country p-2 shadow">
-         <li class="dropdown-item"><input type="checkbox"><img src="https://flagcdn.com/ca.svg" class="country-flag"> Canada</li>
-         <li class="dropdown-item"><input type="checkbox" checked><img src="https://flagcdn.com/us.svg" class="country-flag"> US</li>
-       </ul>
-     </div>
+   <div class="input-group rounded  mb-2 ">
+     <form autocomplete="off" class="d-flex flex-grow-1  position-relative " role="search" id="searchForm">
+       <div class="input-group flex-grow-1 ">
+         <input
+           class="form-control search-box searchInput"
+           type="search"
+           placeholder="What can we help you find today?" />
+         <button id="search-btn" class="btn btn-primary " type="submit">
+           <i class="bi bi-search"></i>
+         </button>
+       </div>
+
+       <!-- Card positioned absolutely -->
+       <div
+         class="card position-absolute start-0 w-100  d-none"
+         style="top: 100%; z-index: 1000;"
+         id="resultCard">
+         <div class="card-body" id='output'>
+           Search results will appear here
+         </div>
+       </div>
+     </form>
    </div>
 
-   <div class="collapse" id="mobileMenu">
-     <a href="#" class="nav-link">Home</a>
-     <a href="#" class="nav-link">Best Sellers</a>
-     <a href="#" class="nav-link">Gift Ideas</a>
-     <a href="#" class="nav-link">Games</a>
-     <a href="#" class="nav-link">PC</a>
-     <a href="#" class="nav-link">Music</a>
-     <a href="#" class="nav-link">Books</a>
+   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+     <i class="fas fa-bars fa-lg"></i>
+   </button>
+
+   <div class="collapse navbar-collapse" id="mainNavbar">
+     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+       <!-- Example dropdown -->
+       <li class="nav-item dropdown position-static">
+         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+           Home
+         </a>
+         <div class="dropdown-menu static-dropdown">
+           <a class="dropdown-item" href="#">Sub Home 1</a>
+           <a class="dropdown-item" href="#">Sub Home 2</a>
+         </div>
+       </li>
+
+       <li class="nav-item dropdown position-static">
+         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
+           Best Sellers
+         </a>
+         <div class="dropdown-menu static-dropdown">
+           <a class="dropdown-item" href="#">Top 10</a>
+           <a class="dropdown-item" href="#">Trending</a>
+         </div>
+       </li>
+
+     </ul>
    </div>
+
  </nav>
  <?php include 'AuthModal.php'; ?>
 
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
  <script>
-  const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
+   const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
  </script>
  <script src="./Assets/JS/auth.js"></script>
+ <script src="./Assets/JS/search.js"></script>
 
+ <script>
+   document.addEventListener("DOMContentLoaded", () => {
+     const form = document.getElementById("searchForm");
+     const searchbtn = document.getElementById("search-btn");
+     const searchInputs = document.querySelectorAll(".searchInput");
+     const searchInput2 = document.getElementById("searchInput");
 
+     const output = document.getElementById("output");
+
+     form.addEventListener("submit", function(e) {
+       e.preventDefault();
+     });
+
+     searchInputs.forEach(input => {
+       input.addEventListener("keydown", function(e) {
+         searchfunc(e.target.value);
+       });
+     });
+
+   });
+ </script>
 
  <?php include $_SERVER['DOCUMENT_ROOT'] . '/Ecomerse-Website/Client/Components/footer.html';; ?>

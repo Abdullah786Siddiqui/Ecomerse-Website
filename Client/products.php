@@ -1,257 +1,245 @@
 <?php
 include './Components/header.html';
-
 include './includes/Navbar.php';
+ 
 
+$subCategory_id = isset($_GET['subcategory_id']) ? (int)$_GET['subcategory_id'] : 0;
+$search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-$subCategory_id = $_GET['subcategory_id']
 ?>
-<style>
+  <style>
     body {
-        background-color: #f8f9fa;
+      background-color: #f8f9fa;
+      font-family: 'Segoe UI', sans-serif;
     }
 
-
-    #mobileSidebar {
-        position: fixed;
-        bottom: -100%;
-        left: 0;
-        width: 100%;
-        max-height: 80%;
-        background: #ffffff;
-        box-shadow: 0 -4px 15px rgba(0, 0, 0, 0.2);
-        transition: bottom 0.3s ease-in-out;
-        overflow-y: auto;
-        z-index: 9999;
-        padding: 20px;
-        border-top-left-radius: 15px;
-        border-top-right-radius: 15px;
+    .filter-sidebar {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 0 15px rgba(0, 0, 0, 0.04);
+      padding: 1.5rem;
     }
 
-    #mobileSidebar.active {
-        bottom: 0;
+    .filter-sidebar h5 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
     }
 
-    #mobileSidebar h5,
-    #mobileSidebar h6 {
-        font-weight: 600;
+    .filter-group:not(:last-child) {
+      margin-bottom: 1.5rem;
     }
 
-    #sidebarOverlay {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background: rgba(0, 0, 0, 0.5);
-        display: none;
-        z-index: 9998;
+    .filter-group label {
+      font-size: 0.95rem;
+      margin-left: 0.5rem;
+      color: #333;
     }
 
-    #sidebarOverlay.active {
-        display: block;
+    .product-card {
+      background: #fff;
+      border-radius: 0.75rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: all 0.2s ease-in-out;
+      overflow: hidden;
+      text-decoration: none;
+      color: inherit;
+      display: block;
     }
 
-    .filter-btn-mobile {
-        position: fixed;
-        top: 20px;
-        right: 20px;
-        z-index: 10000;
-        border-radius: 50px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
+    }
+
+    .product-card img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+    }
+
+    .product-card-body {
+      padding: 0.75rem;
+    }
+
+    .product-name {
+      font-weight: 600;
+      font-size: 0.95rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-price {
+      font-size: 0.9rem;
+      color: #0d6efd;
+      font-weight: 500;
+      margin-bottom: 0.3rem;
+    }
+
+    .product-description {
+      font-size: 0.8rem;
+      color: #666;
+    }
+
+    .offcanvas-body {
+      overflow-y: auto !important;
+      /* scroll bar control */
     }
 
     @media (max-width: 767.98px) {
-        .desktop-sidebar {
-            display: none;
-        }
+      .product-card img {
+        height: 140px;
+      }
     }
 
-    .color-container {
-        margin: 20px 0;
+    @media (max-width: 767.98px) {
+      .offcanvas-bottom {
+        min-height: 60vh !important;
+      }
     }
-
-    .color-title {
-        font-weight: bold;
-        margin-bottom: 10px;
-    }
-
-    .color-grid {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-        max-width: 220px;
-    }
-
-    .color-box {
-        width: 24px;
-        height: 24px;
-        border: 1px solid #ccc;
-        cursor: pointer;
-        box-sizing: border-box;
-    }
-
-    .color-box:hover {
-        border: 2px solid #007185;
-    }
-</style>
+  </style>
 </head>
 
 <body>
 
-    <div id="sidebarOverlay" onclick="closeSidebar()"></div>
+  <div class="container-fluid mt-4">
+    <div class="row">
+      <!-- Sidebar Desktop -->
+      <aside class="col-lg-3 d-none d-lg-block  ">
+   <div class="filter-sidebar bg-light border rounded p-3 h-100 shadow-sm bg-white">
+  <h5 class="mb-4 text-primary">Filter Products</h5>
 
-    <div class="container-fluid">
-        <div style="height: 1000px;" class="row  p-2">
+  <div class="filter-group mb-3">
+    <h6 class="text-muted mb-3 border-bottom pb-1">Brand</h6>
 
-            <div class="col-md-3 desktop-sidebar ">
-                <h5>Filters</h5>
-                <hr>
-                <div>
-                    <h6>Brand</h6>
-                    <?php
-                    $sql = "SELECT  DISTINCT brand.id as id ,   brand.name , products.subcategory_id as subcategory_id FROM products
-INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id = $subCategory_id ";
-                    $result = $conn->query($sql);
-                    while ($row = $result->fetch_assoc()) {
-                        $brand_id = $row['id'];
-                        $brand_name = $row['name'];
+    <?php
+    $sql = "
+      SELECT DISTINCT brand.id AS id, brand.name, products.subcategory_id AS subcategory_id
+      FROM products
+      INNER JOIN brand ON brand.id = products.brand_id
+      WHERE products.subcategory_id = $subCategory_id OR products.id = $search_id
+    ";
+    $result = $conn->query($sql);
+    while ($row = $result->fetch_assoc()) {
+      $brand_id = $row['id'];
+      $brand_name = $row['name'];
+    ?>
+      <div class="form-check mb-2">
+        <input
+          class="form-check-input brand-filter"
+          type="checkbox"
+          value="<?= $brand_id ?>"
+          id="brand<?= $brand_id ?>"
+          <?= $search_id != 0 ? 'disabled' : '' ?>
+        >
+        <label class="form-check-label" for="brand<?= $brand_id ?>">
+          <?= htmlspecialchars($brand_name) ?>
+        </label>
+      </div>
+    <?php } ?>
+  </div>
+</div>
 
-                    ?>
-                        <div class="form-check">
-                            <input class="form-check-input brand-filter" type="checkbox" value="<?= $brand_id ?>" id="brand<?= $brand_id ?>">
-                            <label class="form-check-label" for="brand<?= $brand_id ?>"><?= $brand_name ?></label>
-                        </div>
-                    <?php
-                    }
-                    ?>
-                </div>
+      </aside>
+      <div class="mt-1 text-end d-lg-none  mb-2">
+        <button class="btn btn-sm btn-outline-primary" type="button" data-bs-toggle="offcanvas" data-bs-target="#mobileFilters">
+          Filters
+        </button>
+      </div>
 
-
-
-                <hr>
-                <div class="color-title ">
-                    <h6> Color </h6>
-                </div>
-                <div class="color-grid">
-                    <div class="color-box" style="background-color: #ffffff;"></div>
-                    <div class="color-box" style="background-color: #000000;"></div>
-                    <div class="color-box" style="background-color: #c2c2c2;"></div>
-                    <div class="color-box" style="background-color: #7c6e66;"></div>
-                    <div class="color-box" style="background-color: #a39a97;"></div>
-                    <div class="color-box" style="background-color: #f6d6d6;"></div>
-
-                    <div class="color-box" style="background-color:rgb(240, 191, 16);"></div>
-                    <div class="color-box" style="background-color:rgb(218, 110, 28);"></div>
-                    <div class="color-box" style="background-color:rgb(74, 112, 194);"></div>
-                    <div class="color-box" style="background-color:rgb(47, 214, 117);"></div>
-                    <div class="color-box" style="background-color:rgb(232, 101, 107);"></div>
-                    <div class="color-box" style="background-color: #934c2f;"></div>
-
-                    <div class="color-box" style="background-color: #d3d3d3;"></div>
-                    <div class="color-box" style="background-color: #a9a9a9;"></div>
-                    <div class="color-box" style="background-color: #9932cc;"></div>
-                    <div class="color-box" style="background-color: #ff0000;"></div>
-                    <div class="color-box" style="background-color: #bada55;"></div>
-                    <div class="color-box" style="background-color: #ffffff;"></div>
-                </div>
-                <hr>
-                <div class="sidebar-title">
-                    <h6> Deal Discount </h6>
-                </div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">All Discounts</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Today Discounts</label></div>
-                <hr>
-                <div class="sidebar-title">
-                    <h6> Seller </h6>
-                </div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Amazon.com</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Disney</label></div>
-                <hr>
-                <div class="sidebar-title">
-                    <h6> Condition </h6>
-                </div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">New</label></div>
-                <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Old</label></div>
-                <hr>
-                <div class="sidebar-title">
-                    <h6> Popular Shopping Ideas</h6>
-                </div>
-                <div id="sidebar-items">
-                    <div>Plastic</div>
-                    <div>Drawer</div>
-                    <div>Cooking</div>
-                    <div>Backpack</div>
-                    <div>Wall</div>
-                    <div>Bamboo</div>
-                    <div class="more-items d-none">
-                        <div>Japanese</div>
-                        <div>Work</div>
-                        <div>Organizer</div>
-                        <div>Shelf</div>
-                        <div>Korean</div>
-                        <div>Bohemian</div>
-                        <div>Closet</div>
-                    </div>
-                    <div class="see-more" onclick="toggleMore()">▼ See More</div>
-                </div>
-                <hr>
-                <button class="btn btn-primary btn-block">Apply Filter</button>
-            </div>
-            <div class="col-md-9">
-                <button class="btn btn-primary d-md-none filter-btn-mobile" onclick="openSidebar()">Filters</button>
-
-                <div id="product-list">
-                    <div class="row mt-4">
-                        <?php
-                        $sql = "SELECT DISTINCT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
+      <!-- Main Content -->
+      <main class="col-lg-9">
+             <div id="product-list">
+        <div class="row g-3">
+          <?php
+          $sql = "SELECT DISTINCT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
                 FROM products
                 INNER JOIN product_images ON product_images.product_id = products.id
                 INNER JOIN brand ON brand.id = products.brand_id  
-                WHERE products.subcategory_id = $subCategory_id  ORDER BY products.id DESC";
-                        $result = $conn->query($sql);
-                        while ($row = $result->fetch_assoc()) {
-                            $product_id = $row['productid']
-                        ?>
-                          <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
-    <a href="./product-detail.php?productid=<?= $product_id; ?>" class="text-decoration-none">
-        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+                WHERE products.subcategory_id = $subCategory_id  or products.id = $search_id   ORDER BY products.id DESC";
+          $result = $conn->query($sql);
+          while ($row = $result->fetch_assoc()) {
+            $product_id = $row['productid']
+          ?>
+          
+                            <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+                                <a href="./product-detail.php?productid=<?= $product_id; ?>" class="text-decoration-none">
+                                    <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
 
-            <!-- Discount Badge -->
+                                        <!-- Discount Badge -->
 
-            <!-- Product Image -->
-            <div class="ratio ratio-1x1 mb-3">
-                <img 
-                    src="../Server/uploads/<?= $row['image_url']; ?>" 
-                    class="img-fluid rounded-3 object-fit-cover w-100 h-100" 
-                    alt="<?= htmlspecialchars($row['name']) ?>" 
-                    loading="lazy">
-            </div>
+                                        <!-- Product Image -->
+                                        <div class="ratio ratio-1x1 mb-3">
+                                            <img
+                                                src="../Server/uploads/<?= $row['image_url']; ?>"
+                                                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                                                alt="<?= htmlspecialchars($row['name']) ?>"
+                                                loading="lazy">
+                                        </div>
 
-            <!-- Product Name -->
-            <h5 class="fw-semibold mb-2 text-truncate text-dark"><?= $row['name'] ?></h5>
+                                        <!-- Product Name -->
+                                        <h5 class="fw-semibold mb-2 text-truncate text-dark"><?= $row['name'] ?></h5>
 
-            <!-- Price -->
-            <p class="mb-2">
-                <span class="fw-bold text-success fs-6">Rs.<?= $row['price'] ?></span>
-                <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
-            </p>
+                                        <!-- Price -->
+                                        <p class="mb-2">
+                                            <span class="fw-bold text-success fs-6">Rs.<?= $row['price'] ?></span>
+                                            <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+                                        </p>
 
-            <!-- Rating -->
-            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+                                        <!-- Rating -->
+                                        <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
 
+                                    </div>
+                                </a>
+                            </div>
+
+          <?php } ?>
+
+
+          <!-- Add more product cards here -->
         </div>
-    </a>
-</div>
+
+        <!-- Mobile filter button niche -->
 
 
-                        <?php } ?>
-                    </div>
-                </div>
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+      </main>
+    </div>
+  </div>
 
+  <!-- Mobile Offcanvas -->
+  <div class="offcanvas offcanvas-bottom d-lg-none" tabindex="-1" id="mobileFilters">
+    <div class="offcanvas-header">
+      <h5 class="offcanvas-title">Filters</h5>
+      <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+      <div class="filter-sidebar">
+        <h5>Filter Products</h5>
 
-                <script>
+        <div class="filter-group">
+          <h6 class="text-muted">Brand</h6>
+           <?php
+            $sql = "SELECT  DISTINCT brand.id as id ,   brand.name , products.subcategory_id as subcategory_id FROM products
+INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id = $subCategory_id or products.id = $search_id  ";
+            $result = $conn->query($sql);
+            while ($row = $result->fetch_assoc()) {
+              $brand_id = $row['id'];
+              $brand_name = $row['name'];
+
+            ?>
+              <div style="font-weight: 500;" class="form-check ">
+                <input class="form-check-input brand-filter" type="checkbox" value="<?= $brand_id ?>" id="brand<?= $brand_id ?>" <?= $search_id != 0 ?  'disabled ' : '' ?>>
+
+                <label class="form-check-label" for="brand<?= $brand_id ?>"><?= $brand_name ?></label>
+              </div>
+            <?php
+            }
+            ?>
+        </div>
+      </div>
+    </div>
+  </div>
+
+ <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+   <script>
                     function animateProductExit(callback) {
                         gsap.to('.product-card-animate', {
                             y: 30,
@@ -301,96 +289,5 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
                         });
                     });
                 </script>
-
-            </div>
-
-        </div>
-    </div>
-
-    <div id="mobileSidebar">
-        <h5>Filters</h5>
-        <hr>
-        <div>
-            <h6>Brand</h6>
-            <div class="form-check"><input class="form-check-input" type="checkbox" id="brand1"><label class="form-check-label" for="brand1">DELL</label></div>
-
-        </div>
-        <hr>
-        <div class="color-title">Color</div>
-        <div class="color-grid">
-            <div class="color-box" style="background-color: #ffffff;"></div>
-            <div class="color-box" style="background-color: #000000;"></div>
-            <div class="color-box" style="background-color: #c2c2c2;"></div>
-            <div class="color-box" style="background-color: #7c6e66;"></div>
-            <div class="color-box" style="background-color: #a39a97;"></div>
-            <div class="color-box" style="background-color: #f6d6d6;"></div>
-
-            <div class="color-box" style="background-color:rgb(240, 191, 16);"></div>
-            <div class="color-box" style="background-color:rgb(218, 110, 28);"></div>
-            <div class="color-box" style="background-color:rgb(74, 112, 194);"></div>
-            <div class="color-box" style="background-color:rgb(47, 214, 117);"></div>
-            <div class="color-box" style="background-color:rgb(232, 101, 107);"></div>
-            <div class="color-box" style="background-color: #934c2f;"></div>
-
-            <div class="color-box" style="background-color: #d3d3d3;"></div>
-            <div class="color-box" style="background-color: #a9a9a9;"></div>
-            <div class="color-box" style="background-color: #9932cc;"></div>
-            <div class="color-box" style="background-color: #ff0000;"></div>
-            <div class="color-box" style="background-color: #bada55;"></div>
-            <div class="color-box" style="background: linear-gradient(45deg, brown, green, blue);"></div>
-
-            <div class="color-box" style="background-color: #ffffff;"></div>
-        </div>
-        <hr>
-        <div class="sidebar-title">Deals & Discount</div>
-        <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">All Discounts</label></div>
-        <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Today Discounts</label></div>
-        <hr>
-        <div class="sidebar-title">Condition</div>
-        <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">New</label></div>
-        <div class="form-check"><input class="form-check-input" type="checkbox" id="brand2"><label class="form-check-label" for="brand2">Old</label></div>
-        <hr>
-        <div class="sidebar-title">Popular Shopping Ideas</div>
-        <div id="sidebar-items">
-            <div>Plastic</div>
-            <div>Drawer</div>
-            <div>Cooking</div>
-            <div>Backpack</div>
-            <div>Wall</div>
-            <div>Bamboo</div>
-            <div class="more-items d-none">
-                <div>Japanese</div>
-                <div>Work</div>
-                <div>Organizer</div>
-                <div>Shelf</div>
-                <div>Korean</div>
-                <div>Bohemian</div>
-                <div>Closet</div>
-            </div>
-            <div class="see-more" onclick="toggleMore()">▼ See More</div>
-        </div>
-        <hr>
-        <button class="btn btn-primary btn-block" onclick="closeSidebar()">Apply Filter</button>
-        <hr>
-    </div>
-    <script>
-        function openSidebar() {
-            document.getElementById('mobileSidebar').classList.add('active');
-            document.getElementById('sidebarOverlay').classList.add('active');
-        }
-
-        function closeSidebar() {
-            document.getElementById('mobileSidebar').classList.remove('active');
-            document.getElementById('sidebarOverlay').classList.remove('active');
-        }
-
-        function toggleMore() {
-            const items = document.querySelectorAll('.more-items');
-            const link = document.querySelector('.see-more');
-            items.forEach(item => item.classList.toggle('d-none'));
-            link.innerHTML = link.innerHTML.includes('More') ? '▲ See Less' : '▼ See More';
-        }
-    </script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
-    <?php include './Components/footer.html';  ?>
+                  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+   <?php include './Components/footer.html';  ?>

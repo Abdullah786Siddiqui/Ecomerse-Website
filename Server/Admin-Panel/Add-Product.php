@@ -11,9 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $category_id = $_POST['category_id'];
   $subcategory_id = $_POST['subcategory_id'];
   $brand_id = $_POST['brand_id'];
-
-
-
+  
   $imageName = $_FILES['image']['name'];
   $tmpImage = $_FILES['image']['tmp_name'];
   $uploadsDir = "../uploads/";

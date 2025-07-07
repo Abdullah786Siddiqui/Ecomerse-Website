@@ -1,6 +1,7 @@
 <?php
 include './Components/header.html';
 include './includes/Navbar.php';
+
 $product_id = $_GET['productid'];
 $is_logged_in = isset($_SESSION['user_id']);
 
@@ -24,11 +25,14 @@ $is_logged_in = isset($_SESSION['user_id']);
     /* Prevent overflow */
   }
 
-  .product-img img {
-    max-width: 100%;
-    max-height: 100%;
-    object-fit: contain;
-  }
+ .product-img img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  display: block;
+  margin: auto;
+}
+
 
   .thumbnail {
     height: 60px;

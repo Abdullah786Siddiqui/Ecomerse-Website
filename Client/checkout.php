@@ -1,19 +1,26 @@
  <?php
 
   include("../Server/Admin-Panel/config/db.php");
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
+
+if (!isset($_SESSION['user_id'])) {
+    header("Location: ./index.php"); 
+    exit();
+}
   include './Components/header.html';
   include './includes/Navbar.php';
 
 
 
   $user_id = $_SESSION['user_id'] ?? "";
-  $subtotal = 0;
+  $subtotal_VAL = 0;
   if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     foreach ($_SESSION['cart'] as $items) {
       $totalprice = $items['price'] * $items['quantity'];
-      $subtotal += $totalprice;
+      $subtotal_VAL += $totalprice;
     }
-    $_SESSION['subtotal'] = $subtotal;
   }
   $sql = "SELECT * FROM addresses WHERE user_id = '$user_id' AND type = 'billing' LIMIT 1";
   $hasAddress = false;
@@ -97,7 +104,8 @@
 
                      <!-- Quantity -->
                      <div class="quantity">
-                       <select class="form-select form-select-sm" style="width: 70px;">
+                       <select class="form-select form-select-sm" style="width: 70px;"
+                        onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
                          <option selected><?= $items['quantity'] ?></option>
                          <option>2</option>
                          <option>3</option>
@@ -123,7 +131,7 @@
                <?php
 
                 }
-                $_SESSION['final_subtotal'] = $subtotal;
+                $_SESSION['final_subtotal'] = $subtotal_VAL;
               } else {
                 ?>
 
@@ -259,7 +267,7 @@
 
            <div class="d-flex justify-content-between mb-2">
              <span class="text-muted">Subtotal</span>
-             <span class="fw-bold cart-subtotal">$ <?= $subtotal ?></span>
+             <span class="fw-bold cart-subtotal">$ <?= $subtotal_VAL ?></span>
 
            </div>
 
@@ -272,7 +280,7 @@
 
            <div class="d-flex justify-content-between mb-3">
              <span class="fw-bold">Total (VAT included)</span>
-             <span class="fw-bold text-dark cart-subtotal">$ <?= $subtotal ?></span>
+             <span class="fw-bold text-dark cart-subtotal">$ <?= $subtotal_VAL ?></span>
 
            </div>
            <?php if (empty($_SESSION['cart'])): ?>

@@ -73,9 +73,7 @@ function removeCart(productid) {
         document.querySelectorAll(".cart-subtotal").forEach((element) => {
           element.innerText = "£" + data.subtotal;
         });
-        //         if (window.location.pathname.includes('checkout.php') || window.location.pathname.includes('payment.php')) {
-        //     location.reload();
-        // }
+          
       }
     });
 }

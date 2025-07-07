@@ -176,3 +176,20 @@ function placeOrder(paymentMethod) {
       });
     });
 }
+
+function updatecart() {
+  fetch("../Server/Process/delete-cart.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        document.querySelectorAll(".cart-final").forEach((element) => {
+          element.innerText = "£" + data.subtotal;
+        });
+      }
+    });
+}
