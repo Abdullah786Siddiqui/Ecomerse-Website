@@ -10,7 +10,7 @@ if (isset($_SESSION['admin_id'])) {
   if ($row = $result->fetch_assoc()) {
     $adminName = $row['name'];
   }
-}else{
+} else {
   header("Location: ../Client/login.php");
   exit();
 }
@@ -114,6 +114,7 @@ if (isset($_SESSION['admin_id'])) {
     .search-bar {
       display: none !important;
     }
+
     .admin {
       display: block !important;
     }
@@ -165,10 +166,11 @@ if (isset($_SESSION['admin_id'])) {
 
   .sidebar {
     left: -260px;
-}
-.sidebar.active {
+  }
+
+  .sidebar.active {
     left: 0;
-}
+  }
 
 
   .sidebar .logo {
@@ -209,7 +211,7 @@ if (isset($_SESSION['admin_id'])) {
   }
 </style>
 <div class="sidebar active " id="sidebar">
-  <div class="logo ">Admin Panel</div>
+  <div class="logo ">Adminx</div>
   <div id="sidebarAccordion">
     <ul class="nav flex-column">
       <li class="nav-item">
@@ -228,7 +230,7 @@ if (isset($_SESSION['admin_id'])) {
         </div>
       </li>
 
-    
+
 
 
       <li class="nav-item">
@@ -237,7 +239,7 @@ if (isset($_SESSION['admin_id'])) {
         </a>
         <div class="collapse submenu" id="orderMenu" data-bs-parent="#sidebarAccordion">
           <a href="./View-Orders.php" class="nav-link"><i class="bi bi-card-checklist me-2"></i>Order List</a>
-         
+
 
 
 
@@ -249,9 +251,9 @@ if (isset($_SESSION['admin_id'])) {
           <i class="bi bi-person"></i> User
         </a>
         <div class="collapse submenu" id="userMenu" data-bs-parent="#sidebarAccordion">
-<a href="./Users.php" class="nav-link ">
-  <i class="bi bi-people-fill"></i> User List
-</a>
+          <a href="./Users.php" class="nav-link ">
+            <i class="bi bi-people-fill"></i> User List
+          </a>
         </div>
       </li>
 
@@ -262,7 +264,7 @@ if (isset($_SESSION['admin_id'])) {
           <i class="bi bi-circle-half"></i>Theme Setting
         </a>
         <div class="collapse submenu" id="theme" data-bs-parent="#sidebarAccordion">
-          <a href="#" class="nav-link" >Dark Mode</a>
+          <a href="#" class="nav-link">Dark Mode</a>
           <a href="#" class="nav-link">Light Mode</a>
 
         </div>
@@ -270,7 +272,7 @@ if (isset($_SESSION['admin_id'])) {
 
 
       <li class="nav-item">
-        <a class="nav-link" href="#"><i class="bi bi-person"></i> Profile</a>
+        <a class="nav-link" href="./admin_profile.php"><i class="bi bi-person"></i> Profile</a>
       </li>
 
     </ul>
@@ -279,78 +281,79 @@ if (isset($_SESSION['admin_id'])) {
 <div class="content-wrapper shifted" id="contentWrapper">
 
   <!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-3 py-2 sticky-top">
-  <div class="container-fluid d-flex align-items-center">
+  <nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-3 py-2 sticky-top">
+    <div class="container-fluid d-flex align-items-center">
 
-    <!-- Sidebar Toggle Button -->
-    <button id="sidebarToggle" class="sidebar-toggle-btn me-3">
-      <i id="toggleIcon" class="bi bi-arrow-right-circle"></i>
-    </button>
+      <!-- Sidebar Toggle Button -->
+      <button id="sidebarToggle" class="sidebar-toggle-btn me-3">
+        <i id="toggleIcon" class="bi bi-arrow-right-circle"></i>
+      </button>
 
-    <!-- Admin greeting -->
-    <h2 class="admin d-none">Hi Admin, <?= $adminName ?></h2>
+      <!-- Admin greeting -->
+      <h2 class="admin d-none">Hi Admin, <?= $adminName ?></h2>
 
-    <!-- Alternative to Search Bar -->
-    <div class="flex-grow-1 me-3">
-      <h5 class="mb-0 text-muted">Dashboard</h5>
-    </div>
+      <!-- Alternative to Search Bar -->
+      <div class="flex-grow-1 me-3">
+        <h5 class="mb-0 text-muted">Dashboard</h5>
+      </div>
 
-    <!-- Right side icons -->
-    <ul class="navbar-nav flex-row align-items-center gap-2">
+      <!-- Right side icons -->
+      <ul class="navbar-nav flex-row align-items-center gap-2">
 
-      <!-- <li class="nav-item only-gear">
+        <!-- <li class="nav-item only-gear">
         <a class="nav-link mx-2 bg-white icon-btn rotating-gear fs-4" href="#">
           <i class="bi bi-gear"></i>
         </a>
       </li> -->
 
-      <li class="nav-item">
-        <a class="nav-link icon-btn" href="#">
-          <i class="bi bi-moon"></i>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link icon-btn" href="#">
+            <i class="bi bi-moon"></i>
+          </a>
+        </li>
 
-      <li class="nav-item position-relative">
-        <a class="nav-link icon-btn" href="#">
-          <i class="bi bi-bell"></i>
-          <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">1</span>
-        </a>
-      </li>
+        <li class="nav-item position-relative">
+          <a class="nav-link icon-btn" href="#">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-danger rounded-pill position-absolute top-0 start-100 translate-middle">1</span>
+          </a>
+        </li>
 
-      <li class="nav-item position-relative">
-        <a class="nav-link icon-btn" href="#">
-          <i class="bi bi-chat-dots"></i>
-          <span class="badge bg-primary rounded-pill position-absolute top-0 start-100 translate-middle">1</span>
-        </a>
-      </li>
+        <li class="nav-item position-relative">
+          <a class="nav-link icon-btn" href="#">
+            <i class="bi bi-chat-dots"></i>
+            <span class="badge bg-primary rounded-pill position-absolute top-0 start-100 translate-middle">1</span>
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link icon-btn" href="#">
-          <i class="bi bi-arrows-fullscreen"></i>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link icon-btn" href="#">
+            <i class="bi bi-arrows-fullscreen"></i>
+          </a>
+        </li>
 
-      <li class="nav-item">
-        <a class="nav-link icon-btn" href="#">
-          <i class="bi bi-grid-3x3-gap"></i>
-        </a>
-      </li>
+        <li class="nav-item">
+          <a class="nav-link icon-btn" href="#">
+            <i class="bi bi-grid-3x3-gap"></i>
+          </a>
+        </li>
 
-      <!-- User Info -->
-      <li class="nav-item d-flex align-items-center ms-2">
-        <img src="./assets/Images/Abdullah.jpg" 
-             class="shadow-sm me-2" 
-             style="border-radius: 50%; object-fit: cover;" 
-             width="50" height="50" alt="User">
-        <div class="user-info">
-          <span class="fw-semibold"><?= $adminName ?></span><br>
-          <small class="text-muted">Admin</small>
-        </div>
-      </li>
+        <!-- User Info -->
+        <li class="nav-item d-flex align-items-center ms-2">
+          <a href="./admin_profile.php"><img src="./assets/Images/Abdullah.jpg"
+              class="shadow-sm me-2"
+              style="border-radius: 50%; object-fit: cover;"
+              width="50" height="50" alt="User">
+          </a>
+          <div class="user-info">
+            <span class="fw-semibold"><?= $adminName ?></span><br>
+            <small class="text-muted">Admin</small>
+          </div>
+        </li>
 
-    </ul>
-  </div>
-</nav>
+      </ul>
+    </div>
+  </nav>
 
 
 
@@ -360,8 +363,6 @@ if (isset($_SESSION['admin_id'])) {
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
   <script>
- 
-
     document.addEventListener('DOMContentLoaded', function() {
       document.querySelectorAll('.nav-link[data-bs-toggle="collapse"]').forEach(function(link) {
         link.addEventListener('click', function(e) {

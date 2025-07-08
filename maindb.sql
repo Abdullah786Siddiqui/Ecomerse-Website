@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 07, 2025 at 12:02 AM
+-- Generation Time: Jul 08, 2025 at 01:31 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -135,7 +135,10 @@ INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created
 (58, 9, 22, 62500.00, 'delivered', '2025-07-06 18:46:53', 'Cash'),
 (59, 9, 22, 40000.00, 'delivered', '2025-07-06 18:58:55', 'Cash'),
 (60, 9, 22, 578.00, 'delivered', '2025-07-06 19:28:33', 'Cash'),
-(61, 52, 26, 660.00, 'pending', '2025-07-06 20:38:49', 'Cash');
+(61, 52, 26, 660.00, 'cancelled', '2025-07-06 20:38:49', 'Cash'),
+(62, 52, 26, 40000.00, 'delivered', '2025-07-07 04:41:44', 'Cash'),
+(69, 52, 26, 660.00, 'pending', '2025-07-08 08:35:35', 'Cash'),
+(70, 52, 26, 726.00, 'pending', '2025-07-08 08:41:18', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -164,7 +167,11 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (91, 58, 88, 1, 25000.00),
 (92, 59, 76, 1, 40000.00),
 (93, 60, 46, 1, 578.00),
-(94, 61, 45, 1, 660.00);
+(94, 61, 45, 1, 660.00),
+(95, 62, 76, 1, 40000.00),
+(105, 69, 45, 1, 660.00),
+(106, 70, 26, 1, 156.00),
+(107, 70, 44, 1, 570.00);
 
 -- --------------------------------------------------------
 
@@ -567,13 +574,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=95;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`

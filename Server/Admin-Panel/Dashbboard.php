@@ -1,7 +1,8 @@
  <?php
+    include("./config/db.php");
     include("./includes/header.html");
     include("./Sidebar.php");
-  
+
     ?>
 
  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -68,41 +69,62 @@
  <body>
      <div class="container-fluid p-4">
          <div class="row g-4">
+             <?php
 
-             <!-- KPI Cards -->
-             <div class="col-md-3">
-                 <div class="card p-3 text-center">
-                     <div class="kpi-icon mb-2 text-success"><i class="bi bi-cart-check"></i></div>
-                     <h6>Total Sales</h6>
-                     <h4>34,945</h4>
-                     <span class="text-success">▲ 1.56%</span>
+                $sql = "SELECT 
+    COUNT(orders.id) AS order_count,
+    SUM(orders.total) AS total_sales,
+    COUNT(CASE WHEN orders.status = 'delivered' THEN 1 END) AS paid_orders
+FROM 
+    orders
+    INNER JOIN order_items ON orders.id = order_items.order_id
+WHERE 
+    orders.created_at >= DATE_FORMAT(CURDATE(), '%Y-%m-01');
+";
+                $result = $conn->query($sql);
+                if ($row = $result->fetch_assoc()) {
+                ?>
+                 <!-- KPI Cards -->
+                 <div class="col-md-3">
+                     <div class="card p-3 text-center">
+                         <div class="kpi-icon mb-2 text-success"><i class="bi bi-cart-check"></i></div>
+                         <h6>Total Order this Month</h6>
+                         <h4>$<?= $row['order_count'] ?></h4>
+                         <span class="text-success">▲ 1.56%</span>
+                     </div>
                  </div>
-             </div>
-             <div class="col-md-3">
-                 <div class="card p-3 text-center">
-                     <div class="kpi-icon mb-2 text-warning"><i class="bi bi-currency-dollar"></i></div>
-                     <h6>Total Income</h6>
-                     <h4>$37,802</h4>
-                     <span class="text-danger">▼ 1.56%</span>
+                 <div class="col-md-3">
+                     <div class="card p-3 text-center">
+                         <div class="kpi-icon mb-2 text-warning"><i class="bi bi-currency-dollar"></i></div>
+                         <h6>Total Income</h6>
+                         <h4>$<?= $row['total_sales'] ?></h4>
+                         <span class="text-danger">▼ 1.56%</span>
+                     </div>
                  </div>
-             </div>
-             <div class="col-md-3">
-                 <div class="card p-3 text-center">
-                     <div class="kpi-icon mb-2 text-info"><i class="bi bi-receipt"></i></div>
-                     <h6>Orders Paid</h6>
-                     <h4>34,945</h4>
-                     <span class="text-secondary">0.00%</span>
-                 </div>
-             </div>
-             <div class="col-md-3">
-                 <div class="card p-3 text-center">
-                     <div class="kpi-icon mb-2 text-primary"><i class="bi bi-people"></i></div>
-                     <h6>Total Visitors</h6>
-                     <h4>34,945</h4>
-                     <span class="text-success">▲ 1.56%</span>
-                 </div>
-             </div>
+                 <div class="col-md-3">
+                     <div class="card p-3 text-center">
+                         <div class="kpi-icon mb-2 text-info"><i class="bi bi-receipt"></i></div>
+                         <h6>Orders Paid</h6>
+                         <h4>$<?= $row['paid_orders'] ?></h4>
+                         <span class="text-success">▲ 1.56%</span>
 
+                     </div>
+                 </div>
+             <?php } ?>
+             <?php
+                $sql_user = "SELECT COUNT(id) as user_count from users";
+                $result_user = $conn->query($sql_user);
+                if ($row = $result_user->fetch_assoc()) {
+                ?>
+                 <div class="col-md-3">
+                     <div class="card p-3 text-center">
+                         <div class="kpi-icon mb-2 text-primary"><i class="bi bi-people"></i></div>
+                         <h6>Total Users</h6>
+                         <h4><?= $row['user_count'] ?></h4>
+                         <span class="text-success">▲ 1.56%</span>
+                     </div>
+                 </div>
+             <?php } ?>
              <!-- Graph + Tables -->
              <div class="col-lg-8">
                  <div class="card p-3 mb-4">
@@ -283,18 +305,18 @@
 
 
 
-<!-- Bootstrap JS (First) -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+     <!-- Bootstrap JS (First) -->
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-<!-- Then your custom JS files -->
-<script src="./assets/JS/add-Product.js"></script>
-<script src="./assets/JS/subcategory.js"></script>
-<script src="./assets/JS/admin.js"></script>
-
-
+     <!-- Then your custom JS files -->
+     <script src="./assets/JS/add-Product.js"></script>
+     <script src="./assets/JS/subcategory.js"></script>
+     <script src="./assets/JS/admin.js"></script>
 
 
 
-</body>
 
-</html>
+
+ </body>
+
+ </html>

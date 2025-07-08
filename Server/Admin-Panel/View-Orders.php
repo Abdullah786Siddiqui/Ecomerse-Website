@@ -170,7 +170,7 @@ $status = isset($_POST['status']) ? $_POST['status'] : '';
 
         <!-- Status Dropdown -->
         <form method="POST" id="statusForm">
-          <select name="status" id="state-selcxt" class="form-select shadow-sm" style="min-width: 130px; max-width: 150px;" >
+          <select name="status" id="state-selcxt" class="form-select shadow-sm" style="min-width: 130px; max-width: 150px;">
             <option selected hidden>Status</option>
             <option value="pending" <?= $status == 'pending' ? 'selected' : '' ?>>pending</option>
             <option value="shipped" <?= $status == 'shipped' ? 'selected' : '' ?>>shipped</option>
@@ -186,11 +186,14 @@ $status = isset($_POST['status']) ? $_POST['status'] : '';
         </div>
 
         <!-- Export Button -->
-        <div class="flex-shrink-0 export-btn">
-          <button class="btn btn-outline-primary shadow-sm w-100">
-            <i class="bi bi-download me-1"></i> Export all orders
+        <div class="flex-shrink-0 refresh-btn">
+          <button onclick="refresh()" class="btn btn-success fw-bold shadow-sm w-100">
+            <i class="bi bi-arrow-repeat me-1"></i> Refresh
+
+
           </button>
         </div>
+
 
       </div>
 
@@ -235,52 +238,52 @@ INNER JOIN product_images ON products.id = product_images.product_id";
 
               $sql .= " ORDER BY order_id DESC";
               $result = $conn->query($sql);
-              if($result->num_rows == 0){
-                   echo "<tr><td colspan='7' class='text-center fw-bold text-muted py-4'>No orders found for $status  status.</td></tr>";
-              }else{
-              while ($row = $result->fetch_assoc()) {
+              if ($result->num_rows == 0) {
+                echo "<tr><td colspan='7' class='text-center fw-bold text-muted py-4'>No orders found for $status  status.</td></tr>";
+              } else {
+                while ($row = $result->fetch_assoc()) {
               ?>
-                <tr>
+                  <tr>
 
-                  <td class="d-flex align-items-center ">
-                    <img src="../uploads/<?= $row['image_url'] ?>" class="product-img" alt="Product">
-                    <span class="me-5"><?= $row['name'] ?></span>
-                    <span class="<?= $row['status'] === 'cancelled' ? 'text-danger fw-bold' : '' ?>">
-                      <?= $row['status'] === 'cancelled' ? 'This Order Cancel By User' : '' ?>
-                    </span>
-                  </td>
-                  <td>#<?= $row['order_id'] ?></td>
-                  <td>$<?= $row['unit_price'] ?></td>
-                  <td><?= $row['quantity'] ?></td>
-                  <td><?= $row['total_price'] ?></td>
-                  <td><?= $row['payment_method'] ?></td>
-                  <td>
-                    <?php
-                    $colour = '';
-                    if ($row['status'] === "pending") {
-                      $colour = 'bg-warning';
-                    } elseif ($row['status'] === "shipped") {
-                      $colour = 'bg-primary';
-                    } elseif ($row['status'] === "delivered") {
-                      $colour = 'bg-success';
-                    } elseif ($row['status'] === "cancelled") {
-                      $colour = 'bg-danger';
-                    } ?>
-                    <span class="badge rounded-3 <?= $colour ?> px-3 py-2   text-white <?= $row['status'] === 'cancelled' ? 'cursor-pointer ' : '' ?> text-capitalize shadow-sm">
-                      <?= $row['status'] === 'cancelled' ? 'Remove' : $row['status']  ?>
-                    </span>
-                  </td>
-                  <td>
+                    <td class="d-flex align-items-center ">
+                      <img src="../uploads/<?= $row['image_url'] ?>" class="product-img" alt="Product">
+                      <span class="me-5"><?= $row['name'] ?></span>
+                      <span class="<?= $row['status'] === 'cancelled' ? 'text-danger fw-bold' : '' ?>">
+                        <?= $row['status'] === 'cancelled' ? 'This Order Cancel By User' : '' ?>
+                      </span>
+                    </td>
+                    <td>#<?= $row['order_id'] ?></td>
+                    <td>$<?= $row['unit_price'] ?></td>
+                    <td><?= $row['quantity'] ?></td>
+                    <td><?= $row['total_price'] ?></td>
+                    <td><?= $row['payment_method'] ?></td>
+                    <td>
+                      <?php
+                      $colour = '';
+                      if ($row['status'] === "pending") {
+                        $colour = 'bg-warning';
+                      } elseif ($row['status'] === "shipped") {
+                        $colour = 'bg-primary';
+                      } elseif ($row['status'] === "delivered") {
+                        $colour = 'bg-success';
+                      } elseif ($row['status'] === "cancelled") {
+                        $colour = 'bg-danger';
+                      } ?>
+                      <span class="badge rounded-3 <?= $colour ?> px-3 py-2   text-white <?= $row['status'] === 'cancelled' ? 'cursor-pointer ' : '' ?> text-capitalize shadow-sm">
+                        <?= $row['status'] === 'cancelled' ? 'Remove' : $row['status']  ?>
+                      </span>
+                    </td>
+                    <td>
 
-                    <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 btn  btn-danger <?= $row['status'] === 'delivered' ||  $row['status'] === 'cancelled' ? 'disabled' : ' '  ?>  bg-danger px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
-                      Update status
-                    </span>
-                  </td>
+                      <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 btn  btn-danger <?= $row['status'] === 'delivered' ||  $row['status'] === 'cancelled' ? 'disabled' : ' '  ?>  bg-danger px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                        Update status
+                      </span>
+                    </td>
 
 
-                </tr>
-              <?php } 
-              }?>
+                  </tr>
+              <?php }
+              } ?>
             </tbody>
           </table>
         </div>
@@ -340,6 +343,11 @@ color: white;" class="btn btn-lg " onclick="handleCancel()" data-bs-dismiss="mod
         }, index * 100); // Staggered delay per row
       });
     });
+
+    function refresh() {
+      window.location.reload()
+
+    }
   </script>
 
   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
