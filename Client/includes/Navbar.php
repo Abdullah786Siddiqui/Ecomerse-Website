@@ -354,12 +354,13 @@
  <!-- MOBILE SEARCH & MENU -->
  <nav class="bg-white border-bottom py-2 px-3 d-lg-none  ">
    <div class="input-group rounded  mb-2 ">
-     <form autocomplete="off" class="d-flex flex-grow-1  position-relative " role="search" id="searchForm">
-       <div class="input-group flex-grow-1 ">
+       <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
+       <div class="input-group flex-grow-1">
          <input
            class="form-control search-box searchInput"
            type="search"
-           placeholder="What can we help you find today?" />
+           placeholder="What can we help you find today?"
+           oninput="searchFunc(this.value)" />
          <button id="search-btn" class="btn btn-primary " type="submit">
            <i class="bi bi-search"></i>
          </button>
@@ -370,8 +371,7 @@
          class="card position-absolute start-0 w-100  d-none"
          style="top: 100%; z-index: 1000;"
          id="resultCard">
-         <div class="card-body" id='output'>
-           Search results will appear here
+         <div class="card " id='output'>
          </div>
        </div>
      </form>
