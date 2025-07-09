@@ -1,10 +1,13 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
 
 $product_id = $_GET['productid'];
-$is_logged_in = isset($_SESSION['user_id']);
+$is_logged_in = $_SESSION['user_id'] ?? "";
 
 ?>
 <style>
@@ -177,6 +180,7 @@ $is_logged_in = isset($_SESSION['user_id']);
     $result = $conn->query($sql);
     if ($row = $result->fetch_assoc()) {
 
+
     ?>
       <div class="col-md-6">
         <div class="border rounded p-3 text-center">
@@ -187,7 +191,7 @@ $is_logged_in = isset($_SESSION['user_id']);
       <!-- Product Details -->
       <div class="col-md-6 d-flex flex-column">
         <h1 class="h4 mb-2"><?= $row['name'] ?></h1>
-        <p class="text-muted mb-1">SKU: <?= $row['sku'] ?? '123456' ?></p>
+        <p class="text-muted mb-1">SKU:123456</p>
 
         <div class="mb-2">
           ⭐⭐⭐⭐☆ <small>(128 reviews)</small>
@@ -206,10 +210,10 @@ $is_logged_in = isset($_SESSION['user_id']);
 
 
 
-            <a id="buyNowBtn" class="btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
+        <a id="buyNowBtn"  class="btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
 
-            <button class="btn btn-primary fw-bold w-100" id="addToCartBtn">Add to Cart</button>
-        
+        <button class="btn btn-primary fw-bold w-100" id="addToCartBtn">Add to Cart</button>
+
 
         <div class="mb-3 mt-2">
           <p class="mb-1"><strong>Estimated Delivery:</strong> Jul 12 – Jul 15</p>
@@ -261,196 +265,221 @@ $is_logged_in = isset($_SESSION['user_id']);
 
 
 
-    <!-- Review 2 -->
-    <?php
-    $sql_review = "SELECT * FROM reviews ORDER BY id DESC
+  <!-- Review 2 -->
+<?php
+
+
+$sql_reviews = "
+    SELECT r.*, u.name , u.user_profile 
+    FROM reviews r
+    JOIN users u ON r.user_id = u.id
+    WHERE r.product_id = $product_id
+    ORDER BY r.id DESC
 ";
-    $result_review = $conn->query($sql_review);
 
-    foreach ($result_review as $review) {
-      if ($product_id == $review['product_id']) {
-    ?>
-        <div class="card mb-4 border-0 shadow rounded-4">
-          <div class="card-body">
-            <div class="d-flex justify-content-between mb-2">
-              <span class="fw-semibold text-primary">Verified Purchase</span>
-              <div class="text-warning small">
-                <?php
-                $rating = $review['rating'];
-                for ($i = 1; $i <= 5; $i++) {
-                  if ($i <= $rating) {
-                    echo "★";
-                  } else {
-                    echo "☆";
-                  }
-                }
-                ?>
-              </div>
+$result_reviews = $conn->query($sql_reviews);
 
-            </div>
-            <p><?= $review['review_text'] ?></p>
-            <small class="text-muted">Posted 3 days ago</small>
-          </div>
+if ($result_reviews->num_rows > 0) {
+    while ($review = $result_reviews->fetch_assoc()) {
+?>
+    <div class="card mb-3 border-0 shadow-sm rounded-3">
+  <div class="card-body">
+    <div class="d-flex align-items-center mb-2">
+      <div class="me-3">
+        <div class="bg-primary text-white rounded-circle d-flex justify-content-center align-items-center" style="width:40px; height:40px; font-size: 0.9rem;">
+          <?= $review['user_profile'] ?>
         </div>
-    <?php }
-    } ?>
-
-  </div>
-
-  <!-- Review Form -->
-  <section class="    mt-5" id="leave-review-section">
-    <div class="card border-0 shadow-lg rounded-4 p-4">
-      <h4 class="mb-4 fw-bold text-center text-gradient">Leave Your Review</h4>
-
-      <!-- <form id="review-form" method="post" action="../Server/Process/review-process.php"> -->
-
-      <!-- Star Rating -->
-      <form id="ratingForm" method="post" action="../Server/Process/review-process.php">
-        <div class="mb-4 text-center">
-          <label class="form-label fw-semibold d-block mb-2">Your Rating</label>
-          <div class="star-rating d-inline-flex flex-row-reverse gap-1">
-            <input type="radio" name="rating" id="star5" value="5">
-            <label for="star5" title="5 stars">★</label>
-
-            <input type="radio" name="rating" id="star4" value="4">
-            <label for="star4" title="4 stars">★</label>
-
-            <input type="radio" name="rating" id="star3" value="3">
-            <label for="star3" title="3 stars">★</label>
-
-            <input type="radio" name="rating" id="star2" value="2">
-            <label for="star2" title="2 stars">★</label>
-
-            <input type="radio" name="rating" id="star1" value="1">
-            <label for="star1" title="1 star">★</label>
-          </div>
-          <div id="rating-error" class="mt-1 text-danger"></div>
-
+      </div>
+      <div class="flex-grow-1">
+        <div class="d-flex justify-content-between">
+          <h6 class="mb-0 fw-semibold text-dark"><?= htmlspecialchars($review['name']) ?></h6>
+          <small class="text-muted">
+            <?php if (!empty($review['created_at'])): ?>
+              <?= date('M d, Y', strtotime($review['created_at'])) ?>
+            <?php endif; ?>
+          </small>
         </div>
-
-        <h2></h2>
-
-        <input type="hidden" id="rating_input" name="rating">
-        <input type="hidden" name="product_id" value="<?= $product_id ?>">
-
-
-
-        <!-- Feedback Text -->
-        <div class="mb-4">
-          <label for="reviewText" class="form-label fw-semibold">Your Feedback</label>
-          <textarea name="feedback_user" class="form-control rounded-3 shadow-sm" id="reviewText" rows="4" placeholder="Share your experience..."></textarea>
-          <div id="feedback-error" class="mt-2 text-danger"></div>
-
+        <div class="text-warning mt-1">
+          <?php
+          $rating = $review['rating'];
+          for ($i = 1; $i <= 5; $i++) {
+              if ($i <= $rating) {
+                  echo '<i class="fas fa-star"></i>';
+              } else {
+                  echo '<i class="far fa-star"></i>';
+              }
+          }
+          ?>
         </div>
-
-
-        <!-- Submit Button -->
-        <button type="submit" class="btn btn-gradient w-100 py-2 fw-semibold">Submit Review</button>
-      </form>
+      </div>
     </div>
-  </section>
+
+    <p class="mt-2 mb-0 text-muted"><?= nl2br(htmlspecialchars($review['review_text'])) ?></p>
+  </div>
+</div>
+
+<?php
+    }
+} else {
+    echo "<p>No reviews yet.</p>";
+}
+?>
 
 
-  <?php include './includes/AuthModal.php'; ?>
+<!-- Review Form -->
+<section class=" mt-5" id="leave-review-section">
+  <div class="card border-0 shadow-lg rounded-4 p-4 mx-lg-5">
+    <h4 class="mb-4 fw-bold text-center text-gradient">Leave Your Review</h4>
 
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
-      const buyNowBtn = document.getElementById('buyNowBtn');
-      const addToCartBtn = document.getElementById('addToCartBtn');
+    <!-- <form id="review-form" method="post" action="../Server/Process/review-process.php"> -->
 
-      buyNowBtn.addEventListener('click', () => {
-        checkSession(<?= $product_id ?>, 'buy');
-      });
+    <!-- Star Rating -->
+    <form id="ratingForm" method="post" action="../Server/Process/review-process.php">
+      <div class="mb-4 text-center">
+        <label class="form-label fw-semibold d-block mb-2">Your Rating</label>
+        <div class="star-rating d-inline-flex flex-row-reverse gap-1">
+          <input type="radio" name="rating" id="star5" value="5">
+          <label for="star5" title="5 stars">★</label>
 
-      addToCartBtn.addEventListener('click', () => {
-        checkSession(<?= $product_id ?>, 'cart');
-      });
+          <input type="radio" name="rating" id="star4" value="4">
+          <label for="star4" title="4 stars">★</label>
+
+          <input type="radio" name="rating" id="star3" value="3">
+          <label for="star3" title="3 stars">★</label>
+
+          <input type="radio" name="rating" id="star2" value="2">
+          <label for="star2" title="2 stars">★</label>
+
+          <input type="radio" name="rating" id="star1" value="1">
+          <label for="star1" title="1 star">★</label>
+        </div>
+        <div id="rating-error" class="mt-1 text-danger"></div>
+
+      </div>
+
+      <h2></h2>
+
+      <input type="hidden" id="rating_input" name="rating">
+      <input type="hidden" name="product_id" value="<?= $product_id ?>">
 
 
-      function checkSession(productId, action) {
-        if (isLoggedIn) {
-          if (action === 'buy') {
-            buynow(productId);
-          } else {
-            addToCart(productId);
-          }
-        } else {
-          sessionStorage.setItem('postLoginActioncheckout', JSON.stringify({
-            productId,
-            action
-          }));
-          showLoginModal();
-        }
-      }
 
-      function showLoginModal() {
-        const modal = new bootstrap.Modal(document.getElementById('authModal'));
-        modal.show();
-      }
+      <!-- Feedback Text -->
+      <div class="mb-4">
+        <label for="reviewText" class="form-label fw-semibold">Your Feedback</label>
+        <textarea name="feedback_user" class="form-control rounded-3 shadow-sm" id="reviewText" rows="4" placeholder="Share your experience..."></textarea>
+        <div id="feedback-error" class="mt-2 text-danger"></div>
 
-      function showSignup() {
-        document.getElementById('authModalTitle').innerText = 'Signup';
-        document.getElementById('loginForm').classList.add('d-none');
-        document.getElementById('signupForm').classList.remove('d-none');
-      }
+      </div>
 
-      function showLogin() {
-        document.getElementById('authModalTitle').innerText = 'Login';
-        document.getElementById('signupForm').classList.add('d-none');
-        document.getElementById('loginForm').classList.remove('d-none');
-      }
-    })
-    document.getElementById("ratingForm").addEventListener("submit", function(e) {
-      e.preventDefault(); // stop form from reloading
 
-      const selected = document.querySelector('input[name="rating"]:checked');
-      const feedback = document.querySelector('#reviewText').value.trim();
-      const ratingInput = document.getElementById("rating_input");
+      <!-- Submit Button -->
+      <button type="submit" class="btn btn-gradient w-100 py-2 fw-semibold">Submit Review</button>
+    </form>
+  </div>
+</section>
 
-      // Reset error messages
-      document.getElementById("rating-error").textContent = "";
-      document.getElementById("feedback-error").textContent = "";
 
-      let hasError = false;
+<?php include './includes/AuthModal.php'; ?>
 
-      if (!selected) {
-        document.getElementById("rating-error").textContent = "Please select a rating!";
-        hasError = true;
-      }
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
+    const buyNowBtn = document.getElementById('buyNowBtn');
+    const addToCartBtn = document.getElementById('addToCartBtn');
 
-      if (!feedback) {
-        document.getElementById("feedback-error").textContent = "Please enter your feedback!";
-        hasError = true;
-      }
-
-      if (hasError) {
-        return;
-      }
-
-      // Set hidden input value for rating
-      ratingInput.value = selected.value;
-
-      const formData = new FormData(this);
-
-      fetch(this.action, {
-          method: 'POST',
-          body: formData
-        })
-        .then(res => res.json())
-        .then(data => {
-          if (data.status === 'success') {
-            window.location.reload()
-          } else {
-            alert(data.message);
-          }
-        })
-        .catch(err => {
-          alert("Request failed: " + err.message);
-        });
+    buyNowBtn.addEventListener('click', () => {
+      checkSession(<?= $product_id ?>, 'buy');
     });
-  </script>
+
+    addToCartBtn.addEventListener('click', () => {
+      checkSession(<?= $product_id ?>, 'cart');
+    });
+
+
+    function checkSession(productId, action) {
+      if (isLoggedIn) {
+        if (action === 'buy') {
+          buynow(productId);
+        } else {
+          addToCart(productId);
+        }
+      } else {
+        sessionStorage.setItem('postLoginActioncheckout', JSON.stringify({
+          productId,
+          action
+        }));
+        showLoginModal();
+      }
+    }
+
+    function showLoginModal() {
+      const modal = new bootstrap.Modal(document.getElementById('authModal'));
+      modal.show();
+    }
+
+    function showSignup() {
+      document.getElementById('authModalTitle').innerText = 'Signup';
+      document.getElementById('loginForm').classList.add('d-none');
+      document.getElementById('signupForm').classList.remove('d-none');
+    }
+
+    function showLogin() {
+      document.getElementById('authModalTitle').innerText = 'Login';
+      document.getElementById('signupForm').classList.add('d-none');
+      document.getElementById('loginForm').classList.remove('d-none');
+    }
+  })
+  document.getElementById("ratingForm").addEventListener("submit", function(e) {
+    e.preventDefault(); // stop form from reloading
+
+    const selected = document.querySelector('input[name="rating"]:checked');
+    const feedback = document.querySelector('#reviewText').value.trim();
+    const ratingInput = document.getElementById("rating_input");
+
+    // Reset error messages
+    document.getElementById("rating-error").textContent = "";
+    document.getElementById("feedback-error").textContent = "";
+
+    let hasError = false;
+
+    if (!selected) {
+      document.getElementById("rating-error").textContent = "Please select a rating!";
+      hasError = true;
+    }
+
+    if (!feedback) {
+      document.getElementById("feedback-error").textContent = "Please enter your feedback!";
+      hasError = true;
+    }
+
+    if (hasError) {
+      return;
+    }
+
+    // Set hidden input value for rating
+    ratingInput.value = selected.value;
+
+    const formData = new FormData(this);
+
+    fetch(this.action, {
+        method: 'POST',
+        body: formData
+      })
+      .then(res => res.json())
+      .then(data => {
+        if (data.status === 'success') {
+          window.location.reload()
+        } else {
+          alert(data.message);
+        }
+      })
+      .catch(err => {
+        alert("Request failed: " + err.message);
+      });
+  });
+</script>
 
 
 
-  <?php include './Components/footer.html';  ?>
+<?php include './Components/footer.html';  ?>

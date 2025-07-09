@@ -26,7 +26,7 @@ if (isset($_POST['productid'])) {
   $response['success'] = true;
   $response['cart_count'] = count($_SESSION['cart']);
   $response['subtotal'] = $subtotal;
-
+$_SESSION['final_subtotal'] = $subtotal;
   echo json_encode($response);
 } else {
   echo json_encode(["success" => false, "message" => "Product ID not provided"]);

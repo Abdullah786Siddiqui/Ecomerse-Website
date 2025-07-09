@@ -3,12 +3,12 @@
   include("../Server/Admin-Panel/config/db.php");
   if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}
+  }
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: ./index.php"); 
+  if (!isset($_SESSION['user_id'])) {
+    header("Location: ./index.php");
     exit();
-}
+  }
   include './Components/header.html';
   include './includes/Navbar.php';
 
@@ -30,7 +30,26 @@ if (!isset($_SESSION['user_id'])) {
   }
 
   ?>
+ <style>
+   /* Backdrop blur */
+   .modal-backdrop.show {
+     backdrop-filter: blur(5px);
+     background-color: rgba(0, 0, 0, 0.2);
+     /* semi-transparent black */
+   }
 
+   /* Compact form inputs */
+   .form-control,
+   .form-select {
+     padding: 0.4rem 0.6rem;
+     font-size: 0.9rem;
+   }
+
+   /* Adjust modal content size */
+   .modal-content {
+     border-radius: 1rem;
+   }
+ </style>
  <div class="cont p-5 ">
    <div class="row g-3">
 
@@ -43,7 +62,7 @@ if (!isset($_SESSION['user_id'])) {
                <!-- Shipping & Billing Section Header -->
                <div class="d-flex align-items-center justify-content-between p-2 bg-light rounded-top">
                  <h5 class="mb-0 text-success">Shipping & Billing</h5>
-                 <button class="btn btn-success btn-sm">Edit</button>
+                 <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#deliveryModal">Edit</button>
                </div>
 
                <!-- Address Details -->
@@ -105,7 +124,7 @@ if (!isset($_SESSION['user_id'])) {
                      <!-- Quantity -->
                      <div class="quantity">
                        <select class="form-select form-select-sm" style="width: 70px;"
-                        onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
+                         onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
                          <option selected><?= $items['quantity'] ?></option>
                          <option>2</option>
                          <option>3</option>
@@ -311,7 +330,148 @@ if (!isset($_SESSION['user_id'])) {
    </div> <!-- End .row -->
  </div> <!-- End .container -->
 
+ <div class="modal fade" id="deliveryModal" tabindex="-1" aria-labelledby="deliveryModalLabel" aria-hidden="true">
+   <div class="modal-dialog modal-dialog-centered modal-md">
+     <div class="modal-content">
+       <div class="modal-header border-0">
+         <h5 class="modal-title" id="deliveryModalLabel">Delivery Address</h5>
+         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+       </div>
 
+       <?php
+        $sql_form = "
+SELECT u.name, u.id as user_id, u.role, u.status, u.email, u.created_at,
+a.phone, a.city, a.country, a.full_name, a.address_line1 as address, a.type, u.user_profile
+FROM users u
+INNER JOIN addresses a ON u.id = a.user_id
+WHERE u.id = $user_id
+";
+
+        $result_form = $conn->query($sql_form);
+
+        $billing = null;
+        $shipping = null;
+
+        while ($row = $result_form->fetch_assoc()) {
+          if ($row['type'] == 'billing') {
+            $billing = $row;
+          } elseif ($row['type'] == 'shipping') {
+            $shipping = $row;
+          }
+        }
+
+        if ($billing):
+        ?>
+
+         <div class="modal-body pt-0">
+           <form id="address-form" novalidate>
+             <div class="row g-2">
+               <div class="col-12">
+                 <label for="fullName" class="form-label">Full Name</label>
+                 <input type="text" value="<?= htmlspecialchars($billing['name']) ?>" class="form-control" name="checkout_name" id="fullName" placeholder="Enter Your Full Name" required>
+                 <div id="fullName-error" class="text-danger small"></div>
+               </div>
+
+               <input type="hidden" id="user_id" name="user_id" value="<?= $user_id ?>">
+               <input type="hidden" name="update_address" value="update">
+
+               <div class="col-12">
+                 <label for="address" class="form-label">Address</label>
+                 <input type="text" value="<?= htmlspecialchars($billing['address']) ?>" class="form-control" name="checkout_address" id="address" placeholder="1234 Main St" required>
+                 <div id="address-error" class="text-danger small"></div>
+               </div>
+
+               <div class="col-12">
+                 <label for="phone" class="form-label">Phone</label>
+                 <input type="text" value="<?= htmlspecialchars($billing['phone']) ?>" class="form-control" name="checkout_phone" id="phone" placeholder="+92300000000" required>
+                 <div id="phone-error" class="text-danger small"></div>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="country" class="form-label">Country</label>
+                 <select class="form-select" id="country" name="checkout_country" required>
+                   <option disabled value="">Choose...</option>
+                   <option value="Pakistan" <?= ($billing['country'] == 'Pakistan') ? 'selected' : '' ?>>Pakistan</option>
+                   <option value="United States" <?= ($billing['country'] == 'United States') ? 'selected' : '' ?>>United States</option>
+                   <option value="India" <?= ($billing['country'] == 'India') ? 'selected' : '' ?>>India</option>
+                   <option value="France" <?= ($billing['country'] == 'France') ? 'selected' : '' ?>>France</option>
+                 </select>
+                 <div id="country-error" class="text-danger small"></div>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="city" class="form-label">City</label>
+                 <select class="form-select" id="city" name="checkout_city" required>
+                   <option disabled value="">Choose...</option>
+                   <option value="Lahore" <?= ($billing['city'] == 'Lahore') ? 'selected' : '' ?>>Lahore</option>
+                   <option value="Karachi" <?= ($billing['city'] == 'Karachi') ? 'selected' : '' ?>>Karachi</option>
+                   <option value="Multan" <?= ($billing['city'] == 'Multan') ? 'selected' : '' ?>>Multan</option>
+                 </select>
+                 <div id="city-error" class="text-danger small"></div>
+               </div>
+             </div>
+
+             <hr class="my-3">
+
+             <div class="form-check mb-2">
+               <input type="checkbox" class="form-check-input" id="same-address" name="check_address" value="1">
+               <label class="form-check-label fw-bold small" for="same-address">Shipping address is the same as billing</label>
+             </div>
+
+             <div id="shipping-section" class="bg-light p-2 rounded-3 small" style="display:none;">
+               <h6 class="mb-2">Shipping Address</h6>
+
+               <div class="mb-2">
+                 <label for="shippingName" class="form-label">Full Name</label>
+                 <input type="text" value="<?= htmlspecialchars($shipping['full_name'] ?? '') ?>" class="form-control" name="checkout_shipping_name" id="shippingName">
+                 <div id="shippingName-error" class="text-danger small"></div>
+               </div>
+
+               <div class="mb-2">
+                 <label for="shippingAddress" class="form-label">Address</label>
+                 <input type="text" value="<?= htmlspecialchars($shipping['address'] ?? '') ?>" class="form-control" name="checkout_shipping_address" id="shippingAddress">
+                 <div id="shippingAddress-error" class="text-danger small"></div>
+               </div>
+
+               <div class="mb-2">
+                 <label for="shippingPhone" class="form-label">Phone</label>
+                 <input type="text" value="<?= htmlspecialchars($shipping['phone'] ?? '') ?>" class="form-control" name="checkout_shipping_phone" id="shippingPhone">
+                 <div id="shippingPhone-error" class="text-danger small"></div>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="shippingCountry" class="form-label">Country</label>
+                 <select class="form-select" id="shippingCountry" name="checkout_shipping_country">
+                   <option disabled value="">Choose...</option>
+                   <option value="Pakistan" <?= (isset($shipping) && $shipping['country'] == 'Pakistan') ? 'selected' : '' ?>>Pakistan</option>
+                   <option value="United States" <?= (isset($shipping) && $shipping['country'] == 'United States') ? 'selected' : '' ?>>United States</option>
+                   <option value="India" <?= (isset($shipping) && $shipping['country'] == 'India') ? 'selected' : '' ?>>India</option>
+                   <option value="France" <?= (isset($shipping) && $shipping['country'] == 'France') ? 'selected' : '' ?>>France</option>
+                 </select>
+                 <div id="shippingCountry-error" class="text-danger small"></div>
+               </div>
+
+               <div class="col-md-6">
+                 <label for="shippingCity" class="form-label">City</label>
+                 <select class="form-select" id="shippingCity" name="checkout_shipping_city">
+                   <option disabled value="">Choose...</option>
+                   <option value="Lahore" <?= (isset($shipping) && $shipping['city'] == 'Lahore') ? 'selected' : '' ?>>Lahore</option>
+                   <option value="Karachi" <?= (isset($shipping) && $shipping['city'] == 'Karachi') ? 'selected' : '' ?>>Karachi</option>
+                   <option value="Multan" <?= (isset($shipping) && $shipping['city'] == 'Multan') ? 'selected' : '' ?>>Multan</option>
+                 </select>
+                 <div id="shippingCity-error" class="text-danger small"></div>
+               </div>
+             </div>
+
+             <button class="btn btn-primary w-100 btn-sm mt-3" type="submit">Save</button>
+           </form>
+         </div>
+
+       <?php endif; ?>
+
+     </div>
+   </div>
+ </div>
 
 
 
@@ -320,4 +480,10 @@ if (!isset($_SESSION['user_id'])) {
  <script src="./Assets/JS/cart.js"></script>
 
 
+ <script>
+   // Toggle shipping section
+   document.getElementById('same-address').addEventListener('change', function() {
+     document.getElementById('shipping-section').style.display = this.checked ? 'block' : 'none';
+   });
+ </script>
  <?php include './Components/footer.html';  ?>

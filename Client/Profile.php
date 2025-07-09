@@ -68,9 +68,9 @@ $user_id = $_SESSION['user_id'];
         <div class="p-4">
           <h5>Your Account</h5>
           <small class="text-muted d-block mb-3"><?= $row['name'] ?></small>
-          <a href="./homeprofile.php" id="Home">Home</a>
+          <a href="./homeprofile.php" id="Home">My Profile</a>
           <a href="./Profile.php" class="active" id='myorders'>My Orders</a>
-          <a href="#">Saved Items</a>
+          <a href="#">Your Addresses</a>
           <hr />
           <a href="#">Customer Support</a>
           <a href="./logout.php">Log Out</a>

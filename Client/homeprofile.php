@@ -1,18 +1,17 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ./index.php"); 
-    exit();
+  header("Location: ./index.php");
+  exit();
 }
 include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
 
 $user_id = $_SESSION['user_id'];
-
 ?>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
@@ -20,7 +19,7 @@ $user_id = $_SESSION['user_id'];
 <style>
   body {
     background: #f5f6f8;
-     font-weight: 500;
+    font-weight: 500;
   }
 
   .sidebar {
@@ -60,12 +59,12 @@ $user_id = $_SESSION['user_id'];
   }
 </style>
 
-
 <div class="container-fluid">
   <div class="row">
 
     <?php
-    $sql = "SELECT * FROM users where  id = $user_id";
+    // Sidebar User Info
+    $sql = "SELECT * FROM users WHERE id = $user_id";
     $result = $conn->query($sql);
     if ($row = $result->fetch_assoc()) {
     ?>
@@ -73,181 +72,353 @@ $user_id = $_SESSION['user_id'];
       <div class="col-md-3 col-lg-2 sidebar p-0">
         <div class="p-4">
           <h5>Your Account</h5>
-          <small class="text-muted d-block mb-3"><?= $row['name'] ?></small>
-          <a href="./homeprofile.php" id="Home" class="active">Home</a>
+          <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
+          <a href="./homeprofile.php" id="Home" class="active">My Profile</a>
           <a href="./Profile.php" id='myorders'>My Orders</a>
-          <a href="#">Saved Items</a>
+          <a href="#">Your Addresses</a>
           <hr />
           <a href="#">Customer Support</a>
           <a href="./logout.php">Log Out</a>
         </div>
       </div>
     <?php
-    } ?>
+    }
+    ?>
+
     <div class="col-md-9 col-lg-10 p-4">
-      <h4 class="mb-4">Home</h4>
-
-
-
-      <!-- Main content -->
-
+      <h4 class="mb-4">Profile</h4>
 
       <div class="card shadow-lg border-0 rounded-4 mt-4 p-4 bg-white">
         <?php
-        $sql = "SELECT users.name , users.id as user_id , users.role , users.status , users.email ,users.created_at ,addresses.phone ,addresses.city , addresses.country ,addresses.address_line1 as address , users.user_profile FROM users INNER JOIN addresses on users.id = addresses.user_id where  users.id = $user_id ";
+        $sql = "SELECT users.name, users.gender , users.id AS user_id, users.role, users.status, users.email, users.created_at,
+        addresses.phone, addresses.city, addresses.country, addresses.address_line1 AS address, users.user_profile as user_profile
+        FROM users
+        LEFT JOIN addresses ON users.id = addresses.user_id
+        WHERE users.id = $user_id";
+
         $result = $conn->query($sql);
         if ($row = $result->fetch_assoc()) {
         ?>
           <div class="card-body">
             <div class="d-flex flex-column flex-sm-row align-items-center text-center text-sm-start gap-4 mb-4">
               <div>
+                <form method="POST" enctype="multipart/form-data" id="profileForm">
+                  <div class="profile-picture-wrapper" style="position: relative; width: 120px; height: 120px;">
+                    <img
+                      src="<?= empty($row['user_profile']) ? './Assets/Images/user.png' : '../Server/uploads/' . $row['user_profile'] ?>"
+                      alt="User Avatar"
+                      class="rounded-circle img-fluid shadow"
+                      style="width: 120px; height: 120px; object-fit: cover;"
+                      id="profile-preview">
+                    <input
+                      type="file"
+                      name="image"
+                      id="profile-image-home"
+                      accept="image/*"
+                      style="display: none;">
 
-
-                <div class="profile-picture-wrapper" style="position: relative; width: 120px; height: 120px;">
-                  <img
-                    src="<?= empty($row['user_profile']) ? './Assets/Images/user.png' : $row['user_profile'] ?>"
-                    alt="User Avatar"
-                    class="rounded-circle img-fluid shadow"
-                    style="width: 120px; height: 120px; object-fit: cover;">
-
-                  <!-- Hidden File Input -->
-                  <input type="file" name="image" id="profile-image-home" accept=".jpg, .jpeg, .png" style="display: none;">
-
-                  <!-- Camera Icon as Label -->
-                  <label for="profile-image-home" class="camera-icon">
-                    <i class="ri-camera-fill"></i>
-                  </label>
-                </div>
-
+                    <label for="profile-image-home" class="camera-icon  btn"
+                      style="position: absolute; bottom: 0; right: 0; background: #fff; border-radius: 50%; cursor: pointer; padding: 5px;">
+                      <i class="ri-camera-fill"></i>
+                    </label>
+                  </div>
+                </form>
 
               </div>
               <div>
-                <h4 class="fw-bold mb-0"><?= $row['name'] ?></h4>
-                <p class="text-secondary small mb-1"><?= $row['email'] ?></p>
-                <p class="text-secondary small mb-0"><?= $row['phone'] ?></p>
+                <h4 class="fw-bold mb-0"><?= htmlspecialchars($row['name']) ?></h4>
+                <p class="text-secondary small mb-1"><?= htmlspecialchars($row['email']) ?></p>
+
               </div>
             </div>
 
-            <!-- User Info -->
             <hr class="my-4">
+            <!-- user information  -->
+            <div class="row g-4  " id='user_information'>
 
-            <div class="row text-center text-md-start gy-3">
-              <div class="col-12 col-md-6">
-                <h6 class="text-muted fw-semibold mb-1"><i class="bi bi-geo-alt"></i> Default Address</h6>
-                <p class="mb-0"><?= $row['address'] ?><br><?= $row['city'] ?>, <?= $row['country'] ?></p>
+              <!-- Address -->
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-person me-1"></i> Name
+                  </h6>
+                  <p class="mb-0 <?= empty($row['name']) ? 'text-muted fst-italic' : 'text-black' ?>">
+                    <?= empty($row['name']) ? 'No name provided' : htmlspecialchars($row['name']) ?>
+                  </p>
+                </div>
               </div>
-              <div class="col-12 col-md-6">
-                <h6 class="text-muted fw-semibold mb-1"><i class="bi bi-calendar"></i> Member Since</h6>
-                <p class="mb-0"><?= date('M d, Y', strtotime($row['created_at'])) ?></p>
+
+              <!-- Email -->
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-envelope me-1"></i> Email
+                  </h6>
+                  <p class="mb-0 <?= empty($row['email']) ? 'text-muted fst-italic' : 'text-black' ?>">
+                    <?= empty($row['email']) ? 'No email provided' : htmlspecialchars($row['email']) ?>
+                  </p>
+                </div>
               </div>
+
+
+
+
+              <!-- Phone -->
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-telephone me-1"></i> Phone
+                  </h6>
+                  <p class="mb-0 <?= empty($row['phone']) ? 'text-muted fst-italic' : 'text-black' ?>">
+                    <?= empty($row['phone']) ? 'No phone number provided' : htmlspecialchars($row['phone']) ?>
+                  </p>
+                </div>
+              </div>
+
+              <!-- Gender -->
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-gender-ambiguous me-1"></i> Gender
+                  </h6>
+                  <p class="mb-0 <?= empty($row['gender']) ? 'text-muted fst-italic' : 'text-black' ?>">
+                    <?= empty($row['gender']) ? 'Not specified' : htmlspecialchars(ucfirst($row['gender'])) ?>
+                  </p>
+                </div>
+              </div>
+              <!-- Member Since -->
+              <div class="col-12 col-md-4">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-calendar me-1"></i> Member Since
+                  </h6>
+                  <p class="mb-0 text-black">
+                    <?= htmlspecialchars(date('M d, Y', strtotime($row['created_at']))) ?>
+                  </p>
+                </div>
+              </div>
+
             </div>
 
-            <!-- E-commerce Specific Stats -->
+            <!-- user information edit -->
+
+            <div class="d-none" id="user_information_edit">
+              <form method="post" id="profile_form">
+                <div class="row g-4">
+
+                  <!-- Address -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 border rounded-3 h-100">
+                      <label class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-geo-alt me-1"></i> Name
+                      </label>
+                      <textarea
+                        name="name"
+                        class="form-control <?= empty($row['name']) ? 'text-muted' : 'text-black' ?>"
+                        rows="2"
+                        placeholder="Enter your name"><?= htmlspecialchars($row['name'] ?? '') ?></textarea>
+
+                    </div>
+                  </div>
+                  <!-- Email -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 border rounded-3 h-100">
+                      <label class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-envelope me-1"></i> Email
+                      </label>
+                      <input
+                        type="email"
+                        name="email"
+                        class="form-control <?= empty($row['email']) ? 'text-muted' : 'text-black' ?>"
+                        placeholder="Enter your email"
+                        value="<?= htmlspecialchars($row['email'] ?? '') ?>">
+                    </div>
+                  </div>
+                  <!-- Member Since (readonly) -->
+                  <!-- <div  class="col-12 col-md-6">
+                    <div class="p-3 border rounded-3 h-100">
+                      <label class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-calendar me-1"></i> Member Since
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control"
+                        readonly
+                        value="<?= htmlspecialchars(date('M d, Y', strtotime($row['created_at']))) ?>">
+                    </div>
+                  </div> -->
+
+                  <!-- Phone -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 border rounded-3 h-100">
+                      <label class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-telephone me-1"></i> Phone
+                      </label>
+                      <input
+                        type="text"
+                        name="phone"
+                        class="form-control <?= empty($row['phone']) ? 'text-muted' : 'text-black' ?>"
+                        placeholder="Enter your phone number"
+                        value="<?= htmlspecialchars($row['phone'] ?? '') ?>">
+                    </div>
+                  </div>
+
+                  <!-- Gender -->
+                  <div class="col-12 col-md-6">
+                    <div class="p-3 border rounded-3 h-100">
+                      <label class="text-muted fw-semibold mb-2">
+                        <i class="bi bi-gender-ambiguous me-1"></i> Gender
+                      </label>
+                      <select name="gender" class="form-select <?= empty($row['gender']) ? 'text-muted' : 'text-black' ?>">
+                        <option value="">Select gender</option>
+                        <option value="male" <?= ($row['gender'] ?? '') === 'male' ? 'selected' : '' ?>>Male</option>
+                        <option value="female" <?= ($row['gender'] ?? '') === 'female' ? 'selected' : '' ?>>Female</option>
+                        <option value="other" <?= ($row['gender'] ?? '') === 'other' ? 'selected' : '' ?>>Other</option>
+                      </select>
+                    </div>
+                  </div>
+
+
+
+                  <!-- Save Button -->
+                  <div class="col-12 text-end">
+                    <button type="submit" class="btn btn-primary px-4">
+                      <i class="bi bi-save me-1"></i> Save Changes
+                    </button>
+                  </div>
+
+                </div>
+              </form>
+            </div>
+
             <hr class="my-4">
 
-            <div class="row g-3">
-              <!-- Total Orders -->
+            <!-- <div class="row g-3">
               <div class="col-6 col-md-4">
                 <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-primary fs-3 mb-1">
-                    <i class="bi bi-bag-check"></i>
-                  </div>
+                  <div class="text-primary fs-3 mb-1"><i class="bi bi-bag-check"></i></div>
                   <h5 class="fw-bold mb-0">12</h5>
                   <small class="text-muted">Total Orders</small>
                 </div>
               </div>
 
-              <!-- Pending Orders -->
               <div class="col-6 col-md-4">
                 <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-warning fs-3 mb-1">
-                    <i class="bi bi-clock-history"></i>
-                  </div>
+                  <div class="text-warning fs-3 mb-1"><i class="bi bi-clock-history"></i></div>
                   <h5 class="fw-bold mb-0">2</h5>
                   <small class="text-muted">Pending Orders</small>
                 </div>
               </div>
 
-              <!-- Wallet Balance -->
               <div class="col-6 col-md-4">
                 <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-success fs-3 mb-1">
-                    <i class="bi bi-wallet2"></i>
-                  </div>
+                  <div class="text-success fs-3 mb-1"><i class="bi bi-wallet2"></i></div>
                   <h5 class="fw-bold mb-0">$250</h5>
                   <small class="text-muted">Wallet Balance</small>
                 </div>
-              </div>
+              </div> -->
 
-              <!-- Available Coupons -->
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-info fs-3 mb-1">
-                    <i class="bi bi-ticket-perforated"></i>
-                  </div>
-                  <h5 class="fw-bold mb-0">3</h5>
-                  <small class="text-muted">Available Coupons</small>
-                </div>
-              </div>
-
-              <!-- Membership Tier -->
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-danger fs-3 mb-1">
-                    <i class="bi bi-award"></i>
-                  </div>
-                  <h5 class="fw-bold mb-0">Gold</h5>
-                  <small class="text-muted">Membership Tier</small>
-                </div>
-              </div>
-
-              <!-- Saved Addresses -->
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-secondary fs-3 mb-1">
-                    <i class="bi bi-geo-alt"></i>
-                  </div>
-                  <h5 class="fw-bold mb-0">5</h5>
-                  <small class="text-muted">Saved Addresses</small>
-                </div>
-              </div>
-            </div>
-
-
-            <div class="text-center text-md-end mt-4">
-              <a href="#" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm me-2">Edit Profile</a>
-              <a href="#" class="btn btn-outline-secondary px-4 py-2 rounded-pill shadow-sm">Manage Addresses</a>
-            </div>
 
           </div>
-        <?php
-        } ?>
+
+          <div class="text-center text-md-end mt-4">
+            <a id="editbtn" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm me-2">Edit Profile</a>
+
+
+          </div>
       </div>
 
-
-
-
-
-
-
-
-
-
+    <?php
+        } else {
+          echo '<div class="card-body text-center text-muted">User data not found.</div>';
+        }
+    ?>
     </div>
+
   </div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById('editbtn').addEventListener("click", function() {
+      document.getElementById('user_information').classList.add('d-none');
+      document.getElementById('user_information_edit').classList.remove('d-none');
+      document.getElementById('editbtn').classList.add('d-none');
+
+    })
+
+
+    function cancelEdit() {
+      document.getElementById('user_information_edit').classList.add('d-none');
+      document.getElementById('user_information').classList.remove('d-none');
+    }
+
+    const form = document.getElementById('profile_form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault(); // stop normal form submission
+
+      const formData = new FormData(form);
+
+      fetch("../Server/Process/edit_profile.php", {
+          method: "POST",
+          body: formData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.success) {
+            Swal.fire({
+              icon: "success",
+              title: "Success!",
+              text: "Profile updated successfully!",
+              confirmButtonColor: "#3085d6",
+            }).then(() => {
+              location.reload();
+            });
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error!",
+              text: "Something went wrong, please try again!",
+              confirmButtonColor: "#d33",
+            });
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Something went wrong, please try again!",
+            confirmButtonColor: "#d33",
+          });
+        });
+    });
+  const form1 = document.getElementById("profileForm");
+  const fileInput = document.getElementById("profile-image-home");
+
+  fileInput.addEventListener("change", function () {
+    const formData = new FormData(form1);
+
+    fetch('../Server/Process/profile_image.php', {
+      method: "POST",
+      body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.success) {
+       window.location.reload()
+      } else {
+        Swal.fire({
+            icon: "error",
+            text: "Failed to update image"
+        });
+      }
+    });
+  });
+
+
+  });
+</script>
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-  <?php include './Components/footer.html';  ?>
+<?php include './Components/footer.html'; ?>

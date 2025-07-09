@@ -1,10 +1,10 @@
  <?php
- if (session_status() === PHP_SESSION_NONE) {
+  if (session_status() === PHP_SESSION_NONE) {
     session_start();
-}
+  }
   include("../Server/Admin-Panel/config/db.php");
   include $_SERVER['DOCUMENT_ROOT'] . '/Ecomerse-Website/Client/Components/header.html';
- 
+
   $is_logged_in = isset($_SESSION['user_id']);
   $username = "";
   if (isset($_SESSION['user_id'])) {
@@ -14,6 +14,7 @@
     if ($row = $result->fetch_assoc()) {
       $username = $row['name'];
       $email = $row['email'];
+      $profile = $row['user_profile'];
     }
   }
   ?>
@@ -190,14 +191,14 @@
        <!-- Account Dropdown -->
        <div class="dropdown">
          <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
-           <img src="<?= isset($_SESSION['user_id']) ? '../Server/uploads/Abdullah.png' : './Assets/Images/user.png' ?>" width="30" height="30" class="rounded-circle me-1">
+           <img  src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="30" height="30" class="rounded-circle me-1">
            My Account
          </a>
 
          <?php if (isset($_SESSION['user_id'])): ?>
            <div class="dropdown-menu dropdown-menu-end p-3" style="width: 250px; z-index: 1100; overflow: hidden">
              <div class="text-center mb-2">
-               <img src="../Server/uploads/Abdullah.png" width="50" height="50" class="rounded-circle mb-2">
+               <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="50" height="50" class="rounded-circle mb-2">
 
                <div><strong><?= htmlspecialchars($username) ?></strong></div>
                <small class="text-muted d-block text-truncate"><?= htmlspecialchars($row['email']) ?></small>
@@ -206,7 +207,7 @@
              <hr>
              <a class="dropdown-item" href="./homeprofile.php"><i class="bi bi-person me-2"></i> My Account</a>
 
-             <a class="dropdown-item" href="#"><i class="bi bi-bag-check me-2"></i> My Orders</a>
+             <a class="dropdown-item" href="./Profile.php"><i class="bi bi-bag-check me-2"></i> My Orders</a>
              <a class="dropdown-item" href="#"><i class="bi bi-geo-alt me-2"></i> Delivery Addresses</a>
              <hr>
              <a class="dropdown-item text-danger" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
@@ -316,14 +317,14 @@
      <!-- User Dropdown -->
      <div class="dropdown">
        <a class="nav-link d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown">
-         <img src="<?= isset($_SESSION['user_id']) ? '../Server/uploads/Abdullah.png' : './Assets/Images/user.png' ?>" width="30" height="30" class="rounded-circle">
+         <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="30" height="30" class="rounded-circle">
          <span class="d-none d-md-inline">My Account</span>
        </a>
 
        <?php if (isset($_SESSION['user_id'])): ?>
          <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: 220px; z-index:1100;">
            <div class="text-center mb-2">
-             <img src="../Server/uploads/Abdullah.png" width="45" height="45" class="rounded-circle mb-1">
+             <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="45" height="45" class="rounded-circle mb-1">
              <div><strong><?= htmlspecialchars($username) ?></strong></div>
              <small class="text-muted text-truncate"><?= htmlspecialchars($email) ?></small>
              <a href="./homeprofile.php" class="btn btn-outline-primary btn-sm w-100 mt-2">Profile</a>
@@ -331,7 +332,7 @@
            <hr class="my-2">
            <a class="dropdown-item py-1" href="./homeprofile.php"><i class="bi bi-person me-2"></i> Account</a>
 
-           <a class="dropdown-item py-1" href="#"><i class="bi bi-bag-check me-2"></i> Orders</a>
+           <a class="dropdown-item py-1" href="./Profile.php"><i class="bi bi-bag-check me-2"></i>My Orders</a>
            <a class="dropdown-item py-1" href="#"><i class="bi bi-geo-alt me-2"></i> Addresses</a>
            <hr class="my-2">
            <a class="dropdown-item text-danger py-1" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
@@ -354,7 +355,7 @@
  <!-- MOBILE SEARCH & MENU -->
  <nav class="bg-white border-bottom py-2 px-3 d-lg-none  ">
    <div class="input-group rounded  mb-2 ">
-       <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
+     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
        <div class="input-group flex-grow-1">
          <input
            class="form-control search-box searchInput"
@@ -419,26 +420,6 @@
  <script src="./Assets/JS/auth.js"></script>
  <script src="./Assets/JS/search.js"></script>
 
- <script>
-   document.addEventListener("DOMContentLoaded", () => {
-     const form = document.getElementById("searchForm");
-     const searchbtn = document.getElementById("search-btn");
-     const searchInputs = document.querySelectorAll(".searchInput");
-     const searchInput2 = document.getElementById("searchInput");
 
-     const output = document.getElementById("output");
-
-     form.addEventListener("submit", function(e) {
-       e.preventDefault();
-     });
-
-     searchInputs.forEach(input => {
-       input.addEventListener("keydown", function(e) {
-         searchfunc(e.target.value);
-       });
-     });
-
-   });
- </script>
 
  <?php include $_SERVER['DOCUMENT_ROOT'] . '/Ecomerse-Website/Client/Components/footer.html';; ?>
