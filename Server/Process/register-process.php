@@ -41,7 +41,7 @@ try {
     $mail->SMTPSecure = 'tls';
     $mail->Port       = 587;
 
-    $mail->setFrom('abdullahsidzz333@gmail.com', 'Alexa');
+    $mail->setFrom('abdullahsidzz333@gmail.com', 'Ecoverse');
     $mail->addAddress($email, $name);
 
     $mail->isHTML(true);

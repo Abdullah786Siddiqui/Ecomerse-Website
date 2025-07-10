@@ -11,6 +11,8 @@ include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
 
+
+
 $user_id = $_SESSION['user_id'];
 ?>
 
@@ -29,16 +31,18 @@ $user_id = $_SESSION['user_id'];
   }
 
   .sidebar a {
-    padding: 10px 20px;
+    padding: 8px 16px;
     display: block;
     color: #333;
     text-decoration: none;
+    font-size: 14px;
   }
 
   .sidebar a.active {
     background-color: #e7f1ff;
     font-weight: 600;
   }
+
 
   .profile-picture-wrapper .camera-icon {
     position: absolute;
@@ -61,7 +65,6 @@ $user_id = $_SESSION['user_id'];
 
 <div class="container-fluid">
   <div class="row">
-
     <?php
     // Sidebar User Info
     $sql = "SELECT * FROM users WHERE id = $user_id";
@@ -69,15 +72,15 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-md-3 col-lg-2 sidebar p-0">
-        <div class="p-4">
-          <h5>Your Account</h5>
+      <div class="col-12 col-md-3 col-lg-2 sidebar p-0">
+        <div class="p-3">
+          <h6>Your Account</h6>
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home" class="active">My Profile</a>
           <a href="./Profile.php" id='myorders'>My Orders</a>
           <a href="#">Your Addresses</a>
           <hr />
-          <a href="#">Customer Support</a>
+          <a href="./customer_support.php">Customer Support</a>
           <a href="./logout.php">Log Out</a>
         </div>
       </div>
@@ -90,7 +93,7 @@ $user_id = $_SESSION['user_id'];
 
       <div class="card shadow-lg border-0 rounded-4 mt-4 p-4 bg-white">
         <?php
-        $sql = "SELECT users.name, users.gender , users.id AS user_id, users.role, users.status, users.email, users.created_at,
+        $sql = "SELECT users.name, users.gender , users.password as pass , users.id AS user_id, users.role, users.status, users.email, users.created_at,
         addresses.phone, addresses.city, addresses.country, addresses.address_line1 AS address, users.user_profile as user_profile
         FROM users
         LEFT JOIN addresses ON users.id = addresses.user_id
@@ -102,6 +105,7 @@ $user_id = $_SESSION['user_id'];
           <div class="card-body">
             <div class="d-flex flex-column flex-sm-row align-items-center text-center text-sm-start gap-4 mb-4">
               <div>
+
                 <form method="POST" enctype="multipart/form-data" id="profileForm">
                   <div class="profile-picture-wrapper" style="position: relative; width: 120px; height: 120px;">
                     <img
@@ -133,6 +137,91 @@ $user_id = $_SESSION['user_id'];
             </div>
 
             <hr class="my-4">
+            <!-- change password -->
+            <div class="d-flex justify-content-center">
+              <div id="change_password_div" class="col-12 col-md-6 d-none">
+                <div class="p-3 border rounded-3 h-100">
+                  <form method="post" id="change_password_form">
+                    <label class="text-muted fw-semibold mb-2">
+                      <i class="bi bi-key me-1"></i> Change Password
+                    </label>
+
+                    <input
+                      type="password"
+                      name="current_password"
+                      class="form-control mb-2"
+                      placeholder="Current Password">
+
+                    <input
+                      type="password"
+                      name="new_password"
+                      class="form-control mb-2"
+                      placeholder="New Password">
+
+                    <input
+                      type="password"
+                      name="confirm_password"
+                      class="form-control mb-1  "
+                      placeholder="Confirm New Password">
+                    <p id="error_pc" class="text-danger text-center"></p>
+
+                    <button type="submit" class="btn btn-primary w-100 mb-2">
+                      <i class="bi bi-shield-lock"></i> Change Password
+                    </button>
+                    <button type="button" class="btn btn-light w-100 mb-2 border d-flex align-items-center justify-content-center gap-3 shadow-sm">
+                      <img src="https://www.svgrepo.com/show/475656/google-color.svg" alt="Google" width="20" height="20">
+                      <span class="fw-bold"> Continue with Google</span>
+                    </button>
+
+                    <!-- Continue with Email -->
+                    <button id="continueToEmai" type="button" class="btn btn-light w-100 mb-2 border d-flex align-items-center justify-content-center gap-3 shadow-sm">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" fill="currentColor" class="bi bi-envelope-fill" viewBox="0 0 16 16">
+                        <path d="M.05 3.555A2 2 0 0 1 2 2h12a2 2 0 0 1 1.95 1.555L8 8.414.05 3.555z" />
+                        <path d="M0 4.697v7.104l5.803-3.804L0 4.697zM6.761 8.83l-6.761 4.43A2 2 0 0 0 2 14h12a2 2 0 0 0 1.999-0.74l-6.76-4.43L8 9.586l-1.239-.756zM16 4.697l-5.803 3.603L16 11.801V4.697z" />
+                      </svg>
+                      <span class="fw-bold">Continue with Email</span>
+                    </button>
+
+                  </form>
+
+                </div>
+              </div>
+
+            </div>
+            <!-- chnage password with token email -->
+            <div class="d-flex justify-content-center">
+              <div id="change_password_div_email" class="col-12 col-md-6 d-none">
+                <div class="p-3 border rounded-3 h-100">
+                  <form method="post" id="change_password_form_token">
+                    <label class="text-muted fw-semibold mb-2">
+                      <i class="bi bi-key me-1"></i> Change Password
+                    </label>
+
+
+
+                    <input
+                      type="password"
+                      name="new_password_token"
+                      class="form-control mb-2"
+                      placeholder="New Password">
+
+                    <input
+                      type="password"
+                      name="confirm_password_token"
+                      class="form-control mb-1  "
+                      placeholder="Confirm New Password">
+                    <p id="error_pc_token" class="text-danger text-center"></p>
+
+
+
+                    <button type="submit" class="btn btn-primary w-100 fw-semibold">Change password</button>
+
+                  </form>
+
+                </div>
+              </div>
+
+            </div>
             <!-- user information  -->
             <div class="row g-4  " id='user_information'>
 
@@ -186,6 +275,19 @@ $user_id = $_SESSION['user_id'];
                   </p>
                 </div>
               </div>
+              <div id="change_password" class="col-12 col-md-4 cursor-pointer">
+                <div class="p-3 border rounded-3 h-100">
+                  <h6 class="text-muted fw-semibold mb-2">
+                    <i class="bi bi-key me-1"></i> Change Password
+                  </h6>
+                  <p class="mb-0 text-black fst-italic">
+
+                    *********
+                  </p>
+                </div>
+              </div>
+
+
               <!-- Member Since -->
               <div class="col-12 col-md-4">
                 <div class="p-3 border rounded-3 h-100">
@@ -234,19 +336,7 @@ $user_id = $_SESSION['user_id'];
                         value="<?= htmlspecialchars($row['email'] ?? '') ?>">
                     </div>
                   </div>
-                  <!-- Member Since (readonly) -->
-                  <!-- <div  class="col-12 col-md-6">
-                    <div class="p-3 border rounded-3 h-100">
-                      <label class="text-muted fw-semibold mb-2">
-                        <i class="bi bi-calendar me-1"></i> Member Since
-                      </label>
-                      <input
-                        type="text"
-                        class="form-control"
-                        readonly
-                        value="<?= htmlspecialchars(date('M d, Y', strtotime($row['created_at']))) ?>">
-                    </div>
-                  </div> -->
+
 
                   <!-- Phone -->
                   <div class="col-12 col-md-6">
@@ -280,6 +370,8 @@ $user_id = $_SESSION['user_id'];
 
 
 
+
+
                   <!-- Save Button -->
                   <div class="col-12 text-end">
                     <button type="submit" class="btn btn-primary px-4">
@@ -293,36 +385,14 @@ $user_id = $_SESSION['user_id'];
 
             <hr class="my-4">
 
-            <!-- <div class="row g-3">
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-primary fs-3 mb-1"><i class="bi bi-bag-check"></i></div>
-                  <h5 class="fw-bold mb-0">12</h5>
-                  <small class="text-muted">Total Orders</small>
-                </div>
-              </div>
 
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-warning fs-3 mb-1"><i class="bi bi-clock-history"></i></div>
-                  <h5 class="fw-bold mb-0">2</h5>
-                  <small class="text-muted">Pending Orders</small>
-                </div>
-              </div>
-
-              <div class="col-6 col-md-4">
-                <div class="border rounded-3 p-3 shadow-sm text-center h-100">
-                  <div class="text-success fs-3 mb-1"><i class="bi bi-wallet2"></i></div>
-                  <h5 class="fw-bold mb-0">$250</h5>
-                  <small class="text-muted">Wallet Balance</small>
-                </div>
-              </div> -->
 
 
           </div>
 
           <div class="text-center text-md-end mt-4">
             <a id="editbtn" class="btn btn-primary px-4 py-2 rounded-pill shadow-sm me-2">Edit Profile</a>
+
 
 
           </div>
@@ -337,6 +407,7 @@ $user_id = $_SESSION['user_id'];
 
   </div>
 </div>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('editbtn').addEventListener("click", function() {
@@ -425,7 +496,147 @@ $user_id = $_SESSION['user_id'];
           }
         });
     });
+    let changePasword = document.getElementById("change_password").addEventListener("click", function() {
+      document.getElementById('user_information').classList.add('d-none');
+      document.getElementById('change_password_div').classList.remove('d-none');
+      document.getElementById('editbtn').classList.add('d-none');
 
+    })
+    let changePaswordForm = document.getElementById("change_password_form")
+    changePaswordForm.addEventListener("submit", function(e) {
+      e.preventDefault();
+      let changeformData = new FormData(changePaswordForm);
+      fetch("../Server/Process/change_password.php", {
+          method: "POST",
+          body: changeformData,
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          if (data.status === "success") {
+            Swal.fire({
+                icon: "success",
+                title: "<h3 style='font-weight:500'>Password Changed!</h3>",
+                text: "Your password has been updated successfully.",
+                timer: 1500,
+                showConfirmButton: false,
+                width: 320,
+                padding: "1rem",
+                background: "#f0f9f5",
+                color: "#274c3a",
+                customClass: {
+                  popup: "swal2-popup-compact"
+                },
+                timerProgressBar: true
+              })
+
+              .then(() => {
+                window.location.reload();
+              })
+
+          } else {
+            document.getElementById("error_pc").innerText = data.message
+          }
+        })
+        .catch((error) => {
+          console.error("Error:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Error!",
+            text: "Something went wrong catch, please try again!",
+            confirmButtonColor: "#d33",
+          });
+        });
+    })
+
+
+    let continueEmail = document.getElementById("continueToEmai")
+    continueEmail.addEventListener("click", function() {
+      fetch("../Server/Process/pc_phpmailer.php", {
+          method: "POST",
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.status === "success") {
+
+            Swal.fire({
+              iconHtml: `
+          <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="#0d6efd" viewBox="0 0 16 16">
+            <path d="M0 4a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V4zm2-1a1 1 0 0 0-1 1v.217l7 4.2 7-4.2V4a1 1 0 0 0-1-1H2zm13 2.383l-4.708 2.825L15 12V5.383zM1 5.383V12l4.708-2.792L1 5.383zM6.761 9.13L1.528 13H14.47l-5.233-3.87L8 9.944 6.761 9.13z"/>
+          </svg>
+        `,
+              title: "Check Your Email",
+              html: `
+          <p style="margin:0; font-size: 14px; color:#555">
+            We sent a verification link to your email.<br>
+            Please open your inbox and follow the link to continue.
+          </p>
+        `,
+              showConfirmButton: true,
+              confirmButtonText: "OK",
+              width: 350,
+              padding: "1.2rem",
+              background: "#fff",
+              color: "#333",
+              customClass: {
+                popup: "swal2-popup-compact"
+              }
+            });
+
+          } else {
+            Swal.fire({
+              icon: "error",
+              title: "Error",
+              text: data.message,
+            });
+          }
+        });
+
+    })
+
+
+    const success = "<?php echo $_GET['success'] ?? ''; ?>";
+    if (success === 'true') {
+      const userInfo = document.getElementById('user_information');
+      if (userInfo) userInfo.classList.add('d-none');
+      document.getElementById('change_password_div_email').classList.remove('d-none');
+      changePaswordtoken = document.getElementById("change_password_form_token")
+      changePaswordtoken.addEventListener("submit", function(e) {
+        e.preventDefault();
+        const formData3 = new FormData(changePaswordtoken);
+        fetch("../Server/Process/verify_token_password.php", {
+            method: "POST",
+            body: formData3
+          })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.status === "success") {
+              Swal.fire({
+                  icon: "success",
+                  title: "<h3 style='font-weight:500'>Password Changed!</h3>",
+                  text: "Your password has been updated successfully.",
+                  timer: 1500,
+                  showConfirmButton: false,
+                  width: 320,
+                  padding: "1rem",
+                  background: "#f0f9f5",
+                  color: "#274c3a",
+                  customClass: {
+                    popup: "swal2-popup-compact"
+                  },
+                  timerProgressBar: true
+                })
+
+                .then(() => {
+                  window.location.href = 'http://localhost/Ecomerse-Website/Client/homeprofile.php'
+                })
+            } else {
+              document.getElementById("error_pc_token").innerText = data.message
+            }
+          })
+
+      })
+
+    }
 
   });
 </script>

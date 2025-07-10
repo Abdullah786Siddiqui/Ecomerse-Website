@@ -19,6 +19,7 @@ $user_id = $_SESSION['user_id'];
 <style>
   body {
     background: #f5f6f8;
+    font-weight: 500;
   }
 
   .sidebar {
@@ -28,10 +29,11 @@ $user_id = $_SESSION['user_id'];
   }
 
   .sidebar a {
-    padding: 10px 20px;
+    padding: 8px 16px;
     display: block;
     color: #333;
     text-decoration: none;
+    font-size: 14px;
   }
 
   .sidebar a.active {
@@ -59,25 +61,27 @@ $user_id = $_SESSION['user_id'];
 <div class="container-fluid">
   <div class="row">
     <?php
-    $sql = "SELECT * FROM users where  id = $user_id";
+    // Sidebar User Info
+    $sql = "SELECT * FROM users WHERE id = $user_id";
     $result = $conn->query($sql);
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-md-3 col-lg-2 sidebar p-0">
-        <div class="p-4">
-          <h5>Your Account</h5>
-          <small class="text-muted d-block mb-3"><?= $row['name'] ?></small>
+      <div class="col-12 col-md-3 col-lg-2 sidebar p-0">
+        <div class="p-3">
+          <h6>Your Account</h6>
+          <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home">My Profile</a>
-          <a href="./Profile.php" class="active" id='myorders'>My Orders</a>
+          <a href="./Profile.php" id='myorders'  class="active">My Orders</a>
           <a href="#">Your Addresses</a>
           <hr />
-          <a href="#">Customer Support</a>
+          <a href="./customer_support.php">Customer Support</a>
           <a href="./logout.php">Log Out</a>
         </div>
       </div>
     <?php
-    } ?>
+    }
+    ?>
     <!-- Main Content -->
     <div class="col-md-9 col-lg-10 p-4">
       <h4 class="mb-4">Orders</h4>

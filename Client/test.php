@@ -1,82 +1,112 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Edit Profile</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-  <style>
-    body {
-      background-color: #f7f7f7;
-    }
-    .profile-pic {
-      width: 80px;
-      height: 80px;
-      border-radius: 50%;
-      background-color: #ddd;
-      display: inline-block;
-      background-image: url('https://via.placeholder.com/80'); /* Replace with actual image if needed */
-      background-size: cover;
-      background-position: center;
-    }
-    .section-title {
-      font-weight: bold;
-      font-size: 18px;
-      color: #333;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Customer Support</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
 
-<div class="container my-5">
-  <div class="card shadow-sm border-0 rounded-4">
-  <div class="card-body p-4 bg-white">
+<!-- Header -->
+<header class="bg-primary text-white text-center py-4">
+  <h1>Customer Support</h1>
+  <p>We’re here to help you 24/7</p>
+</header>
 
-    <form>
-      <div class="row g-4">
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">Full Name</label>
-          <input type="text" class="form-control rounded-3 border-light-subtle shadow-sm" value="Fozia">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">Email</label>
-          <input type="email" class="form-control rounded-3 border-light-subtle shadow-sm" value="fozianaz140@gmail.com">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">Phone</label>
-          <input type="text" class="form-control rounded-3 border-light-subtle shadow-sm" placeholder="Enter phone number">
-        </div>
-
-      
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">Address</label>
-          <input type="text" class="form-control rounded-3 border-light-subtle shadow-sm" placeholder="Enter address">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">City</label>
-          <input type="text" class="form-control rounded-3 border-light-subtle shadow-sm" placeholder="Enter city">
-        </div>
-
-        <div class="col-md-6">
-          <label class="form-label fw-semibold text-muted">Country</label>
-          <input type="text" class="form-control rounded-3 border-light-subtle shadow-sm" placeholder="Enter country">
-        </div>
-
-       
-
-      <div class="d-flex justify-content-between mt-5">
-        <button type="submit" class="btn btn-primary px-4 py-2 rounded-3 shadow-sm"> Save Changes</button>
-        <a href="#" class="btn btn-outline-secondary px-4 py-2 rounded-3">Cancel</a>
-      </div>
-    </form>
-
+<!-- Search Help -->
+<section class="container my-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 text-center">
+      <h3>How can we help you?</h3>
+      <form class="d-flex mt-3">
+        <input class="form-control me-2" type="search" placeholder="Search help topics..." aria-label="Search">
+        <button class="btn btn-primary" type="submit">Search</button>
+      </form>
+    </div>
   </div>
-</div>
+</section>
 
-</div>
+<!-- Contact Options -->
+<section class="container my-5">
+  <div class="row text-center">
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Call Us</h5>
+          <p class="card-text">Speak directly with our support team.</p>
+          <p><strong>+1 800 123 4567</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Email Us</h5>
+          <p class="card-text">We’ll get back to you within 24 hours.</p>
+          <p><strong>support@example.com</strong></p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4 mb-4">
+      <div class="card h-100 shadow-sm">
+        <div class="card-body">
+          <h5 class="card-title">Live Chat</h5>
+          <p class="card-text">Chat with our agents in real time.</p>
+          <button class="btn btn-outline-primary">Start Chat</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
+<!-- FAQ -->
+<section class="container my-5">
+  <h3 class="text-center mb-4">Frequently Asked Questions</h3>
+  <div class="accordion" id="faqAccordion">
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingOne">
+        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne">
+          How do I reset my password?
+        </button>
+      </h2>
+      <div id="collapseOne" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Click on "Forgot password" on the login page and follow the instructions.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingTwo">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo">
+          Where can I track my order?
+        </button>
+      </h2>
+      <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          Go to the "My Orders" section in your account to track your order.
+        </div>
+      </div>
+    </div>
+    <div class="accordion-item">
+      <h2 class="accordion-header" id="headingThree">
+        <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree">
+          How do I contact support?
+        </button>
+      </h2>
+      <div id="collapseThree" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+        <div class="accordion-body">
+          You can reach us via phone, email, or live chat listed above.
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer class="bg-light text-center py-3 mt-5">
+  &copy; 2025 Your Company Name. All rights reserved.
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
