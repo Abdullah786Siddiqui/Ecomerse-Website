@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 08, 2025 at 01:31 PM
+-- Generation Time: Jul 10, 2025 at 09:18 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -46,7 +46,8 @@ CREATE TABLE `addresses` (
 
 INSERT INTO `addresses` (`id`, `user_id`, `full_name`, `phone`, `address_line1`, `city`, `country`, `type`, `created_at`, `updated_at`) VALUES
 (22, 9, 'Haris', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-04 04:14:18', '2025-07-04 04:14:18'),
-(26, 52, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-06 20:38:24', '2025-07-06 20:38:24');
+(27, 52, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-09 12:17:47', '2025-07-09 12:17:47'),
+(28, 52, 'Riasat', '03128727334', '11b  north karachi', 'Karachi', 'Pakistan', 'shipping', '2025-07-09 12:17:47', '2025-07-09 12:17:47');
 
 -- --------------------------------------------------------
 
@@ -129,16 +130,19 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`, `payment_method`) VALUES
-(53, 9, 22, 35378.00, 'pending', '2025-07-04 18:54:34', 'Cash'),
+(53, 9, 22, 35378.00, 'shipped', '2025-07-04 18:54:34', 'Cash'),
 (54, 9, 22, 41816.00, 'delivered', '2025-07-04 18:56:33', 'Cash'),
 (55, 9, 22, 578.00, 'delivered', '2025-07-05 10:48:26', 'Cash'),
 (58, 9, 22, 62500.00, 'delivered', '2025-07-06 18:46:53', 'Cash'),
 (59, 9, 22, 40000.00, 'delivered', '2025-07-06 18:58:55', 'Cash'),
 (60, 9, 22, 578.00, 'delivered', '2025-07-06 19:28:33', 'Cash'),
-(61, 52, 26, 660.00, 'cancelled', '2025-07-06 20:38:49', 'Cash'),
-(62, 52, 26, 40000.00, 'delivered', '2025-07-07 04:41:44', 'Cash'),
-(69, 52, 26, 660.00, 'pending', '2025-07-08 08:35:35', 'Cash'),
-(70, 52, 26, 726.00, 'pending', '2025-07-08 08:41:18', 'Cash');
+(61, 52, NULL, 660.00, 'cancelled', '2025-07-06 20:38:49', 'Cash'),
+(62, 52, NULL, 40000.00, 'delivered', '2025-07-07 04:41:44', 'Cash'),
+(69, 52, NULL, 660.00, 'cancelled', '2025-07-08 08:35:35', 'Cash'),
+(70, 52, NULL, 726.00, 'delivered', '2025-07-08 08:41:18', 'Cash'),
+(71, 9, 22, 23000.00, 'shipped', '2025-07-09 15:20:10', 'Cash'),
+(72, 52, 27, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
+(73, 52, 27, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -167,11 +171,13 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (91, 58, 88, 1, 25000.00),
 (92, 59, 76, 1, 40000.00),
 (93, 60, 46, 1, 578.00),
-(94, 61, 45, 1, 660.00),
 (95, 62, 76, 1, 40000.00),
 (105, 69, 45, 1, 660.00),
 (106, 70, 26, 1, 156.00),
-(107, 70, 44, 1, 570.00);
+(107, 70, 44, 1, 570.00),
+(108, 71, 16, 1, 23000.00),
+(109, 72, 44, 1, 570.00),
+(110, 73, 44, 1, 570.00);
 
 -- --------------------------------------------------------
 
@@ -375,6 +381,43 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `reviews`
+--
+
+CREATE TABLE `reviews` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `product_id` int(11) NOT NULL,
+  `rating` tinyint(4) NOT NULL CHECK (`rating` between 1 and 5),
+  `review_text` text DEFAULT NULL,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `reviews`
+--
+
+INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review_text`, `created_at`, `updated_at`) VALUES
+(176, 52, 44, 2, 'this product is beaty full', '2025-07-08 21:10:31', '2025-07-08 21:10:31'),
+(177, 52, 44, 2, 'this is a best produvt ever', '2025-07-08 21:11:32', '2025-07-08 21:11:32'),
+(178, 52, 44, 2, 'hi', '2025-07-08 21:11:42', '2025-07-08 21:11:42'),
+(179, 52, 46, 2, 'best product ever', '2025-07-08 21:12:14', '2025-07-08 21:12:14'),
+(180, 52, 26, 2, 'This is a best speaker', '2025-07-08 21:20:48', '2025-07-08 21:20:48'),
+(181, 52, 45, 2, 'nest ', '2025-07-08 21:24:03', '2025-07-08 21:24:03'),
+(182, 52, 45, 2, 'anua is a best brand', '2025-07-08 21:24:24', '2025-07-08 21:24:24'),
+(183, 52, 45, 4, 'yes', '2025-07-08 21:25:31', '2025-07-08 21:25:31'),
+(184, 52, 45, 3, 'best fasewash', '2025-07-08 21:26:02', '2025-07-08 21:26:02'),
+(185, 52, 46, 2, 'best product', '2025-07-08 21:31:49', '2025-07-08 21:31:49'),
+(186, 52, 45, 2, 'this  product is best for girls', '2025-07-09 08:40:48', '2025-07-09 08:40:48'),
+(187, 52, 40, 2, 'This is a best Serum', '2025-07-09 10:42:58', '2025-07-09 10:42:58'),
+(188, 9, 44, 3, 'this is a girl product', '2025-07-09 14:59:15', '2025-07-09 14:59:15'),
+(189, 55, 44, 3, 'this is abest product', '2025-07-09 15:28:16', '2025-07-09 15:28:16'),
+(190, 52, 44, 3, 'skin best product', '2025-07-09 15:58:05', '2025-07-09 15:58:05');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `subcategories`
 --
 
@@ -460,19 +503,19 @@ CREATE TABLE `users` (
   `status` enum('active','inactive') DEFAULT 'active',
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
-  `user_profile` varchar(255) NOT NULL DEFAULT ''
+  `user_profile` varchar(255) NOT NULL DEFAULT '',
+  `gender` enum('male','female') DEFAULT 'male'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`) VALUES
-(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-04 09:07:46', ''),
-(14, 'Zubair', 'Zubair333@gmail.com', '$2y$10$gT2vJeyGiIabM77jDoLsu.6eID/YYSYiqlt5GTapmYV1z09tcsmL2', NULL, 'user', 'active', '2025-07-06 01:04:08', '2025-07-06 01:04:08', ''),
-(15, 'Laiba', 'laiba333@gmail.com', '$2y$10$jHa/2FycRJ.Ryxt9bKbLU.k9oF7UtZb2Hc.waX1sXXPuvN2g8ePEW', NULL, 'user', 'active', '2025-07-06 01:08:10', '2025-07-06 01:08:10', ''),
-(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', ''),
-(52, 'Abdullah', 'abdullahsidzz444@gmail.com', '$2y$10$wsqs6qcIWf98y4PHfR4h4.7cgGlEKVitbyzDlQFGhawzVsy1wgr/m', NULL, 'user', 'active', '2025-07-06 17:34:07', '2025-07-06 17:34:07', '');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`) VALUES
+(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male'),
+(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male'),
+(52, 'Mohammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$wsqs6qcIWf98y4PHfR4h4.7cgGlEKVitbyzDlQFGhawzVsy1wgr/m', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-10 03:15:12', '1752099312-boy.jpg', 'male'),
+(55, 'Fozia', 'fozianaz140@gmail.com', '$2y$10$.Bv.H3L5fDR0RKAlGss8/.CbJKtxW8FldG8n6I.6XYhLeywtL8yFe', NULL, 'user', 'active', '2025-07-09 20:26:26', '2025-07-10 03:18:21', '1752099501-girl.jpg', 'male');
 
 --
 -- Indexes for dumped tables
@@ -536,6 +579,14 @@ ALTER TABLE `product_images`
   ADD KEY `product_images_ibfk_1` (`product_id`);
 
 --
+-- Indexes for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `user_id` (`user_id`),
+  ADD KEY `product_id` (`product_id`);
+
+--
 -- Indexes for table `subcategories`
 --
 ALTER TABLE `subcategories`
@@ -556,7 +607,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -574,19 +625,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=71;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
 --
 ALTER TABLE `otp_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -601,6 +652,12 @@ ALTER TABLE `product_images`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
 
 --
+-- AUTO_INCREMENT for table `reviews`
+--
+ALTER TABLE `reviews`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+
+--
 -- AUTO_INCREMENT for table `subcategories`
 --
 ALTER TABLE `subcategories`
@@ -610,7 +667,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- Constraints for dumped tables
@@ -649,6 +706,13 @@ ALTER TABLE `products`
 --
 ALTER TABLE `product_images`
   ADD CONSTRAINT `product_images_ibfk_1` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
+
+--
+-- Constraints for table `reviews`
+--
+ALTER TABLE `reviews`
+  ADD CONSTRAINT `reviews_ibfk_1` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `reviews_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `subcategories`
