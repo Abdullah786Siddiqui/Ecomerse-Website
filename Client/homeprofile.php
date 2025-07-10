@@ -366,13 +366,24 @@ $user_id = $_SESSION['user_id'];
         .then((data) => {
           if (data.success) {
             Swal.fire({
-              icon: "success",
-              title: "Success!",
-              text: "Profile updated successfully!",
-              confirmButtonColor: "#3085d6",
-            }).then(() => {
-              location.reload();
-            });
+                icon: "success",
+                title: "<h3 style='font-weight:500'>Profile Updated!</h3>",
+                text: "Your changes have been saved.",
+                timer: 1000,
+                showConfirmButton: false,
+                width: 320,
+                padding: "1rem",
+                background: "#f0f9f5",
+                color: "#274c3a",
+                customClass: {
+                  popup: "swal2-popup-compact"
+                },
+                timerProgressBar: true
+              })
+              .then(() => {
+                window.location.reload();
+              })
+
           } else {
             Swal.fire({
               icon: "error",
@@ -392,28 +403,28 @@ $user_id = $_SESSION['user_id'];
           });
         });
     });
-  const form1 = document.getElementById("profileForm");
-  const fileInput = document.getElementById("profile-image-home");
+    const form1 = document.getElementById("profileForm");
+    const fileInput = document.getElementById("profile-image-home");
 
-  fileInput.addEventListener("change", function () {
-    const formData = new FormData(form1);
+    fileInput.addEventListener("change", function() {
+      const formData = new FormData(form1);
 
-    fetch('../Server/Process/profile_image.php', {
-      method: "POST",
-      body: formData
-    })
-    .then(r => r.json())
-    .then(data => {
-      if (data.success) {
-       window.location.reload()
-      } else {
-        Swal.fire({
-            icon: "error",
-            text: "Failed to update image"
+      fetch('../Server/Process/profile_image.php', {
+          method: "POST",
+          body: formData
+        })
+        .then(r => r.json())
+        .then(data => {
+          if (data.success) {
+            window.location.reload()
+          } else {
+            Swal.fire({
+              icon: "error",
+              text: "Failed to update image"
+            });
+          }
         });
-      }
     });
-  });
 
 
   });
