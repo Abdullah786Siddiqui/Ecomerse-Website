@@ -15,7 +15,54 @@ include("../Server/Admin-Panel/config/db.php");
 
 $user_id = $_SESSION['user_id'];
 ?>
+<style>.promo-tile {
+      position: relative;
+      color: #000;
+      border-radius: 10px;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      align-items: flex-start;
+      justify-content: flex-start;
+      padding: 1.5rem;
+      min-height: 200px;
+    }
 
+    .promo-tile::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(231, 224, 224, 0.5);
+      backdrop-filter: blur(1px);
+    }
+
+    .promo-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .promo-tile h5, .promo-tile h6 {
+      font-weight: bold;
+    }
+
+    .text-sm {
+      font-size: 0.875rem;
+      color: #333;
+    }
+
+    .cta {
+      color: #e63946;
+      font-weight: 600;
+      font-size: 0.875rem;
+    }
+
+    @media (max-width: 576px) {
+      .promo-tile {
+        min-height: 150px;
+        padding: 1rem;
+      }
+    }</style>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 <style>
@@ -94,7 +141,7 @@ $user_id = $_SESSION['user_id'];
       <div class="card shadow-lg border-0 rounded-4 mt-4 p-4 bg-white">
         <?php
         $sql = "SELECT users.name, users.gender , users.password as pass , users.id AS user_id, users.role, users.status, users.email, users.created_at,
-        addresses.phone, addresses.city, addresses.country, addresses.address_line1 AS address, users.user_profile as user_profile
+        users.phone, addresses.city, addresses.country, addresses.address_line1 AS address, users.user_profile as user_profile
         FROM users
         LEFT JOIN addresses ON users.id = addresses.user_id
         WHERE users.id = $user_id";
@@ -551,6 +598,14 @@ $user_id = $_SESSION['user_id'];
 
     let continueEmail = document.getElementById("continueToEmai")
     continueEmail.addEventListener("click", function() {
+      Swal.fire({
+    title: "Sending Email...",
+    html: "Please wait while we send you a verification link.",
+    allowOutsideClick: false,
+    didOpen: () => {
+      Swal.showLoading();
+    }
+  });
       fetch("../Server/Process/pc_phpmailer.php", {
           method: "POST",
         })
@@ -599,6 +654,8 @@ $user_id = $_SESSION['user_id'];
       const userInfo = document.getElementById('user_information');
       if (userInfo) userInfo.classList.add('d-none');
       document.getElementById('change_password_div_email').classList.remove('d-none');
+      document.getElementById('editbtn').classList.add('d-none');
+
       changePaswordtoken = document.getElementById("change_password_form_token")
       changePaswordtoken.addEventListener("submit", function(e) {
         e.preventDefault();

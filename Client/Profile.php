@@ -72,7 +72,7 @@ $user_id = $_SESSION['user_id'];
           <h6>Your Account</h6>
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home">My Profile</a>
-          <a href="./Profile.php" id='myorders'  class="active">My Orders</a>
+          <a href="./Profile.php" id='myorders' class="active">My Orders</a>
           <a href="#">Your Addresses</a>
           <hr />
           <a href="./customer_support.php">Customer Support</a>
@@ -141,14 +141,14 @@ ORDER BY o.created_at DESC";
                       <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
-                    
-                    <?php } ?>
-                    <?php if ($order_ps['status'] === 'pending') { ?>
-                      <button onclick="orderCancel(<?= $order_ps['order_id']  ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
-                        <i class="bi bi-trash fs-6"></i>
-                        <span>Cancel</span>
-                      </button>
-                    <?php } ?>
+
+                      <?php } ?>
+                      <?php if ($order_ps['status'] === 'pending') { ?>
+                        <button onclick="orderCancel(<?= $order_ps['order_id']  ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
+                          <i class="bi bi-trash fs-6"></i>
+                          <span>Cancel</span>
+                        </button>
+                      <?php } ?>
                   </div>
                 </div>
 
@@ -203,15 +203,22 @@ WHERE order_items.order_id = $order_id_ps";
 
                   while ($item_ps = $itemsResult_ps->fetch_assoc()) {
                   ?>
-                    <div class="col-6 col-md-3">
-                      <div class="card product-card border-0 shadow-sm h-100 hover-shadow transition">
-                        <img src="../Server/uploads/<?= $item_ps['image_url'] ?>" alt="Product" class="card-img-top img-fluid rounded-top">
-                        <div class="card-body p-2">
-                          <p class="small mb-1 fw-semibold"><?= $item_ps['product_name'] ?></p>
-                          <div class="text-muted small">Qty: <?= $item_ps['quantity'] ?></div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                      <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="row g-0 align-items-center">
+                          <div class="col-4">
+                            <img src="../Server/uploads/<?= $item_ps['image_url'] ?>" alt="Product" class="img-fluid rounded-start">
+                          </div>
+                          <div class="col-8">
+                            <div class="card-body p-2">
+                              <p class="small mb-1 fw-semibold"><?= $item_ps['product_name'] ?></p>
+                              <div class="text-muted small">Qty: <?= $item_ps['quantity'] ?></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
+
                   <?php } ?>
                 </div>
               </div>
@@ -322,12 +329,18 @@ WHERE order_items.order_id = $order_id_del";
 
                   while ($item_del = $itemsResult_del->fetch_assoc()) {
                   ?>
-                    <div class="col-6 col-md-3">
-                      <div class="card product-card border-0 shadow-sm h-100 hover-shadow transition">
-                        <img src="../Server/uploads/<?= $item_del['image_url'] ?>" alt="Product" class="card-img-top img-fluid rounded-top">
-                        <div class="card-body p-2">
-                          <p class="small mb-1 fw-semibold"><?= $item_del['product_name'] ?></p>
-                          <div class="text-muted small">Qty: <?= $item_del['quantity'] ?></div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                      <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="row g-0 align-items-center">
+                          <div class="col-4">
+                            <img src="../Server/uploads/<?= $item_del['image_url'] ?>" alt="Product" class="img-fluid rounded-start">
+                          </div>
+                          <div class="col-8">
+                            <div class="card-body p-2">
+                              <p class="small mb-1 fw-semibold"><?= $item_del['product_name'] ?></p>
+                              <div class="text-muted small">Qty: <?= $item_del['quantity'] ?></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
@@ -387,12 +400,12 @@ ORDER BY o.created_at DESC";
                         <span>Download Invoice</span>
                       </button>
                     <?php } ?>
-                      <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
+                    <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
                       <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
-                     
+
                     <?php } ?>
 
                     <?php if (isset($order_ps) && is_array($order_ps) && $order_ps['status'] === 'pending') { ?>
@@ -456,12 +469,18 @@ WHERE order_items.order_id = $order_id";
 
                   while ($item = $itemsResult->fetch_assoc()) {
                   ?>
-                    <div class="col-6 col-md-3">
-                      <div class="card product-card border-0 shadow-sm h-100 hover-shadow transition">
-                        <img src="../Server/uploads/<?= $item['image_url'] ?>" alt="Product" class="card-img-top img-fluid rounded-top">
-                        <div class="card-body p-2">
-                          <p class="small mb-1 fw-semibold"><?= $item['product_name'] ?></p>
-                          <div class="text-muted small">Qty: <?= $item['quantity'] ?></div>
+                    <div class="col-12 col-md-6 col-lg-4 mb-3">
+                      <div class="card h-100 border-0 shadow-sm hover-shadow transition">
+                        <div class="row g-0 align-items-center">
+                          <div class="col-4">
+                            <img src="../Server/uploads/<?= $item['image_url'] ?>" alt="Product" class="img-fluid rounded-start">
+                          </div>
+                          <div class="col-8">
+                            <div class="card-body p-2">
+                              <p class="small mb-1 fw-semibold"><?= $item['product_name'] ?></p>
+                              <div class="text-muted small">Qty: <?= $item['quantity'] ?></div>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     </div>
