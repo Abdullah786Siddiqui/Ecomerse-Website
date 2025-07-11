@@ -16,6 +16,7 @@ $user_id = $_SESSION['user_id'];
 ?>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
 <style>
   body {
     background: #f5f6f8;
@@ -56,6 +57,11 @@ $user_id = $_SESSION['user_id'];
   .order-status {
     font-weight: bold;
   }
+@media (max-width: 375px) {
+  html body #sidebar_mob {
+    display: none !important;
+  }
+}
 </style>
 
 <div class="container-fluid">
@@ -67,7 +73,7 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-12 col-md-3 col-lg-2 sidebar p-0">
+      <div id="sidebar_mob"  class="col-12 col-md-3 col-lg-2 sidebar p-0">
         <div class="p-3">
           <h6>Your Account</h6>
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
@@ -498,7 +504,7 @@ WHERE order_items.order_id = $order_id";
       </div>
     </div>
 
-
+<?php include("./includes/mobile-icon.php") ?>
     <script src="./Assets/JS/order.js"></script>
 
 

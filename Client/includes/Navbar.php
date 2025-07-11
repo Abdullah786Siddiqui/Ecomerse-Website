@@ -139,10 +139,28 @@
      display: block;
      /* show on open */
    }
+ .navbar_mobile {
+  display: none;
+}
+
+.navbar_desktop {
+  display: flex; /* or block, as needed */
+}
+
+@media (max-width: 864px) {
+  .navbar_desktop {
+    display: none !important;
+  }
+  .navbar_mobile {
+    display: flex !important;
+  }
+}
+
+
  </style>
 
  <!-- DESKTOP & TABLET NAV -->
- <nav class="navbar navbar-expand-lg bg-white border-bottom py-2 d-none d-lg-flex   ">
+ <nav  class="navbar navbar-expand-lg bg-white border-bottom py-2  navbar_desktop  ">
    <div class="container-fluid mx-2">
      <!-- Logo -->
      <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
@@ -227,7 +245,7 @@
  </nav>
 
  <!-- DESKTOP NAV LINKS -->
- <nav class="bg-white border-bottom py-2 d-none d-lg-block   ">
+ <nav class="bg-white border-bottom py-2  navbar_desktop ">
    <div class="container-fluid mx-2 d-flex justify-content-between">
      <div class="d-flex gap-4 flex-wrap">
        <?php
@@ -283,7 +301,7 @@
              <li class="dropdown-item"><input type="checkbox" checked><img src="https://flagcdn.com/us.svg" class="country-flag"> US</li>
            </ul>
          </div> -->
-       <div class="dropdown ">
+       <!-- <div class="dropdown ">
          <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
            US English (USA)
          </button>
@@ -291,131 +309,58 @@
            <li><a class="dropdown-item active" href="#"><img src="https://flagcdn.com/us.svg" class="lang-flag"> English (U.S.)</a></li>
            <li><a class="dropdown-item" href="#"><img src="https://flagcdn.com/gb.svg" class="lang-flag"> English (U.K.)</a></li>
          </ul>
-       </div>
+       </div> -->
      </div>
    </div>
  </nav>
 
  <!-- MOBILE TOP -->
- <nav class="bg-white border-bottom py-2 px-3 d-flex d-lg-none justify-content-between align-items-center ">
+<nav class="mobile-navbar bg-light p-0 navbar_mobile">
+  <div class="container-fluid text-center px-2 py-2">
+    <!-- Logo -->
+    <a class="fs-5 fw-bold text-decoration-none text-dark d-block mb-1" href="./index.php">
+      <img height="28" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt=""> Ecoverse
+    </a>
 
-   <!-- Left: Brand -->
-   <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
-     <strong class="ms-1"><img height="29px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt="">Ecoverse</strong>
-   </a>
+    <!-- Search bar -->
+    <form autocomplete="off" class="position-relative w-100" role="search" id="searchForm">
+      <div class="input-group input-group-sm">
+        <input
+          class="form-control form-control-sm search-box searchInput"
+          type="search"
+          placeholder="Search products"
+          oninput="searchFunc(this.value)" />
+        <button id="search-btn" class="btn btn-primary btn-sm" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </div>
 
-   <!-- Middle: Icons -->
-   <div class="d-flex align-items-center gap-3">
-     <!-- Search -->
+      <!-- Card positioned absolutely -->
+      <div
+        class="card position-absolute start-0 w-100 d-none"
+        style="top: 100%; z-index: 1000;"
+        id="resultCard">
+        <div class="card-body p-2" id="output">
+          <!-- search results -->
+        </div>
+      </div>
+    </form>
+  </div>
+</nav>
 
-     <!-- Cart -->
-     <a onclick="checkauth()" class="nav-link position-relative cursor-pointer">
-       <i class="bi bi-cart"></i> My Cart
-     </a>
-
-
-     <!-- User Dropdown -->
-     <div class="dropdown">
-       <a class="nav-link d-flex align-items-center gap-1" href="#" data-bs-toggle="dropdown">
-         <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="30" height="30" class="rounded-circle">
-         <span class="d-none d-md-inline">My Account</span>
-       </a>
-
-       <?php if (isset($_SESSION['user_id'])): ?>
-         <div class="dropdown-menu dropdown-menu-end p-2" style="min-width: 220px; z-index:1100;">
-           <div class="text-center mb-2">
-             <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/'.$profile ?>" width="45" height="45" class="rounded-circle mb-1">
-             <div><strong><?= htmlspecialchars($username) ?></strong></div>
-             <small class="text-muted text-truncate"><?= htmlspecialchars($email) ?></small>
-             <a href="./homeprofile.php" class="btn btn-outline-primary btn-sm w-100 mt-2">Profile</a>
-           </div>
-           <hr class="my-2">
-           <a class="dropdown-item py-1" href="./homeprofile.php"><i class="bi bi-person me-2"></i> Account</a>
-
-           <a class="dropdown-item py-1" href="./Profile.php"><i class="bi bi-bag-check me-2"></i>My Orders</a>
-           <a class="dropdown-item py-1" href="#"><i class="bi bi-geo-alt me-2"></i> Addresses</a>
-           <hr class="my-2">
-           <a class="dropdown-item text-danger py-1" href="./logout.php"><i class="bi bi-box-arrow-right me-2"></i> Log Out</a>
-         </div>
-
-       <?php else: ?>
-         <ul class="dropdown-menu dropdown-menu-end shadow-sm">
-           <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
-           <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
-
-         </ul>
-       <?php endif; ?>
-     </div>
-
-   </div>
- </nav>
 
 
 
  <!-- MOBILE SEARCH & MENU -->
- <nav class="bg-white border-bottom py-2 px-3 d-lg-none  ">
-   <div class="input-group rounded  mb-2 ">
-     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
-       <div class="input-group flex-grow-1">
-         <input
-           class="form-control search-box searchInput"
-           type="search"
-           placeholder="What can we help you find today?"
-           oninput="searchFunc(this.value)" />
-         <button id="search-btn" class="btn btn-primary " type="submit">
-           <i class="bi bi-search"></i>
-         </button>
-       </div>
 
-       <!-- Card positioned absolutely -->
-       <div
-         class="card position-absolute start-0 w-100  d-none"
-         style="top: 100%; z-index: 1000;"
-         id="resultCard">
-         <div class="card " id='output'>
-         </div>
-       </div>
-     </form>
-   </div>
-
-   <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
-     <i class="fas fa-bars fa-lg"></i>
-   </button>
-
-   <div class="collapse navbar-collapse" id="mainNavbar">
-     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-
-       <!-- Example dropdown -->
-       <li class="nav-item dropdown position-static">
-         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-           Home
-         </a>
-         <div class="dropdown-menu static-dropdown">
-           <a class="dropdown-item" href="#">Sub Home 1</a>
-           <a class="dropdown-item" href="#">Sub Home 2</a>
-         </div>
-       </li>
-
-       <li class="nav-item dropdown position-static">
-         <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
-           Best Sellers
-         </a>
-         <div class="dropdown-menu static-dropdown">
-           <a class="dropdown-item" href="#">Top 10</a>
-           <a class="dropdown-item" href="#">Trending</a>
-         </div>
-       </li>
-
-     </ul>
-   </div>
-
- </nav>
  <?php include 'AuthModal.php'; ?>
 
 
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
  <script>
    const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
+ 
+
  </script>
  <script src="./Assets/JS/auth.js"></script>
  <script src="./Assets/JS/search.js"></script>

@@ -382,6 +382,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
         </form>
       </div>
     </section>
+    <?php include("./includes/mobile-icon.php") ?>
   <?php } else {
   } ?>
 

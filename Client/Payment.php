@@ -1,11 +1,11 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ./index.php"); 
-    exit();
+  header("Location: ./index.php");
+  exit();
 }
 include_once 'Components/header.html';
 include_once './includes/Navbar.php';
@@ -18,7 +18,8 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
   body {
     background-color: #f8f9fa;
   }
-  .cursor-pointer{
+
+  .cursor-pointer {
     cursor: pointer;
   }
 
@@ -28,7 +29,7 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
   }
 </style>
 
-<div class="cont m-5">
+<div class="cont p-lg-3">
   <div class="row g-4">
 
     <!-- Left: Payment Methods -->
@@ -62,12 +63,12 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
               </div>
             </div>
 
-     <div class="col-6 col-sm-4 col-lg-3 cursor-pointer">
-  <div class="border rounded-3 text-center p-3 payment-method-card h-100 cod-option">
-    <i class="fas fa-shipping-fast fa-2x text-success mb-2"></i>
-    <p class="mb-0">Cash on Delivery</p>
-  </div>
-</div>
+            <div class="col-6 col-sm-4 col-lg-3 cursor-pointer">
+              <div class="border rounded-3 text-center p-3 payment-method-card h-100 cod-option">
+                <i class="fas fa-shipping-fast fa-2x text-success mb-2"></i>
+                <p class="mb-0">Cash on Delivery</p>
+              </div>
+            </div>
 
 
 
@@ -129,7 +130,7 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
               <div class="error-message text-danger"></div>
             </div>
 
-           
+
 
             <button type="submit" class="btn btn-warning w-100 fw-bold py-2 shadow-sm">
               <i class="fas fa-wallet me-2"></i> Proceed to Pay
@@ -161,7 +162,7 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
               <div class="error-message text-danger"></div>
             </div>
 
-          
+
 
             <button type="submit" class="btn btn-success w-100 fw-bold py-2 shadow-sm">
               <i class="fas fa-university me-2"></i> Proceed with Net Banking
@@ -170,16 +171,16 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
 
         </div>
 
-     <!-- Cash on Delivery -->
-<div class="mb-4 d-none cod-form">
-  <h5 class="mb-3 fw-bold text-success">Cash on Delivery</h5>
-  <form id="payment_cod">
+        <!-- Cash on Delivery -->
+        <div class="mb-4 d-none cod-form">
+          <h5 class="mb-3 fw-bold text-success">Cash on Delivery</h5>
+          <form id="payment_cod">
 
-    <button type="submit" class="btn btn-success w-100 fw-bold py-2 shadow-sm">
-      <i class="fas fa-truck me-2"></i> Confirm Order
-    </button>
-  </form>
-</div>
+            <button type="submit" class="btn btn-success w-100 fw-bold py-2 shadow-sm">
+              <i class="fas fa-truck me-2"></i> Confirm Order
+            </button>
+          </form>
+        </div>
 
 
       </div>
@@ -193,7 +194,7 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
 
           <div class="d-flex justify-content-between mb-2">
             <span class="text-muted">Subtotal</span>
-            <span class="fw-bold cart-subtotal ">£<?= $final_subtotal?></span>
+            <span class="fw-bold  cart-subtotal">£ <?= $final_subtotal ?></span>
           </div>
 
           <div class="d-flex justify-content-between mb-2">
@@ -214,6 +215,7 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
 
   </div>
 </div>
+<?php include("./includes/mobile-icon.php") ?>
 <?php
 
 

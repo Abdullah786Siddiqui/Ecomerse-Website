@@ -173,15 +173,21 @@
    .modal-content {
      border-radius: 1rem;
    }
+   @media (max-width: 864px) {
+  #mobile_icons {
+    display: flex !important;
+  
+  }
+}
  </style>
  <div id="main-content" style="display:none;">
-   <div class="cont p-5 ">
-     <div class="row g-3">
+   <div  class="cont p-lg-3   ">
+     <div class="row g-3 ">
 
        <?php if ($hasAddress) : ?>
          <div class="col-12 col-lg-8">
            <div class="card shadow-sm rounded-4 border h-100">
-             <div class="card-body p-4 ">
+             <div class="card-body p-md-3 ">
                <div class="border rounded-3 mb-4">
 
                  <!-- Shipping & Billing Section Header -->
@@ -600,7 +606,7 @@ WHERE u.id = $user_id
 
  </div>
 
-
+<?php include("./includes/mobile-icon.php") ?>
 
  <script src="./Assets/JS/checkout.js"></script>
  <script src="./Assets/JS/cart.js"></script>

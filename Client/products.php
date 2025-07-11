@@ -99,7 +99,7 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 <!-- Skeleton Loader -->
 
 <div class="mx-3 mt-4 " id="skeleton-loader" style="display:none;">
-   <div class="row">
+  <div class="row">
     <!-- Sidebar Skeleton -->
     <aside class="col-lg-3 d-none d-lg-block">
       <div class="filter-sidebar bg-light border rounded p-4 h-100 shadow-sm bg-white">
@@ -150,45 +150,51 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 <style>
   .skeleton {
-  background: linear-gradient(-90deg, #e2e2e2 0%, #f0f0f0 50%, #e2e2e2 100%);
-  background-size: 400% 400%;
-  animation: shimmer 2s ease-in-out infinite; /* slower and softer */
-  border-radius: 6px;
-}
+    background: linear-gradient(-90deg, #e2e2e2 0%, #f0f0f0 50%, #e2e2e2 100%);
+    background-size: 400% 400%;
+    animation: shimmer 2s ease-in-out infinite;
+    /* slower and softer */
+    border-radius: 6px;
+  }
 
-.skeleton-img {
-  width: 100%;
-  height: 0;
-  padding-top: 110%; /* bigger square */
-  border-radius: 12px;
-}
+  .skeleton-img {
+    width: 100%;
+    height: 0;
+    padding-top: 110%;
+    /* bigger square */
+    border-radius: 12px;
+  }
 
-.skeleton-title {
-  width: 85%;
-  height: 22px;
-}
+  .skeleton-title {
+    width: 85%;
+    height: 22px;
+  }
 
-.skeleton-price {
-  width: 55%;
-  height: 18px;
-}
+  .skeleton-price {
+    width: 55%;
+    height: 18px;
+  }
 
-.skeleton-rating {
-  width: 40%;
-  height: 14px;
-}
+  .skeleton-rating {
+    width: 40%;
+    height: 14px;
+  }
 
-.skeleton-check {
-  width: 75%;
-  height: 20px;
-  border-radius: 4px;
-}
+  .skeleton-check {
+    width: 75%;
+    height: 20px;
+    border-radius: 4px;
+  }
 
-@keyframes shimmer {
-  0% { background-position: -300% 0; }
-  100% { background-position: 300% 0; }
-}
+  @keyframes shimmer {
+    0% {
+      background-position: -300% 0;
+    }
 
+    100% {
+      background-position: 300% 0;
+    }
+  }
 </style>
 <div id="main-content" style="display:none;">
 
@@ -259,7 +265,7 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
                     <!-- Discount Badge -->
 
                     <!-- Product Image -->
-                    <div class="ratio ratio-1x1 mb-3">
+                    <div class="ratio ratio-1x1 mb-3 ">
                       <img
                         src="../Server/uploads/<?= $row['image_url']; ?>"
                         class="img-fluid rounded-3 object-fit-cover w-100 h-100"
@@ -330,6 +336,7 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
     </div>
   </div>
 </div>
+<?php include("./includes/mobile-icon.php") ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {

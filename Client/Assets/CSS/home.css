@@ -1,47 +1,46 @@
+.search-box {
+  border-radius: 0;
+}
 
-   .search-box {
-     border-radius: 0;
-   }
+.search-btn {
+  border-radius: 0 5px 5px 0;
+}
 
-   .search-btn {
-     border-radius: 0 5px 5px 0;
-   }
+@media (max-width: 768px) {
+  .offcanvas-mobile-75 {
+    width: 75% !important;
+  }
+}
 
-   @media (max-width: 768px) {
-     .offcanvas-mobile-75 {
-       width: 75% !important;
-     }
-   }
+.dropdown-menu.show {
+  z-index: 1100;
+}
 
-   .dropdown-menu.show {
-     z-index: 1100;
-   }
+.nav-link {
+  font-weight: 500;
+}
 
-   .nav-link {
-     font-weight: 500;
-   }
+.dropdown-menu-country {
+  min-width: 250px;
+  max-height: 300px;
+  overflow-y: auto;
+}
 
-   .dropdown-menu-country {
-     min-width: 250px;
-     max-height: 300px;
-     overflow-y: auto;
-   }
+.dropdown-item input {
+  margin-right: 10px;
+}
 
-   .dropdown-item input {
-     margin-right: 10px;
-   }
+.country-flag,
+.lang-flag {
+  width: 20px;
+  margin-right: 10px;
+}
 
-   .country-flag,
-   .lang-flag {
-     width: 20px;
-     margin-right: 10px;
-   }
-
-   .dropdown-menu .dropdown-item.active,
-   .dropdown-menu .dropdown-item:hover {
-     background-color: #f1f1f1;
-   }
-Carousel image size .carousel-item {
+.dropdown-menu .dropdown-item.active,
+.dropdown-menu .dropdown-item:hover {
+  background-color: #f1f1f1;
+}
+.Carousel image size .carousel-item {
   transition: opacity 0.8s ease-in-out;
   height: 500px;
 }
@@ -211,26 +210,25 @@ Carousel image size .carousel-item {
   font-size: 14px;
 }
 
-    .category-card {
-      transition: transform 0.3s ease;
-      border-radius: 15px;
-      overflow: hidden;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      cursor: pointer;
-    }
+.category-card {
+  transition: transform 0.3s ease;
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
 
-    .category-card:hover {
-      transform: translateY(-5px);
-    }
+.category-card:hover {
+  transform: translateY(-5px);
+}
 
-    .category-icon {
-      height: 80px;
-      object-fit: contain;
-    }
+.category-icon {
+  height: 80px;
+  object-fit: contain;
+}
 
-    .category-title {
-      font-weight: 600;
-      font-size: 1.1rem;
-      margin-top: 10px;
-    }
-
+.category-title {
+  font-weight: 600;
+  font-size: 1.1rem;
+  margin-top: 10px;
+}

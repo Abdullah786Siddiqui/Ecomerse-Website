@@ -108,6 +108,12 @@ $user_id = $_SESSION['user_id'];
   .profile-picture-wrapper .camera-icon:hover {
     background: #f0f0f0;
   }
+  @media (max-width: 375px) {
+  #sidebar_mob {
+    display: none !important;
+  
+  }
+}
 </style>
 
 <div class="container-fluid">
@@ -119,8 +125,8 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-12 col-md-3 col-lg-2 sidebar p-0">
-        <div class="p-3">
+      <div id="sidebar_mob"  class="col-12 col-md-3 col-lg-2 sidebar p-0">
+        <div  class="p-3">
           <h6>Your Account</h6>
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home" class="active">My Profile</a>
@@ -454,7 +460,7 @@ $user_id = $_SESSION['user_id'];
 
   </div>
 </div>
-
+<?php include("./includes/mobile-icon.php") ?>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.getElementById('editbtn').addEventListener("click", function() {

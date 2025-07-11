@@ -4,8 +4,9 @@ include_once './includes/Navbar.php';
 
 
 ?>
-
+ <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
 <!-- Carousel Section -->
+
 <div id="proCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-bs-interval="3000">
   <div class="carousel-indicators">
     <button type="button" data-bs-target="#proCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
@@ -26,11 +27,12 @@ include_once './includes/Navbar.php';
   </div>
 </div>
 
-<!-- <a class="text-black" href="./products.php?subcategory_id=89">link hey ye</a> -->
+
+<a class="text-black" href="./products.php?subcategory_id=89">link hey ye</a>
 
 <!-- Featured Products -->
-<div class="container py-5">
-  <h2 class="text-center mb-3">Browse by Category</h2>
+<div class="container py-5 d-flex flex-column">
+  <h2 class="text-start mb-3 ">Browse by Category</h2>
   <div class="row g-4">
 
     <!-- Category 1 -->
@@ -138,15 +140,16 @@ include_once './includes/Navbar.php';
     padding: 1.5rem;
   }
 }
-  </style>
-</head>
-<body class="bg-light py-4">
 
-  <div class="container-fluid d-flex justify-content-center">
+  </style>
+
+
+
+  <div class="container-fluid d-flex  justify-content-center">
     <div class="row g-3">
 
       <!-- Macbook Air -->
-      <div class="col-12 col-md-6 ">
+      <a  class="col-12 col-md-6 ">
         <div class="promo-tile h-100 " style="background-image: url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D');">
           <div class="promo-content">
             <div class="text-sm">Get up to 15% off</div>
@@ -154,7 +157,7 @@ include_once './includes/Navbar.php';
             <div class="cta">SHOP NOW</div>
           </div>
         </div>
-      </div>
+</a>
 
       <!-- Furniture + Shoes + Earbuds -->
       <div class="col-12 col-md-6">
@@ -198,6 +201,8 @@ include_once './includes/Navbar.php';
 
     </div>
   </div>
+<?php include("./includes/mobile-icon.php") ?>
+
 
 <!-- <a href="logout.php" class="btn btn-danger">Logout</a> -->
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>

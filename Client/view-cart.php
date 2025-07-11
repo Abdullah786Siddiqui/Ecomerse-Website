@@ -1,11 +1,11 @@
 <?php
 if (session_status() === PHP_SESSION_NONE) {
-    session_start();
+  session_start();
 }
 
 if (!isset($_SESSION['user_id'])) {
-    header("Location: ./index.php"); 
-    exit();
+  header("Location: ./index.php");
+  exit();
 }
 include './Components/header.html';
 
@@ -20,18 +20,17 @@ $subtotal = 0;
     color: #dc3545 !important;
     /* Bootstrap 5 Danger color */
   }
-
 </style>
 
-<div  class="container">
-  
+<div class="container ">
+
   <div style="background-color: whitesmoke;" class="bag-section ">
     <?php
     if (isset($_SESSION['cart']) && !empty($_SESSION['cart'])) {
     ?>
-      <h2 class="mt-4" >Your bag (<span class="cart-count "><?= count($_SESSION['cart']) ?></span>)items</h2>
+      <h2 class="mt-4">Your bag (<span class="cart-count "><?= count($_SESSION['cart']) ?></span>)items</h2>
 
-        <p id='bag-sec' class="mt-5"></p>
+      <p id='bag-sec' class=""></p>
       <?php
 
 
@@ -41,36 +40,42 @@ $subtotal = 0;
 
       ?>
 
-        <div class="bag-item  "  data-id=<?= $items['id'] ?>>
+        <div class="bag-item border rounded-3 p-3 mb-3 bg-white shadow-sm" data-id="<?= $items['id'] ?>">
 
-          <div style="display: flex; gap: 10px" class="">
-            <img src="../Server/uploads/<?= $items['image'] ?>">
-            <div class="item-details">
-              <h3><?= $items['name'] ?></h3>
+          <!-- 🖼 Image + Details -->
+          <div class="row g-2">
+            <div class="col-3 col-sm-2">
+              <img src="../Server/uploads/<?= $items['image'] ?>"
+                class="img-fluid rounded-2 w-100 h-auto">
+            </div>
 
-              <p style="color: #444444;">Colour: blue</p>
-              <p style="color: #444444;">Size: 40R</p>
+            <div class="col-9 col-sm-10">
+              <h6 class="mb-1 fw-semibold"><?= $items['name'] ?></h6>
+              <p class="text-muted mb-0 small">Colour: blue</p>
+              <p class="text-muted mb-1 small">Size: 40R</p>
 
-              <div class="item-actions ">
-                <button class=" hover-text-danger" onclick="removeCart(<?= $items['id'] ?>)"><i class="far fa-trash-alt "></i> Remove</button>
-                <p
-                  style="
-                    border: 1px solid #929090;
-                    width: 1px;
-                    height: 15px;
-                    margin: 0;
-                    /* margin-top: 7px; */
-                  "></p>
-                <button class="hover-text-danger"><i class="far fa-heart"></i> Move to wish list</button>
+              <div class="item-actions d-flex flex-wrap align-items-center gap-2 mt-2">
+                <button class="btn btn-link p-0 text-danger small" onclick="removeCart(<?= $items['id'] ?>)">
+                  <i class="far fa-trash-alt"></i> Remove
+                </button>
+
+                <span class="vr mx-1 d-none d-sm-inline"></span>
+
+                <button class="btn btn-link p-0 text-danger small">
+                  <i class="far fa-heart"></i> Wishlist
+                </button>
               </div>
             </div>
           </div>
 
-          <div class="item-footer mt-3 d-flex justify-content-between align-items-center flex-wrap gap-2">
+          <!-- Divider -->
+          <hr class="my-2">
 
-            <!-- Quantity Dropdown -->
-            <div class="quantity">
-              <select class="form-select form-select-sm" style="width: 70px;">
+          <!-- 📦 Quantity + Price -->
+          <div class="row g-2 align-items-center">
+            <div class="col-auto">
+              <select class="form-select form-select-sm" style="width: 70px;"
+                onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
                 <option selected><?= $items['quantity'] ?></option>
                 <option>2</option>
                 <option>3</option>
@@ -84,16 +89,16 @@ $subtotal = 0;
               </select>
             </div>
 
-            <!-- Price Info -->
-            <div class="text-end">
-              <small class="text-muted text-decoration-line-through">£264.99</small><br>
-              <span class="fw-bold text-dark ">£<?= $totalprice ?></span><br>
-              <small class="text-success">You save 40%</small>
-            </div>
 
+            <div class="col text-end">
+              <div class="small text-muted text-decoration-line-through">£264.99</div>
+              <div class="fw-bold text-dark">£<?= $totalprice ?></div>
+              <div class="text-success small">You save 40%</div>
+            </div>
           </div>
 
         </div>
+
       <?php
       }
       // $_SESSION['cart_subtotal'] = $subtotal;
@@ -152,16 +157,37 @@ $subtotal = 0;
 <?php    } else {
 ?>
   <div class="empty-cart-section text-center my-5">
-  <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart" style="width: 150px; opacity: 0.8;">
-  <h2 class="mt-4">Your Cart is Empty</h2>
-  <p class="text-muted">Looks like you haven’t added anything to your bag yet.</p>
-  <a href="shop.php" class="btn btn-primary mt-3 px-4 py-2 fw-bold">Continue Shopping</a>
-</div>
-
+    <img src="https://cdn-icons-png.flaticon.com/512/2038/2038854.png" alt="Empty Cart" style="width: 150px; opacity: 0.8;">
+    <h2 class="mt-4">Your Cart is Empty</h2>
+    <p class="text-muted">Looks like you haven’t added anything to your bag yet.</p>
+    <a href="shop.php" class="btn btn-primary mt-3 px-4 py-2 fw-bold">Continue Shopping</a>
+  </div>
 
 
 <?php }  ?>
- <script src="./Assets/JS/cart.js"></script>
+  <?php include("./includes/mobile-icon.php") ?>
+
+<script src="./Assets/JS/cart.js"></script>
+<script>
+  function updateQuantity(productid, val) {
+    fetch("../Server/Process/update-cart.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        },
+        body: `productid=${productid}&quantity=${val}`,
+      })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.success) {
+          // Update subtotal in summary section
+          document.querySelectorAll(".cart-subtotal").forEach(el => {
+            el.textContent = "$ " + data.subtotal;
+          });
+        }
+      });
+  }
+</script>
 
 
 <?php include './Components/footer.html';  ?>
