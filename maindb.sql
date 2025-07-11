@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 10, 2025 at 09:18 AM
+-- Generation Time: Jul 11, 2025 at 02:11 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -20,6 +20,23 @@ SET time_zone = "+00:00";
 --
 -- Database: `ecomerse_website`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `delete_user` (IN `uid` INT)   BEGIN
+    DELETE FROM orders WHERE user_id = uid;
+    DELETE FROM reviews WHERE user_id = uid;
+   
+    DELETE FROM addresses WHERE user_id = uid;
+    
+    
+
+    DELETE FROM users WHERE id = uid;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -142,7 +159,9 @@ INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created
 (70, 52, NULL, 726.00, 'delivered', '2025-07-08 08:41:18', 'Cash'),
 (71, 9, 22, 23000.00, 'shipped', '2025-07-09 15:20:10', 'Cash'),
 (72, 52, 27, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
-(73, 52, 27, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash');
+(73, 52, 27, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash'),
+(74, 52, 27, 1156.00, 'pending', '2025-07-10 20:39:25', 'Cash'),
+(75, 52, 27, 47850.00, 'pending', '2025-07-10 20:44:18', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -177,7 +196,12 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (107, 70, 44, 1, 570.00),
 (108, 71, 16, 1, 23000.00),
 (109, 72, 44, 1, 570.00),
-(110, 73, 44, 1, 570.00);
+(110, 73, 44, 1, 570.00),
+(111, 74, 46, 2, 578.00),
+(112, 75, 41, 1, 850.00),
+(113, 75, 84, 1, 5000.00),
+(114, 75, 48, 1, 2000.00),
+(115, 75, 91, 1, 40000.00);
 
 -- --------------------------------------------------------
 
@@ -412,7 +436,6 @@ INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review_text`, `
 (186, 52, 45, 2, 'this  product is best for girls', '2025-07-09 08:40:48', '2025-07-09 08:40:48'),
 (187, 52, 40, 2, 'This is a best Serum', '2025-07-09 10:42:58', '2025-07-09 10:42:58'),
 (188, 9, 44, 3, 'this is a girl product', '2025-07-09 14:59:15', '2025-07-09 14:59:15'),
-(189, 55, 44, 3, 'this is abest product', '2025-07-09 15:28:16', '2025-07-09 15:28:16'),
 (190, 52, 44, 3, 'skin best product', '2025-07-09 15:58:05', '2025-07-09 15:58:05');
 
 -- --------------------------------------------------------
@@ -504,18 +527,20 @@ CREATE TABLE `users` (
   `created_at` datetime DEFAULT current_timestamp(),
   `updated_at` datetime DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `user_profile` varchar(255) NOT NULL DEFAULT '',
-  `gender` enum('male','female') DEFAULT 'male'
+  `gender` enum('male','female') DEFAULT 'male',
+  `email_token` varchar(255) DEFAULT NULL,
+  `token_expiry` datetime DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`) VALUES
-(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male'),
-(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male'),
-(52, 'Mohammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$wsqs6qcIWf98y4PHfR4h4.7cgGlEKVitbyzDlQFGhawzVsy1wgr/m', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-10 03:15:12', '1752099312-boy.jpg', 'male'),
-(55, 'Fozia', 'fozianaz140@gmail.com', '$2y$10$.Bv.H3L5fDR0RKAlGss8/.CbJKtxW8FldG8n6I.6XYhLeywtL8yFe', NULL, 'user', 'active', '2025-07-09 20:26:26', '2025-07-10 03:18:21', '1752099501-girl.jpg', 'male');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`, `email_token`, `token_expiry`) VALUES
+(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
+(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male', NULL, NULL),
+(52, 'Muhammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$/4QA1aLhcCu3WL13QkhTUu3WtQyNnu5.HZ3KhFsIOnwqr/MrjPwjq', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-11 03:56:38', '1752188198-20250306_221933.jpg', 'male', NULL, NULL),
+(61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -625,19 +650,19 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=74;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=111;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
 --
 ALTER TABLE `otp_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
 
 --
 -- AUTO_INCREMENT for table `products`
@@ -667,7 +692,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
 
 --
 -- Constraints for dumped tables
