@@ -28,7 +28,7 @@ $result = $conn->query($sql);
 
     <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
       <a href="./product-detail.php?productid=<?= $product_id; ?>" class="text-decoration-none">
-        <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+        <div class="card border-0  shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
 
           <!-- Discount Badge -->
 

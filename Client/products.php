@@ -199,10 +199,10 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 <div id="main-content" style="display:none;">
 
 
-  <div class="container-fluid mt-4">
+  <div class="container-fluid mt-4 h-100">
     <div class="row">
       <!-- Sidebar Desktop -->
-      <aside class="col-lg-3 d-none d-lg-block  ">
+      <aside class="col-lg-3 d-none d-lg-block   ">
         <div class="filter-sidebar bg-light border rounded p-3 h-100 shadow-sm bg-white">
           <h5 class="mb-4 text-primary">Filter Products</h5>
 
@@ -211,21 +211,21 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
             <?php
             $sql = "
-      SELECT DISTINCT brand.id AS id, brand.name, products.subcategory_id AS subcategory_id
+      SELECT DISTINCT brand.id as brand_id,   brand.name, products.subcategory_id AS subcategory_id
       FROM products
       INNER JOIN brand ON brand.id = products.brand_id
       WHERE products.subcategory_id = $subCategory_id OR products.id = $search_id
     ";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
-              $brand_id = $row['id'];
+              $brand_id = $row['brand_id'];
               $brand_name = $row['name'];
             ?>
               <div class="form-check mb-2">
                 <input
                   class="form-check-input brand-filter"
                   type="checkbox"
-                  value="<?= $brand_id ?>"
+                  value="<?= htmlspecialchars($brand_name) ?>"
                   id="brand<?= $brand_id ?>"
                   <?= $search_id != 0 ? 'disabled' : '' ?>>
                 <label class="form-check-label" for="brand<?= $brand_id ?>">
@@ -243,11 +243,17 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
         </button>
       </div>
 
+      <div id="filter-loader" class="text-center d-none">
+        <div class="spinner-border text-primary" role="status">
+          <span class="visually-hidden">Loading...</span>
+        </div>
+      </div>
       <!-- Main Content -->
-      <main class="col-lg-9">
+      <main id="products_items" class="col-lg-9">
         <div id="product-list">
           <div class="row g-3">
             <?php
+            $product_result = [];
             $sql = "SELECT DISTINCT products.id as productid , products.name , products.description , products.price , brand.name as brand , product_images.image_url  
                 FROM products
                 INNER JOIN product_images ON product_images.product_id = products.id
@@ -255,7 +261,8 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
                 WHERE products.subcategory_id = $subCategory_id  or products.id = $search_id   ORDER BY products.id DESC";
             $result = $conn->query($sql);
             while ($row = $result->fetch_assoc()) {
-              $product_id = $row['productid']
+              $product_result[] = $row;
+              $product_id = $row['productid'];
             ?>
 
               <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
@@ -299,6 +306,11 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 
       </main>
+      <!-- filter products -->
+      <main id="products_items_filter" class="col-lg-9 d-none">
+
+      </main>
+
     </div>
   </div>
 
@@ -336,7 +348,10 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
     </div>
   </div>
 </div>
-<?php include("./includes/mobile-icon.php") ?>
+
+<?php
+
+include("./includes/mobile-icon.php") ?>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
   document.addEventListener("DOMContentLoaded", function() {
@@ -351,52 +366,82 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
     }, 800); // 800ms loader, adjust as needed
   };
 
-  function animateProductExit(callback) {
-    gsap.to('.product-card-animate', {
-      y: 30,
-      opacity: 0,
-      scale: 0.95,
-      duration: 0.4,
-      stagger: 0.05,
-      ease: "power2.in",
-      onComplete: callback
-    });
-  }
+  // function animateProductExit(callback) {
+  //   gsap.to('.product-card-animate', {
+  //     y: 30,
+  //     opacity: 0,
+  //     scale: 0.95,
+  //     duration: 0.4,
+  //     stagger: 0.05,
+  //     ease: "power2.in",
+  //     onComplete: callback
+  //   });
+  // }
 
-  function animateNewProducts() {
-    gsap.from('.product-card-animate', {
-      y: 20,
-      opacity: 0,
-      scale: 0.98,
-      duration: 0.6,
-      stagger: 0.1,
-      ease: "power3.out"
-    });
-  }
-  $(document).ready(function() {
-    animateNewProducts();
-  });
+  // function animateNewProducts() {
+  //   gsap.from('.product-card-animate', {
+  //     y: 20,
+  //     opacity: 0,
+  //     scale: 0.98,
+  //     duration: 0.6,
+  //     stagger: 0.1,
+  //     ease: "power3.out"
+  //   });
+  // }
+  // $(document).ready(function() {
+  //   animateNewProducts();
+  // });
+  document.querySelectorAll('.brand-filter').forEach(cb => {
+    cb.addEventListener('change', () => {
+      // const loader = document.getElementById('filter-loader');
+      // loader.classList.remove('d-none'); // l
+      document.getElementById('products_items').classList.add('d-none');
+      document.getElementById('products_items_filter').classList.remove('d-none');
+      const checkedBrands = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
+      console.log(checkedBrands);
 
-  $('.brand-filter').on('change', function() {
-    var selectedBrands = [];
 
-    $('.brand-filter:checked').each(function() {
-      selectedBrands.push($(this).val());
-    });
+      const products = <?php echo json_encode($product_result, JSON_PRETTY_PRINT); ?>;
 
-    animateProductExit(function() {
-      $.ajax({
-        url: 'filter_products.php',
-        method: 'POST',
-        data: {
-          brands: selectedBrands,
-          subcategory_id: <?= $subCategory_id ?>
-        },
-        success: function(response) {
-          $('#product-list').html(response);
-          animateNewProducts();
+      let html = '';
+
+      products.forEach(item => {
+        if (checkedBrands.includes(item.brand)) {
+          html += `
+          <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+            <a href="./product-detail.php?productid=${item.productid}" class="text-decoration-none">
+              <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+                <div class="ratio ratio-1x1 mb-3">
+                  <img
+                    src="../Server/uploads/${item.image_url}"
+                    class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                    alt="${item.name}"
+                    loading="lazy">
+                </div>
+
+                <h5 class="fw-semibold mb-2 text-truncate text-dark">${item.name}</h5>
+
+                <p class="mb-2">
+                  <span class="fw-bold text-success fs-6">Rs.${item.price}</span>
+                  <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+                </p>
+
+                <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+              </div>
+            </a>
+          </div>
+        `;
         }
       });
+
+      document.getElementById('products_items_filter').innerHTML = `<div class="row g-3">${html}
+            </div>`
+
+      if (checkedBrands.length === 0 || html.trim() === '') {
+        document.getElementById('products_items').classList.remove('d-none');
+        document.getElementById('products_items_filter').classList.add('d-none');
+      }
+
     });
   });
 </script>

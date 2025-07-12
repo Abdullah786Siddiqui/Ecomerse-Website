@@ -7,6 +7,7 @@ function checkauth() {
   }
 }
 
+
 function showLoginModal() {
   const modal = new bootstrap.Modal(document.getElementById("authModal"));
   modal.show();
@@ -180,6 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
               const action = sessionStorage.getItem("postLoginAction");
               sessionStorage.removeItem("postLoginAction");
+             
 
               const actionData2 = sessionStorage.getItem(
                 "postLoginActioncheckout"
@@ -194,7 +196,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                   addToCart(productId);
                 }
-              } else if (data.redirect) {
+              }  else if (data.redirect) {
                 window.location.href = data.redirect;
               }
             },

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 11, 2025 at 02:11 AM
+-- Generation Time: Jul 12, 2025 at 01:26 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,8 +63,8 @@ CREATE TABLE `addresses` (
 
 INSERT INTO `addresses` (`id`, `user_id`, `full_name`, `phone`, `address_line1`, `city`, `country`, `type`, `created_at`, `updated_at`) VALUES
 (22, 9, 'Haris', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-04 04:14:18', '2025-07-04 04:14:18'),
-(27, 52, 'Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-09 12:17:47', '2025-07-09 12:17:47'),
-(28, 52, 'Riasat', '03128727334', '11b  north karachi', 'Karachi', 'Pakistan', 'shipping', '2025-07-09 12:17:47', '2025-07-09 12:17:47');
+(28, 52, 'Riasat', '03128727334', '11b  north karachi', 'Karachi', 'Pakistan', 'shipping', '2025-07-09 12:17:47', '2025-07-09 12:17:47'),
+(29, 52, 'Muhammad Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-11 16:51:39', '2025-07-11 16:51:39');
 
 -- --------------------------------------------------------
 
@@ -158,10 +158,14 @@ INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created
 (69, 52, NULL, 660.00, 'cancelled', '2025-07-08 08:35:35', 'Cash'),
 (70, 52, NULL, 726.00, 'delivered', '2025-07-08 08:41:18', 'Cash'),
 (71, 9, 22, 23000.00, 'shipped', '2025-07-09 15:20:10', 'Cash'),
-(72, 52, 27, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
-(73, 52, 27, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash'),
-(74, 52, 27, 1156.00, 'pending', '2025-07-10 20:39:25', 'Cash'),
-(75, 52, 27, 47850.00, 'pending', '2025-07-10 20:44:18', 'Cash');
+(72, 52, NULL, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
+(73, 52, NULL, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash'),
+(74, 52, NULL, 1156.00, 'pending', '2025-07-10 20:39:25', 'Cash'),
+(75, 52, NULL, 47850.00, 'pending', '2025-07-10 20:44:18', 'Cash'),
+(76, 52, NULL, 570.00, 'cancelled', '2025-07-11 16:23:11', 'Cash'),
+(77, 9, 22, 1898.00, 'delivered', '2025-07-11 16:46:03', 'Cash'),
+(78, 52, 28, 660.00, 'pending', '2025-07-11 22:16:40', 'Cash'),
+(79, 52, 28, 660.00, 'pending', '2025-07-11 22:18:39', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -201,7 +205,12 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (112, 75, 41, 1, 850.00),
 (113, 75, 84, 1, 5000.00),
 (114, 75, 48, 1, 2000.00),
-(115, 75, 91, 1, 40000.00);
+(115, 75, 91, 1, 40000.00),
+(116, 76, 44, 1, 570.00),
+(117, 77, 45, 2, 660.00),
+(118, 77, 46, 1, 578.00),
+(119, 78, 45, 1, 660.00),
+(120, 79, 45, 1, 660.00);
 
 -- --------------------------------------------------------
 
@@ -436,7 +445,9 @@ INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review_text`, `
 (186, 52, 45, 2, 'this  product is best for girls', '2025-07-09 08:40:48', '2025-07-09 08:40:48'),
 (187, 52, 40, 2, 'This is a best Serum', '2025-07-09 10:42:58', '2025-07-09 10:42:58'),
 (188, 9, 44, 3, 'this is a girl product', '2025-07-09 14:59:15', '2025-07-09 14:59:15'),
-(190, 52, 44, 3, 'skin best product', '2025-07-09 15:58:05', '2025-07-09 15:58:05');
+(190, 52, 44, 3, 'skin best product', '2025-07-09 15:58:05', '2025-07-09 15:58:05'),
+(191, 52, 44, 3, 'best pridct', '2025-07-11 16:14:30', '2025-07-11 16:14:30'),
+(192, 52, 45, 3, 'best experience for this product', '2025-07-11 22:13:13', '2025-07-11 22:13:13');
 
 -- --------------------------------------------------------
 
@@ -539,7 +550,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`, `email_token`, `token_expiry`) VALUES
 (9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
 (37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male', NULL, NULL),
-(52, 'Muhammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$/4QA1aLhcCu3WL13QkhTUu3WtQyNnu5.HZ3KhFsIOnwqr/MrjPwjq', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-11 03:56:38', '1752188198-20250306_221933.jpg', 'male', NULL, NULL),
+(52, 'Muhammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$eOGau.LWt0eiQdWG1q.sHeSRBLUV8xZSeNi.qnw.fYC2HXaNkyCfq', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-12 15:05:51', '1752251136-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
 (61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL);
 
 --
@@ -632,7 +643,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -650,13 +661,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=116;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
@@ -680,7 +691,7 @@ ALTER TABLE `product_images`
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=191;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
@@ -692,7 +703,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- Constraints for dumped tables

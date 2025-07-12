@@ -59,6 +59,7 @@ if (isset($_POST['productid'])) {
     $response["success"] = false;
     $response["message"] = "Product not found!";
   }
+    $response["cart_count"] = count($_SESSION['cart']);
 
   header('Content-Type: application/json');
   echo json_encode($response);

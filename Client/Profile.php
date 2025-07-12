@@ -385,16 +385,15 @@ ORDER BY o.created_at DESC";
               <!-- Order Card -->
               <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
-                  <div>
-                    <!-- <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order['order_id'] ?></h5>
-                    <div class="text-muted small"><?= date('M d, Y', strtotime($order['created_at'])) ?></div> -->
+                  <div >
+                  
                     <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order['order_id'] ?></h5>
                     <div class="text-muted small">
                       <?= $order['product_count_all'] ?> Products • <?= date('M d, Y', strtotime($order['created_at'])) ?>
                     </div>
 
                   </div>
-                  <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
+                  <div class="d-flex flex-wrap  gap-2 mt-2 mt-md-0">
 
                     <?php if (isset($order) && is_array($order) && $order['status'] === 'delivered') { ?>
                       <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">

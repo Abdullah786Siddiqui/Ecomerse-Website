@@ -6,33 +6,37 @@ window.addToCart = function (productId) {
     },
     body: "productid=" + productId,
   })
-    .then((response) => response.text())
+    .then((response) => response.json())
     .then((data) => {
-      Swal.fire({
-        position: "top-end",
-        icon: "success",
-        title: "✅ Product successfully added!",
-        showConfirmButton: false,
-        timer: 2000,
-        toast: true,
-        backdrop: false,
-        customClass: {
-          popup: "custom-swal-toast",
-          title: "custom-swal-title",
-        },
-        showClass: {
-          popup: "animate__animated animate__fadeIn",
-        },
-        hideClass: {
-          popup: "animate__animated animate__fadeOut",
-        },
-      }).then(() => {
-        if (!isLoggedIn) {
-          if (window.location.href.includes("product-detail.php")) {
-            window.location.reload();
+      if (data.success) {
+        document.getElementById("cartCount").innerText = data.cart_count;
+
+        Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "✅ Product successfully added!",
+          showConfirmButton: false,
+          timer: 2000,
+          toast: true,
+          backdrop: false,
+          customClass: {
+            popup: "custom-swal-toast",
+            title: "custom-swal-title",
+          },
+          showClass: {
+            popup: "animate__animated animate__fadeIn",
+          },
+          hideClass: {
+            popup: "animate__animated animate__fadeOut",
+          },
+        }).then(() => {
+          if (!isLoggedIn) {
+            if (window.location.href.includes("product-detail.php")) {
+              window.location.reload();
+            }
           }
-        }
-      });
+        });
+      }
     })
     .catch((error) => console.error("Error:", error));
 };
@@ -73,7 +77,6 @@ function removeCart(productid) {
         document.querySelectorAll(".cart-subtotal").forEach((element) => {
           element.innerText = "£" + data.subtotal;
         });
-          
       }
     });
 }

@@ -9,7 +9,7 @@ $validity_password = $_GET['password'] ?? '';
         <h5 class="modal-title fw-semibold text-secondary" id="authModalTitle">Login</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <div class="modal-body bg-light px-4 py-4">
+      <div class="modal-body  px-4 py-4">
 
         <!-- Login Form -->
         <form id="loginForm" class="auth-form">
