@@ -116,7 +116,7 @@ $user_id = $_SESSION['user_id'];
 }
 </style>
 
-<div class="container-fluid">
+<div    class="container-fluid">
   <div class="row">
     <?php
     // Sidebar User Info
@@ -131,9 +131,8 @@ $user_id = $_SESSION['user_id'];
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home" class="active">My Profile</a>
           <a href="./Profile.php" id='myorders'>My Orders</a>
-          <a href="#">Your Addresses</a>
-          <hr />
           <a href="./customer_support.php">Customer Support</a>
+             <hr />
           <a href="./logout.php">Log Out</a>
         </div>
       </div>

@@ -57,14 +57,15 @@ $user_id = $_SESSION['user_id'];
   .order-status {
     font-weight: bold;
   }
-@media (max-width: 375px) {
-  html body #sidebar_mob {
-    display: none !important;
+
+  @media (max-width: 375px) {
+    html body #sidebar_mob {
+      display: none !important;
+    }
   }
-}
 </style>
 
-<div class="container-fluid">
+<div   class="container-fluid">
   <div class="row">
     <?php
     // Sidebar User Info
@@ -73,15 +74,14 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div id="sidebar_mob"  class="col-12 col-md-3 col-lg-2 sidebar p-0">
+      <div id="sidebar_mob" class="col-12 col-md-3 col-lg-2 sidebar p-0">
         <div class="p-3">
           <h6>Your Account</h6>
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home">My Profile</a>
           <a href="./Profile.php" id='myorders' class="active">My Orders</a>
-          <a href="#">Your Addresses</a>
-          <hr />
           <a href="./customer_support.php">Customer Support</a>
+          <hr />
           <a href="./logout.php">Log Out</a>
         </div>
       </div>
@@ -133,7 +133,7 @@ ORDER BY o.created_at DESC";
             while ($order_ps = $result_pending_shipped->fetch_assoc()) {
           ?>
               <!-- Order Card -->
-              <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle">
+              <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle order-remove" data-id="<?= $order_ps['order_id'] ?>">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
                   <div>
 
@@ -144,7 +144,7 @@ ORDER BY o.created_at DESC";
                   </div>
                   <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
                     <?php if ($order_ps['status'] === 'delivered') { ?>
-                      <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                      <button onclick="RemoveOrder(<?= $order_ps['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
 
@@ -276,7 +276,7 @@ ORDER BY o.created_at DESC";
                       <span>Download Invoice</span>
                     </button>
                     <?php if ($order_del['status'] === 'delivered') { ?>
-                      <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                      <button onclick="RemoveOrder(<?= $order_del['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
@@ -385,8 +385,8 @@ ORDER BY o.created_at DESC";
               <!-- Order Card -->
               <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle">
                 <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
-                  <div >
-                  
+                  <div>
+
                     <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order['order_id'] ?></h5>
                     <div class="text-muted small">
                       <?= $order['product_count_all'] ?> Products • <?= date('M d, Y', strtotime($order['created_at'])) ?>
@@ -396,7 +396,7 @@ ORDER BY o.created_at DESC";
                   <div class="d-flex flex-wrap  gap-2 mt-2 mt-md-0">
 
                     <?php if (isset($order) && is_array($order) && $order['status'] === 'delivered') { ?>
-                      <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                      <button onclick="RemoveOrder(<?= $order['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
@@ -406,7 +406,7 @@ ORDER BY o.created_at DESC";
                       </button>
                     <?php } ?>
                     <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
-                      <button class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                        <button onclick="RemoveOrder(<?= $order['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
@@ -503,9 +503,7 @@ WHERE order_items.order_id = $order_id";
       </div>
     </div>
 
-<?php include("./includes/mobile-icon.php") ?>
-    <script src="./Assets/JS/order.js"></script>
-
-
+    <?php include("./includes/mobile-icon.php") ?>
+    <script src="../Client/Assets/JS/order.js"></script>
 
     <?php include './Components/footer.html';  ?>

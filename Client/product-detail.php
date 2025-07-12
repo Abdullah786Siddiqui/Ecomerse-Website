@@ -170,7 +170,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
   }
 </style>
 
-<div class="container py-5">
+<div class="container py-4">
   <div class="row g-4">
     <?php
 

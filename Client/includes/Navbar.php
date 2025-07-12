@@ -17,9 +17,9 @@
       $profile = $row['user_profile'];
     }
   }
-//   echo '<pre>';
-// print_r(count($_SESSION['cart']));
-// echo '</pre>';
+  //   echo '<pre>';
+  // print_r(count($_SESSION['cart']));
+  // echo '</pre>';
 
   ?>
 
@@ -144,16 +144,16 @@
      /* show on open */
    }
 
-   .navbar_mobile {
+   /* .navbar_mobile {
      display: none;
-   }
+   } */
 
-   .navbar_desktop {
+   /* .navbar_desktop {
      display: flex;
      /* or block, as needed */
-   }
+   /* } */
 
-   @media (max-width: 864px) {
+   /* @media (max-width: 864px) {
      .navbar_desktop {
        display: none !important;
      }
@@ -161,19 +161,79 @@
      .navbar_mobile {
        display: flex !important;
      }
+   } */
+   @media (max-width: 845px) {
+     .navbar_desktop {
+       display: none !important;
+     }
+
+     /* .navbar {
+       position: fixed;
+       top: 0;
+       left: 0;
+       right: 0;
+       z-index: 1050;
+
+     } */
+
+     #icons_navbar {
+       display: none !important;
+     }
+
+     .navbar_des {
+       display: flex !important;
+       flex-direction: column !important;
+       align-items: center;
+       gap: 0.25rem;
+       /* zyada gap kam kar diya */
+       padding: 0 !important;
+       margin: 0 !important;
+       width: 100%;
+     }
+
+     .navbar_des .navbar-brand {
+       justify-content: center !important;
+       margin: 0 auto;
+       padding: 0;
+     }
+
+     .navbar_des #searchForm {
+       width: 100% !important;
+       max-width: 100% !important;
+       margin: 0 !important;
+       padding: 0 0.5rem;
+       /* optional: thoda chhota padding */
+     }
+
+     .navbar_des #searchForm .input-group {
+       width: 100%;
+     }
+
+     .navbar_des #searchForm .form-control {
+       flex: 1;
+     }
    }
+
+
+
+
+
+   /* body {
+     padding-top: 70px !important;
+   } */
  </style>
 
  <!-- DESKTOP & TABLET NAV -->
- <nav class="navbar navbar-expand-lg bg-white border-bottom py-2  navbar_desktop  ">
-   <div class="container-fluid mx-2">
+ <nav class="navbar navbar-expand-lg bg-white border-bottom pt-2  ">
+   <div class="container-fluid mx-2 navbar_des  ">
+
      <!-- Logo -->
      <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
        <strong class="mb-2"><img height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt="">Ecoverse</strong>
      </a>
 
      <!-- Search -->
-     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative" role="search" id="searchForm">
+     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative    " role="search" id="searchForm">
        <div class="input-group flex-grow-1">
          <input
            class="form-control search-box searchInput"
@@ -200,7 +260,7 @@
 
 
      <!-- Icons -->
-     <div class="d-flex align-items-center gap-2">
+     <div id='icons_navbar' class="d-flex align-items-center gap-2">
        <a href="#"
          class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center position-relative"
          style="width: 40px; height: 40px;">
@@ -217,7 +277,7 @@
          <span
            class="position-absolute top-0 start-100 translate-middle badge bg-danger rounded-circle d-flex align-items-center justify-content-center " id='cartCount'
            style="width: 18px; height: 18px; font-size: 0.65rem;">
-          <?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
+           <?= isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0; ?>
 
          </span>
        </a>
@@ -226,14 +286,14 @@
 
 
        <!-- Account Dropdown -->
-       <div class="dropdown">
+       <div class="dropdown drop">
          <a class="nav-link d-flex align-items-center" href="#" data-bs-toggle="dropdown">
            <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/' . $profile ?>" width="40" height="40" class="rounded-circle me-1">
            My Account
          </a>
 
          <?php if (isset($_SESSION['user_id'])): ?>
-           <div class="dropdown-menu dropdown-menu-end p-3" style="width: 250px; z-index: 1100; overflow: hidden">
+           <div class="dropdown-menu dropdown-menu-end p-3 drop" style="width: 250px; z-index: 1100; overflow: hidden">
              <div class="text-center mb-2">
                <img src="<?= empty($profile) ? './Assets/Images/user.png' : '../Server/uploads/' . $profile ?>" width="50" height="50" class="rounded-circle mb-2">
 
@@ -251,7 +311,7 @@
            </div>
 
          <?php else: ?>
-           <ul class="dropdown-menu dropdown-menu-end shadow-sm">
+           <ul class="dropdown-menu dropdown-menu-end shadow-sm drop">
              <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('login')"><i class="bi bi-box-arrow-in-right me-2"></i> Login</a></li>
              <li><a class="dropdown-item cursor-pointer " onclick="showAuthModal('signup')"><i class="bi bi-pencil-square me-2"></i> Register</a></li>
 
@@ -261,10 +321,11 @@
 
      </div>
    </div>
+
  </nav>
 
  <!-- DESKTOP NAV LINKS -->
- <nav class="bg-white border-bottom py-2  navbar_desktop ">
+ <nav class="navbar2 bg-white border-bottom py-2  navbar_desktop ">
    <div class="container-fluid mx-2 d-flex justify-content-between">
      <div class="d-flex gap-4 flex-wrap">
        <?php
@@ -335,38 +396,7 @@
 
 
  <!-- MOBILE TOP -->
- <nav style="z-index: 1000; " class="mobile-navbar bg-light p-0 navbar_mobile position-fixed w-100   ">
-   <div class="container-fluid text-center px-2 py-2">
-     <!-- Logo -->
-     <a class="fs-5 fw-bold text-decoration-none text-dark d-block mb-1" href="./index.php">
-       <img height="28" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt=""> Ecoverse
-     </a>
 
-     <!-- Search bar -->
-     <form autocomplete="off" class="position-relative w-100" role="search" id="searchForm2">
-       <div class="input-group input-group-sm">
-         <input
-           class="form-control form-control-sm search-box searchInput"
-           type="search"
-           placeholder="Search products"
-           oninput="searchFunc2(this.value)" />
-         <button id="search-btn" class="btn btn-primary btn-sm" type="submit">
-           <i class="bi bi-search"></i>
-         </button>
-       </div>
-
-       <!-- Card positioned absolutely -->
-       <div
-         class="card position-absolute start-0 w-100 d-none"
-         style="top: 100%; z-index: 1000;"
-         id="resultCard2">
-         <div class="card-body p-2" id="output2">
-           <!-- search results -->
-         </div>
-       </div>
-     </form>
-   </div>
- </nav>
 
 
 
@@ -379,6 +409,15 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
  <script>
    const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
+   //  document.addEventListener("DOMContentLoaded", function() {
+   //    if (window.matchMedia("(max-width: 845px)").matches) {
+   //   //    document.getElementById("searchForm").classList.add("w-100")
+   //      document.querySelector(".navbar_des").classList.remove("mx-2")
+   //      document.querySelector(".navbar_des").classList.add("p-0")
+
+
+   //    }
+   //  })
  </script>
  <script src="./Assets/JS/auth.js"></script>
  <script src="./Assets/JS/cart.js"></script>

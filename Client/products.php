@@ -199,7 +199,7 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 <div id="main-content" style="display:none;">
 
 
-  <div class="container-fluid mt-4 h-100">
+  <div  class="container-fluid products mt-4 h-100">
     <div class="row">
       <!-- Sidebar Desktop -->
       <aside class="col-lg-3 d-none d-lg-block   ">

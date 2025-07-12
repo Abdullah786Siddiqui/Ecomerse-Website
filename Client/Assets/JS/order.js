@@ -46,60 +46,41 @@ function orderCancel(orderid) {
             icon: "error",
           });
 
-
-
-
-
-
-
-  
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
           console.error(error);
         });
     }
   });
 }
 
-
+function RemoveOrder(orderid) {
+  fetch("../Server/Process/remove-order.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "order_id=" + orderid,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        document.querySelector(`.order-remove[data-id="${orderid}"]`)?.remove();
+        Swal.fire({
+          title: "Removed!",
+          text: data.message,
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+          // Optionally reload or update the order list
+          location.reload(); // or update UI without reload
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    });
+}
