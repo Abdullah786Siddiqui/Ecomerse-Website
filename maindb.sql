@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 12, 2025 at 01:26 PM
+-- Generation Time: Jul 14, 2025 at 01:23 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -147,7 +147,6 @@ CREATE TABLE `orders` (
 --
 
 INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created_at`, `payment_method`) VALUES
-(53, 9, 22, 35378.00, 'shipped', '2025-07-04 18:54:34', 'Cash'),
 (54, 9, 22, 41816.00, 'delivered', '2025-07-04 18:56:33', 'Cash'),
 (55, 9, 22, 578.00, 'delivered', '2025-07-05 10:48:26', 'Cash'),
 (58, 9, 22, 62500.00, 'delivered', '2025-07-06 18:46:53', 'Cash'),
@@ -159,13 +158,13 @@ INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created
 (70, 52, NULL, 726.00, 'delivered', '2025-07-08 08:41:18', 'Cash'),
 (71, 9, 22, 23000.00, 'shipped', '2025-07-09 15:20:10', 'Cash'),
 (72, 52, NULL, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
-(73, 52, NULL, 570.00, 'shipped', '2025-07-09 16:00:03', 'Cash'),
+(73, 52, NULL, 570.00, 'delivered', '2025-07-09 16:00:03', 'Cash'),
 (74, 52, NULL, 1156.00, 'pending', '2025-07-10 20:39:25', 'Cash'),
 (75, 52, NULL, 47850.00, 'pending', '2025-07-10 20:44:18', 'Cash'),
 (76, 52, NULL, 570.00, 'cancelled', '2025-07-11 16:23:11', 'Cash'),
 (77, 9, 22, 1898.00, 'delivered', '2025-07-11 16:46:03', 'Cash'),
-(78, 52, 28, 660.00, 'pending', '2025-07-11 22:16:40', 'Cash'),
-(79, 52, 28, 660.00, 'pending', '2025-07-11 22:18:39', 'Cash');
+(87, 52, 28, 734.00, 'pending', '2025-07-12 20:08:53', 'Cash'),
+(95, 52, 28, 25000.00, 'pending', '2025-07-13 23:21:06', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -186,7 +185,6 @@ CREATE TABLE `order_items` (
 --
 
 INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) VALUES
-(81, 53, 32, 1, 34800.00),
 (82, 54, 46, 2, 578.00),
 (83, 54, 45, 1, 660.00),
 (84, 54, 76, 1, 40000.00),
@@ -209,8 +207,9 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (116, 76, 44, 1, 570.00),
 (117, 77, 45, 2, 660.00),
 (118, 77, 46, 1, 578.00),
-(119, 78, 45, 1, 660.00),
-(120, 79, 45, 1, 660.00);
+(128, 87, 26, 1, 156.00),
+(129, 87, 46, 1, 578.00),
+(137, 95, 93, 5, 5000.00);
 
 -- --------------------------------------------------------
 
@@ -242,85 +241,87 @@ CREATE TABLE `products` (
   `created_at` datetime DEFAULT current_timestamp(),
   `brand_id` int(11) DEFAULT NULL,
   `category_id` int(11) DEFAULT NULL,
-  `status` varchar(50) NOT NULL DEFAULT 'In Stock'
+  `quantity` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `products`
 --
 
-INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, `created_at`, `brand_id`, `category_id`, `status`) VALUES
-(13, 'Apple iPhone X, 64GB Unlocked - Silver', 'iPhone X features an all-screen design with a 5.8-inch Super Retina HD display with HDR and True Tone. Designed with the most durable glass ever in a smartphone and a surgical grade stainless steel band. Charges wirelessly. Resists water and dust. 12MP dual cameras with dual optical image stabilization for great low-light photos. True Depth camera with Portrait selfies and new Portrait Lighting. Face ID lets you unlock and use Apple Pay with just a glance. Powered by A11 Bionic, the most powerful and smartest chip ever in a smartphone. Supports augmented reality experiences in games and apps. With iPhone X, the next era of iPhone has begun.', 12000.00, 73, '2025-06-27 02:44:56', 1, 1, 'In Stock'),
-(14, 'Apple iPhone 14 Pro, 128GB, Deep Purple', 'The best gets even better with the Pro Perfection of the iPhone 14 Pro. Its powerful, has amazing cameras, sports a beautiful display, and Dynamic Island is a good notch replacement. From its pocketable form factor to its sheer horsepower and camera capabilities, the iPhone 14 Pro crushes anything else that tries to stand against it. Simply as close to a perfect phone ever seen.', 12778.00, 73, '2025-06-27 03:20:55', 1, 1, 'In Stock'),
-(15, 'Apple iPhone XR, US Version, 64GB, Red ', 'With the iPhone XR you get a roomy 6.1-inch display, fast enough performance from Apple\'s A12 Bionic processor and good camera quality in a colorful design and affordable package. Apple has included the all-new Liquid Retina LCD as the display on the iPhone XR. Apple released the iPhone XR with a smattering of color options. Both the glass back and the metal frame are brightly colored, with the glass using an in-depth seven-layer color process to achieve the rich finish and the Apple-exclusive aluminum alloy anodized to match. Instead of 3D Touch, the iPhone XR replicates the experience through \"Haptic Touch\". Advanced Face ID lets you securely unlock your iPhone and log in to apps with just a glance.', 13000.00, 73, '2025-06-27 03:27:00', 1, 1, 'In Stock'),
-(16, 'Samsung Galaxy A16 5G A Series Cell Phone', 'Measured diagonally, the screen size is 6.7\" in the full rectangle and 6.5\" accounting for the rounded corners. Actual viewable area is less due to the rounded corners and the camera cutout. ²IP54 rating for water and dust resistance. Water resistance based on laboratory test conditions for exposure to splashes of fresh water. Not advised for beach or pool use. Dust resistance based on laboratory test conditions, with limited protection against dust ingress.', 23000.00, 73, '2025-06-27 04:01:39', 3, 1, 'In Stock'),
-(17, 'SAMSUNG Galaxy S25 Ultra Cell Phone', 'Galaxy S25 Ultra handles the small details so you can focus on staying in the moment. Get several tasks fulfilled with one simple ask, and get insightful tips throughout your day to stay one step ahead. Simplify life with AI¹⁰ that evolves with you to work better for you.', 34000.00, 73, '2025-06-27 04:04:26', 3, 1, 'In Stock'),
-(18, 'MMY I25 Ultra Unlocked Cell Phone', 'Galaxy S25 Ultra handles the small details so you can focus on staying in the moment. Get several tasks fulfilled with one simple ask, and get insightful tips throughout your day to stay one step ahead. Simplify life with AI¹⁰ that evolves with you to work better for you.', 12000.00, 73, '2025-06-27 04:06:17', 3, 1, 'In Stock'),
-(19, 'Sony Xperia 10 VI 5G XQ-ES72 128GB 8GB', 'Sony Xperia 10 VI 5G XQ-ES72 128GB 8GB RAM Factory Unlocked (GSM Only | No CDMA – not Compatible with Verizon/Sprint) Smartphone Global Version Mobile', 45000.00, 73, '2025-06-27 04:11:14', 4, 1, 'In Stock'),
-(20, 'Sony Xperia 1 IV XQ-CT72 5G Dual 256GB', 'Sony Xperia 1 IV XQ-CT72 5G Dual 256GB 128GB 8GB RAM Factory Unlocked (GSM Only | No CDMA – not Compatible with Verizon/Sprint) Smartphone Global Version Mobile', 12300.00, 73, '2025-06-27 04:14:25', 4, 1, 'In Stock'),
-(22, 'Apple AirPods Pro 2 Wireless Earbuds', ' AirPods Pro 2 unlock the world’s first all-in-one hearing health experience: a scientifically validated Hearing Test,* clinical-grade and active Hearing Protection', 1200.00, 76, '2025-06-27 04:23:29', 1, 1, 'In Stock'),
-(23, 'Apple AirPods Max Wireless', 'ULTIMATE OVER-EAR LISTENING EXPERIENCE — Apple-designed dynamic driver provides high-fidelity audio. Computational audio combines custom acoustic design with the Apple H1 chip and software for breakthrough listening experiences.', 3400.00, 76, '2025-06-27 05:10:47', 1, 1, 'In Stock'),
-(24, 'Samsung Galaxy Buds 3 Pro', 'Meet the new shape of sound — Galaxy Buds3 Pro — now completely redesigned with improved hardware to bring you deeper into the audio than ever before. With Galaxy AI¹, your Buds create the best listening experience by optimizing sound based on your surroundings and how you wear them — while providing a snug fit for all-day comfort, no matter what you do. Buds3 Pro get how much you love your audio.', 189.00, 76, '2025-06-27 05:51:45', 3, 1, 'In Stock'),
-(25, 'SAMSUNG AKG Earbuds ', 'Samsung AKG Earbuds Original USB Type C In-Ear Earbud Headphones with Remote & Mic for Galaxy A53 5G, S22, S21, S21 FE, S20 Ultra, Note 10, Note 10+, S10 Plus - Braided - Includes Velvet Pouch - Black', 145.00, 76, '2025-06-27 05:56:25', 3, 1, 'In Stock'),
-(26, 'Lenovo Go Wired Speakerphone', 'Elevate remote workforce communication with the Lenovo Go Wired Speakerphone, delivering enterprise-grade conferencing and audio capabilities. This portable plug-and-play solution enables seamless and natural conference calls, enhanced by cutting-edge voice-first algorithms. Plus, with Teams Certification, you can confidently maximize the potential of your preferred UC platform.', 156.00, 76, '2025-06-27 06:02:42', 7, 1, 'In Stock'),
-(27, 'Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens', 'Perfect for beginners, this camera bundle offers the essential tools needed to take your SLR skills to new heights, all in one convenient package. No matter where your next adventure takes you, count on the EOS Rebel t7\'s impressive 24.1 Megapixel CMOS sensor and wide ISO range of 100-6400 (H: 12800) to capture high-quality images, even in low-light situations.', 1288.00, 77, '2025-06-27 16:00:23', 8, NULL, 'In Stock'),
-(28, 'Nikon D7500 20.9MP DSLR Camera with AF-S DX NIKKOR', 'Class leading image quality, ISO range, image processing and metering equivalent to the award-winning D500 Large 3.2” 922K dot, tilting LCD screen with touch functionality 51-point AF system with 15 cross-type sensors and group-area AF paired with up to 8 fps continuous shooting capability 4K Ultra HD and 1080p Full HD video with stereo sound, power aperture control, auto ISO, 4K UHD Time-Lapse and more.', 1288.00, 77, '2025-06-27 16:10:08', 9, NULL, 'In Stock'),
-(30, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 16:23:49', 9, NULL, 'In Stock'),
-(31, 'KODAK PIXPRO Friendly Zoom FZ45-BK 16MP ', 'Introducing the FZ45, Friendly Zoom model from the KODAK PIXPRO collection of digital cameras. Compact, intuitive and oh so easy to use, the FZ45 is the perfect camera to take anywhere you go. One-touch video, red-eye removal, face detection and convenient AA batteries are just the start. KODAK PIXPRO Digital Cameras - Tell your story.\r\n\r\n', 1460.00, 77, '2025-06-27 16:26:46', 10, NULL, 'In Stock'),
-(32, 'LG K51 Unlocked Smartphone ', 'A phone packed with premium features that will keep you connected and fit your budget.\r\nIntroducing the impressive LG K51 that enables you to capture and experience life’s special moments.\r\n\r\n', 34800.00, 73, '2025-06-27 16:29:16', 5, NULL, 'In Stock'),
-(33, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:32', 9, NULL, 'In Stock'),
-(34, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:43', 9, NULL, 'In Stock'),
-(37, 'toy', 'adkajdkajdkjakdjakdjakdjak', 10000.00, 92, '2025-06-27 22:55:48', 3, 2, 'In Stock'),
-(38, 'E.T.F SKIN Holy Hydration! Hydrated Ever After Skincare Mini Kit, Cleanser, ', 'A COMPLETE HYDRATION REGIMEN: This skincare kit has all of your favorite Holy Hydration necessities-', 25000.00, 89, '2025-06-28 01:09:29', 11, 2, 'In Stock'),
-(40, 'E.I.F. SKIN Bright Icon Vitamin C + E + Ferulic Serum', 'BRIGHTENING SERUM: A radiance-boosting serum formulated with a triple threat of 15% vitamin C, 1% vitamin E and 0.5% ferulic acid.', 650.00, 89, '2025-06-28 01:21:33', 11, 2, 'In Stock'),
-(41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2, 'In Stock'),
-(42, 'E.I.F. SKIN Holy Hydration!  Set Hydration Kit, Travel Friendly Hydrating  Set', 'FOR ALL SKIN TYPES: This skincare set is perfectly compatible with all skin types.', 560.00, 89, '2025-06-28 01:34:06', 11, 2, 'In Stock'),
-(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 'In Stock'),
-(45, 'ANUA Hydrating Gentle Foaming Cleanser, Panthenol, Korean Face', 'NON-STRIPPING FINISH : Contains Hyaluronic Acid and Panthenol to hydrate the skin for long hours even after cleansing, whilst helping to protect the skin barrier.', 660.00, 89, '2025-06-28 01:54:59', 12, 2, 'In Stock'),
-(46, 'ANUA Heartleaf LHA Moisture Peeling Gel, Hydrating Facial Peel', '[SOOTHING & HYDRATING FORMULA] Infused with 10,000ppm heartleaf extract, this peeling gel soothes sensitive skin while maintaining hydration, ensuring your skin feels refreshed and balanced after exfoliation.', 578.00, 89, '2025-06-28 01:58:09', 12, 2, 'In Stock'),
-(47, 'Comfy Shirts', 'Simply & regular shirt', 1500.00, 51, '2025-06-29 01:12:55', 15, 5, 'In Stock'),
-(48, 'White Hoodie', 'White Warm comfy hoodie', 2000.00, 51, '2025-06-29 01:13:49', 15, 5, 'In Stock'),
-(49, 'Green Hoodie', 'Green Soft Hoodie', 2000.00, 51, '2025-06-29 01:14:33', 15, 5, 'In Stock'),
-(50, 'Dark Green Jacket', 'Dark green comfy jacket', 3000.00, 51, '2025-06-29 01:15:31', 15, 5, 'In Stock'),
-(51, 'White T-shirt', 'Starchy white t-shirt', 2000.00, 51, '2025-06-29 01:16:42', 15, 5, 'In Stock'),
-(53, 'Winter Long Coat ', 'Winter long coat for men ', 3000.00, 51, '2025-06-29 01:34:54', 14, 5, 'In Stock'),
-(54, 'Black Sneaker ', 'Black & white Sneakers', 2000.00, 54, '2025-06-29 01:36:39', 16, 5, 'In Stock'),
-(55, 'Black Long Boots', 'Girls longs black boots ', 2500.00, 54, '2025-06-29 01:52:06', 17, 5, 'In Stock'),
-(58, 'White Heels', 'white heels by borjan', 2000.00, 54, '2025-06-29 04:18:50', 17, 5, 'In Stock'),
-(59, 'Flat cut shoe ', 'flat cut shoe', 1500.00, 54, '2025-06-29 04:19:48', 17, 5, 'In Stock'),
-(60, 'Off-White & Red Sneaker ', 'Comfy Off-White & red Sneaker ', 3000.00, 54, '2025-06-29 04:20:52', 16, 5, 'In Stock'),
-(61, 'Shinny Black Shoes ', 'Shinny black shoes ', 3000.00, 54, '2025-06-29 04:21:46', 16, 5, 'In Stock'),
-(62, 'Grey & Black Shoe', 'Grey & black Shoes', 3000.00, 54, '2025-06-29 04:34:02', 16, 5, 'In Stock'),
-(63, 'Cream Hell cut shoes', 'Cream Hell cut shoes by borjan', 2500.00, 54, '2025-06-29 04:36:08', 17, 5, 'In Stock'),
-(64, 'Blue Shirt', 'Blue full sleeve Shirt', 2000.00, 51, '2025-06-29 04:37:24', 14, 5, 'In Stock'),
-(65, 'Comfy White T-shirt', 'Comfy White T-Shirt', 1500.00, 51, '2025-06-29 04:38:37', 14, 5, 'In Stock'),
-(66, 'Plain round T-shirts ', 'Plain Round t-shirts', 1500.00, 51, '2025-06-29 04:42:07', 15, 5, 'In Stock'),
-(67, 'Black & White Skirt', 'Black & white Skirt', 3000.00, 52, '2025-06-29 04:43:05', 15, 5, 'In Stock'),
-(68, 'Brown Skirt', 'comfy Brown Skirt', 1500.00, 52, '2025-06-29 04:44:06', 15, 5, 'In Stock'),
-(69, 'Floral Black & White Skirt', 'Floral Black & White Skirt', 3000.00, 52, '2025-06-29 04:44:53', 15, 5, 'In Stock'),
-(70, 'Cream Comfy Dress', 'Cream Comfy Dress', 2000.00, 52, '2025-06-29 04:45:37', 15, 5, 'In Stock'),
-(71, 'Red & White Top & Skirt', 'Red & White Top & Skirt', 3000.00, 52, '2025-06-29 04:46:33', 15, 5, 'In Stock'),
-(72, 'Dark Brown Skirt', 'Dark Brown Skirt', 3000.00, 52, '2025-06-29 04:47:32', 15, 5, 'In Stock'),
-(73, '25inch LCD', 'Samsung LCD', 25000.00, 41, '2025-06-29 04:48:21', 3, 4, 'In Stock'),
-(74, '32inch LCD', 'Apple 32inch LCD', 32000.00, 41, '2025-06-29 04:49:06', 1, 4, 'In Stock'),
-(75, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:50:08', 5, 4, 'In Stock'),
-(76, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:52:38', 5, 4, 'In Stock'),
-(77, 'Girly Watches ', 'Regular Wear Watch', 1500.00, 56, '2025-06-29 04:53:44', 18, 5, 'In Stock'),
-(78, 'Office Watches', 'Office Watches', 2000.00, 56, '2025-06-29 04:54:35', 19, 5, 'In Stock'),
-(79, 'Black Set Watch', 'Black Set Watch', 2000.00, 56, '2025-06-29 04:55:15', 19, 5, 'In Stock'),
-(80, 'Cream Office Watch', 'Cream Office Watch', 2000.00, 56, '2025-06-29 04:56:05', 19, 5, 'In Stock'),
-(81, 'Jet Black Watch', 'Jet Black Watch', 3000.00, 56, '2025-06-29 04:57:08', 18, 5, 'In Stock'),
-(82, 'Brown Leather Watch', 'Brown Leather Watch', 3000.00, 56, '2025-06-29 04:58:12', 18, 5, 'In Stock'),
-(83, 'Black Leather Watch', 'Black Leather Watch', 3000.00, 56, '2025-06-29 04:59:11', 18, 5, 'In Stock'),
-(84, 'Smart Watch', 'iSmart Watch', 5000.00, 56, '2025-06-29 04:59:50', 1, 5, 'In Stock'),
-(85, 'Smart Watch', 'iSmart Watch', 5000.00, 56, '2025-06-29 05:02:21', 1, 5, 'In Stock'),
-(86, 'Hand Mixer', 'Dawlance Hand Mixer', 30000.00, 46, '2025-06-29 05:03:08', 20, 4, 'In Stock'),
-(87, 'Air Fryer', 'Dawlance Air Fryer', 50000.00, 46, '2025-06-29 05:04:07', 20, 4, 'In Stock'),
-(88, 'Electric Mixer Machine ', 'Electric Mixer Machine ', 25000.00, 46, '2025-06-29 05:04:59', 20, 4, 'In Stock'),
-(89, 'Automatic Washing Machine ', 'Automatic Washing Machine ', 50000.00, 43, '2025-06-29 05:05:45', 20, 4, 'In Stock'),
-(90, 'DoubleTub Washing Machine', 'DoubleTub Washing Machine', 50000.00, 43, '2025-06-29 05:06:35', 20, 4, 'In Stock'),
-(91, 'Black Automatic  Washing Machine', 'Black Automatic  Washing Machine', 40000.00, 43, '2025-06-29 05:07:25', 20, 4, 'In Stock'),
-(92, 'Grey Automatic Washing Machine', 'Grey Automatic Washing Machine', 50000.00, 43, '2025-06-29 05:08:30', 20, 4, 'In Stock');
+INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, `created_at`, `brand_id`, `category_id`, `quantity`) VALUES
+(13, 'Apple iPhone X, 64GB Unlocked - Silver', 'iPhone X features an all-screen design with a 5.8-inch Super Retina HD display with HDR and True Tone. Designed with the most durable glass ever in a smartphone and a surgical grade stainless steel band. Charges wirelessly. Resists water and dust. 12MP dual cameras with dual optical image stabilization for great low-light photos. True Depth camera with Portrait selfies and new Portrait Lighting. Face ID lets you unlock and use Apple Pay with just a glance. Powered by A11 Bionic, the most powerful and smartest chip ever in a smartphone. Supports augmented reality experiences in games and apps. With iPhone X, the next era of iPhone has begun.', 12000.00, 73, '2025-06-27 02:44:56', 1, 1, 5),
+(14, 'Apple iPhone 14 Pro, 128GB, Deep Purple', 'The best gets even better with the Pro Perfection of the iPhone 14 Pro. Its powerful, has amazing cameras, sports a beautiful display, and Dynamic Island is a good notch replacement. From its pocketable form factor to its sheer horsepower and camera capabilities, the iPhone 14 Pro crushes anything else that tries to stand against it. Simply as close to a perfect phone ever seen.', 12778.00, 73, '2025-06-27 03:20:55', 1, 1, 5),
+(15, 'Apple iPhone XR, US Version, 64GB, Red ', 'With the iPhone XR you get a roomy 6.1-inch display, fast enough performance from Apple\'s A12 Bionic processor and good camera quality in a colorful design and affordable package. Apple has included the all-new Liquid Retina LCD as the display on the iPhone XR. Apple released the iPhone XR with a smattering of color options. Both the glass back and the metal frame are brightly colored, with the glass using an in-depth seven-layer color process to achieve the rich finish and the Apple-exclusive aluminum alloy anodized to match. Instead of 3D Touch, the iPhone XR replicates the experience through \"Haptic Touch\". Advanced Face ID lets you securely unlock your iPhone and log in to apps with just a glance.', 13000.00, 73, '2025-06-27 03:27:00', 1, 1, 5),
+(16, 'Samsung Galaxy A16 5G A Series Cell Phone', 'Measured diagonally, the screen size is 6.7\" in the full rectangle and 6.5\" accounting for the rounded corners. Actual viewable area is less due to the rounded corners and the camera cutout. ²IP54 rating for water and dust resistance. Water resistance based on laboratory test conditions for exposure to splashes of fresh water. Not advised for beach or pool use. Dust resistance based on laboratory test conditions, with limited protection against dust ingress.', 23000.00, 73, '2025-06-27 04:01:39', 3, 1, 5),
+(17, 'SAMSUNG Galaxy S25 Ultra Cell Phone', 'Galaxy S25 Ultra handles the small details so you can focus on staying in the moment. Get several tasks fulfilled with one simple ask, and get insightful tips throughout your day to stay one step ahead. Simplify life with AI¹⁰ that evolves with you to work better for you.', 34000.00, 73, '2025-06-27 04:04:26', 3, 1, 5),
+(18, 'MMY I25 Ultra Unlocked Cell Phone', 'Galaxy S25 Ultra handles the small details so you can focus on staying in the moment. Get several tasks fulfilled with one simple ask, and get insightful tips throughout your day to stay one step ahead. Simplify life with AI¹⁰ that evolves with you to work better for you.', 12000.00, 73, '2025-06-27 04:06:17', 3, 1, 5),
+(19, 'Sony Xperia 10 VI 5G XQ-ES72 128GB 8GB', 'Sony Xperia 10 VI 5G XQ-ES72 128GB 8GB RAM Factory Unlocked (GSM Only | No CDMA – not Compatible with Verizon/Sprint) Smartphone Global Version Mobile', 45000.00, 73, '2025-06-27 04:11:14', 4, 1, 5),
+(20, 'Sony Xperia 1 IV XQ-CT72 5G Dual 256GB', 'Sony Xperia 1 IV XQ-CT72 5G Dual 256GB 128GB 8GB RAM Factory Unlocked (GSM Only | No CDMA – not Compatible with Verizon/Sprint) Smartphone Global Version Mobile', 12300.00, 73, '2025-06-27 04:14:25', 4, 1, 5),
+(22, 'Apple AirPods Pro 2 Wireless Earbuds', ' AirPods Pro 2 unlock the world’s first all-in-one hearing health experience: a scientifically validated Hearing Test,* clinical-grade and active Hearing Protection', 1200.00, 76, '2025-06-27 04:23:29', 1, 1, 5),
+(23, 'Apple AirPods Max Wireless', 'ULTIMATE OVER-EAR LISTENING EXPERIENCE — Apple-designed dynamic driver provides high-fidelity audio. Computational audio combines custom acoustic design with the Apple H1 chip and software for breakthrough listening experiences.', 3400.00, 76, '2025-06-27 05:10:47', 1, 1, 5),
+(24, 'Samsung Galaxy Buds 3 Pro', 'Meet the new shape of sound — Galaxy Buds3 Pro — now completely redesigned with improved hardware to bring you deeper into the audio than ever before. With Galaxy AI¹, your Buds create the best listening experience by optimizing sound based on your surroundings and how you wear them — while providing a snug fit for all-day comfort, no matter what you do. Buds3 Pro get how much you love your audio.', 189.00, 76, '2025-06-27 05:51:45', 3, 1, 5),
+(25, 'SAMSUNG AKG Earbuds ', 'Samsung AKG Earbuds Original USB Type C In-Ear Earbud Headphones with Remote & Mic for Galaxy A53 5G, S22, S21, S21 FE, S20 Ultra, Note 10, Note 10+, S10 Plus - Braided - Includes Velvet Pouch - Black', 145.00, 76, '2025-06-27 05:56:25', 3, 1, 5),
+(26, 'Lenovo Go Wired Speakerphone', 'Elevate remote workforce communication with the Lenovo Go Wired Speakerphone, delivering enterprise-grade conferencing and audio capabilities. This portable plug-and-play solution enables seamless and natural conference calls, enhanced by cutting-edge voice-first algorithms. Plus, with Teams Certification, you can confidently maximize the potential of your preferred UC platform.', 156.00, 76, '2025-06-27 06:02:42', 7, 1, 5),
+(27, 'Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens', 'Perfect for beginners, this camera bundle offers the essential tools needed to take your SLR skills to new heights, all in one convenient package. No matter where your next adventure takes you, count on the EOS Rebel t7\'s impressive 24.1 Megapixel CMOS sensor and wide ISO range of 100-6400 (H: 12800) to capture high-quality images, even in low-light situations.', 1288.00, 77, '2025-06-27 16:00:23', 8, NULL, 5),
+(28, 'Nikon D7500 20.9MP DSLR Camera with AF-S DX NIKKOR', 'Class leading image quality, ISO range, image processing and metering equivalent to the award-winning D500 Large 3.2” 922K dot, tilting LCD screen with touch functionality 51-point AF system with 15 cross-type sensors and group-area AF paired with up to 8 fps continuous shooting capability 4K Ultra HD and 1080p Full HD video with stereo sound, power aperture control, auto ISO, 4K UHD Time-Lapse and more.', 1288.00, 77, '2025-06-27 16:10:08', 9, NULL, 5),
+(30, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 16:23:49', 9, NULL, 5),
+(31, 'KODAK PIXPRO Friendly Zoom FZ45-BK 16MP ', 'Introducing the FZ45, Friendly Zoom model from the KODAK PIXPRO collection of digital cameras. Compact, intuitive and oh so easy to use, the FZ45 is the perfect camera to take anywhere you go. One-touch video, red-eye removal, face detection and convenient AA batteries are just the start. KODAK PIXPRO Digital Cameras - Tell your story.\r\n\r\n', 1460.00, 77, '2025-06-27 16:26:46', 10, NULL, 5),
+(32, 'LG K51 Unlocked Smartphone ', 'A phone packed with premium features that will keep you connected and fit your budget.\r\nIntroducing the impressive LG K51 that enables you to capture and experience life’s special moments.\r\n\r\n', 34800.00, 73, '2025-06-27 16:29:16', 5, NULL, 5),
+(33, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:32', 9, NULL, 5),
+(34, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:43', 9, NULL, 5),
+(37, 'toy', 'adkajdkajdkjakdjakdjakdjak', 10000.00, 92, '2025-06-27 22:55:48', 3, 2, 5),
+(38, 'E.T.F SKIN Holy Hydration! Hydrated Ever After Skincare Mini Kit, Cleanser, ', 'A COMPLETE HYDRATION REGIMEN: This skincare kit has all of your favorite Holy Hydration necessities-', 25000.00, 89, '2025-06-28 01:09:29', 11, 2, 5),
+(40, 'E.I.F. SKIN Bright Icon Vitamin C + E + Ferulic Serum', 'BRIGHTENING SERUM: A radiance-boosting serum formulated with a triple threat of 15% vitamin C, 1% vitamin E and 0.5% ferulic acid.', 650.00, 89, '2025-06-28 01:21:33', 11, 2, 5),
+(41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2, 5),
+(42, 'E.I.F. SKIN Holy Hydration!  Set Hydration Kit, Travel Friendly Hydrating  Set', 'FOR ALL SKIN TYPES: This skincare set is perfectly compatible with all skin types.', 560.00, 89, '2025-06-28 01:34:06', 11, 2, 5),
+(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 5),
+(45, 'ANUA Hydrating Gentle Foaming Cleanser, Panthenol, Korean Face', 'NON-STRIPPING FINISH : Contains Hyaluronic Acid and Panthenol to hydrate the skin for long hours even after cleansing, whilst helping to protect the skin barrier.', 660.00, 89, '2025-06-28 01:54:59', 12, 2, 5),
+(46, 'ANUA Heartleaf LHA Moisture Peeling Gel, Hydrating Facial Peel', '[SOOTHING & HYDRATING FORMULA] Infused with 10,000ppm heartleaf extract, this peeling gel soothes sensitive skin while maintaining hydration, ensuring your skin feels refreshed and balanced after exfoliation.', 578.00, 89, '2025-06-28 01:58:09', 12, 2, 5),
+(47, 'Comfy Shirts', 'Simply & regular shirt', 1500.00, 51, '2025-06-29 01:12:55', 15, 5, 5),
+(48, 'White Hoodie', 'White Warm comfy hoodie', 2000.00, 51, '2025-06-29 01:13:49', 15, 5, 5),
+(49, 'Green Hoodie', 'Green Soft Hoodie', 2000.00, 51, '2025-06-29 01:14:33', 15, 5, 5),
+(50, 'Dark Green Jacket', 'Dark green comfy jacket', 3000.00, 51, '2025-06-29 01:15:31', 15, 5, 5),
+(51, 'White T-shirt', 'Starchy white t-shirt', 2000.00, 51, '2025-06-29 01:16:42', 15, 5, 5),
+(53, 'Winter Long Coat ', 'Winter long coat for men ', 3000.00, 51, '2025-06-29 01:34:54', 14, 5, 5),
+(54, 'Black Sneaker ', 'Black & white Sneakers', 2000.00, 54, '2025-06-29 01:36:39', 16, 5, 5),
+(55, 'Black Long Boots', 'Girls longs black boots ', 2500.00, 54, '2025-06-29 01:52:06', 17, 5, 5),
+(58, 'White Heels', 'white heels by borjan', 2000.00, 54, '2025-06-29 04:18:50', 17, 5, 5),
+(59, 'Flat cut shoe ', 'flat cut shoe', 1500.00, 54, '2025-06-29 04:19:48', 17, 5, 5),
+(60, 'Off-White & Red Sneaker ', 'Comfy Off-White & red Sneaker ', 3000.00, 54, '2025-06-29 04:20:52', 16, 5, 5),
+(61, 'Shinny Black Shoes ', 'Shinny black shoes ', 3000.00, 54, '2025-06-29 04:21:46', 16, 5, 5),
+(62, 'Grey & Black Shoe', 'Grey & black Shoes', 3000.00, 54, '2025-06-29 04:34:02', 16, 5, 5),
+(63, 'Cream Hell cut shoes', 'Cream Hell cut shoes by borjan', 2500.00, 54, '2025-06-29 04:36:08', 17, 5, 5),
+(64, 'Blue Shirt', 'Blue full sleeve Shirt', 2000.00, 51, '2025-06-29 04:37:24', 14, 5, 5),
+(65, 'Comfy White T-shirt', 'Comfy White T-Shirt', 1500.00, 51, '2025-06-29 04:38:37', 14, 5, 5),
+(66, 'Plain round T-shirts ', 'Plain Round t-shirts', 1500.00, 51, '2025-06-29 04:42:07', 15, 5, 5),
+(67, 'Black & White Skirt', 'Black & white Skirt', 3000.00, 52, '2025-06-29 04:43:05', 15, 5, 5),
+(68, 'Brown Skirt', 'comfy Brown Skirt', 1500.00, 52, '2025-06-29 04:44:06', 15, 5, 5),
+(69, 'Floral Black & White Skirt', 'Floral Black & White Skirt', 3000.00, 52, '2025-06-29 04:44:53', 15, 5, 5),
+(70, 'Cream Comfy Dress', 'Cream Comfy Dress', 2000.00, 52, '2025-06-29 04:45:37', 15, 5, 5),
+(71, 'Red & White Top & Skirt', 'Red & White Top & Skirt', 3000.00, 52, '2025-06-29 04:46:33', 15, 5, 5),
+(72, 'Dark Brown Skirt', 'Dark Brown Skirt', 3000.00, 52, '2025-06-29 04:47:32', 15, 5, 5),
+(73, '25inch LCD', 'Samsung LCD', 25000.00, 41, '2025-06-29 04:48:21', 3, 4, 5),
+(74, '32inch LCD', 'Apple 32inch LCD', 32000.00, 41, '2025-06-29 04:49:06', 1, 4, 5),
+(75, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:50:08', 5, 4, 5),
+(76, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:52:38', 5, 4, 5),
+(77, 'Girly Watches ', 'Regular Wear Watch', 1500.00, 56, '2025-06-29 04:53:44', 18, 5, 5),
+(78, 'Office Watches', 'Office Watches', 2000.00, 56, '2025-06-29 04:54:35', 19, 5, 5),
+(79, 'Black Set Watch', 'Black Set Watch', 2000.00, 56, '2025-06-29 04:55:15', 19, 5, 5),
+(80, 'Cream Office Watch', 'Cream Office Watch', 2000.00, 56, '2025-06-29 04:56:05', 19, 5, 5),
+(81, 'Jet Black Watch', 'Jet Black Watch', 3000.00, 56, '2025-06-29 04:57:08', 18, 5, 5),
+(82, 'Brown Leather Watch', 'Brown Leather Watch', 3000.00, 56, '2025-06-29 04:58:12', 18, 5, 5),
+(83, 'Black Leather Watch', 'Black Leather Watch', 3000.00, 56, '2025-06-29 04:59:11', 18, 5, 5),
+(84, 'Smart Watch', 'iSmart Watch', 5000.00, 56, '2025-06-29 04:59:50', 1, 5, 5),
+(85, 'Smart Watch', 'iSmart Watch', 5000.00, 56, '2025-06-29 05:02:21', 1, 5, 5),
+(86, 'Hand Mixer', 'Dawlance Hand Mixer', 30000.00, 46, '2025-06-29 05:03:08', 20, 4, 5),
+(87, 'Air Fryer', 'Dawlance Air Fryer', 50000.00, 46, '2025-06-29 05:04:07', 20, 4, 5),
+(88, 'Electric Mixer Machine ', 'Electric Mixer Machine ', 25000.00, 46, '2025-06-29 05:04:59', 20, 4, 5),
+(89, 'Automatic Washing Machine ', 'Automatic Washing Machine ', 50000.00, 43, '2025-06-29 05:05:45', 20, 4, 5),
+(90, 'DoubleTub Washing Machine', 'DoubleTub Washing Machine', 50000.00, 43, '2025-06-29 05:06:35', 20, 4, 5),
+(91, 'Black Automatic  Washing Machine', 'Black Automatic  Washing Machine', 40000.00, 43, '2025-06-29 05:07:25', 20, 4, 5),
+(92, 'Grey Automatic Washing Machine', 'Grey Automatic Washing Machine', 50000.00, 43, '2025-06-29 05:08:30', 20, 4, 5),
+(93, 'LEYAOYAO Cube Bookshelf 3', 'The simple upright and open design of the book shelves can help you to save much more space in your ', 5000.00, 32, '2025-07-14 03:49:30', 10, 3, 0),
+(94, 'Huuger Nightstand with Charging Station', 'The sleek outlook design makes this side end table easily immerse into any home room. Place it besid', 3000.00, 32, '2025-07-14 03:51:30', 10, 3, 5);
 
 -- --------------------------------------------------------
 
@@ -409,7 +410,9 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 (87, 89, '1751155545-m1.jpg'),
 (88, 90, '1751155595-m2.jpg'),
 (89, 91, '1751155645-m3.jpg'),
-(90, 92, '1751155710-m4.jpg');
+(90, 92, '1751155710-m4.jpg'),
+(91, 93, '1752446970-22_.jpg'),
+(92, 94, '1752447090-23.jpg');
 
 -- --------------------------------------------------------
 
@@ -550,7 +553,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`, `email_token`, `token_expiry`) VALUES
 (9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
 (37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male', NULL, NULL),
-(52, 'Muhammad Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$eOGau.LWt0eiQdWG1q.sHeSRBLUV8xZSeNi.qnw.fYC2HXaNkyCfq', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-12 15:05:51', '1752251136-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
+(52, ' Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$Txb3ijHU7Z.gACRguWBhLe3IavgP/zCk7U1ePvGsOYY9s6SPPsMHa', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-14 01:48:48', '1752439728-boy.jpg', 'male', NULL, NULL),
 (61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL);
 
 --
@@ -661,13 +664,13 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=80;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=121;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
@@ -679,13 +682,13 @@ ALTER TABLE `otp_verification`
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=91;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
 
 --
 -- AUTO_INCREMENT for table `reviews`
@@ -726,8 +729,7 @@ ALTER TABLE `orders`
 -- Constraints for table `order_items`
 --
 ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`),
-  ADD CONSTRAINT `order_items_ibfk_2` FOREIGN KEY (`product_id`) REFERENCES `products` (`id`);
+  ADD CONSTRAINT `order_items_order_fk` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `products`
