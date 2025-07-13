@@ -40,7 +40,6 @@ $user_id = $_SESSION['user_id'];
     background-color: #e7f1ff;
     font-weight: 600;
   }
-
 </style>
 
 <div class="container-fluid">
@@ -58,7 +57,7 @@ $user_id = $_SESSION['user_id'];
           <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
           <a href="./homeprofile.php" id="Home">My Profile</a>
           <a href="./Profile.php" id='myorders'>My Orders</a>
-          <a href="#">Your Addresses</a>
+
           <hr />
           <a href="./customer_support.php" class="active">Customer Support</a>
           <a href="./logout.php">Log Out</a>

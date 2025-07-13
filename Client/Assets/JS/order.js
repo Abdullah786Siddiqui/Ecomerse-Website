@@ -53,17 +53,23 @@ function orderCancel(orderid) {
 }
 
 function RemoveOrder(orderid) {
+  // Save current active tab before removing
+  const activeTab = document.querySelector('#orderTabs .nav-link.active');
+  if (activeTab) {
+    const target = activeTab.getAttribute('data-bs-target');
+    localStorage.setItem("activeOrderTab", target);
+  }
+
   fetch("../Server/Process/remove-order.php", {
     method: "POST",
     headers: {
       "Content-Type": "application/x-www-form-urlencoded",
     },
-    body: "order_id=" + orderid,
+    body: "order_id=" + encodeURIComponent(orderid),
   })
     .then((res) => res.json())
     .then((data) => {
       if (data.success) {
-        document.querySelector(`.order-remove[data-id="${orderid}"]`)?.remove();
         Swal.fire({
           title: "Removed!",
           text: data.message,
@@ -71,8 +77,7 @@ function RemoveOrder(orderid) {
           timer: 2000,
           showConfirmButton: false,
         }).then(() => {
-          // Optionally reload or update the order list
-          location.reload(); // or update UI without reload
+          location.reload();
         });
       } else {
         Swal.fire({
@@ -84,3 +89,4 @@ function RemoveOrder(orderid) {
       }
     });
 }
+

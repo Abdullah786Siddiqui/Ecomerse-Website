@@ -198,15 +198,6 @@ $status = isset($_POST['status']) ? $_POST['status'] : '';
       </div>
 
 
-
-
-
-
-
-
-
-
-
       <div class="table-responsive">
         <div class="table-container">
           <table class="table table-hover text-center align-middle mb-0">

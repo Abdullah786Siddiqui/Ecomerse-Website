@@ -11,7 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $category_id = $_POST['category_id'];
   $subcategory_id = $_POST['subcategory_id'];
   $brand_id = $_POST['brand_id'];
-  
+  $quantity = $_POST['quantity'];
+
+
   $imageName = $_FILES['image']['name'];
   $tmpImage = $_FILES['image']['tmp_name'];
   $uploadsDir = "../uploads/";
@@ -21,8 +23,8 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $new_file = time() . "-" . basename($imageName);
   $destination = $uploadsDir . $new_file;
   if (move_uploaded_file($tmpImage, $destination)) {
-    $sql = "INSERT INTO products(name, description, price, category_id, subcategory_id, brand_id)
-VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$brand_id')";
+    $sql = "INSERT INTO products(name, description, price, category_id, subcategory_id,quantity, brand_id)
+VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$brand_id',$quantity)";
 
     $result = $conn->query($sql);
     if ($result) {
@@ -123,7 +125,7 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
     <div class="row g-3">
       <div class="col-md-6">
         <label class="form-label">Product Name <span class="text-danger">*</span></label>
-        <input type="text" class="form-control" placeholder="Enter product name" id="product-name"  name="name">
+        <input type="text" class="form-control" placeholder="Enter product name" id="product-name" name="name">
         <p class="text-danger  mx-2" id="name-error"></p>
       </div>
 
@@ -175,70 +177,82 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
         <p class="text-danger  mx-2" id="brand-error"></p>
 
       </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-    <script>
-      $(document).ready(function() {
-        $('#category').change(function() {
-          var categoryId = $(this).val();
+      <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
-          $.ajax({
-            url: 'get_subcategories.php',
-            type: 'POST',
-            data: {
-              category_id: categoryId
-            },
-            success: function(data) {
-              $('#subcategory').html(data);
-            }
+      <script>
+        $(document).ready(function() {
+          $('#category').change(function() {
+            var categoryId = $(this).val();
+
+            $.ajax({
+              url: 'get_subcategories.php',
+              type: 'POST',
+              data: {
+                category_id: categoryId
+              },
+              success: function(data) {
+                $('#subcategory').html(data);
+              }
+            });
           });
         });
-      });
-    </script>
-    <!-- Description -->
-    <div class="mt-1">
-      <label class="form-label">Description <span class="text-danger">*</span></label>
-      <textarea name="description" id="product-description" class="form-control" rows="3" placeholder="Enter product description" maxlength="100"></textarea>
-      <p class="text-danger " id="description-error"></p>
+      </script>
+      <!-- Description -->
+      <div class="mt-1">
+        <label class="form-label">Description <span class="text-danger">*</span></label>
+        <textarea name="description" id="product-description" class="form-control" rows="3" placeholder="Enter product description" maxlength="100"></textarea>
+        <p class="text-danger " id="description-error"></p>
+      </div>
+
+      <div class="col-md-6">
+        <label class="form-label ">Price <span class="text-danger">*</span></label>
+        <input type="number" class="form-control " placeholder="Enter product name" maxlength="20" name="price" id="product-price">
+        <p class="text-danger " id="price-error"></p>
+      </div>
+
+      <select class="form-select" name="quantity" id="product-quantity">
+        <option value="" hidden>Select Quantity</option>
+        <?php
+        for ($i = 1; $i <= 100; $i++) {
+          echo "<option value='$i'>$i</option>";
+        }
+        ?>
+      </select>
+
+
+
+      <!-- Image Upload -->
+      <div class="mt-4">
+        <label for="product-image" class="form-label">Upload Image <span class="text-danger">*</span></label>
+        <label for="product-image" class="upload-box w-100">
+          <input type="file" name="image" id="product-image" accept=".jpg, .jpeg, .png" style="position: absolute; left: -9999px;">
+
+          <i class="bi bi-cloud-arrow-up fs-1"></i>
+          <div class="mt-2" id="upload-text">Click or drag to upload image</div>
+        </label>
+        <p class="text-success" id="image-selected" style="display:none;">✅ Image selected!</p>
+        <p class="text-danger" id="image-error"></p>
+      </div>
+
+      <script>
+        document.getElementById('product-image').addEventListener('change', function(event) {
+          const file = event.target.files[0];
+          if (file) {
+            document.getElementById('image-selected').style.display = 'block';
+            document.getElementById('upload-text').innerText = 'Image Selected: ' + file.name;
+          }
+        });
+      </script>
+
+
+
+      <!-- Action Buttons -->
+      <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 form-footer">
+        <!-- <button type="reset" class="btn btn-outline-secondary">Reset</button> -->
+        <button type="submit" class="btn btn-primary">Add Product</button>
+      </div>
     </div>
-    <div class="col-md-6">
-      <label class="form-label ">Price <span class="text-danger">*</span></label>
-      <input type="number" class="form-control " placeholder="Enter product name" maxlength="20" name="price" id="product-price">
-      <p class="text-danger " id="price-error"></p>
-    </div>
-
-    <!-- Image Upload -->
-   <div class="mt-4">
-  <label for="product-image" class="form-label">Upload Image <span class="text-danger">*</span></label>
-  <label for="product-image" class="upload-box w-100">
-    <input type="file" name="image" id="product-image" accept=".jpg, .jpeg, .png" style="position: absolute; left: -9999px;">
-
-    <i class="bi bi-cloud-arrow-up fs-1"></i>
-    <div class="mt-2" id="upload-text">Click or drag to upload image</div>
-  </label>
-  <p class="text-success" id="image-selected" style="display:none;">✅ Image selected!</p>
-  <p class="text-danger" id="image-error"></p>
-</div>
-
-<script>
-document.getElementById('product-image').addEventListener('change', function(event) {
-  const file = event.target.files[0];
-  if (file) {
-    document.getElementById('image-selected').style.display = 'block';
-    document.getElementById('upload-text').innerText = 'Image Selected: ' + file.name;
-  }
-});
-</script>
-
-
-
-    <!-- Action Buttons -->
-    <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 form-footer">
-      <!-- <button type="reset" class="btn btn-outline-secondary">Reset</button> -->
-      <button type="submit" class="btn btn-primary">Add Product</button>
-    </div>
-
   </form>
 </div>
 </div>

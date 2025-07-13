@@ -35,8 +35,12 @@ if ($row = $result->fetch_assoc()) {
             $price = $item['price'];
 
             $sql_item = "INSERT INTO order_items (order_id, product_id, quantity, price) 
-                         VALUES ($order_id, $product_id, $quantity, $price)";
+                     VALUES ($order_id, $product_id, $quantity, $price)";
             $conn->query($sql_item);
+
+            // direct stock decrease
+            $sql_stock = "UPDATE products SET quantity = quantity - $quantity WHERE id = $product_id";
+            $conn->query($sql_stock);
         }
 
         // Clear cart

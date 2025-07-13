@@ -18,7 +18,7 @@
     }
   }
   //   echo '<pre>';
-  // print_r(count($_SESSION['cart']));
+  // print_r($_SESSION['cart']);
   // echo '</pre>';
 
   ?>

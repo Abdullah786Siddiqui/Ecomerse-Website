@@ -174,7 +174,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
   <div class="row g-4">
     <?php
 
-    $sql = "SELECT products.id , products.name  , products.description , products.price , brand.name as brand , product_images.image_url , products.status ,  brand.name as brandName  FROM products
+    $sql = "SELECT products.id , products.name , products.quantity , products.description , products.price , brand.name as brand , product_images.image_url  ,  brand.name as brandName  FROM products
               INNER JOIN product_images on product_images.product_id = products.id
               INNER JOIN brand on brand.id = products.brand_id where products.id = $product_id";
     $result = $conn->query($sql);
@@ -202,17 +202,52 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
           <del class="text-muted ms-2">$129.99</del>
         </div>
 
-        <p class="small text-success mb-1"><?= $row['status'] ?></p>
-        <p class="small text-muted mb-3">Ships in 1–2 business days</p>
+        <p class="small text-muted mb-2">Ships in 1–2 business days</p>
 
-        <p><strong>Brand:</strong> <?= $row['brandName'] ?? 'ANUA' ?></p>
-        <!-- <p><strong>Category:</strong> <a href="/category.php?id=<?= $row['category_id'] ?>"><?= $row['category_name'] ?? 'Skin Care' ?></a></p> -->
-
+        <p class="mb-1"><strong>Brand:</strong> <?= $row['brandName']  ?></p>
+      
 
 
-        <a id="buyNowBtn" class="btn btn-warning w-100 fw-bold py-2 mb-2">Buy now</a>
 
-        <button class="btn btn-primary fw-bold w-100" id="addToCartBtn">Add to Cart</button>
+
+
+        <?php
+        $cartQty = 0;
+
+        // cart me is product ki quantity check karo
+        if (!empty($_SESSION['cart'])) {
+          foreach ($_SESSION['cart'] as $item) {
+            if ($item['id'] == $row['id']) {
+              $cartQty = $item['quantity'];
+              break;
+            }
+          }
+        }
+
+        // agar stock 0 hai ya cart >= stock hai to out of stock
+        $isOutOfStock = ($row['quantity'] == 0 || $cartQty >= $row['quantity']);
+
+        // badge class set karo
+        $badgeClass = $isOutOfStock ? 'danger' : 'success';
+
+        // stock text set karo
+        $stockText = $isOutOfStock ? 'Out of Stock' : 'In Stock';
+        ?>
+
+        <p class="small text-<?= $badgeClass ?> mb-1">
+          <?= $stockText ?>
+        </p>
+        <button id="buyNowBtn" class="btn btn-warning mb-2  ">
+          Buy Now
+        </button>
+        <button id="addToCartBtn" class="btn btn-primary  <?= $isOutOfStock ? 'disabled' : '' ?>">
+          Add to Cart
+        </button>
+
+
+
+
+
 
 
         <div class="mb-3 mt-2">
@@ -486,6 +521,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
         });
     });
   </script>
+  <script src="./Assets/JS/cart.js"></script>
 
 
 

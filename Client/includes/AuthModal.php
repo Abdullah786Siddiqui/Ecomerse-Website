@@ -12,6 +12,7 @@ $validity_password = $_GET['password'] ?? '';
       <div class="modal-body  px-4 py-4">
 
         <!-- Login Form -->
+         
         <form id="loginForm" class="auth-form">
           <div class="mb-3">
             <label class="form-label text-muted small">Email</label>

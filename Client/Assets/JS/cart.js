@@ -30,6 +30,9 @@ window.addToCart = function (productId) {
             popup: "animate__animated animate__fadeOut",
           },
         }).then(() => {
+           if (data.reload) {
+        window.location.reload();
+      }
           if (!isLoggedIn) {
             if (window.location.href.includes("product-detail.php")) {
               window.location.reload();
@@ -37,6 +40,7 @@ window.addToCart = function (productId) {
           }
         });
       }
+     
     })
     .catch((error) => console.error("Error:", error));
 };

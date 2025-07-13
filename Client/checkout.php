@@ -30,131 +30,139 @@
   }
 
   ?>
- <div class="container mt-4 " id="skeleton-loader" style="display:none;">
+ <div class="containe mt-4 " id="skeleton-loader" style="display:none;">
    <div class="row">
      <div class="col-12 col-lg-8">
-  <div class="card shadow-sm rounded-4 border h-100">
-    <div class="card-body p-4">
-      <div class="border rounded-3 mb-4">
+       <div class="card shadow-sm rounded-4 border h-100">
+         <div class="card-body ">
+           <div class="border rounded-3 mb-4">
 
-        <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-top">
-          <div class="skeleton skeleton-text" style="width: 180px; height: 24px;"></div>
-          <div class="skeleton skeleton-btn" style="width: 80px; height: 36px;"></div>
-        </div>
+             <div class="d-flex align-items-center justify-content-between p-3 bg-light rounded-top">
+               <div class="skeleton skeleton-text" style="width: 180px; height: 24px;"></div>
+               <div class="skeleton skeleton-btn" style="width: 80px; height: 36px;"></div>
+             </div>
 
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item px-3 py-3"><div class="skeleton skeleton-text" style="width: 75%; height: 18px;"></div></li>
-          <li class="list-group-item px-3 py-3"><div class="skeleton skeleton-text" style="width: 90%; height: 18px;"></div></li>
-          <li class="list-group-item px-3 py-3"><div class="skeleton skeleton-text" style="width: 55%; height: 18px;"></div></li>
-          <li class="list-group-item px-3 py-3"><div class="skeleton skeleton-text" style="width: 65%; height: 18px;"></div></li>
-        </ul>
-      </div>
+             <ul class="list-group list-group-flush">
+               <li class="list-group-item px-3 py-3">
+                 <div class="skeleton skeleton-text" style="width: 75%; height: 18px;"></div>
+               </li>
+               <li class="list-group-item px-3 py-3">
+                 <div class="skeleton skeleton-text" style="width: 90%; height: 18px;"></div>
+               </li>
+               <li class="list-group-item px-3 py-3">
+                 <div class="skeleton skeleton-text" style="width: 55%; height: 18px;"></div>
+               </li>
+               <li class="list-group-item px-3 py-3">
+                 <div class="skeleton skeleton-text" style="width: 65%; height: 18px;"></div>
+               </li>
+             </ul>
+           </div>
 
-      <!-- Cart Item Skeleton -->
-      <div class="mb-4 p-4 border rounded-4 shadow-sm bg-white">
-        <div class="d-flex flex-column flex-md-row gap-4">
-          <div class="flex-shrink-0 skeleton" style="width:130px; height:130px;"></div>
+           <!-- Cart Item Skeleton -->
+           <div class="mb-4 p-4 border rounded-4 shadow-sm bg-white">
+             <div class="d-flex flex-column flex-md-row gap-4">
+               <div class="flex-shrink-0 skeleton" style="width:130px; height:130px;"></div>
 
-          <div class="flex-grow-1 d-flex flex-column justify-content-between">
-            <div>
-              <div class="skeleton skeleton-text mb-3" style="width:55%; height:18px;"></div>
-              <div class="skeleton skeleton-text mb-2" style="width:45%; height:14px;"></div>
-              <div class="skeleton skeleton-text mb-3" style="width:35%; height:14px;"></div>
-            </div>
+               <div class="flex-grow-1 d-flex flex-column justify-content-between">
+                 <div>
+                   <div class="skeleton skeleton-text mb-3" style="width:55%; height:18px;"></div>
+                   <div class="skeleton skeleton-text mb-2" style="width:45%; height:14px;"></div>
+                   <div class="skeleton skeleton-text mb-3" style="width:35%; height:14px;"></div>
+                 </div>
 
-            <div class="d-flex flex-wrap gap-3">
-              <div class="skeleton skeleton-btn" style="width:110px; height:36px;"></div>
-              <div class="skeleton skeleton-btn" style="width:140px; height:36px;"></div>
-            </div>
-          </div>
-        </div>
+                 <div class="d-flex flex-wrap gap-3">
+                   <div class="skeleton skeleton-btn" style="width:110px; height:36px;"></div>
+                   <div class="skeleton skeleton-btn" style="width:140px; height:36px;"></div>
+                 </div>
+               </div>
+             </div>
 
-        <hr class="my-4">
+             <hr class="my-4">
 
-        <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
-          <div class="skeleton skeleton-text" style="width:80px; height:34px;"></div>
-          <div class="skeleton skeleton-text" style="width:90px; height:28px;"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+             <div class="d-flex justify-content-between align-items-center flex-wrap gap-3">
+               <div class="skeleton skeleton-text" style="width:80px; height:34px;"></div>
+               <div class="skeleton skeleton-text" style="width:90px; height:28px;"></div>
+             </div>
+           </div>
+         </div>
+       </div>
+     </div>
 
-<div class="col-12 col-lg-4">
-  <div class="summary-section">
-    <div class="card shadow-sm rounded-4 p-4 mb-4">
-      <div class="skeleton skeleton-text mb-4" style="width:55%; height:22px;"></div>
+     <div class="col-12 col-lg-4">
+       <div class="summary-section">
+         <div class="card shadow-sm rounded-4 p-4 mb-4">
+           <div class="skeleton skeleton-text mb-4" style="width:55%; height:22px;"></div>
 
-      <div class="d-flex justify-content-between mb-3">
-        <div class="skeleton skeleton-text" style="width:45%; height:18px;"></div>
-        <div class="skeleton skeleton-text" style="width:35%; height:18px;"></div>
-      </div>
+           <div class="d-flex justify-content-between mb-3">
+             <div class="skeleton skeleton-text" style="width:45%; height:18px;"></div>
+             <div class="skeleton skeleton-text" style="width:35%; height:18px;"></div>
+           </div>
 
-      <div class="d-flex justify-content-between mb-3">
-        <div class="skeleton skeleton-text" style="width:45%; height:18px;"></div>
-        <div class="skeleton skeleton-text" style="width:25%; height:18px;"></div>
-      </div>
+           <div class="d-flex justify-content-between mb-3">
+             <div class="skeleton skeleton-text" style="width:45%; height:18px;"></div>
+             <div class="skeleton skeleton-text" style="width:25%; height:18px;"></div>
+           </div>
 
-      <hr>
+           <hr>
 
-      <div class="d-flex justify-content-between mb-4">
-        <div class="skeleton skeleton-text" style="width:55%; height:20px;"></div>
-        <div class="skeleton skeleton-text" style="width:35%; height:20px;"></div>
-      </div>
+           <div class="d-flex justify-content-between mb-4">
+             <div class="skeleton skeleton-text" style="width:55%; height:20px;"></div>
+             <div class="skeleton skeleton-text" style="width:35%; height:20px;"></div>
+           </div>
 
-      <div class="skeleton skeleton-btn mb-3" style="width:100%; height:44px;"></div>
-    </div>
+           <div class="skeleton skeleton-btn mb-3" style="width:100%; height:44px;"></div>
+         </div>
 
-    <div class="card p-4">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <div class="skeleton skeleton-text" style="width:160px; height:18px;"></div>
-        <div class="skeleton skeleton-icon" style="width:24px; height:24px;"></div>
-      </div>
+         <div class="card p-4">
+           <div class="d-flex justify-content-between align-items-center mb-3">
+             <div class="skeleton skeleton-text" style="width:160px; height:18px;"></div>
+             <div class="skeleton skeleton-icon" style="width:24px; height:24px;"></div>
+           </div>
 
-      <div>
-        <div class="skeleton skeleton-text mb-3" style="width:100%; height:36px;"></div>
-        <div class="skeleton skeleton-btn" style="width:100px; height:34px;"></div>
-      </div>
-    </div>
-  </div>
-</div>
+           <div>
+             <div class="skeleton skeleton-text mb-3" style="width:100%; height:36px;"></div>
+             <div class="skeleton skeleton-btn" style="width:100px; height:34px;"></div>
+           </div>
+         </div>
+       </div>
+     </div>
 
 
    </div>
 
  </div>
  <style>
+   .skeleton {
+     background-color: #e0e0e0;
+     background-image: linear-gradient(90deg, #e0e0e0 0px, #f4f4f4 40px, #e0e0e0 80px);
+     background-size: 600px;
+     animation: shimmer 1.2s infinite linear forwards;
+     border-radius: 4px;
+   }
 
-.skeleton {
-  background-color: #e0e0e0;
-  background-image: linear-gradient(90deg, #e0e0e0 0px, #f4f4f4 40px, #e0e0e0 80px);
-  background-size: 600px;
-  animation: shimmer 1.2s infinite linear forwards;
-  border-radius: 4px;
-}
+   @keyframes shimmer {
+     0% {
+       background-position: -600px 0;
+     }
 
-@keyframes shimmer {
-  0% {
-    background-position: -600px 0;
-  }
-  100% {
-    background-position: 600px 0;
-  }
-}
+     100% {
+       background-position: 600px 0;
+     }
+   }
 
-.skeleton-text {
-  display: block;
-}
+   .skeleton-text {
+     display: block;
+   }
 
-.skeleton-btn {
-  display: inline-block;
-  border-radius: 4px;
-}
+   .skeleton-btn {
+     display: inline-block;
+     border-radius: 4px;
+   }
 
-.skeleton-icon {
-  display: inline-block;
-  border-radius: 50%;
-}
+   .skeleton-icon {
+     display: inline-block;
+     border-radius: 50%;
+   }
 
    /* Backdrop blur */
    .modal-backdrop.show {
@@ -164,7 +172,7 @@
    }
 
    /* Compact form inputs */
-     #main-content .form-control,
+   #main-content .form-control,
    #main-content .form-select {
      font-size: 0.9rem;
    }
@@ -173,15 +181,16 @@
    .modal-content {
      border-radius: 1rem;
    }
+
    @media (max-width: 864px) {
-  #mobile_icons {
-    display: flex !important;
-  
-  }
-}
+     #mobile_icons {
+       display: flex !important;
+
+     }
+   }
  </style>
  <div id="main-content" style="display:none;">
-   <div  class="cont p-lg-3   ">
+   <div class="cont p-lg-3   ">
      <div class="row g-3 ">
 
        <?php if ($hasAddress) : ?>
@@ -256,23 +265,37 @@
                        <div class="quantity">
                          <select class="form-select form-select-sm" style="width: 70px;"
                            onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
-                           <option selected><?= $items['quantity'] ?></option>
-                           <option>2</option>
-                           <option>3</option>
-                           <option>4</option>
-                           <option>5</option>
-                           <option>6</option>
-                           <option>7</option>
-                           <option>8</option>
-                           <option>9</option>
-                           <option>10</option>
+                           <?php
+                            $itemid = $items['id'];
+                            $sql = "SELECT quantity AS stock FROM products WHERE id = $itemid";
+                            $result = $conn->query($sql);
+
+                            if ($row = $result->fetch_assoc()) {
+                              $stockQty = $row['stock'];
+                              $currentQty = $items['quantity'];
+
+                              // Always show max 10 or less if stock is lower
+                              $maxQty = ($stockQty <= 10) ? $stockQty : 10;
+
+
+                              for ($i = 1; $i <= $maxQty; $i++) {
+                                $selected = ($i == $currentQty) ? 'selected' : '';
+                                echo "<option value=\"$i\" $selected>$i</option>";
+                              }
+                            } else {
+                              echo "<option>Error: stock not found</option>";
+                            }
+                            ?>
                          </select>
                        </div>
+
+
+
 
                        <!-- Price -->
                        <div class="text-end">
                          <small class="text-muted text-decoration-line-through">£264.99</small><br>
-                         <span class="fw-bold fs-5">£<?= $totalprice ?></span><br>
+                         <span class="fw-bold fs-5">£<?= $items['price']?></span><br>
                          <small class="text-success">You save 40%</small>
                        </div>
 
@@ -606,7 +629,7 @@ WHERE u.id = $user_id
 
  </div>
 
-<?php include("./includes/mobile-icon.php") ?>
+ <?php include("./includes/mobile-icon.php") ?>
 
  <script src="./Assets/JS/checkout.js"></script>
  <script src="./Assets/JS/cart.js"></script>

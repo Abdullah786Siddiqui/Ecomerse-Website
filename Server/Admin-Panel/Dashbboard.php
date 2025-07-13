@@ -63,6 +63,12 @@
          height: 300px;
          width: 100%;
      }
+
+     table {
+         overflow-x: hidden;
+     }
+
+   
  </style>
  </head>
 
@@ -90,7 +96,6 @@ WHERE
                          <div class="kpi-icon mb-2 text-success"><i class="bi bi-cart-check"></i></div>
                          <h6>Total Order this Month</h6>
                          <h4>$<?= $row['order_count'] ?></h4>
-                         <span class="text-success">▲ 1.56%</span>
                      </div>
                  </div>
                  <div class="col-md-3">
@@ -98,7 +103,6 @@ WHERE
                          <div class="kpi-icon mb-2 text-warning"><i class="bi bi-currency-dollar"></i></div>
                          <h6>Total Income</h6>
                          <h4>$<?= $row['total_sales'] ?></h4>
-                         <span class="text-danger">▼ 1.56%</span>
                      </div>
                  </div>
                  <div class="col-md-3">
@@ -106,7 +110,6 @@ WHERE
                          <div class="kpi-icon mb-2 text-info"><i class="bi bi-receipt"></i></div>
                          <h6>Orders Paid</h6>
                          <h4>$<?= $row['paid_orders'] ?></h4>
-                         <span class="text-success">▲ 1.56%</span>
 
                      </div>
                  </div>
@@ -121,7 +124,6 @@ WHERE
                          <div class="kpi-icon mb-2 text-primary"><i class="bi bi-people"></i></div>
                          <h6>Total Users</h6>
                          <h4><?= $row['user_count'] ?></h4>
-                         <span class="text-success">▲ 1.56%</span>
                      </div>
                  </div>
              <?php } ?>
@@ -178,36 +180,54 @@ WHERE
              <div class="col-md-6">
                  <div class="card p-3">
                      <h5 class="mb-3">Top Products</h5>
-                     <div class="table-responsive">
+                     <?php
+                        $sql_tp = "SELECT 
+    products.id AS product_id,
+    products.name AS product_name,
+    SUM(order_items.quantity) AS total_quantity_sold
+FROM 
+    order_items
+INNER JOIN 
+    orders
+ON 
+    orders.id = order_items.order_id
+INNER JOIN 
+    products
+ON 
+    products.id = order_items.product_id
+WHERE 
+    MONTH(orders.created_at) = MONTH(CURRENT_DATE())
+AND 
+    YEAR(orders.created_at) = YEAR(CURRENT_DATE())
+GROUP BY 
+    products.id,
+    products.name
+ORDER BY 
+    total_quantity_sold DESC
+LIMIT 5;
+";
+                        $result_tp = $conn->query($sql_tp)
+
+                        ?>
+                     <div>
                          <table class="table">
                              <thead>
                                  <tr>
+                                     <th>#</th>
                                      <th>Product</th>
-                                     <th>Items</th>
-                                     <th>Coupon</th>
+                                     <th>Quantity</th>
                                  </tr>
                              </thead>
                              <tbody>
-                                 <tr>
-                                     <td>Fragrance Lotion</td>
-                                     <td>100</td>
-                                     <td><span class="badge bg-info">Sifat</span></td>
-                                 </tr>
-                                 <tr>
-                                     <td>Adult Cat Food</td>
-                                     <td>100</td>
-                                     <td><span class="badge bg-info">Sifat</span></td>
-                                 </tr>
-                                 <tr>
-                                     <td>Puppy Dry Food</td>
-                                     <td>100</td>
-                                     <td><span class="badge bg-info">Sifat</span></td>
-                                 </tr>
-                                 <tr>
-                                     <td>Cookie Box</td>
-                                     <td>100</td>
-                                     <td><span class="badge bg-info">Sifat</span></td>
-                                 </tr>
+                                 <?php
+                                    while ($row_tp = $result_tp->fetch_assoc()) {
+                                    ?>
+                                     <tr>
+                                         <td><?= $row_tp['product_id'] ?></td>
+                                         <td><?= $row_tp['product_name'] ?></td>
+                                         <td class="text-center"><?= $row_tp['total_quantity_sold'] ?></td>
+                                     </tr>
+                                 <?php   } ?>
                              </tbody>
                          </table>
                      </div>
@@ -217,6 +237,25 @@ WHERE
              <div class="col-md-6">
                  <div class="card p-3">
                      <h5 class="mb-3">Recent Orders</h5>
+                     <?php
+                        $sql_ro = "
+SELECT 
+    orders.id,
+    users.name ,
+    orders.status,
+    orders.total,
+    orders.created_at as order_date
+FROM 
+    orders
+    INNER JOIN users
+    on users.id = orders.user_id
+ORDER BY 
+     order_date DESC 
+LIMIT 5
+
+";
+                        $result_ro = $conn->query($sql_ro)
+                        ?>
                      <div class="table-responsive">
                          <table class="table">
                              <thead>
@@ -228,30 +267,32 @@ WHERE
                                  </tr>
                              </thead>
                              <tbody>
-                                 <tr>
-                                     <td>#001</td>
-                                     <td>John Doe</td>
-                                     <td><span class="badge bg-success">Completed</span></td>
-                                     <td>$120</td>
-                                 </tr>
-                                 <tr>
-                                     <td>#002</td>
-                                     <td>Jane Smith</td>
-                                     <td><span class="badge bg-warning text-dark">Pending</span></td>
-                                     <td>$89</td>
-                                 </tr>
-                                 <tr>
-                                     <td>#003</td>
-                                     <td>XYZ Corp</td>
-                                     <td><span class="badge bg-danger">Cancelled</span></td>
-                                     <td>$200</td>
-                                 </tr>
-                                 <tr>
-                                     <td>#004</td>
-                                     <td>Mark Lee</td>
-                                     <td><span class="badge bg-success">Completed</span></td>
-                                     <td>$140</td>
-                                 </tr>
+                                 <?php
+
+
+
+
+                                    while ($row_ro = $result_ro->fetch_assoc()) {
+                                        $badgeClass = '';
+                                        if ($row_ro['status'] === "pending") {
+                                            $badgeClass = 'bg-warning text-dark';
+                                        } elseif ($row_ro['status'] === "shipped") {
+                                            $badgeClass = 'bg-primary';
+                                        } elseif ($row_ro['status'] === "delivered") {
+                                            $badgeClass = 'bg-success';
+                                        } elseif ($row_ro['status'] === "cancelled") {
+                                            $badgeClass = 'bg-danger';
+                                        }
+                                    ?>
+                                     <tr>
+                                         <td><?= $row_ro['id'] ?></td>
+                                         <td><?= $row_ro['name'] ?></td>
+                                         <td><span class="badge <?= $badgeClass ?>"><?= $row_ro['status'] ?></span></td>
+                                         <td><?= $row_ro['total'] ?></td>
+                                     </tr>
+                                 <?php   } ?>
+
+
                              </tbody>
                          </table>
                      </div>

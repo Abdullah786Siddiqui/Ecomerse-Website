@@ -4,7 +4,7 @@ form.addEventListener("submit", function (e) {
   e.preventDefault();
 
   const productName = document.getElementById("product-name").value.trim();
-  const priceInput  = document.getElementById("product-price").value.trim();
+  const priceInput = document.getElementById("product-price").value.trim();
   const description = document
     .getElementById("product-description")
     .value.trim();
@@ -12,6 +12,8 @@ form.addEventListener("submit", function (e) {
   const brand = document.querySelector('select[name="brand_id"]');
   const category = document.getElementById("category");
   const subcategory = document.getElementById("subcategory");
+  const quantity = document.getElementById("product-quantity").value;
+  const quantityValue = parseInt(quantity, 10);
 
   let brandError = document.getElementById("brand-error");
   let categoryError = document.getElementById("category-error");
@@ -20,6 +22,7 @@ form.addEventListener("submit", function (e) {
   let priceError = document.getElementById("price-error");
   let descriptionError = document.getElementById("description-error");
   let imageError = document.getElementById("image-error");
+  let quantityError = document.getElementById("quantity-error");
 
   // First clear all previous errors
   nameError.innerText = "";
@@ -29,6 +32,7 @@ form.addEventListener("submit", function (e) {
   brandError.innerText = "";
   categoryError.innerText = "";
   subcategoryError.innerText = "";
+  quantityError.innerText = "";
 
   let hasError = false;
 
@@ -48,33 +52,45 @@ form.addEventListener("submit", function (e) {
   //   hasError = true;
   // }
 
- if (priceInput === "") {
+  if (priceInput === "") {
     priceError.innerText = "Product price is required.";
     hasError = true;
-} else if (isNaN(priceInput)) {
+  } else if (isNaN(priceInput)) {
     priceError.innerText = "Price must be a number.";
     hasError = true;
-} else if (Number(priceInput) <= 0) {
+  } else if (Number(priceInput) <= 0) {
     priceError.innerText = "Price must be greater than zero.";
     hasError = true;
-} else if (/^0[0-9]+$/.test(priceInput)) {
+  } else if (/^0[0-9]+$/.test(priceInput)) {
     priceError.innerText = "Price cannot start with leading zeros.";
     hasError = true;
-} else if (Number(priceInput) > 100000) {
+  } else if (Number(priceInput) > 100000) {
     priceError.innerText = "Price cannot exceed 1,00,000.";
     hasError = true;
-}
+  }
 
- if (description === "") {
+  if (!quantity) {
+    quantityError.innerText = "Please select a quantity.";
+    hasError = true;
+  } else if (isNaN(quantityValue) || quantityValue <= 0) {
+    quantityError.innerText = "Invalid quantity selected.";
+    hasError = true;
+  } else if (quantityValue > 100000) {
+    quantityError.innerText = "Quantity cannot exceed 1,00,000.";
+    hasError = true;
+  }
+
+  if (description === "") {
     descriptionError.innerText = "Product description is required.";
     hasError = true;
-} else if (description.length < 10) {
-    descriptionError.innerText = "Description must be at least 10 characters long.";
+  } else if (description.length < 10) {
+    descriptionError.innerText =
+      "Description must be at least 10 characters long.";
     hasError = true;
-} else if (description.length > 1000) {
+  } else if (description.length > 1000) {
     descriptionError.innerText = "Description cannot exceed 1000 characters.";
     hasError = true;
-}
+  }
 
   if (image === 0) {
     imageError.innerText = "Please select an image file.";

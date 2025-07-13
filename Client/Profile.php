@@ -65,7 +65,7 @@ $user_id = $_SESSION['user_id'];
   }
 </style>
 
-<div   class="container-fluid">
+<div class="container-fluid">
   <div class="row">
     <?php
     // Sidebar User Info
@@ -406,15 +406,15 @@ ORDER BY o.created_at DESC";
                       </button>
                     <?php } ?>
                     <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
-                        <button onclick="RemoveOrder(<?= $order['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
+                      <button onclick="RemoveOrder(<?= $order['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
 
                     <?php } ?>
 
-                    <?php if (isset($order_ps) && is_array($order_ps) && $order_ps['status'] === 'pending') { ?>
-                      <button onclick="orderCancel(<?= $order_ps['order_id'] ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
+                    <?php if (isset($order) && is_array($order) && $order['status'] === 'pending') { ?>
+                      <button onclick="orderCancel(<?= $order['order_id'] ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Cancel</span>
                       </button>
@@ -505,5 +505,29 @@ WHERE order_items.order_id = $order_id";
 
     <?php include("./includes/mobile-icon.php") ?>
     <script src="../Client/Assets/JS/order.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function() {
+        const orderTabs = document.querySelectorAll('#orderTabs button');
+
+        // restore active tab from localStorage
+        const savedTab = localStorage.getItem("activeOrderTab");
+        if (savedTab) {
+          const triggerEl = document.querySelector(`#orderTabs button[data-bs-target="${savedTab}"]`);
+          if (triggerEl) {
+            const tab = new bootstrap.Tab(triggerEl);
+            tab.show();
+          }
+        }
+
+        // save tab change to localStorage
+        orderTabs.forEach(btn => {
+          btn.addEventListener('shown.bs.tab', function(event) {
+            const target = event.target.getAttribute('data-bs-target');
+            localStorage.setItem("activeOrderTab", target);
+          });
+        });
+      });
+    </script>
+
 
     <?php include './Components/footer.html';  ?>
