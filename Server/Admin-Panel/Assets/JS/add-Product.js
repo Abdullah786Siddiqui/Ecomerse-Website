@@ -116,3 +116,55 @@ form.addEventListener("submit", function (e) {
     console.log("Form submitted successfully!");
   }
 });
+
+function removeProduct(productId) {
+  Swal.fire({
+    title: "Are you sure?",
+    text: "You won't be able to revert this!",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#d33",
+    cancelButtonColor: "#3085d6",
+    confirmButtonText: "Yes, delete it!"
+  }).then((result) => {
+    if (result.isConfirmed) {
+      fetch("../Process/delete-product.php", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: "productid=" + encodeURIComponent(productId),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            // Remove row
+            document.querySelector(`.delete_product[data-id="${productId}"]`)?.closest("tr")?.remove();
+
+            Swal.fire({
+              title: "Deleted!",
+              text: "Product has been deleted.",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false,
+            });
+          } else {
+            Swal.fire({
+              title: "Error!",
+              text: data.message || "Something went wrong.",
+              icon: "error",
+            });
+          }
+        })
+        .catch(() => {
+          Swal.fire({
+            title: "Error!",
+            text: "Server error. Please try again later.",
+            icon: "error",
+          });
+        });
+    }
+  });
+}
+
+

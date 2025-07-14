@@ -271,9 +271,7 @@ if (isset($_SESSION['admin_id'])) {
       </li>
 
 
-      <li class="nav-item">
-        <a class="nav-link" href="./admin_profile.php"><i class="bi bi-person"></i> Profile</a>
-      </li>
+  
 
     </ul>
   </div>
@@ -340,14 +338,14 @@ if (isset($_SESSION['admin_id'])) {
 
         <!-- User Info -->
         <li class="nav-item d-flex align-items-center ms-2">
-          <a href="./admin_profile.php"><img src="./assets/Images/Abdullah.jpg"
+          <a  ><img src="./assets/Images/Abdullah.jpg"
               class="shadow-sm me-2"
               style="border-radius: 50%; object-fit: cover;"
               width="50" height="50" alt="User">
           </a>
           <div class="user-info">
-            <span class="fw-semibold"><?= $adminName ?></span><br>
-            <small class="text-muted">Admin</small>
+            <span class="fw-semibold "><?= $adminName ?></span><br>
+            <small class="text-muted fw-bolder">Admin</small>
           </div>
         </li>
 

@@ -58,6 +58,10 @@ include("./Sidebar.php");
     font-size: 0.85rem;
     padding: 12px 16px;
   }
+
+  .cursor-pointer {
+    cursor: pointer;
+  }
 </style>
 
 <div class="container  p-3">
@@ -77,11 +81,11 @@ include("./Sidebar.php");
 
     <input type="text" class="form-control w-50 flex-grow-1 " placeholder="Search here..." />
 
-    <a href="./Add-Product.php" class="btn add-btn"><i class="bi bi-plus"></i> Add new</a>
+    <a href="./Add-Product.php" class="btn add-btn  btn-outline-primary"><i class="bi bi-plus"></i> Add new</a>
   </div>
 
 
- 
+
 
   <div class="">
     <table class="table table-hover  align-middle">
@@ -117,7 +121,7 @@ ORDER BY products.id DESC;
         ?>
           <tr>
             <td>
-              <div class="d-flex align-items-center gap-2">
+              <div class="d-flex align-items-center gap-2 delete_product" data-id="<?= $row['id'] ?>">
                 <img src="../uploads/<?= htmlspecialchars($row['image_url']); ?>" alt="Product" class="rounded" style="width: 50px; height: 50px; object-fit: cover;">
                 <div>
                   <strong><?= htmlspecialchars($row['name']) ?></strong><br>
@@ -142,18 +146,22 @@ ORDER BY products.id DESC;
               <span class="badge bg-<?= $badgeClass ?> p-2 d-flex justify-content-center">
                 <?= $row['quantity'] > 0 ? 'In Stock' : 'Out of Stock' ?>
               </span>
-            <td>
+            <td onclick="removeProduct(<?= $row['id'] ?>)" class=" cursor-pointer">
 
               <span class="badge bg-danger p-2 px-3 d-flex justify-content-center">
                 Remove
               </span>
             </td>
-            <td>
 
-              <span class="badge bg-warning p-2 px-3 d-flex justify-content-center">
-                 Update
-              </span>
+            <td class="cursor-pointer ">
+
+              <a href="./Product-Update.php?updationId=<?= $row['id'] ?>"
+                class="badge bg-warning text-white  text-decoration-none px-3 py-2">
+               Update
+              </a>
+
             </td>
+
             <td class="text-nowrap">28 June 2025</td>
 
 
@@ -162,8 +170,9 @@ ORDER BY products.id DESC;
       </tbody>
     </table>
   </div>
+  <script src="./Assets/JS/add-Product.js"></script>
 
-
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
   <?php include("./Includes/footer.html"); ?>
