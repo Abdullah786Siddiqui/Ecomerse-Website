@@ -73,21 +73,33 @@ $subtotal = 0;
 
           <!-- 📦 Quantity + Price -->
           <div class="row g-2 align-items-center">
-            <div class="col-auto">
-              <select class="form-select form-select-sm" style="width: 70px;"
-                onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
-                <option selected><?= $items['quantity'] ?></option>
-                <option>2</option>
-                <option>3</option>
-                <option>4</option>
-                <option>5</option>
-                <option>6</option>
-                <option>7</option>
-                <option>8</option>
-                <option>9</option>
-                <option>10</option>
-              </select>
-            </div>
+            <div class="quantity">
+            <select class="form-select form-select-sm" style="width: 70px;"
+              onchange="updateQuantity(<?= $items['id'] ?>, this.value)">
+              <?php
+              $itemid = $items['id'];
+              $sql = "SELECT quantity AS stock FROM products WHERE id = $itemid";
+              $result = $conn->query($sql);
+
+              if ($row = $result->fetch_assoc()) {
+                $stockQty = $row['stock'];
+                $currentQty = $items['quantity'];
+
+                // Always show max 10 or less if stock is lower
+                $maxQty = ($stockQty <= 10) ? $stockQty : 10;
+
+
+                for ($i = 1; $i <= $maxQty; $i++) {
+                  $selected = ($i == $currentQty) ? 'selected' : '';
+                  echo "<option value=\"$i\" $selected>$i</option>";
+                }
+              } else {
+                echo "<option>Error: stock not found</option>";
+              }
+              ?>
+            </select>
+          </div>
+            
 
 
             <div class="col text-end">
@@ -96,6 +108,7 @@ $subtotal = 0;
               <div class="text-success small">You save 40%</div>
             </div>
           </div>
+         -->
 
         </div>
 
@@ -138,19 +151,7 @@ $subtotal = 0;
     </div>
 
     <!-- Voucher Section -->
-    <div class="card mt-3 p-3">
-      <div class="d-flex justify-content-between align-items-center">
-        <label for="voucher" class="mb-0">Add a voucher <span class="text-muted">(Optional)</span></label>
-        <i class="fa-solid fa-chevron-down"></i>
-      </div>
-      <!-- Optional: Expandable voucher input -->
 
-      <div class="mt-2">
-        <input type="text" class="form-control form-control-sm" placeholder="Enter voucher code">
-        <button class="btn btn-outline-secondary btn-sm mt-2">Apply</button>
-      </div>
-
-    </div>
   </div>
 
 </div>
@@ -165,7 +166,7 @@ $subtotal = 0;
 
 
 <?php }  ?>
-  <?php include("./includes/mobile-icon.php") ?>
+<?php include("./includes/mobile-icon.php") ?>
 
 <script src="./Assets/JS/cart.js"></script>
 <script>

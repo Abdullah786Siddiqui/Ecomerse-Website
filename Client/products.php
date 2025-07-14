@@ -7,95 +7,7 @@ $subCategory_id = isset($_GET['subcategory_id']) ? (int)$_GET['subcategory_id'] 
 $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
 ?>
-<style>
-  body {
-    background-color: #f8f9fa;
-    font-family: 'Segoe UI', sans-serif;
-  }
 
-  .filter-sidebar {
-    background: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.04);
-    padding: 1.5rem;
-  }
-
-  .filter-sidebar h5 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-  }
-
-  .filter-group:not(:last-child) {
-    margin-bottom: 1.5rem;
-  }
-
-  .filter-group label {
-    font-size: 0.95rem;
-    margin-left: 0.5rem;
-    color: #333;
-  }
-
-  .product-card {
-    background: #fff;
-    border-radius: 0.75rem;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
-    transition: all 0.2s ease-in-out;
-    overflow: hidden;
-    text-decoration: none;
-    color: inherit;
-    display: block;
-  }
-
-  .product-card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  }
-
-  .product-card img {
-    width: 100%;
-    height: 180px;
-    object-fit: cover;
-  }
-
-  .product-card-body {
-    padding: 0.75rem;
-  }
-
-  .product-name {
-    font-weight: 600;
-    font-size: 0.95rem;
-    margin-bottom: 0.3rem;
-  }
-
-  .product-price {
-    font-size: 0.9rem;
-    color: #0d6efd;
-    font-weight: 500;
-    margin-bottom: 0.3rem;
-  }
-
-  .product-description {
-    font-size: 0.8rem;
-    color: #666;
-  }
-
-  .offcanvas-body {
-    overflow-y: auto !important;
-    /* scroll bar control */
-  }
-
-  @media (max-width: 767.98px) {
-    .product-card img {
-      height: 140px;
-    }
-  }
-
-  @media (max-width: 767.98px) {
-    .offcanvas-bottom {
-      min-height: 60vh !important;
-    }
-  }
-</style>
 <!-- Skeleton Loader -->
 
 <div class="mx-3 mt-4 " id="skeleton-loader" style="display:none;">
@@ -148,58 +60,11 @@ $search_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
   </div>
 </div>
 
-<style>
-  .skeleton {
-    background: linear-gradient(-90deg, #e2e2e2 0%, #f0f0f0 50%, #e2e2e2 100%);
-    background-size: 400% 400%;
-    animation: shimmer 2s ease-in-out infinite;
-    /* slower and softer */
-    border-radius: 6px;
-  }
 
-  .skeleton-img {
-    width: 100%;
-    height: 0;
-    padding-top: 110%;
-    /* bigger square */
-    border-radius: 12px;
-  }
-
-  .skeleton-title {
-    width: 85%;
-    height: 22px;
-  }
-
-  .skeleton-price {
-    width: 55%;
-    height: 18px;
-  }
-
-  .skeleton-rating {
-    width: 40%;
-    height: 14px;
-  }
-
-  .skeleton-check {
-    width: 75%;
-    height: 20px;
-    border-radius: 4px;
-  }
-
-  @keyframes shimmer {
-    0% {
-      background-position: -300% 0;
-    }
-
-    100% {
-      background-position: 300% 0;
-    }
-  }
-</style>
 <div id="main-content" style="display:none;">
 
 
-  <div  class="container-fluid products mt-4 h-100">
+  <div class="container-fluid products mt-4 h-100">
     <div class="row">
       <!-- Sidebar Desktop -->
       <aside class="col-lg-3 d-none d-lg-block   ">
@@ -352,7 +217,7 @@ INNER JOIN brand on brand.id = products.brand_id where products.subcategory_id =
 <?php
 
 include("./includes/mobile-icon.php") ?>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
   document.addEventListener("DOMContentLoaded", function() {
     document.getElementById("skeleton-loader").style.display = "block";
@@ -366,35 +231,10 @@ include("./includes/mobile-icon.php") ?>
     }, 800); // 800ms loader, adjust as needed
   };
 
-  // function animateProductExit(callback) {
-  //   gsap.to('.product-card-animate', {
-  //     y: 30,
-  //     opacity: 0,
-  //     scale: 0.95,
-  //     duration: 0.4,
-  //     stagger: 0.05,
-  //     ease: "power2.in",
-  //     onComplete: callback
-  //   });
-  // }
 
-  // function animateNewProducts() {
-  //   gsap.from('.product-card-animate', {
-  //     y: 20,
-  //     opacity: 0,
-  //     scale: 0.98,
-  //     duration: 0.6,
-  //     stagger: 0.1,
-  //     ease: "power3.out"
-  //   });
-  // }
-  // $(document).ready(function() {
-  //   animateNewProducts();
-  // });
   document.querySelectorAll('.brand-filter').forEach(cb => {
     cb.addEventListener('change', () => {
-      // const loader = document.getElementById('filter-loader');
-      // loader.classList.remove('d-none'); // l
+
       document.getElementById('products_items').classList.add('d-none');
       document.getElementById('products_items_filter').classList.remove('d-none');
       const checkedBrands = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
@@ -445,5 +285,7 @@ include("./includes/mobile-icon.php") ?>
     });
   });
 </script>
+<script src="./Assets/JS/products.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+
 <?php include './Components/footer.html';  ?>

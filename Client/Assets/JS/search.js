@@ -1,19 +1,17 @@
-// Debounce helper to limit calls
 let searchTimeout;
+console.log(searchTimeout);
 
 function searchFunc(query) {
   const resultCard = document.getElementById("resultCard");
   const output = document.getElementById("output");
 
-  // If empty query, reset UI
   if (query.trim() === "") {
     clearTimeout(searchTimeout);
     resultCard.classList.add("d-none");
     output.innerHTML = `<div class="text-muted">Start typing to search</div>`;
     return;
-  }
+  } 
 
-  // Show "searching" message
   resultCard.classList.remove("d-none");
   output.innerHTML = `  <div class="d-flex justify-content-center my-2">
       <div class="spinner-border text-primary" role="status">
@@ -21,7 +19,6 @@ function searchFunc(query) {
       </div>
     </div>`;
 
-  // Debounce fetch to avoid too many requests
   clearTimeout(searchTimeout);
   searchTimeout = setTimeout(() => {
     fetch("../Server/Process/search-process.php?query=" + encodeURIComponent(query))
@@ -38,5 +35,5 @@ function searchFunc(query) {
       .catch(err => {
         output.innerHTML = `<div class="text-danger">Error: ${err.message}</div>`;
       });
-  }, 300); // debounce: adjust ms as needed
+  }, 500);
 }

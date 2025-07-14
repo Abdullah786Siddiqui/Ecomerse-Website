@@ -81,38 +81,7 @@ include("./Sidebar.php");
   </div>
 
 
-  <!-- <style>
-    .product-img {
-      width: 50px;
-      height: 50px;
-      object-fit: cover;
-      border-radius: 8px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
-    }
-    .table thead th {
-      text-transform: uppercase;
-      font-size: 0.85rem;
-      letter-spacing: 0.05em;
-      background-color: #f8f9fa;
-    }
-    .table td, .table th {
-      vertical-align: middle;
-    }
-    .badge-status {
-      padding: 5px 10px;
-      border-radius: 20px;
-      font-size: 0.75rem;
-      font-weight: 600;
-    }
-    .badge-out {
-      background-color: #ffe5e5;
-      color: #d9534f;
-    }
-    .badge-in {
-      background-color: #e0f7e9;
-      color: #28a745;
-    }
-  </style> -->
+ 
 
   <div class="">
     <table class="table table-hover  align-middle">
@@ -123,6 +92,8 @@ include("./Sidebar.php");
           <th>Price</th>
           <th>Quantity</th>
           <th> Status</th>
+          <th> remove</th>
+          <th> Update</th>
           <th>Start Date</th>
         </tr>
       </thead>
@@ -157,7 +128,7 @@ ORDER BY products.id DESC;
             <td class="text-muted text-nowrap">#<?= $row['id'] ?></td>
             <td class="text-nowrap"><strong>$<?= number_format($row['price'], 2) ?></strong></td>
             <td><?= $row['quantity'] ?></td>
-            
+
             <td>
               <?php
               $badgeClass = 'secondary';
@@ -171,8 +142,21 @@ ORDER BY products.id DESC;
               <span class="badge bg-<?= $badgeClass ?> p-2 d-flex justify-content-center">
                 <?= $row['quantity'] > 0 ? 'In Stock' : 'Out of Stock' ?>
               </span>
+            <td>
 
+              <span class="badge bg-danger p-2 px-3 d-flex justify-content-center">
+                Remove
+              </span>
+            </td>
+            <td>
+
+              <span class="badge bg-warning p-2 px-3 d-flex justify-content-center">
+                 Update
+              </span>
+            </td>
             <td class="text-nowrap">28 June 2025</td>
+
+
           </tr>
         <?php } ?>
       </tbody>

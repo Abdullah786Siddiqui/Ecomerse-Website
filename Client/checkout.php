@@ -113,17 +113,7 @@
            <div class="skeleton skeleton-btn mb-3" style="width:100%; height:44px;"></div>
          </div>
 
-         <div class="card p-4">
-           <div class="d-flex justify-content-between align-items-center mb-3">
-             <div class="skeleton skeleton-text" style="width:160px; height:18px;"></div>
-             <div class="skeleton skeleton-icon" style="width:24px; height:24px;"></div>
-           </div>
-
-           <div>
-             <div class="skeleton skeleton-text mb-3" style="width:100%; height:36px;"></div>
-             <div class="skeleton skeleton-btn" style="width:100px; height:34px;"></div>
-           </div>
-         </div>
+      
        </div>
      </div>
 
@@ -466,17 +456,7 @@
 
            </div>
 
-           <div class="card p-3">
-             <div class="d-flex justify-content-between align-items-center">
-               <label for="voucher" class="mb-0">Add a voucher <span class="text-muted">(Optional)</span></label>
-               <i class="fa-solid fa-chevron-down"></i>
-             </div>
-
-             <div class="mt-2">
-               <input type="text" class="form-control form-control-sm" placeholder="Enter voucher code">
-               <button class="btn btn-outline-secondary btn-sm mt-2">Apply</button>
-             </div>
-           </div>
+          
 
          </div>
        </div>

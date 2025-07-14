@@ -24,7 +24,7 @@ if ($_SERVER['REQUEST_METHOD'] == "POST") {
   $destination = $uploadsDir . $new_file;
   if (move_uploaded_file($tmpImage, $destination)) {
     $sql = "INSERT INTO products(name, description, price, category_id, subcategory_id,quantity, brand_id)
-VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$brand_id',$quantity)";
+VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', $quantity, '$brand_id')";
 
     $result = $conn->query($sql);
     if ($result) {
@@ -211,14 +211,19 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', '$
         <p class="text-danger " id="price-error"></p>
       </div>
 
-      <select class="form-select" name="quantity" id="product-quantity">
-        <option value="" hidden>Select Quantity</option>
-        <?php
-        for ($i = 1; $i <= 100; $i++) {
-          echo "<option value='$i'>$i</option>";
-        }
-        ?>
-      </select>
+      <div class="mb-3">
+        <label for="product-quantity" class="form-label">Quantity</label>
+        <select class="form-select" name="quantity" id="product-quantity">
+          <option value="" hidden>Select Quantity</option>
+          <?php
+          for ($i = 1; $i <= 100; $i++) {
+            echo "<option value='$i'>$i</option>";
+          }
+          ?>
+        </select>
+        <span id="quantity-error" class="text-danger small"></span>
+      </div>
+
 
 
 

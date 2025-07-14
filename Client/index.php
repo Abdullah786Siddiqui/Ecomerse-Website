@@ -1,10 +1,8 @@
 <?php
 include_once 'Components/header.html';
 include_once './includes/Navbar.php';
-
-
 ?>
- <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" rel="stylesheet">
+
 <!-- Carousel Section -->
 
 <div id="proCarousel" class="carousel slide carousel-fade " data-bs-ride="carousel" data-bs-interval="3000">
@@ -16,13 +14,13 @@ include_once './includes/Navbar.php';
 
   <div class="carousel-inner">
     <div class="carousel-item active">
-      <img src="../Client/Assets/Images/1.png" class="d-block w-100 img-fluid" alt="Slide 1">
+      <img src="https://img.lazcdn.com/us/domino/a3f182f2-240f-4e66-80b0-5c9710b68a21_PK-1976-688.jpg_2200x2200q80.jpg_.webp" class="d-block w-100 img-fluid" alt="Slide 1">
     </div>
     <div class="carousel-item">
-      <img src="../Client/Assets/Images/2.png" class="d-block w-100 img-fluid" alt="Slide 2">
+      <img src="https://img.lazcdn.com/us/domino/155b0275-3101-4a78-ab12-2724891122c4_PK-1976-688.jpg_2200x2200q80.jpg_.webp" class="d-block w-100 img-fluid" alt="Slide 2">
     </div>
     <div class="carousel-item">
-      <img src="../Client/Assets/Images/3.png" class="d-block w-100 img-fluid" alt="Slide 3">
+      <img src="https://img.lazcdn.com/us/domino/b97596f5-2266-4758-8e82-01608445732b_PK-1976-688.jpg_2200x2200q80.jpg_.webp" class="d-block w-100 img-fluid" alt="Slide 3">
     </div>
   </div>
 </div>
@@ -89,126 +87,65 @@ include_once './includes/Navbar.php';
 
   </div>
 </div>
- <style>
-   .promo-tile {
-  position: relative;
-  color: #000;
-  border-radius: 10px;
-  overflow: hidden;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: flex-start;
-  justify-content: flex-start;
-  padding: 2rem;            /* bada padding */
-  min-height: 300px;        /* bada height */
-}
-
-.promo-tile::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-   background: rgba(231, 224, 224, 0.5);
-  backdrop-filter: blur(1px);
-}
-
-.promo-content {
-  position: relative;
-  z-index: 2;
-}
-
-.promo-tile h5, .promo-tile h6 {
-  font-weight: bold;
-  font-size: 1.5rem;        /* bigger headings */
-}
-
-.text-sm {
-  font-size: 1rem;          /* slightly bigger subtitle */
-  color: #333;
-}
-
-.cta {
-  color: #e63946;
-  font-weight: 600;
-  font-size: 1rem;          /* bigger button text */
-}
-
-@media (max-width: 576px) {
-  .promo-tile {
-    min-height: 200px;      /* mobile bhi bada */
-    padding: 1.5rem;
-  }
-}
-
-  </style>
 
 
 
-  <div class="container-fluid d-flex  justify-content-center">
-    <div class="row g-3">
 
-      <!-- Macbook Air -->
-      <a  class="col-12 col-md-6 ">
-        <div class="promo-tile h-100 " style="background-image: url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D');">
-          <div class="promo-content">
-            <div class="text-sm">Get up to 15% off</div>
-            <h5>New Macbook Air</h5>
-            <div class="cta">SHOP NOW</div>
-          </div>
-        </div>
-</a>
+<div class=" d-flex  justify-content-center">
+  <div class="row g-3">
 
-      <!-- Furniture + Shoes + Earbuds -->
-      <div class="col-12 col-md-6">
-        <div class="row g-3">
-
-          <!-- Furniture Collection -->
-          <div class="col-12">
-            <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80');">
-              <div class="promo-content">
-                <div class="text-sm">Get up to 50% off</div>
-                <h5>Furniture Collection</h5>
-                <div class="cta">SHOP NOW</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Shoes -->
-          <div class="col-6">
-            <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHNob2VzfGVufDB8fDB8fHww');">
-              <div class="promo-content">
-                <div class="text-sm">Get up to 20% off</div>
-                <h6>New Shoes Sale</h6>
-                <div class="cta">SHOP NOW</div>
-              </div>
-            </div>
-          </div>
-
-          <!-- Earbuds -->
-          <div class="col-6">
-            <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1699290438461-c89f6db093be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDMwfHx8ZW58MHx8fHx8');">
-              <div class="promo-content">
-                <div class="text-sm">Get up to 30% off</div>
-                <h6>Realme Earbuds</h6>
-                <div class="cta">SHOP NOW</div>
-              </div>
-            </div>
-          </div>
-
+    <!-- Macbook Air -->
+    <a class="col-12 col-md-6 ">
+      <div class="promo-tile h-100 " style="background-image: url('https://images.unsplash.com/photo-1541807084-5c52b6b3adef?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjB8fGxhcHRvcHxlbnwwfHwwfHx8MA%3D%3D');">
+        <div class="promo-content">
+          <div class="text-sm">Get up to 15% off</div>
+          <h5>New Macbook Air</h5>
+          <div class="cta">SHOP NOW</div>
         </div>
       </div>
+    </a>
 
+    <!-- Furniture + Shoes + Earbuds -->
+    <div class="col-12 col-md-6">
+      <div class="row g-3">
+
+        <!-- Furniture Collection -->
+        <div class="col-12">
+          <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80');">
+            <div class="promo-content">
+              <div class="text-sm">Get up to 50% off</div>
+              <h5>Furniture Collection</h5>
+              <div class="cta">SHOP NOW</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Shoes -->
+        <div class="col-6">
+          <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1460353581641-37baddab0fa2?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mjd8fHNob2VzfGVufDB8fDB8fHww');">
+            <div class="promo-content">
+              <div class="text-sm">Get up to 20% off</div>
+              <h6>New Shoes Sale</h6>
+              <div class="cta">SHOP NOW</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Earbuds -->
+        <div class="col-6">
+          <div class="promo-tile" style="background-image: url('https://images.unsplash.com/photo-1699290438461-c89f6db093be?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1yZWxhdGVkfDMwfHx8ZW58MHx8fHx8');">
+            <div class="promo-content">
+              <div class="text-sm">Get up to 30% off</div>
+              <h6>Realme Earbuds</h6>
+              <div class="cta">SHOP NOW</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
     </div>
+
   </div>
+</div>
 <?php include("./includes/mobile-icon.php") ?>
-
-
-
-<!-- <a href="logout.php" class="btn btn-danger">Logout</a> -->
-<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-
-<?php include 'Components/footer.html';
-
-
-?>
+<?php include 'Components/footer.html'; ?>
