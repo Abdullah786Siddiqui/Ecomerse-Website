@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 14, 2025 at 01:23 AM
+-- Generation Time: Jul 15, 2025 at 01:51 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -63,8 +63,7 @@ CREATE TABLE `addresses` (
 
 INSERT INTO `addresses` (`id`, `user_id`, `full_name`, `phone`, `address_line1`, `city`, `country`, `type`, `created_at`, `updated_at`) VALUES
 (22, 9, 'Haris', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-04 04:14:18', '2025-07-04 04:14:18'),
-(28, 52, 'Riasat', '03128727334', '11b  north karachi', 'Karachi', 'Pakistan', 'shipping', '2025-07-09 12:17:47', '2025-07-09 12:17:47'),
-(29, 52, 'Muhammad Abdullah Siddiqui', '+923160116389', '4k chowrangi surani town', 'Karachi', 'Pakistan', 'billing', '2025-07-11 16:51:39', '2025-07-11 16:51:39');
+(30, 61, 'Fozia', '+923160116389', 'north karachi 11 b', 'Karachi', 'Pakistan', 'billing', '2025-07-15 09:41:15', '2025-07-15 09:41:15');
 
 -- --------------------------------------------------------
 
@@ -152,19 +151,9 @@ INSERT INTO `orders` (`id`, `user_id`, `address_id`, `total`, `status`, `created
 (58, 9, 22, 62500.00, 'delivered', '2025-07-06 18:46:53', 'Cash'),
 (59, 9, 22, 40000.00, 'delivered', '2025-07-06 18:58:55', 'Cash'),
 (60, 9, 22, 578.00, 'delivered', '2025-07-06 19:28:33', 'Cash'),
-(61, 52, NULL, 660.00, 'cancelled', '2025-07-06 20:38:49', 'Cash'),
-(62, 52, NULL, 40000.00, 'delivered', '2025-07-07 04:41:44', 'Cash'),
-(69, 52, NULL, 660.00, 'cancelled', '2025-07-08 08:35:35', 'Cash'),
-(70, 52, NULL, 726.00, 'delivered', '2025-07-08 08:41:18', 'Cash'),
 (71, 9, 22, 23000.00, 'shipped', '2025-07-09 15:20:10', 'Cash'),
-(72, 52, NULL, 570.00, 'delivered', '2025-07-09 15:21:37', 'Cash'),
-(73, 52, NULL, 570.00, 'delivered', '2025-07-09 16:00:03', 'Cash'),
-(74, 52, NULL, 1156.00, 'pending', '2025-07-10 20:39:25', 'Cash'),
-(75, 52, NULL, 47850.00, 'pending', '2025-07-10 20:44:18', 'Cash'),
-(76, 52, NULL, 570.00, 'cancelled', '2025-07-11 16:23:11', 'Cash'),
 (77, 9, 22, 1898.00, 'delivered', '2025-07-11 16:46:03', 'Cash'),
-(87, 52, 28, 734.00, 'pending', '2025-07-12 20:08:53', 'Cash'),
-(95, 52, 28, 25000.00, 'pending', '2025-07-13 23:21:06', 'Cash');
+(100, 61, 30, 38526.00, 'delivered', '2025-07-15 09:41:25', 'Cash');
 
 -- --------------------------------------------------------
 
@@ -192,24 +181,13 @@ INSERT INTO `order_items` (`id`, `order_id`, `product_id`, `quantity`, `price`) 
 (91, 58, 88, 1, 25000.00),
 (92, 59, 76, 1, 40000.00),
 (93, 60, 46, 1, 578.00),
-(95, 62, 76, 1, 40000.00),
-(105, 69, 45, 1, 660.00),
-(106, 70, 26, 1, 156.00),
-(107, 70, 44, 1, 570.00),
 (108, 71, 16, 1, 23000.00),
-(109, 72, 44, 1, 570.00),
-(110, 73, 44, 1, 570.00),
-(111, 74, 46, 2, 578.00),
-(112, 75, 41, 1, 850.00),
-(113, 75, 84, 1, 5000.00),
-(114, 75, 48, 1, 2000.00),
-(115, 75, 91, 1, 40000.00),
-(116, 76, 44, 1, 570.00),
 (117, 77, 45, 2, 660.00),
 (118, 77, 46, 1, 578.00),
-(128, 87, 26, 1, 156.00),
-(129, 87, 46, 1, 578.00),
-(137, 95, 93, 5, 5000.00);
+(142, 100, 44, 1, 570.00),
+(143, 100, 32, 1, 34800.00),
+(144, 100, 26, 1, 156.00),
+(145, 100, 71, 1, 3000.00);
 
 -- --------------------------------------------------------
 
@@ -249,8 +227,7 @@ CREATE TABLE `products` (
 --
 
 INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, `created_at`, `brand_id`, `category_id`, `quantity`) VALUES
-(13, 'Apple iPhone X, 64GB Unlocked - Silver', 'iPhone X features an all-screen design with a 5.8-inch Super Retina HD display with HDR and True Tone. Designed with the most durable glass ever in a smartphone and a surgical grade stainless steel band. Charges wirelessly. Resists water and dust. 12MP dual cameras with dual optical image stabilization for great low-light photos. True Depth camera with Portrait selfies and new Portrait Lighting. Face ID lets you unlock and use Apple Pay with just a glance. Powered by A11 Bionic, the most powerful and smartest chip ever in a smartphone. Supports augmented reality experiences in games and apps. With iPhone X, the next era of iPhone has begun.', 12000.00, 73, '2025-06-27 02:44:56', 1, 1, 5),
-(14, 'Apple iPhone 14 Pro, 128GB, Deep Purple', 'The best gets even better with the Pro Perfection of the iPhone 14 Pro. Its powerful, has amazing cameras, sports a beautiful display, and Dynamic Island is a good notch replacement. From its pocketable form factor to its sheer horsepower and camera capabilities, the iPhone 14 Pro crushes anything else that tries to stand against it. Simply as close to a perfect phone ever seen.', 12778.00, 73, '2025-06-27 03:20:55', 1, 1, 5),
+(13, 'Apple iPhone X, 64GB Unlocked - Red', 'Best i phone ever', 12000.00, 73, '2025-06-27 02:44:56', 1, 1, 5),
 (15, 'Apple iPhone XR, US Version, 64GB, Red ', 'With the iPhone XR you get a roomy 6.1-inch display, fast enough performance from Apple\'s A12 Bionic processor and good camera quality in a colorful design and affordable package. Apple has included the all-new Liquid Retina LCD as the display on the iPhone XR. Apple released the iPhone XR with a smattering of color options. Both the glass back and the metal frame are brightly colored, with the glass using an in-depth seven-layer color process to achieve the rich finish and the Apple-exclusive aluminum alloy anodized to match. Instead of 3D Touch, the iPhone XR replicates the experience through \"Haptic Touch\". Advanced Face ID lets you securely unlock your iPhone and log in to apps with just a glance.', 13000.00, 73, '2025-06-27 03:27:00', 1, 1, 5),
 (16, 'Samsung Galaxy A16 5G A Series Cell Phone', 'Measured diagonally, the screen size is 6.7\" in the full rectangle and 6.5\" accounting for the rounded corners. Actual viewable area is less due to the rounded corners and the camera cutout. ²IP54 rating for water and dust resistance. Water resistance based on laboratory test conditions for exposure to splashes of fresh water. Not advised for beach or pool use. Dust resistance based on laboratory test conditions, with limited protection against dust ingress.', 23000.00, 73, '2025-06-27 04:01:39', 3, 1, 5),
 (17, 'SAMSUNG Galaxy S25 Ultra Cell Phone', 'Galaxy S25 Ultra handles the small details so you can focus on staying in the moment. Get several tasks fulfilled with one simple ask, and get insightful tips throughout your day to stay one step ahead. Simplify life with AI¹⁰ that evolves with you to work better for you.', 34000.00, 73, '2025-06-27 04:04:26', 3, 1, 5),
@@ -261,22 +238,19 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (23, 'Apple AirPods Max Wireless', 'ULTIMATE OVER-EAR LISTENING EXPERIENCE — Apple-designed dynamic driver provides high-fidelity audio. Computational audio combines custom acoustic design with the Apple H1 chip and software for breakthrough listening experiences.', 3400.00, 76, '2025-06-27 05:10:47', 1, 1, 5),
 (24, 'Samsung Galaxy Buds 3 Pro', 'Meet the new shape of sound — Galaxy Buds3 Pro — now completely redesigned with improved hardware to bring you deeper into the audio than ever before. With Galaxy AI¹, your Buds create the best listening experience by optimizing sound based on your surroundings and how you wear them — while providing a snug fit for all-day comfort, no matter what you do. Buds3 Pro get how much you love your audio.', 189.00, 76, '2025-06-27 05:51:45', 3, 1, 5),
 (25, 'SAMSUNG AKG Earbuds ', 'Samsung AKG Earbuds Original USB Type C In-Ear Earbud Headphones with Remote & Mic for Galaxy A53 5G, S22, S21, S21 FE, S20 Ultra, Note 10, Note 10+, S10 Plus - Braided - Includes Velvet Pouch - Black', 145.00, 76, '2025-06-27 05:56:25', 3, 1, 5),
-(26, 'Lenovo Go Wired Speakerphone', 'Elevate remote workforce communication with the Lenovo Go Wired Speakerphone, delivering enterprise-grade conferencing and audio capabilities. This portable plug-and-play solution enables seamless and natural conference calls, enhanced by cutting-edge voice-first algorithms. Plus, with Teams Certification, you can confidently maximize the potential of your preferred UC platform.', 156.00, 76, '2025-06-27 06:02:42', 7, 1, 5),
+(26, 'Lenovo Go Wired Speakerphone', 'this is a lenevo smart spekaer', 156.00, 76, '2025-06-27 06:02:42', 7, 1, 4),
 (27, 'Canon EOS Rebel T7 DSLR Camera with 18-55mm Lens', 'Perfect for beginners, this camera bundle offers the essential tools needed to take your SLR skills to new heights, all in one convenient package. No matter where your next adventure takes you, count on the EOS Rebel t7\'s impressive 24.1 Megapixel CMOS sensor and wide ISO range of 100-6400 (H: 12800) to capture high-quality images, even in low-light situations.', 1288.00, 77, '2025-06-27 16:00:23', 8, NULL, 5),
 (28, 'Nikon D7500 20.9MP DSLR Camera with AF-S DX NIKKOR', 'Class leading image quality, ISO range, image processing and metering equivalent to the award-winning D500 Large 3.2” 922K dot, tilting LCD screen with touch functionality 51-point AF system with 15 cross-type sensors and group-area AF paired with up to 8 fps continuous shooting capability 4K Ultra HD and 1080p Full HD video with stereo sound, power aperture control, auto ISO, 4K UHD Time-Lapse and more.', 1288.00, 77, '2025-06-27 16:10:08', 9, NULL, 5),
-(30, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 16:23:49', 9, NULL, 5),
+(30, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 16:23:49', 9, NULL, 0),
 (31, 'KODAK PIXPRO Friendly Zoom FZ45-BK 16MP ', 'Introducing the FZ45, Friendly Zoom model from the KODAK PIXPRO collection of digital cameras. Compact, intuitive and oh so easy to use, the FZ45 is the perfect camera to take anywhere you go. One-touch video, red-eye removal, face detection and convenient AA batteries are just the start. KODAK PIXPRO Digital Cameras - Tell your story.\r\n\r\n', 1460.00, 77, '2025-06-27 16:26:46', 10, NULL, 5),
-(32, 'LG K51 Unlocked Smartphone ', 'A phone packed with premium features that will keep you connected and fit your budget.\r\nIntroducing the impressive LG K51 that enables you to capture and experience life’s special moments.\r\n\r\n', 34800.00, 73, '2025-06-27 16:29:16', 5, NULL, 5),
+(32, 'LG K51 Unlocked Smartphone ', 'A phone packed with premium features that will keep you connected and fit your budget.\r\nIntroducing the impressive LG K51 that enables you to capture and experience life’s special moments.\r\n\r\n', 34800.00, 73, '2025-06-27 16:29:16', 5, NULL, 4),
 (33, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:32', 9, NULL, 5),
 (34, 'Nikon Z fc with Wide-Angle Zoom Lens ', 'The Z fc mirrorless camera features a classic, tactile design fused with modern Z series technology. Equipped with a flip out vlogger screen, this DX-format 4K UHD compact camera delivers big image quality for photos and videos.', 12500.00, 77, '2025-06-27 20:40:43', 9, NULL, 5),
-(37, 'toy', 'adkajdkajdkjakdjakdjakdjak', 10000.00, 92, '2025-06-27 22:55:48', 3, 2, 5),
 (38, 'E.T.F SKIN Holy Hydration! Hydrated Ever After Skincare Mini Kit, Cleanser, ', 'A COMPLETE HYDRATION REGIMEN: This skincare kit has all of your favorite Holy Hydration necessities-', 25000.00, 89, '2025-06-28 01:09:29', 11, 2, 5),
 (40, 'E.I.F. SKIN Bright Icon Vitamin C + E + Ferulic Serum', 'BRIGHTENING SERUM: A radiance-boosting serum formulated with a triple threat of 15% vitamin C, 1% vitamin E and 0.5% ferulic acid.', 650.00, 89, '2025-06-28 01:21:33', 11, 2, 5),
-(41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2, 5),
+(41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2, 10),
 (42, 'E.I.F. SKIN Holy Hydration!  Set Hydration Kit, Travel Friendly Hydrating  Set', 'FOR ALL SKIN TYPES: This skincare set is perfectly compatible with all skin types.', 560.00, 89, '2025-06-28 01:34:06', 11, 2, 5),
-(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 5),
-(45, 'ANUA Hydrating Gentle Foaming Cleanser, Panthenol, Korean Face', 'NON-STRIPPING FINISH : Contains Hyaluronic Acid and Panthenol to hydrate the skin for long hours even after cleansing, whilst helping to protect the skin barrier.', 660.00, 89, '2025-06-28 01:54:59', 12, 2, 5),
-(46, 'ANUA Heartleaf LHA Moisture Peeling Gel, Hydrating Facial Peel', '[SOOTHING & HYDRATING FORMULA] Infused with 10,000ppm heartleaf extract, this peeling gel soothes sensitive skin while maintaining hydration, ensuring your skin feels refreshed and balanced after exfoliation.', 578.00, 89, '2025-06-28 01:58:09', 12, 2, 5),
+(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 9),
 (47, 'Comfy Shirts', 'Simply & regular shirt', 1500.00, 51, '2025-06-29 01:12:55', 15, 5, 5),
 (48, 'White Hoodie', 'White Warm comfy hoodie', 2000.00, 51, '2025-06-29 01:13:49', 15, 5, 5),
 (49, 'Green Hoodie', 'Green Soft Hoodie', 2000.00, 51, '2025-06-29 01:14:33', 15, 5, 5),
@@ -292,20 +266,20 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (62, 'Grey & Black Shoe', 'Grey & black Shoes', 3000.00, 54, '2025-06-29 04:34:02', 16, 5, 5),
 (63, 'Cream Hell cut shoes', 'Cream Hell cut shoes by borjan', 2500.00, 54, '2025-06-29 04:36:08', 17, 5, 5),
 (64, 'Blue Shirt', 'Blue full sleeve Shirt', 2000.00, 51, '2025-06-29 04:37:24', 14, 5, 5),
-(65, 'Comfy White T-shirt', 'Comfy White T-Shirt', 1500.00, 51, '2025-06-29 04:38:37', 14, 5, 5),
+(65, 'Comfy White T-shirt', 'Comfy White T-Shirt', 1500.00, 51, '2025-06-29 04:38:37', 14, 5, 4),
 (66, 'Plain round T-shirts ', 'Plain Round t-shirts', 1500.00, 51, '2025-06-29 04:42:07', 15, 5, 5),
 (67, 'Black & White Skirt', 'Black & white Skirt', 3000.00, 52, '2025-06-29 04:43:05', 15, 5, 5),
 (68, 'Brown Skirt', 'comfy Brown Skirt', 1500.00, 52, '2025-06-29 04:44:06', 15, 5, 5),
 (69, 'Floral Black & White Skirt', 'Floral Black & White Skirt', 3000.00, 52, '2025-06-29 04:44:53', 15, 5, 5),
 (70, 'Cream Comfy Dress', 'Cream Comfy Dress', 2000.00, 52, '2025-06-29 04:45:37', 15, 5, 5),
-(71, 'Red & White Top & Skirt', 'Red & White Top & Skirt', 3000.00, 52, '2025-06-29 04:46:33', 15, 5, 5),
+(71, 'Red & White Top & Skirt', 'Red & White Top & Skirt', 3000.00, 52, '2025-06-29 04:46:33', 15, 5, 3),
 (72, 'Dark Brown Skirt', 'Dark Brown Skirt', 3000.00, 52, '2025-06-29 04:47:32', 15, 5, 5),
 (73, '25inch LCD', 'Samsung LCD', 25000.00, 41, '2025-06-29 04:48:21', 3, 4, 5),
 (74, '32inch LCD', 'Apple 32inch LCD', 32000.00, 41, '2025-06-29 04:49:06', 1, 4, 5),
 (75, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:50:08', 5, 4, 5),
 (76, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:52:38', 5, 4, 5),
 (77, 'Girly Watches ', 'Regular Wear Watch', 1500.00, 56, '2025-06-29 04:53:44', 18, 5, 5),
-(78, 'Office Watches', 'Office Watches', 2000.00, 56, '2025-06-29 04:54:35', 19, 5, 5),
+(78, 'Office Watches Girls', '', 2000.00, 56, '2025-06-29 04:54:35', 19, 5, 10),
 (79, 'Black Set Watch', 'Black Set Watch', 2000.00, 56, '2025-06-29 04:55:15', 19, 5, 5),
 (80, 'Cream Office Watch', 'Cream Office Watch', 2000.00, 56, '2025-06-29 04:56:05', 19, 5, 5),
 (81, 'Jet Black Watch', 'Jet Black Watch', 3000.00, 56, '2025-06-29 04:57:08', 18, 5, 5),
@@ -316,12 +290,13 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (86, 'Hand Mixer', 'Dawlance Hand Mixer', 30000.00, 46, '2025-06-29 05:03:08', 20, 4, 5),
 (87, 'Air Fryer', 'Dawlance Air Fryer', 50000.00, 46, '2025-06-29 05:04:07', 20, 4, 5),
 (88, 'Electric Mixer Machine ', 'Electric Mixer Machine ', 25000.00, 46, '2025-06-29 05:04:59', 20, 4, 5),
-(89, 'Automatic Washing Machine ', 'Automatic Washing Machine ', 50000.00, 43, '2025-06-29 05:05:45', 20, 4, 5),
+(89, 'Automatic Washing Machine ', 'Automatic Washing Machine ', 50000.00, 43, '2025-06-29 05:05:45', 20, 4, 0),
 (90, 'DoubleTub Washing Machine', 'DoubleTub Washing Machine', 50000.00, 43, '2025-06-29 05:06:35', 20, 4, 5),
 (91, 'Black Automatic  Washing Machine', 'Black Automatic  Washing Machine', 40000.00, 43, '2025-06-29 05:07:25', 20, 4, 5),
 (92, 'Grey Automatic Washing Machine', 'Grey Automatic Washing Machine', 50000.00, 43, '2025-06-29 05:08:30', 20, 4, 5),
-(93, 'LEYAOYAO Cube Bookshelf 3', 'The simple upright and open design of the book shelves can help you to save much more space in your ', 5000.00, 32, '2025-07-14 03:49:30', 10, 3, 0),
-(94, 'Huuger Nightstand with Charging Station', 'The sleek outlook design makes this side end table easily immerse into any home room. Place it besid', 3000.00, 32, '2025-07-14 03:51:30', 10, 3, 5);
+(93, 'LEYAOYAO Cube Bookshelf 3', 'The simple upright and open design of the book shelves can help you to save much more space in your room', 5000.00, 32, '2025-07-14 03:49:30', 10, 3, 0),
+(94, 'Hunger Nightstand with Charging station', 'This table is more comfotable and use for charging', 6000.00, 32, '2025-07-14 03:51:30', 10, 3, 7),
+(106, 'Samsung MX-ST40B Sound Tower Portable Party Speakers', ' The key to a great party is a great sound system. The ST40B sound tower is an all-in-one solution p', 4000.00, 76, '2025-07-15 14:32:37', 3, 1, 100);
 
 -- --------------------------------------------------------
 
@@ -340,8 +315,7 @@ CREATE TABLE `product_images` (
 --
 
 INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
-(13, 13, '1750974296-61V0WhicC1L._AC_SX569_.jpg'),
-(14, 14, '1750976455-2_.jpg'),
+(13, 13, '1752499433-24.jpg'),
 (15, 15, '1750976820-3_.jpg'),
 (16, 16, '1750978899-4.jpg'),
 (17, 17, '1750979066-5.jpg'),
@@ -352,7 +326,7 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 (23, 23, '1750983047-10.jpg'),
 (24, 24, '1750985505-11.jpg'),
 (25, 25, '1750985785-12.jpg'),
-(26, 26, '1750986162-13.jpg'),
+(26, 26, '1752502430-25.jpg'),
 (27, 27, '1751022023-14.jpg'),
 (28, 28, '1751022608-15.jpg'),
 (30, 30, '1751023429-16.jpg'),
@@ -360,14 +334,11 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 (32, 32, '1751023756-18.jpg'),
 (33, 33, '1751038832-16.jpg'),
 (34, 34, '1751038843-16.jpg'),
-(35, 37, '1751046948-mindless.jpg'),
 (36, 38, '1751054969-EIF SKIN CARE.jpg'),
 (38, 40, '1751055693-EIF SKIN CAREC.jpg'),
 (39, 41, '1751056174-EIF SKIN CAR E.jpg'),
 (40, 42, '1751056446-61xHTzEr8SL._SX425_.jpg'),
 (42, 44, '1751057566-51Kpw2r-pIL._SX425_.jpg'),
-(43, 45, '1751057699-41cNBkQrJHL._SX425_.jpg'),
-(44, 46, '1751057889-71Tz1KeChGL._SX425_.jpg'),
 (45, 47, '1751141575-3shirts.jpg'),
 (46, 48, '1751141629-hoodie.jpg'),
 (47, 49, '1751141673-hoodie2.jpg'),
@@ -412,7 +383,8 @@ INSERT INTO `product_images` (`id`, `product_id`, `image_url`) VALUES
 (89, 91, '1751155645-m3.jpg'),
 (90, 92, '1751155710-m4.jpg'),
 (91, 93, '1752446970-22_.jpg'),
-(92, 94, '1752447090-23.jpg');
+(92, 94, '1752447090-23.jpg'),
+(104, 106, '1752571957-81TSvpYhl0L._AC_SX425_.jpg');
 
 -- --------------------------------------------------------
 
@@ -435,22 +407,9 @@ CREATE TABLE `reviews` (
 --
 
 INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review_text`, `created_at`, `updated_at`) VALUES
-(176, 52, 44, 2, 'this product is beaty full', '2025-07-08 21:10:31', '2025-07-08 21:10:31'),
-(177, 52, 44, 2, 'this is a best produvt ever', '2025-07-08 21:11:32', '2025-07-08 21:11:32'),
-(178, 52, 44, 2, 'hi', '2025-07-08 21:11:42', '2025-07-08 21:11:42'),
-(179, 52, 46, 2, 'best product ever', '2025-07-08 21:12:14', '2025-07-08 21:12:14'),
-(180, 52, 26, 2, 'This is a best speaker', '2025-07-08 21:20:48', '2025-07-08 21:20:48'),
-(181, 52, 45, 2, 'nest ', '2025-07-08 21:24:03', '2025-07-08 21:24:03'),
-(182, 52, 45, 2, 'anua is a best brand', '2025-07-08 21:24:24', '2025-07-08 21:24:24'),
-(183, 52, 45, 4, 'yes', '2025-07-08 21:25:31', '2025-07-08 21:25:31'),
-(184, 52, 45, 3, 'best fasewash', '2025-07-08 21:26:02', '2025-07-08 21:26:02'),
-(185, 52, 46, 2, 'best product', '2025-07-08 21:31:49', '2025-07-08 21:31:49'),
-(186, 52, 45, 2, 'this  product is best for girls', '2025-07-09 08:40:48', '2025-07-09 08:40:48'),
-(187, 52, 40, 2, 'This is a best Serum', '2025-07-09 10:42:58', '2025-07-09 10:42:58'),
 (188, 9, 44, 3, 'this is a girl product', '2025-07-09 14:59:15', '2025-07-09 14:59:15'),
-(190, 52, 44, 3, 'skin best product', '2025-07-09 15:58:05', '2025-07-09 15:58:05'),
-(191, 52, 44, 3, 'best pridct', '2025-07-11 16:14:30', '2025-07-11 16:14:30'),
-(192, 52, 45, 3, 'best experience for this product', '2025-07-11 22:13:13', '2025-07-11 22:13:13');
+(194, 61, 44, 3, 'This product is best of best', '2025-07-15 09:48:07', '2025-07-15 09:48:07'),
+(195, 61, 42, 3, 'this is a best beauty kit', '2025-07-15 09:50:13', '2025-07-15 09:50:13');
 
 -- --------------------------------------------------------
 
@@ -551,10 +510,10 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`, `email_token`, `token_expiry`) VALUES
-(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', NULL, 'user', 'active', '2025-07-04 09:07:46', '2025-07-10 02:59:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
-(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', NULL, 'admin', 'active', '2025-07-06 04:40:34', '2025-07-06 04:41:00', '', 'male', NULL, NULL),
-(52, ' Abdullah Siddiqui', 'abdullahsidzz444@gmail.com', '$2y$10$Txb3ijHU7Z.gACRguWBhLe3IavgP/zCk7U1ePvGsOYY9s6SPPsMHa', '+923160116389', 'user', 'active', '2025-07-06 17:34:07', '2025-07-14 01:48:48', '1752439728-boy.jpg', 'male', NULL, NULL),
-(61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL);
+(9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', '03128727336', 'user', 'active', '2025-07-04 09:07:46', '2025-07-15 13:32:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
+(37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', '03160117489', 'admin', 'active', '2025-07-06 04:40:34', '2025-07-15 13:32:32', '', 'male', NULL, NULL),
+(61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL),
+(66, 'Abdullah', 'abdullahsidzz444@gmail.com', '$2y$10$tPmoQa/OxbAazRYbZ/6CDeG9xUWRzQ09hbMhusxkQEy6xJAzYAxcK', NULL, 'user', 'active', '2025-07-15 16:38:24', '2025-07-15 16:50:17', '1752579527-boy.jpg', 'male', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -646,7 +605,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=30;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -664,37 +623,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=96;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=138;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
 --
 ALTER TABLE `otp_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=54;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=100;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=98;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=193;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
@@ -706,7 +665,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
 
 --
 -- Constraints for dumped tables
