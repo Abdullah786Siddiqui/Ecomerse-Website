@@ -133,3 +133,35 @@ let stateSelect = document.getElementById("statusForm");
 stateSelect.addEventListener("change", function () {
   stateSelect.submit();
 });
+function RemoveOrder(orderid) {
+  
+
+  fetch("../Server/Process/remove-order.php", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: "order_id=" + encodeURIComponent(orderid),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      if (data.success) {
+        Swal.fire({
+          title: "Removed!",
+          text: data.message,
+          icon: "success",
+          timer: 2000,
+          showConfirmButton: false,
+        }).then(() => {
+          location.reload();
+        });
+      } else {
+        Swal.fire({
+          title: "Error",
+          text: data.message,
+          icon: "error",
+          confirmButtonText: "OK",
+        });
+      }
+    });
+}

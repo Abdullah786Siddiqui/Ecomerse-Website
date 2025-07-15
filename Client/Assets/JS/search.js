@@ -1,5 +1,4 @@
 let searchTimeout;
-console.log(searchTimeout);
 
 function searchFunc(query) {
   const resultCard = document.getElementById("resultCard");

@@ -147,5 +147,7 @@ include_once './includes/Navbar.php';
 
   </div>
 </div>
+
+
 <?php include("./includes/mobile-icon.php") ?>
 <?php include 'Components/footer.html'; ?>

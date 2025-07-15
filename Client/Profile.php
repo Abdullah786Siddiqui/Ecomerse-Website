@@ -63,6 +63,23 @@ $user_id = $_SESSION['user_id'];
       display: none !important;
     }
   }
+
+  @media (max-width: 767.98px) {
+    .sidebar {
+      position: fixed;
+      top: 102px;
+      /* height of navbar */
+      left: -250px;
+      width: 250px;
+      height: calc(100vh - 56px);
+      z-index: 1050;
+      transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+  }
 </style>
 
 <div class="container-fluid">
@@ -74,15 +91,28 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div id="sidebar_mob" class="col-12 col-md-3 col-lg-2 sidebar p-0">
+      <!-- Sidebar -->
+      <div id="sidebar" class="col-12 col-md-3 col-lg-2 sidebar p-0  ">
         <div class="p-3">
-          <h6>Your Account</h6>
-          <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
+
+          <!-- Title and Close button -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="m-0">Your Account</h6>
+            <button class="btn btn-sm btn-outline-secondary d-md-none" onclick="toggleSidebar()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <small class="text-muted d-block mb-3">
+            <?= htmlspecialchars($row['name']) ?>
+          </small>
+
           <a href="./homeprofile.php" id="Home">My Profile</a>
-          <a href="./Profile.php" id='myorders' class="active">My Orders</a>
-          <a href="./customer_support.php">Customer Support</a>
+          <a href="./Profile.php" id="myorders" class="active">My Orders</a>
           <hr />
+          <a href="./customer_support.php">Customer Support</a>
           <a href="./logout.php">Log Out</a>
+
         </div>
       </div>
     <?php
@@ -90,7 +120,12 @@ $user_id = $_SESSION['user_id'];
     ?>
     <!-- Main Content -->
     <div class="col-md-9 col-lg-10 p-4">
-      <h4 class="mb-4">Orders</h4>
+      <div class="d-flex justify-content-between align-items-center mb-3 ">
+        <h4 class="mb-0 mt-md-4">Orders</h4>
+        <button class="btn btn-outline-primary d-md-none mx-2 mt-2" onclick="toggleSidebar()">
+          <i class="fas fa-bars"></i> Menu
+        </button>
+      </div>
 
       <!-- Tabs -->
       <ul class="nav nav-tabs mb-4" id="orderTabs" role="tablist">
@@ -134,29 +169,34 @@ ORDER BY o.created_at DESC";
           ?>
               <!-- Order Card -->
               <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle order-remove" data-id="<?= $order_ps['order_id'] ?>">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
-                  <div>
 
-                    <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order_ps['order_id'] ?></h5>
+                <div class="d-flex flex-row flex-md-row justify-content-between align-items-start align-items-md-center gap-2 flex-wrap">
+                  <div>
+                    <h5 class="mb-1 text-dark fw-semibold">
+                      Order #<?= $order_ps['order_id'] ?>
+                    </h5>
                     <div class="text-muted small">
                       <?= $order_ps['product_count_ps'] ?> Products • <?= date('M d, Y', strtotime($order_ps['created_at'])) ?>
                     </div>
                   </div>
-                  <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
+
+                  <div class="d-flex flex-wrap gap-2">
                     <?php if ($order_ps['status'] === 'delivered') { ?>
                       <button onclick="RemoveOrder(<?= $order_ps['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
+                      </button>
+                    <?php } ?>
 
-                      <?php } ?>
-                      <?php if ($order_ps['status'] === 'pending') { ?>
-                        <button onclick="orderCancel(<?= $order_ps['order_id']  ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
-                          <i class="bi bi-trash fs-6"></i>
-                          <span>Cancel</span>
-                        </button>
-                      <?php } ?>
+                    <?php if ($order_ps['status'] === 'pending') { ?>
+                      <button onclick="orderCancel(<?= $order_ps['order_id'] ?>)" class="btn btn-sm btn-secondary d-inline-flex align-items-center gap-2 shadow-sm">
+                        <i class="bi bi-trash fs-6"></i>
+                        <span>Cancel</span>
+                      </button>
+                    <?php } ?>
                   </div>
                 </div>
+
 
                 <hr class="my-3">
 
@@ -263,7 +303,8 @@ ORDER BY o.created_at DESC";
           ?>
               <!-- Order Card -->
               <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
+                <div class="d-flex flex-row flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
+
                   <div>
                     <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order_del['order_id'] ?></h5>
                     <div class="text-muted small">
@@ -271,10 +312,7 @@ ORDER BY o.created_at DESC";
                     </div>
                   </div>
                   <div class="d-flex flex-wrap gap-2 mt-2 mt-md-0">
-                    <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
-                      <i class="bi bi-download fs-6"></i>
-                      <span>Download Invoice</span>
-                    </button>
+
                     <?php if ($order_del['status'] === 'delivered') { ?>
                       <button onclick="RemoveOrder(<?= $order_del['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
                         <i class="bi bi-trash fs-6"></i>
@@ -384,7 +422,7 @@ ORDER BY o.created_at DESC";
           ?>
               <!-- Order Card -->
               <div class="order-card shadow rounded-4 p-4 mb-4 bg-white border border-light-subtle">
-                <div class="d-flex flex-column flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
+                <div class="d-flex flex-row flex-md-row justify-content-between align-items-start align-items-md-center gap-2">
                   <div>
 
                     <h5 class="mb-1 text-dark fw-semibold">Order #<?= $order['order_id'] ?></h5>
@@ -400,10 +438,7 @@ ORDER BY o.created_at DESC";
                         <i class="bi bi-trash fs-6"></i>
                         <span>Remove</span>
                       </button>
-                      <button class="btn btn-sm btn-primary d-inline-flex align-items-center gap-2 shadow-sm">
-                        <i class="bi bi-download fs-6"></i>
-                        <span>Download Invoice</span>
-                      </button>
+                     
                     <?php } ?>
                     <?php if (isset($order) && is_array($order) && $order['status'] === 'cancelled') { ?>
                       <button onclick="RemoveOrder(<?= $order['order_id'] ?>)" class="btn btn-sm btn-danger d-inline-flex align-items-center gap-2 shadow-sm">
@@ -527,6 +562,11 @@ WHERE order_items.order_id = $order_id";
           });
         });
       });
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('show');
+      }
     </script>
 
 

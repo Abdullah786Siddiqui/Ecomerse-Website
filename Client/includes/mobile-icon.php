@@ -1,3 +1,7 @@
+<?php
+include("../Server/Admin-Panel/config/db.php");
+$user_id = $_SESSION['user_id'];
+?>
 <style>
     .bottom-nav {
         position: fixed;
@@ -64,14 +68,14 @@
     }
 
     body {
-        padding-bottom: 60px;
+        padding-bottom: 70px;
 
 
     }
 </style>
 
 
-<div id="mobile_icons" class="bottom-nav shadow-sm">
+<div id="mobile_icons" class="bottom-nav shadow-sm ">
     <a href="./index.php" class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'index.php' ? 'active' : '' ?>">
         <i class="fas fa-home"></i>
         <span>Home</span>
@@ -80,12 +84,45 @@
         <i class="bi bi-grid"></i>
         <span>Categories</span>
     </a>
-    <a onclick="checkauth()" class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'view-cart.php' ? 'active' : '' ?>">
+    <a onclick="checkauth()" class="nav-item px-0 mx-0 cursor-pointer <?= basename($_SERVER['PHP_SELF']) == 'view-cart.php' ? 'active' : '' ?>">
         <i class="fas fa-cart-shopping"></i>
         <span>Cart</span>
     </a>
-    <a href="./homeprofile.php" class="nav-item <?= basename($_SERVER['PHP_SELF']) == 'homeprofile.php' ? 'active' : '' ?>">
-        <i class="fas fa-user"></i>
+    <a
+        <?php if (isset($_SESSION['user_id'])): ?>
+        href="./homeprofile.php"
+        <?php else: ?>
+        href="javascript:void(0)" onclick="showAuthModal('login')"
+        <?php endif; ?>
+        class="nav-item cursor-pointer <?= basename($_SERVER['PHP_SELF']) == 'homeprofile.php' ? 'active' : '' ?>">
+
+
+        <?php
+        $profilePath = '../Server/uploads/user.png'; // default
+
+        if (!empty($_SESSION['user_id'])) {
+            $user_id = (int)$_SESSION['user_id'];
+
+            $sql = "SELECT user_profile FROM users WHERE id = $user_id";
+            $result = $conn->query($sql);
+
+            if ($result && $row = $result->fetch_assoc()) {
+                $profile = $row['user_profile'];
+                if (!empty($profile)) {
+                    $profilePath = '../Server/uploads/' . $profile;
+                }
+            }
+        }
+        ?>
+        <img
+            src="<?= htmlspecialchars($profilePath) ?>"
+            width="30"
+            height="30"
+            class="rounded-circle mb-1"
+            alt="User Profile"
+            style="object-fit: cover;">
         <span>Account</span>
     </a>
+
+
 </div>

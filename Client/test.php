@@ -1,77 +1,132 @@
-<footer class="bg-dark text-light pt-5 pb-4">
-  <div class="container">
-    <div class="row gy-4 justify-content-between align-items-start">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>User Wishlist</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background: linear-gradient(to right, #f0f4f8, #e4ebf1);
+        font-family: 'Segoe UI', sans-serif;
+    }
+    .wishlist-header {
+        text-align: center;
+        padding: 30px 0;
+        font-weight: 700;
+        font-size: 2rem;
+        color: #37474f;
+    }
+    .wishlist-card {
+        background: #fff;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+    .wishlist-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+    }
+    .wishlist-card img {
+        height: 200px;
+        width: 100%;
+        object-fit: cover;
+    }
+    .wishlist-card .card-body {
+        text-align: center;
+    }
+    .wishlist-card .card-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #455a64;
+    }
+    .wishlist-card .card-text {
+        color: #78909c;
+    }
+    .btn-remove {
+        background: #ef5350;
+        border: none;
+        color: #fff;
+    }
+    .btn-remove:hover {
+        background: #e53935;
+    }
+    .btn-cart {
+        background: #42a5f5;
+        border: none;
+        color: #fff;
+    }
+    .btn-cart:hover {
+        background: #1e88e5;
+    }
+</style>
+</head>
+<body>
 
-      <!-- Logo & About -->
-      <div class="col-lg-4 col-md-6">
-        <div class="d-flex align-items-center mb-3">
-          <img src="your-logo.png" alt="E-Shop Logo" style="height:48px;" class="me-2">
-          <h4 class="fw-bold mb-0">E-Shop</h4>
+<div class="wishlist-header">💖 Your Wishlist</div>
+
+<div class="container">
+  <div class="row g-4">
+    <!-- Product 1 -->
+    <div class="col-lg-4 col-md-6">
+      <div class="wishlist-card">
+        <img src="https://via.placeholder.com/400x300" alt="Product 1">
+        <div class="card-body">
+          <h5 class="card-title">Stylish Headphones</h5>
+          <p class="card-text">$89.99</p>
+          <div class="d-flex justify-content-around mt-3">
+            <button class="btn btn-remove btn-sm px-3">Remove</button>
+            <button class="btn btn-cart btn-sm px-3">Add to Cart</button>
+          </div>
         </div>
-        <p class="text-muted">
-          Elevating your shopping experience with curated collections, premium quality, and lightning-fast delivery. Shop smarter, live better.
-        </p>
       </div>
-
-      <!-- Quick Links -->
-      <div class="col-lg-2 col-md-6">
-        <h6 class="text-uppercase fw-bold mb-3">Shop</h6>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-muted text-decoration-none">Men</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Women</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Kids</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Accessories</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-2 col-md-6">
-        <h6 class="text-uppercase fw-bold mb-3">Help</h6>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-muted text-decoration-none">Contact Us</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">FAQs</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Returns</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Order Tracking</a></li>
-        </ul>
-      </div>
-
-      <div class="col-lg-2 col-md-6">
-        <h6 class="text-uppercase fw-bold mb-3">Company</h6>
-        <ul class="list-unstyled">
-          <li><a href="#" class="text-muted text-decoration-none">About Us</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Careers</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Privacy Policy</a></li>
-          <li><a href="#" class="text-muted text-decoration-none">Terms</a></li>
-        </ul>
-      </div>
-
-      <!-- Newsletter -->
-      <div class="col-lg-3 col-md-6">
-        <h6 class="text-uppercase fw-bold mb-3">Stay Connected</h6>
-        <p class="text-muted small">Subscribe for exclusive offers & updates.</p>
-        <form class="d-flex">
-          <input type="email" class="form-control form-control-sm me-2" placeholder="Email address">
-          <button class="btn btn-primary btn-sm">Subscribe</button>
-        </form>
-        <div class="mt-3">
-          <a href="#" class="text-light me-3"><i class="fab fa-facebook-f"></i></a>
-          <a href="#" class="text-light me-3"><i class="fab fa-twitter"></i></a>
-          <a href="#" class="text-light me-3"><i class="fab fa-instagram"></i></a>
-          <a href="#" class="text-light"><i class="fab fa-linkedin-in"></i></a>
-        </div>
-      </div>
-
     </div>
 
-    <hr class="border-secondary my-4">
+    <!-- Product 2 -->
+    <div class="col-lg-4 col-md-6">
+      <div class="wishlist-card">
+        <img src="https://via.placeholder.com/400x300" alt="Product 2">
+        <div class="card-body">
+          <h5 class="card-title">Smart Watch</h5>
+          <p class="card-text">$129.99</p>
+          <div class="d-flex justify-content-around mt-3">
+            <button class="btn btn-remove btn-sm px-3">Remove</button>
+            <button class="btn btn-cart btn-sm px-3">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-    <div class="text-center small text-muted">
-      &copy; 2025 <strong>E-Shop</strong>. All Rights Reserved. 
-      <a href="#" class="text-muted text-decoration-none ms-2">Privacy Policy</a> | 
-      <a href="#" class="text-muted text-decoration-none">Terms of Service</a>
+    <!-- Product 3 -->
+    <div class="col-lg-4 col-md-6">
+      <div class="wishlist-card">
+        <img src="https://via.placeholder.com/400x300" alt="Product 3">
+        <div class="card-body">
+          <h5 class="card-title">Trendy Sneakers</h5>
+          <p class="card-text">$59.99</p>
+          <div class="d-flex justify-content-around mt-3">
+            <button class="btn btn-remove btn-sm px-3">Remove</button>
+            <button class="btn btn-cart btn-sm px-3">Add to Cart</button>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</footer>
+</div>
 
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/yourkitid.js" crossorigin="anonymous"></script>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+<script>
+  // GSAP animation on page load
+  gsap.from(".wishlist-card", {
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    stagger: 0.2,
+    ease: "power2.out"
+  });
+</script>
+
+</body>
+</html>

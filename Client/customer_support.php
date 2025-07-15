@@ -7,15 +7,16 @@ if (!isset($_SESSION['user_id'])) {
   header("Location: ./index.php");
   exit();
 }
+
 include './Components/header.html';
 include './includes/Navbar.php';
 include("../Server/Admin-Panel/config/db.php");
 
 $user_id = $_SESSION['user_id'];
 ?>
-
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
 <style>
   body {
     background: #f5f6f8;
@@ -40,10 +41,27 @@ $user_id = $_SESSION['user_id'];
     background-color: #e7f1ff;
     font-weight: 600;
   }
+
+  @media (max-width: 767.98px) {
+    .sidebar {
+      position: fixed;
+      top: 103px;
+      /* height of navbar */
+      left: -250px;
+      width: 250px;
+      height: calc(100vh - 56px);
+      z-index: 1050;
+      transition: left 0.3s ease;
+    }
+
+    .sidebar.show {
+      left: 0;
+    }
+  }
 </style>
 
-<div class="container-fluid">
-  <div class="row">
+<div class="container-fluid mx-2   ">
+  <div class="row ">
     <?php
     // Sidebar User Info
     $sql = "SELECT * FROM users WHERE id = $user_id";
@@ -51,27 +69,49 @@ $user_id = $_SESSION['user_id'];
     if ($row = $result->fetch_assoc()) {
     ?>
       <!-- Sidebar -->
-      <div class="col-12 col-md-3 col-lg-2 sidebar p-0">
+      <div id="sidebar" class="col-12 col-md-3 col-lg-2 sidebar p-0  ">
         <div class="p-3">
-          <h6>Your Account</h6>
-          <small class="text-muted d-block mb-3"><?= htmlspecialchars($row['name']) ?></small>
-          <a href="./homeprofile.php" id="Home">My Profile</a>
-          <a href="./Profile.php" id='myorders'>My Orders</a>
 
+          <!-- Title and Close button -->
+          <div class="d-flex justify-content-between align-items-center mb-3">
+            <h6 class="m-0">Your Account</h6>
+            <button class="btn btn-sm btn-outline-secondary d-md-none" onclick="toggleSidebar()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+
+          <small class="text-muted d-block mb-3">
+            <?= htmlspecialchars($row['name']) ?>
+          </small>
+
+          <a href="./homeprofile.php" id="Home">My Profile</a>
+          <a href="./Profile.php" id="myorders">My Orders</a>
           <hr />
           <a href="./customer_support.php" class="active">Customer Support</a>
           <a href="./logout.php">Log Out</a>
+
         </div>
       </div>
+
+
     <?php
     }
     ?>
 
     <!-- Main Content -->
-    <div class="col-12 col-md-9 col-lg-10 p-3">
-      <div class="bg-white p-3 rounded shadow-sm">
-        <h4 class="mb-3">Customer Support</h4>
-        <p class="text-muted">We’re here to help you 24/7. Find answers or contact us below.</p>
+    <div class="col-12 col-md-9 col-lg-10 p-3 ">
+      <!-- Toggle Button for mobile -->
+        <div class="d-flex justify-content-between align-items-center mb-3 ">
+        <h4 class="mb-0 mt-md-4">Customer Support</h4>
+       <button class="btn btn-outline-primary d-md-none mx-2 mt-2" onclick="toggleSidebar()">
+        <i class="fas fa-bars"></i> Menu
+      </button>
+      </div>
+      
+
+      <div class="bg-white p-3 rounded-4 shadow-sm">
+        <!-- <h4 class="mb-3">Customer Support</h4>
+        <p class="text-muted">We’re here to help you 24/7. Find answers or contact us below.</p> -->
 
         <form class="d-flex mb-4 flex-wrap gap-2">
           <input class="form-control me-2" type="search" placeholder="Search help topics..." style="flex:1; min-width:200px;" />
@@ -153,7 +193,14 @@ $user_id = $_SESSION['user_id'];
 
   </div>
 </div>
-<?php include("./includes/mobile-icon.php") ?>
 
+<?php include("./includes/mobile-icon.php") ?>
 <?php include './Components/footer.html'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  function toggleSidebar() {
+    const sidebar = document.getElementById('sidebar');
+    sidebar.classList.toggle('show');
+  }
+</script>

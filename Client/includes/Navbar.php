@@ -23,205 +23,7 @@
 
   ?>
 
-
- <style>
-   .cursor-pointer {
-     cursor: pointer;
-   }
-
-   /* Modal Animation: smoother + responsive */
-   .modal.custom-fade .modal-dialog {
-     transform: translateY(50px) scale(0.98);
-     opacity: 0;
-     transition: all 0.4s ease-in-out;
-   }
-
-   .modal.show .modal-dialog {
-     transform: translateY(0) scale(1);
-     opacity: 1;
-   }
-
-   /* Modal Content: clean card-like look */
-   .modal-content {
-     background: #fff;
-     border-radius: 1rem;
-     padding: 1.5rem;
-     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-     animation: fadeIn 0.3s ease-in-out;
-   }
-
-   @keyframes fadeIn {
-     from {
-       opacity: 0;
-       transform: translateY(20px);
-     }
-
-     to {
-       opacity: 1;
-       transform: translateY(0);
-     }
-   }
-
-   .modal-header {
-     border-bottom: none;
-   }
-
-   .modal-header h5 {
-     font-size: 1.5rem;
-     font-weight: 600;
-     color: #333;
-   }
-
-   .btn-close {
-     opacity: 0.6;
-   }
-
-   .btn-close:hover {
-     opacity: 1;
-   }
-
-   /* Form Fields */
-   .auth-form .form-control {
-     border-radius: 50rem;
-     padding: 0.75rem 1rem;
-     border: 1px solid #ced4da;
-     box-shadow: none;
-     transition: border-color 0.2s ease-in-out;
-   }
-
-   .auth-form .form-control:focus {
-     border-color: #0d6efd;
-     box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .25);
-   }
-
-   /* Auth Form Animations */
-   .auth-form {
-     transition: all 0.4s ease-in-out;
-   }
-
-   .auth-form.d-none {
-     opacity: 0;
-     transform: translateX(50px);
-     position: absolute;
-     width: 100%;
-     pointer-events: none;
-   }
-
-   .auth-form:not(.d-none) {
-     opacity: 1;
-     transform: translateX(0);
-     pointer-events: all;
-   }
-
-   /* Buttons */
-   .auth-form .btn-primary,
-   .auth-form .btn-success {
-     border-radius: 50rem;
-     font-weight: 600;
-     padding: 0.75rem;
-   }
-
-   /* Links */
-   .auth-form p a {
-     color: #0d6efd;
-     text-decoration: none;
-   }
-
-   .auth-form p a:hover {
-     text-decoration: underline;
-   }
-
-   /* Make dropdowns push content below */
-   .static-dropdown {
-     position: static;
-     /* remove absolute positioning */
-     display: none;
-     /* hide by default */
-   }
-
-   .nav-item.show .static-dropdown {
-     display: block;
-     /* show on open */
-   }
-
-   /* .navbar_mobile {
-     display: none;
-   } */
-
-   /* .navbar_desktop {
-     display: flex;
-     /* or block, as needed */
-   /* } */
-
-   /* @media (max-width: 864px) {
-     .navbar_desktop {
-       display: none !important;
-     }
-
-     .navbar_mobile {
-       display: flex !important;
-     }
-   } */
-   @media (max-width: 845px) {
-     .navbar_desktop {
-       display: none !important;
-     }
-
-     /* .navbar {
-       position: fixed;
-       top: 0;
-       left: 0;
-       right: 0;
-       z-index: 1050;
-
-     } */
-
-     #icons_navbar {
-       display: none !important;
-     }
-
-     .navbar_des {
-       display: flex !important;
-       flex-direction: column !important;
-       align-items: center;
-       gap: 0.25rem;
-       /* zyada gap kam kar diya */
-       padding: 0 !important;
-       margin: 0 !important;
-       width: 100%;
-     }
-
-     .navbar_des .navbar-brand {
-       justify-content: center !important;
-       margin: 0 auto;
-       padding: 0;
-     }
-
-     .navbar_des #searchForm {
-       width: 100% !important;
-       max-width: 100% !important;
-       margin: 0 !important;
-       padding: 0 0.5rem;
-       /* optional: thoda chhota padding */
-     }
-
-     .navbar_des #searchForm .input-group {
-       width: 100%;
-     }
-
-     .navbar_des #searchForm .form-control {
-       flex: 1;
-     }
-   }
-
-
-
-
-
-   /* body {
-     padding-top: 70px !important;
-   } */
- </style>
+ <link rel="stylesheet" href="./Assets/CSS/navbar.css">
 
  <!-- DESKTOP & TABLET NAV -->
  <nav class="navbar navbar-expand-lg bg-white border-bottom pt-2  ">
@@ -229,11 +31,11 @@
 
      <!-- Logo -->
      <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
-       <strong class="mb-2"><img height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt="">Ecoverse</strong>
+       <strong class="mb-2"><img class="" height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt=""><span class="">Ecoverse</span></strong>
      </a>
 
      <!-- Search -->
-     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative    " role="search" id="searchForm">
+     <form autocomplete="off" class="d-flex flex-grow-1 mx-4 position-relative " role="search" id="searchForm">
        <div class="input-group flex-grow-1">
          <input
            class="form-control search-box searchInput"
@@ -366,39 +168,8 @@
         }
         ?>
      </div>
-
-
-
-     <div class="d-flex gap-2">
-       <!-- <div class="dropdown">
-           <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-             <i class="bi bi-geo-alt"></i> Deliver to: United States
-           </button>
-           <ul class="dropdown-menu dropdown-menu-country p-2 shadow">
-             <li class="dropdown-item"><input type="checkbox"><img src="https://flagcdn.com/ca.svg" class="country-flag"> Canada</li>
-             <li class="dropdown-item"><input type="checkbox"><img src="https://flagcdn.com/pk.svg" class="country-flag"> Pakistan</li>
-             <li class="dropdown-item"><input type="checkbox" checked><img src="https://flagcdn.com/gb.svg" class="country-flag"> UK</li>
-             <li class="dropdown-item"><input type="checkbox" checked><img src="https://flagcdn.com/us.svg" class="country-flag"> US</li>
-           </ul>
-         </div> -->
-       <!-- <div class="dropdown ">
-         <button class="btn btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown">
-           US English (USA)
-         </button>
-         <ul class="dropdown-menu shadow">
-           <li><a class="dropdown-item active" href="#"><img src="https://flagcdn.com/us.svg" class="lang-flag"> English (U.S.)</a></li>
-           <li><a class="dropdown-item" href="#"><img src="https://flagcdn.com/gb.svg" class="lang-flag"> English (U.K.)</a></li>
-         </ul>
-       </div> -->
-     </div>
    </div>
  </nav>
-
-
- <!-- MOBILE TOP -->
-
-
-
 
 
  <!-- MOBILE SEARCH & MENU -->
@@ -409,15 +180,6 @@
  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
  <script>
    const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
-   //  document.addEventListener("DOMContentLoaded", function() {
-   //    if (window.matchMedia("(max-width: 845px)").matches) {
-   //   //    document.getElementById("searchForm").classList.add("w-100")
-   //      document.querySelector(".navbar_des").classList.remove("mx-2")
-   //      document.querySelector(".navbar_des").classList.add("p-0")
-
-
-   //    }
-   //  })
  </script>
  <script src="./Assets/JS/auth.js"></script>
  <script src="./Assets/JS/cart.js"></script>

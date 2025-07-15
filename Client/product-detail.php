@@ -10,171 +10,13 @@ $product_id = $_GET['productid'];
 $is_logged_in = $_SESSION['user_id'] ?? "";
 
 ?>
-<style>
-  /* Star Rating Styles */
-  .star-rating input[type="radio"] {
-    display: none;
-  }
 
-  .star-rating label {
-    font-size: 2rem;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .star-rating input[type="radio"]:checked~label,
-  .star-rating label:hover,
-  .star-rating label:hover~label {
-    color: #ffc107;
-  }
-
-  /* Gradient Button Style */
-  .btn-gradient {
-    background: linear-gradient(90deg, #ff7e5f, #feb47b);
-    color: white;
-    border: none;
-  }
-
-  .btn-gradient:hover {
-    opacity: 0.9;
-  }
-
-  .star-rating input[type="radio"] {
-    display: none;
-  }
-
-  .star-rating label {
-    font-size: 2rem;
-    color: #ddd;
-    cursor: pointer;
-    transition: color 0.2s;
-  }
-
-  .star-rating input[type="radio"]:checked~label,
-  .star-rating label:hover,
-  .star-rating label:hover~label {
-    color: #ffc107;
-  }
-
-  .btn-gradient {
-    background: linear-gradient(90deg, #ff7e5f, #feb47b);
-    color: white;
-    border: none;
-  }
-
-  .btn-gradient:hover {
-    opacity: 0.9;
-  }
-
-  /* Modal Animation: smoother + responsive */
-  .modal.custom-fade .modal-dialog {
-    transform: translateY(50px) scale(0.98);
-    opacity: 0;
-    transition: all 0.4s ease-in-out;
-  }
-
-  .modal.show .modal-dialog {
-    transform: translateY(0) scale(1);
-    opacity: 1;
-  }
-
-  /* Modal Content: clean card-like look */
-  .modal-content {
-    background: #fff;
-    border-radius: 1rem;
-    padding: 1.5rem;
-    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-    animation: fadeIn 0.3s ease-in-out;
-  }
-
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateY(20px);
-    }
-
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-
-  .modal-header {
-    border-bottom: none;
-  }
-
-  .modal-header h5 {
-    font-size: 1.5rem;
-    font-weight: 600;
-    color: #333;
-  }
-
-  .btn-close {
-    opacity: 0.6;
-  }
-
-  .btn-close:hover {
-    opacity: 1;
-  }
-
-  /* Form Fields */
-  .auth-form .form-control {
-    border-radius: 50rem;
-    padding: 0.75rem 1rem;
-    border: 1px solid #ced4da;
-    box-shadow: none;
-    transition: border-color 0.2s ease-in-out;
-  }
-
-  .auth-form .form-control:focus {
-    border-color: #0d6efd;
-    box-shadow: 0 0 0 0.2rem rgba(13, 110, 253, .25);
-  }
-
-  /* Auth Form Animations */
-  .auth-form {
-    transition: all 0.4s ease-in-out;
-  }
-
-  .auth-form.d-none {
-    opacity: 0;
-    transform: translateX(50px);
-    position: absolute;
-    width: 100%;
-    pointer-events: none;
-  }
-
-  .auth-form:not(.d-none) {
-    opacity: 1;
-    transform: translateX(0);
-    pointer-events: all;
-  }
-
-  /* Buttons */
-  .auth-form .btn-primary,
-  .auth-form .btn-success {
-    border-radius: 50rem;
-    font-weight: 600;
-    padding: 0.75rem;
-  }
-
-  /* Links */
-  .auth-form p a {
-    color: #0d6efd;
-    text-decoration: none;
-  }
-
-  .auth-form p a:hover {
-    text-decoration: underline;
-  }
-</style>
 
 <div class="container py-4">
   <div class="row g-4">
     <?php
 
-    $sql = "SELECT products.id , products.name , products.quantity , products.description , products.price , brand.name as brand , product_images.image_url  ,  brand.name as brandName  FROM products
+    $sql = "SELECT products.id , products.name , products.quantity , products.description , products.price , brand.name as brand , product_images.image_url  FROM products
               INNER JOIN product_images on product_images.product_id = products.id
               INNER JOIN brand on brand.id = products.brand_id where products.id = $product_id";
     $result = $conn->query($sql);
@@ -204,7 +46,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
 
         <p class="small text-muted mb-2">Ships in 1–2 business days</p>
 
-        <p class="mb-1"><strong>Brand:</strong> <?= $row['brandName']  ?></p>
+        <p class="mb-1"><strong>Brand:</strong> <?= $row['brand']  ?></p>
       
 
 
@@ -234,7 +76,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
         $stockText = $isOutOfStock ? 'Out of Stock' : 'In Stock';
         ?>
 
-        <p class="small text-<?= $badgeClass ?> mb-1">
+        <p class="small text-<?= $badgeClass ?> mb-2">
           <?= $stockText ?>
         </p>
         <button id="buyNowBtn" class="btn btn-warning mb-2  ">

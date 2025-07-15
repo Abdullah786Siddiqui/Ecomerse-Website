@@ -1,6 +1,4 @@
 <?php
-include("./config/db.php");
-include("./Sidebar.php");
   if (session_status() === PHP_SESSION_NONE) {
     session_start();
   }
@@ -9,6 +7,9 @@ include("./Sidebar.php");
     header("Location: ../../Client/index.php");
     exit();
   }
+include("./config/db.php");
+include("./Sidebar.php");
+
 ?>
 <?php
 if ($_SERVER['REQUEST_METHOD'] == "POST") {

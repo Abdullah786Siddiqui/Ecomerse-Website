@@ -2,17 +2,18 @@
 
 include("./includes/header.html");
 include("./config/db.php");
-session_start();
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
+
+
 if (isset($_SESSION['admin_id'])) {
   $admin_id = $_SESSION['admin_id'] ?? "";
   $sql = "SELECT * FROM users WHERE id = $admin_id  ";
   $result = $conn->query($sql);
   if ($row = $result->fetch_assoc()) {
-    $adminName = $row['name'];
+    $adminName = $row['name'] ?? "";
   }
-} else {
-  header("Location: ../Client/login.php");
-  exit();
 }
 ?>
 
@@ -257,9 +258,16 @@ if (isset($_SESSION['admin_id'])) {
         </div>
       </li>
 
+      <hr class="w-75 mx-3">
+
+      <li class="nav-item">
+        <a class="nav-link" href="../Process/logout-admin.php">
+          <i class="bi bi-box-arrow-right"></i> Logout
+        </a>
+      </li>
 
       <!-- Extra Navbar Icons inside Sidebar -->
-      <li class="nav-item">
+      <!-- <li class="nav-item">
         <a class="nav-link" data-bs-toggle="collapse" href="#theme" role="button">
           <i class="bi bi-circle-half"></i>Theme Setting
         </a>
@@ -268,10 +276,10 @@ if (isset($_SESSION['admin_id'])) {
           <a href="#" class="nav-link">Light Mode</a>
 
         </div>
-      </li>
+      </li> -->
 
 
-  
+
 
     </ul>
   </div>
@@ -298,11 +306,6 @@ if (isset($_SESSION['admin_id'])) {
       <!-- Right side icons -->
       <ul class="navbar-nav flex-row align-items-center gap-2">
 
-        <!-- <li class="nav-item only-gear">
-        <a class="nav-link mx-2 bg-white icon-btn rotating-gear fs-4" href="#">
-          <i class="bi bi-gear"></i>
-        </a>
-      </li> -->
 
         <li class="nav-item">
           <a class="nav-link icon-btn" href="#">
@@ -338,7 +341,7 @@ if (isset($_SESSION['admin_id'])) {
 
         <!-- User Info -->
         <li class="nav-item d-flex align-items-center ms-2">
-          <a  ><img src="./assets/Images/Abdullah.jpg"
+          <a><img src="./assets/Images/Abdullah.jpg"
               class="shadow-sm me-2"
               style="border-radius: 50%; object-fit: cover;"
               width="50" height="50" alt="User">

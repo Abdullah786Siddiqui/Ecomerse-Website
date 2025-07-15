@@ -1,5 +1,12 @@
 <?php
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../../Client/index.php");
+  exit();
+}
 include("./includes/header.html");
 include("./Sidebar.php");
 $status = isset($_POST['status']) ? $_POST['status'] : '';
@@ -239,9 +246,9 @@ INNER JOIN product_images ON products.id = product_images.product_id";
                     <td class="d-flex align-items-center ">
                       <img src="../uploads/<?= $row['image_url'] ?>" class="product-img" alt="Product">
                       <span class="me-5"><?= $row['name'] ?></span>
-                      <span class="<?= $row['status'] === 'cancelled' ? 'text-danger fw-bold' : '' ?>">
+                      <!-- <span class="<?= $row['status'] === 'cancelled' ? 'text-danger fw-bold' : '' ?>">
                         <?= $row['status'] === 'cancelled' ? 'This Order Cancel By User' : '' ?>
-                      </span>
+                      </span> -->
                     </td>
                     <td>#<?= $row['order_id'] ?></td>
                     <td>$<?= $row['unit_price'] ?></td>
@@ -260,14 +267,20 @@ INNER JOIN product_images ON products.id = product_images.product_id";
                       } elseif ($row['status'] === "cancelled") {
                         $colour = 'bg-danger';
                       } ?>
-                      <span class="badge rounded-3 <?= $colour ?> px-3 py-2   text-white <?= $row['status'] === 'cancelled' ? 'cursor-pointer ' : '' ?> text-capitalize shadow-sm">
-                        <?= $row['status'] === 'cancelled' ? 'Remove' : $row['status']  ?>
+                      <span
+                        class="badge rounded-3 <?= $colour ?> px-3 py-2 text-white <?= $row['status'] === 'cancelled' ? 'cursor-pointer' : '' ?> text-capitalize shadow-sm"
+                        <?php if ($row['status'] === 'cancelled'): ?>
+                        onclick="RemoveOrder(<?= $row['order_id'] ?>)"
+                        <?php endif; ?>>
+                        <?= $row['status'] === 'cancelled' ? 'Remove' : $row['status'] ?>
                       </span>
+
                     </td>
                     <td>
 
-                      <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 btn  btn-danger <?= $row['status'] === 'delivered' ||  $row['status'] === 'cancelled' ? 'disabled' : ' '  ?>  bg-danger px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
-                        Update status
+                      <span onclick="updateStatus(<?= $row['order_id'] ?>, '<?= $row['status'] ?>')" class="badge rounded-3 btn  btn-danger <?= $row['status'] === 'delivered' ||  $row['status'] === 'cancelled' ? 'disabled bg-secondary  text-white border-secondary' : ' '  ?>   <?= $row['status'] === 'cancelled' ? 'bg-secondary' : 'bg-danger' ?> px-3 py-2 text-white text-capitalize shadow-sm" style="cursor:pointer;" data-bs-toggle="modal" data-bs-target="#updateStatusModal">
+                        <?= $row['status'] === 'cancelled' ? 'cancel' : '  Update status' ?>
+
                       </span>
                     </td>
 
@@ -325,8 +338,42 @@ color: white;" class="btn btn-lg " onclick="handleCancel()" data-bs-dismiss="mod
 
 
   <script>
+    function RemoveOrder(orderid) {
+
+
+      fetch("../Server/Process/remove-order.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "order_id=" + encodeURIComponent(orderid),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            Swal.fire({
+              title: "Removed!",
+              text: data.message,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            }).then(() => {
+              location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: data.message,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          }
+        });
+    }
+
     // <!-- Animate rows from bottom to top on page load -->
     document.addEventListener("DOMContentLoaded", function() {
+
       const rows = document.querySelectorAll("tbody tr");
       rows.forEach((row, index) => {
         setTimeout(() => {
@@ -338,6 +385,38 @@ color: white;" class="btn btn-lg " onclick="handleCancel()" data-bs-dismiss="mod
     function refresh() {
       window.location.reload()
 
+    }
+     function RemoveOrder(orderid) {
+
+
+      fetch("../Process/remove-order.php", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/x-www-form-urlencoded",
+          },
+          body: "order_id=" + encodeURIComponent(orderid),
+        })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.success) {
+            Swal.fire({
+              title: "Removed!",
+              text: data.message,
+              icon: "success",
+              timer: 2000,
+              showConfirmButton: false,
+            }).then(() => {
+              location.reload();
+            });
+          } else {
+            Swal.fire({
+              title: "Error",
+              text: data.message,
+              icon: "error",
+              confirmButtonText: "OK",
+            });
+          }
+        });
     }
   </script>
 

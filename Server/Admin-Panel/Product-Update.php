@@ -1,4 +1,12 @@
 <?php
+  if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+  }
+
+  if (!isset($_SESSION['admin_id'])) {
+    header("Location: ../../Client/index.php");
+    exit();
+  }
 include("./config/db.php");
 include("./Sidebar.php");
 $product_id = $_GET['updationId'] ?? "";
