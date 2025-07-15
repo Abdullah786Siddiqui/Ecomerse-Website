@@ -232,16 +232,16 @@ include("./includes/mobile-icon.php") ?>
   };
 
 
-  document.querySelectorAll('.brand-filter').forEach(cb => {
-    cb.addEventListener('change', () => {
+  document.querySelectorAll('.brand-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', () => {
 
       document.getElementById('products_items').classList.add('d-none');
       document.getElementById('products_items_filter').classList.remove('d-none');
-      const checkedBrands = Array.from(document.querySelectorAll('.brand-filter:checked')).map(cb => cb.value);
-      console.log(checkedBrands);
+      const checkedBrands = Array.from(document.querySelectorAll('.brand-filter:checked')).map(checkbox => checkbox.value);
+      
 
 
-      const products = <?php echo json_encode($product_result, JSON_PRETTY_PRINT); ?>;
+      const products = <?php echo json_encode($product_result); ?>;
 
       let html = '';
 
@@ -287,5 +287,5 @@ include("./includes/mobile-icon.php") ?>
 </script>
 <script src="./Assets/JS/products.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-
+<?php include 'Components/footer2.html'; ?>
 <?php include './Components/footer.html';  ?>

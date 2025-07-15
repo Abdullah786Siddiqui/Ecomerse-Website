@@ -625,7 +625,7 @@ WHERE u.id = $user_id
      setTimeout(function() { // simulate loading
        document.getElementById("skeleton-loader").style.display = "none";
        document.getElementById("main-content").style.display = "block";
-     }, 800); // 800ms loader, adjust as needed
+     }, 800); 
    };
 
    function updateQuantity(productid, val) {
@@ -639,7 +639,7 @@ WHERE u.id = $user_id
        .then((res) => res.json())
        .then((data) => {
          if (data.success) {
-           // Update subtotal in summary section
+            
            document.querySelectorAll(".cart-subtotal").forEach(el => {
              el.textContent = "$ " + data.subtotal;
            });
@@ -650,4 +650,5 @@ WHERE u.id = $user_id
      document.getElementById('shipping-section').style.display = this.checked ? 'block' : 'none';
    });
  </script>
+ <?php include 'Components/footer2.html'; ?>
  <?php include './Components/footer.html';  ?>

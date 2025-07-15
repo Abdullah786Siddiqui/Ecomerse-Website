@@ -110,8 +110,7 @@ $user_id = $_SESSION['user_id'];
       
 
       <div class="bg-white p-3 rounded-4 shadow-sm">
-        <!-- <h4 class="mb-3">Customer Support</h4>
-        <p class="text-muted">We’re here to help you 24/7. Find answers or contact us below.</p> -->
+     
 
         <form class="d-flex mb-4 flex-wrap gap-2">
           <input class="form-control me-2" type="search" placeholder="Search help topics..." style="flex:1; min-width:200px;" />
@@ -195,6 +194,7 @@ $user_id = $_SESSION['user_id'];
 </div>
 
 <?php include("./includes/mobile-icon.php") ?>
+<?php include 'Components/footer2.html'; ?>
 <?php include './Components/footer.html'; ?>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 

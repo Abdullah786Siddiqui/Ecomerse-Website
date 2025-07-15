@@ -22,6 +22,9 @@
   // echo '</pre>';
 
   ?>
+  <style>
+    
+  </style>
 
  <link rel="stylesheet" href="./Assets/CSS/navbar.css">
 
@@ -31,7 +34,7 @@
 
      <!-- Logo -->
      <a class="navbar-brand d-flex align-items-start fs-4" href="./index.php">
-       <strong class="mb-2"><img class="" height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt=""><span class="">Ecoverse</span></strong>
+       <strong class="mb-2"><img class="" height="32px" src="./Assets/Images/shopping_cart_37dp_1F1F1F_FILL0_wght400_GRAD0_opsz40.svg" alt=""><span class="fw-bold">Ecoverse</span></strong>
      </a>
 
      <!-- Search -->
@@ -63,11 +66,11 @@
 
      <!-- Icons -->
      <div id='icons_navbar' class="d-flex align-items-center gap-2">
-       <a href="#"
+       <!-- <a href="#"
          class="btn btn-light rounded-circle p-0 d-flex align-items-center justify-content-center position-relative"
          style="width: 40px; height: 40px;">
          <i class="	bi bi-heart-fill"></i>
-       </a>
+       </a> -->
 
        <!-- Cart -->
        <a onclick="checkauth('cart')"

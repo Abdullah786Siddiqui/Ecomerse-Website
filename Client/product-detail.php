@@ -107,12 +107,12 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
         </div>
 
         <!-- Product Description (for mobile) -->
-        <div class="d-block d-md-none mt-4">
+        <!-- <div class="d-block d-md-none mt-4">
           <h5>Product Description</h5>
           <p class="small">
             SOOTHING & HYDRATING FORMULA — Infused with 10,000ppm heartleaf extract, this peeling gel soothes sensitive skin while maintaining hydration, ensuring your skin feels refreshed and balanced after exfoliation.
           </p>
-        </div>
+        </div> -->
       </div>
 
 
@@ -134,10 +134,9 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
   <div class="text-center mb-5">
     <h2 class="fw-bold mb-3">What Our Customers Say</h2>
     <div class="d-flex justify-content-center align-items-center mb-2">
-      <div class="text-warning fs-2">★★★★★</div>
-      <span class="ms-2 fs-4 fw-semibold">4.8/5</span>
+      <!-- <div class="text-warning fs-2">★★★★★</div>
+      <span class="ms-2 fs-4 fw-semibold">4.8/5</span> -->
     </div>
-    <small class="text-muted">Based on <span id="review-count">2</span> verified reviews</small>
   </div>
 
 
@@ -212,7 +211,7 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
       <div class="card border-0 shadow-lg rounded-4 p-4 mx-lg-5">
         <h4 class="mb-4 fw-bold text-center text-gradient">Leave Your Review</h4>
 
-        <!-- <form id="review-form" method="post" action="../Server/Process/review-process.php"> -->
+        
 
         <!-- Star Rating -->
         <form id="ratingForm" method="post" action="../Server/Process/review-process.php">
@@ -366,5 +365,5 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
   <script src="./Assets/JS/cart.js"></script>
 
 
-
+<?php include 'Components/footer2.html'; ?>
   <?php include './Components/footer.html';  ?>

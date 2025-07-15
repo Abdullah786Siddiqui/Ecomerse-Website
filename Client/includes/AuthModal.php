@@ -25,10 +25,10 @@ $validity_password = $_GET['password'] ?? '';
             <label class="form-label text-muted small">Password</label>
             <input type="password" name="login_password" class="form-control" placeholder="Enter your password" required>
             <div id="passwordError" class="error text-danger mt-1"></div>
-
+ <p class="text-end my-3 text-primary">foget password?</p>
           </div>
 
-          <button type="submit" class="btn btn-dark w-100 fw-semibold py-2">Login</button>
+          <button type="submit" class="btn btn-primary w-100 fw-semibold py-2">Login</button>
           <p class="text-center mt-3 small text-muted">
             Don't have an account?
             <a href="#" onclick="showSignup()" class="text-decoration-none">Signup</a>
@@ -53,8 +53,9 @@ $validity_password = $_GET['password'] ?? '';
               <label class="form-label text-muted small">Password</label>
               <input type="password" name="register_password" class="form-control" placeholder="Enter password" required>
             </div>
+           
 
-            <button type="submit" class="btn btn-dark w-100 fw-semibold py-2">Signup</button>
+            <button type="submit" class="btn btn-primary w-100 fw-semibold py-2">Signup</button>
             <p class="text-center mt-3 small text-muted">
               Already have an account?
               <a href="#" onclick="showLogin()" class="text-decoration-none">Login</a>
@@ -73,7 +74,7 @@ $validity_password = $_GET['password'] ?? '';
           <div id="otperror" class="error text-danger mt-1"></div>
           </div>
 
-          <button type="button" id="verifyOtpBtn" class="btn btn-dark w-100 fw-semibold py-2">Verify OTP</button>
+          <button type="button" id="verifyOtpBtn" class="btn btn-primary w-100 fw-semibold py-2">Verify OTP</button>
         </div>
 
 

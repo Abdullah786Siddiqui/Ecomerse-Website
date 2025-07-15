@@ -2,11 +2,7 @@
 session_start();
 include("../Admin-Panel/config/db.php");
 
-// agar login nahi to redirect
-if (!isset($_SESSION['user_id'])) {
-  header("Location: ./Client/login.php");
-  exit();
-}
+
 
 if (isset($_POST['productid'])) {
   $product_id = intval($_POST['productid']);
@@ -14,7 +10,7 @@ if (isset($_POST['productid'])) {
 
   $response = [];
 
-  // DB se stock check karo
+
   $sql = "SELECT products.id, products.name, products.price, products.quantity, product_images.image_url
             FROM products
             INNER JOIN product_images ON products.id = product_images.product_id
@@ -29,7 +25,7 @@ if (isset($_POST['productid'])) {
       'name' => $row['name'],
       'price' => $row['price'],
       'image' => $row['image_url'],
-      'quantity' => 1, // agar naya cart item ho
+      'quantity' => 1, 
     ];
 
     if (!isset($_SESSION['cart'])) {
@@ -60,7 +56,7 @@ if (isset($_POST['productid'])) {
           exit();
         } elseif (($cartQty + 1) == $dbStock) {
           $response["reload"] = true;
-          // increment abhi nahi — neeche hi karo
+         
         }
 
 
@@ -74,7 +70,7 @@ if (isset($_POST['productid'])) {
 
 
 
-        // $item['quantity'] += 1;
+    
         $response["success"] = true;
         $response["quantity"] = $item['quantity'];
         $response["stock"] = $dbStock - $item['quantity'];

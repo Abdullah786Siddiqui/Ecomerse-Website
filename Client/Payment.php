@@ -221,4 +221,5 @@ $final_subtotal = $_SESSION['final_subtotal'] ?? 0;
 
 ?>
 <script src="./Assets/JS/payment.js"></script>
+<?php include 'Components/footer2.html'; ?>
 <?php include 'Components/footer.html'; ?>

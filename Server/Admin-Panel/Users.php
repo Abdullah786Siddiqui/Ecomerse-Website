@@ -75,9 +75,9 @@ include("./Sidebar.php");
     <input type="text" class="form-control w-50 flex-grow-1 " placeholder="Search here..." />
 
   </div>
-  <div class="table-responsive">
-    <table class="table table-hover   table-striped align-middle">
-      <thead class="table-light">
+  <div c>
+    <table class="table table-hover    align-middle">
+      <thead  >
         <tr>
           <th>#</th>
           <th>Name</th>
@@ -100,8 +100,20 @@ include("./Sidebar.php");
             <td><?= $row['name'] ?></td>
             <td><?= $row['email'] ?></td>
             <td><?= $row['phone'] ?></td>
-            <td><span class="badge bg-primary fs-6"><?= $row['role'] ?></span></td>
-            <td><span class="badge bg-success fs-6"><?= $row['status'] ?></span></td>
+            <td>
+    <button type="button" class="badge border-0 rounded-3 px-3 py-2 text-white
+        <?= $row['role'] === 'admin' ? 'bg-primary' : 'bg-secondary' ?>">
+        <?= ucfirst($row['role']) ?>
+    </button>
+</td>
+
+<td>
+    <button type="button" class="badge border-0 rounded-3 px-3 py-2 text-white
+        <?= $row['status'] === 'active' ? 'bg-success' : 'bg-danger' ?>">
+        <?= ucfirst($row['status']) ?>
+    </button>
+</td>
+
             <td><?= $row['created_at'] ?></td>
             
 

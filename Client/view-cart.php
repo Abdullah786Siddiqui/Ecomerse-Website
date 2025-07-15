@@ -114,7 +114,7 @@ $subtotal = 0;
 
       <?php
       }
-      // $_SESSION['cart_subtotal'] = $subtotal;
+  
 
       ?>
 
@@ -190,5 +190,5 @@ $subtotal = 0;
   }
 </script>
 
-
+<?php include 'Components/footer2.html'; ?>
 <?php include './Components/footer.html';  ?>

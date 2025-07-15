@@ -309,7 +309,7 @@ INNER JOIN product_images ON products.id = product_images.product_id";
           <p class="fs-5 fw-semibold text-dark mb-1">Are you sure you want to move to the next state?</p>
 
           <p class="mb-1">
-            <span class="fw-semibold text-secondary fs-5 ">Order ID:</span>
+            <span class="fw-semibold text-secondary fs-5 ">Order ID: #</span>
             <span class="fw-bold text-dark modalOrderId fs-5 "></span>
           </p>
 

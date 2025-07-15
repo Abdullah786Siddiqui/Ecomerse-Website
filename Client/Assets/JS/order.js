@@ -27,8 +27,8 @@ function orderCancel(orderid) {
               timer: 2000,
               showConfirmButton: false,
             }).then(() => {
-              // Optionally reload or update the order list
-              location.reload(); // or update UI without reload
+             
+              location.reload(); 
             });
           } else {
             Swal.fire({
@@ -53,7 +53,7 @@ function orderCancel(orderid) {
 }
 
 function RemoveOrder(orderid) {
-  // Save current active tab before removing
+ 
   const activeTab = document.querySelector('#orderTabs .nav-link.active');
   if (activeTab) {
     const target = activeTab.getAttribute('data-bs-target');

@@ -1,12 +1,12 @@
 <?php
-  if (session_status() === PHP_SESSION_NONE) {
-    session_start();
-  }
+if (session_status() === PHP_SESSION_NONE) {
+  session_start();
+}
 
-  if (!isset($_SESSION['admin_id'])) {
-    header("Location: ../../Client/index.php");
-    exit();
-  }
+if (!isset($_SESSION['admin_id'])) {
+  header("Location: ../../Client/index.php");
+  exit();
+}
 include("./config/db.php");
 include("./Sidebar.php");
 
@@ -41,10 +41,37 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', $q
       $sql = "INSERT INTO product_images(product_id, image_url) VALUES ('$product_id', '$new_file')";
       $result = $conn->query($sql);
       if ($result) {
-        echo "
+?>
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
         <script>
-          alert('Your Product has been Added')
-        </script>";
+          document.addEventListener('DOMContentLoaded', function() {
+            Swal.fire({
+              title: "🎉 Product Added!",
+              html: "<b>Your product has been successfully added to the store.</b>",
+              icon: "success",
+              showConfirmButton: true,
+              confirmButtonColor: "#3085d6",
+              confirmButtonText: "Okay",
+              backdrop: `
+      rgba(255,255,255,0.2)
+      center center
+      no-repeat
+    `,
+              didOpen: () => {
+                const backdrop = document.querySelector(".swal2-container");
+                if (backdrop) {
+                  backdrop.style.backdropFilter = "blur(5px)";
+                }
+              },
+              customClass: {
+                popup: "rounded-3 shadow"
+              },
+              timer: 3000,
+              timerProgressBar: true
+            });
+          });
+        </script>
+<?php
       } else {
         echo "Error in inserting product image.";
       }
@@ -263,7 +290,6 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', $q
 
       <!-- Action Buttons -->
       <div class="d-flex flex-column flex-md-row justify-content-end gap-3 mt-4 form-footer">
-        <!-- <button type="reset" class="btn btn-outline-secondary">Reset</button> -->
         <button type="submit" class="btn btn-primary">Add Product</button>
       </div>
     </div>
@@ -288,6 +314,7 @@ VALUES ('$name', '$description', '$price', '$category_id', '$subcategory_id', $q
 <script src="./assets/JS/admin.js"></script>
 
 
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 
 

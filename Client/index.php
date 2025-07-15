@@ -148,6 +148,168 @@ include_once './includes/Navbar.php';
   </div>
 </div>
 
+</head>
 
-<?php include("./includes/mobile-icon.php") ?>
-<?php include 'Components/footer.html'; ?>
+<body>
+
+<div class="homepage">
+    <h1 class="text-center my-5">Features Products</h1>
+
+  <div class="container">
+
+    <div class="row g-4">
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                src="../Server/uploads/1750983047-10.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                 src="../Server/uploads/1751154824-w1.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                src="../Server/uploads/1751056174-EIF SKIN CAR E.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                 src="../Server/uploads/1751153642-s5.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                 src="../Server/uploads/1751151270-s3.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      <div class="col-sm-6 col-md-4 mb-4 product-card-animate">
+        <a href="#" class="text-decoration-none">
+          <div class="card border-0 shadow-sm rounded-4 h-100 p-4 position-relative hover-shadow">
+            <div class="ratio ratio-1x1 mb-3">
+              <img
+                 src="../Server/uploads/1750985785-12.jpg"
+                class="img-fluid rounded-3 object-fit-cover w-100 h-100"
+                alt="Product Name"
+                loading="lazy">
+            </div>
+
+            <h5 class="fw-semibold mb-2 text-truncate text-dark">Product Name</h5>
+
+            <p class="mb-2">
+              <span class="fw-bold text-success fs-6">Rs.900</span>
+              <small class="text-muted text-decoration-line-through ms-2">Rs.1,120</small>
+            </p>
+
+            <div class="text-warning small">★★★★☆ <span class="text-muted">(1)</span></div>
+          </div>
+        </a>
+      </div>
+      
+
+    </div>
+  </div>
+</div>
+
+
+
+  
+  </a>
+</div>
+
+
+  </div>
+</div>
+
+  <?php include("./includes/SECTION.php") ?>
+
+
+  <?php include("./includes/mobile-icon.php") ?>
+  <?php include 'Components/footer2.html'; ?>
+
+  <?php include 'Components/footer.html'; ?>

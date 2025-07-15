@@ -569,5 +569,5 @@ WHERE order_items.order_id = $order_id";
       }
     </script>
 
-
+<?php include 'Components/footer2.html'; ?>
     <?php include './Components/footer.html';  ?>

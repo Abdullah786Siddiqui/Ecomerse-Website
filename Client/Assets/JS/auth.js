@@ -8,6 +8,7 @@ function checkauth() {
 }
 
 
+
 function showLoginModal() {
   const modal = new bootstrap.Modal(document.getElementById("authModal"));
   modal.show();
@@ -98,7 +99,7 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
           timerProgressBar: true,
           background: "#f0fff4",
           color: "#2f855a",
-          width: "22rem", // smaller width
+          width: "22rem", 
           customClass: {
             popup: "small-swal-popup",
           },
@@ -113,8 +114,7 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
           window.location.reload();
         });
 
-        // document.getElementById("otp-section").classList.remove("d-none");
-        // window.location.reload();
+      
       } else {
         document.getElementById("otperror").textContent = "Invalid OTP";
       }
@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-          // agar login successful hai to swal show karo
+       
           Swal.fire({
             icon: "success",
             title: `<span style="
@@ -175,7 +175,7 @@ document.addEventListener("DOMContentLoaded", () => {
               popup.style.padding = "1rem";
             },
 
-            // yahan redirect ka code shift kar diya
+            
             willClose: () => {
               document.getElementById("authModal").classList.add("d-none");
 
@@ -217,3 +217,4 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
+

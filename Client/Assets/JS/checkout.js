@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
   let form = document.getElementById("address-form");
   let checkbox = document.getElementById("same-address");
 
-  // Show/hide shipping section on checkbox change
+
   checkbox.addEventListener("change", function () {
     if (checkbox.checked) {
       document.getElementById("shipping-section").style.display = "none";

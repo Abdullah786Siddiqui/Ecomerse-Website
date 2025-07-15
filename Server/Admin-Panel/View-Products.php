@@ -26,14 +26,7 @@ include("./Sidebar.php");
     background-color: #ffffff;
   }
 
-  /* .table thead th {
-      background-color: #f8fafc;
-      text-transform: uppercase;
-      font-size: 0.75rem;
-      letter-spacing: 0.04em;
-      color: #6c757d;
-      border-bottom: 2px solid #e9ecef;
-    } */
+
 
   .table-striped tbody tr:nth-of-type(odd) {
     background-color: #f9fbfd;

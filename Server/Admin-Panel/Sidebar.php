@@ -266,17 +266,6 @@ if (isset($_SESSION['admin_id'])) {
         </a>
       </li>
 
-      <!-- Extra Navbar Icons inside Sidebar -->
-      <!-- <li class="nav-item">
-        <a class="nav-link" data-bs-toggle="collapse" href="#theme" role="button">
-          <i class="bi bi-circle-half"></i>Theme Setting
-        </a>
-        <div class="collapse submenu" id="theme" data-bs-parent="#sidebarAccordion">
-          <a href="#" class="nav-link">Dark Mode</a>
-          <a href="#" class="nav-link">Light Mode</a>
-
-        </div>
-      </li> -->
 
 
 

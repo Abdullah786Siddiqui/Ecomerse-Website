@@ -1,6 +1,6 @@
 <?php
 include("../Server/Admin-Panel/config/db.php");
-$user_id = $_SESSION['user_id'];
+$user_id = $_SESSION['user_id'] ?? '';
 ?>
 <style>
     .bottom-nav {

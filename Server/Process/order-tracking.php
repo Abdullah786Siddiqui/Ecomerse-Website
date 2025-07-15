@@ -23,10 +23,11 @@ if ($currentIndex !== false && isset($status_flow[$currentIndex + 1])) {
     $response['success'] = false;
     $response['error'] = "Database update failed.";
   }
-} else {
-  $response['success'] = false;
-  $response['error'] = "Invalid current status or already at final status.";
 }
+//  else {
+//   $response['success'] = false;
+//   $response['error'] = "Invalid current status or already at final status.";
+// }
 }else{
   $response['success'] = false;
   $response['error'] = 'tract order pr aya nh nahi ';
