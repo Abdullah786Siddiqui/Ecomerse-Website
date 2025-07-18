@@ -13,40 +13,47 @@ $name = $_POST['register_username'] ?? '';
 $email = $_POST['register_email'] ?? '';
 $password = $_POST['register_password'] ?? '';
 $hashedPassword = password_hash($password, PASSWORD_DEFAULT);
-
-
-
-// Insert OTP
-$otp = rand(100000, 999999);
- $_SESSION['otp_record'] = $otp;
-$sql = "INSERT INTO otp_verification (name, email, otp,password) VALUES ('$name','$email','$otp','$hashedPassword')";
-$result = $conn->query($sql);
-
-if (!$result) {
-    echo json_encode(['success' => false, 'message' => 'Failed to save OTP']);
+$sql_check = "SELECT id FROM users WHERE email = '$email' ";
+$result_check = $conn->query($sql_check);
+if ($result_check->num_rows > 0) {
+    echo json_encode(['success' => false, 'error' => 'email']);
     exit;
-}
+} else {
 
-$_SESSION['signup_email'] = $email;
 
-// Send email
-$mail = new PHPMailer(true);
 
-try {
-    $mail->isSMTP();
-    $mail->Host = 'smtp.gmail.com';
-    $mail->SMTPAuth   = true;
-    $mail->Username   = 'abdullahsidzz333@gmail.com';
-    $mail->Password   = 'kohf gfst sfdv zfyu';
-    $mail->SMTPSecure = 'tls';
-    $mail->Port       = 587;
 
-    $mail->setFrom('abdullahsidzz333@gmail.com', 'Ecoverse');
-    $mail->addAddress($email, $name);
+    // Insert OTP
+    $otp = rand(100000, 999999);
+    $_SESSION['otp_record'] = $otp;
+    $sql = "INSERT INTO otp_verification (name, email, otp,password) VALUES ('$name','$email','$otp','$hashedPassword')";
+    $result = $conn->query($sql);
 
-    $mail->isHTML(true);
-    $mail->Subject = 'Your One-Time Password (OTP) for Signup';
-    $mail->Body = "
+    if (!$result) {
+        echo json_encode(['success' => false, 'message' => 'Failed to save OTP']);
+        exit;
+    }
+
+    $_SESSION['signup_email'] = $email;
+
+    // Send email
+    $mail = new PHPMailer(true);
+
+    try {
+        $mail->isSMTP();
+        $mail->Host = 'smtp.gmail.com';
+        $mail->SMTPAuth   = true;
+        $mail->Username   = 'abdullahsidzz333@gmail.com';
+        $mail->Password   = 'kohf gfst sfdv zfyu';
+        $mail->SMTPSecure = 'tls';
+        $mail->Port       = 587;
+
+        $mail->setFrom('abdullahsidzz333@gmail.com', 'Ecoverse');
+        $mail->addAddress($email, $name);
+
+        $mail->isHTML(true);
+        $mail->Subject = 'Your One-Time Password (OTP) for Signup';
+        $mail->Body = "
     <p>Dear <b>$name</b>,</p>
     <p>Thank you for signing up with us!</p>
     <p>Your One-Time Password (OTP) for completing your signup is:</p>
@@ -58,12 +65,12 @@ try {
     The MyApp Team</p>
     ";
 
-    $mail->send();
-} catch (Exception $e) {
-    echo json_encode(['success' => false, 'message' => "Mailer Error: {$mail->ErrorInfo}"]);
+        $mail->send();
+    } catch (Exception $e) {
+        echo json_encode(['success' => false, 'message' => "Mailer Error: {$mail->ErrorInfo}"]);
+        exit;
+    }
+    // ✅ All good
+    echo json_encode(['success' => true]);
     exit;
 }
-
-// ✅ All good
-echo json_encode(['success' => true]);
-exit;

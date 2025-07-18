@@ -650,5 +650,4 @@ WHERE u.id = $user_id
      document.getElementById('shipping-section').style.display = this.checked ? 'block' : 'none';
    });
  </script>
- <?php include 'Components/footer2.html'; ?>
  <?php include './Components/footer.html';  ?>

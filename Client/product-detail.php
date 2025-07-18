@@ -265,8 +265,10 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
 
   <?php include './includes/AuthModal.php'; ?>
 
+
   <script>
     document.addEventListener('DOMContentLoaded', () => {
+      
       const isLoggedIn = <?= $is_logged_in ? 'true' : 'false' ?>;
       const buyNowBtn = document.getElementById('buyNowBtn');
       const addToCartBtn = document.getElementById('addToCartBtn');
@@ -360,7 +362,11 @@ $is_logged_in = $_SESSION['user_id'] ?? "";
         .catch(err => {
           alert("Request failed: " + err.message);
         });
+      
+
+
     });
+  
   </script>
   <script src="./Assets/JS/cart.js"></script>
 

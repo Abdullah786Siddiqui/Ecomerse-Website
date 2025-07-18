@@ -7,8 +7,6 @@ function checkauth() {
   }
 }
 
-
-
 function showLoginModal() {
   const modal = new bootstrap.Modal(document.getElementById("authModal"));
   modal.show();
@@ -42,6 +40,43 @@ function showAuthModal(type) {
 const form = document.getElementById("signupForm");
 form.addEventListener("submit", function (e) {
   e.preventDefault();
+  const nameInput = document.getElementById("register_username");
+  const emailInput = document.getElementById("register_email");
+  const passwordInput = document.getElementById("register_password");
+
+  const nameError = document.getElementById("nameError_register");
+  const emailError = document.getElementById("emailError_register");
+  const passwordError = document.getElementById("passwordError_register");
+
+  // Clear previous errors
+  nameError.textContent = "";
+  emailError.textContent = "";
+  passwordError.textContent = "";
+
+  let hasError = false;
+
+  // Validation
+  if (nameInput.value.trim() === "") {
+    nameError.textContent = "Name is required.";
+    hasError = true;
+  }
+
+  if (emailInput.value.trim() === "") {
+    emailError.textContent = "Email is required.";
+    hasError = true;
+  } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+    emailError.textContent = "Invalid email format.";
+    hasError = true;
+  }
+
+  if (passwordInput.value.trim() === "") {
+    passwordError.textContent = "Password is required.";
+    hasError = true;
+  }
+
+  if (hasError) {
+    return; // 🛑 Stop here if invalid
+  }
 
   const form = e.target;
   const formData = new FormData(form);
@@ -56,7 +91,10 @@ form.addEventListener("submit", function (e) {
         document.getElementById("signup-section").classList.add("d-none");
         document.getElementById("otp-section").classList.remove("d-none");
       } else {
-        alert("Signup failed");
+        if (response.error === "email") {
+          document.getElementById("emailError_register").textContent =
+            "This email is already exists";
+        }
       }
     })
     .catch(() => {
@@ -99,7 +137,7 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
           timerProgressBar: true,
           background: "#f0fff4",
           color: "#2f855a",
-          width: "22rem", 
+          width: "22rem",
           customClass: {
             popup: "small-swal-popup",
           },
@@ -113,8 +151,6 @@ document.getElementById("verifyOtpBtn").addEventListener("click", function () {
           document.getElementById("otp-section").classList.remove("d-none");
           window.location.reload();
         });
-
-      
       } else {
         document.getElementById("otperror").textContent = "Invalid OTP";
       }
@@ -131,9 +167,38 @@ document.addEventListener("DOMContentLoaded", () => {
     e.preventDefault();
 
     // Clear old errors
-    document.getElementById("emailError").textContent = "";
-    document.getElementById("passwordError").textContent = "";
+    // document.getElementById("emailError").textContent = "";
+    // document.getElementById("passwordError").textContent = "";
+    const emailInput = document.getElementById("login_email");
+    const passwordInput = document.getElementById("login_password");
 
+    const emailError = document.getElementById("emailError");
+    const passwordError = document.getElementById("passwordError");
+
+    // clear previous errors
+    emailError.textContent = "";
+    passwordError.textContent = "";
+
+    let hasError = false;
+
+    // Email validation
+    if (emailInput.value.trim() === "") {
+      emailError.textContent = "Email is required.";
+      hasError = true;
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailInput.value.trim())) {
+      emailError.textContent = "Invalid email format.";
+      hasError = true;
+    }
+
+    // Password validation
+    if (passwordInput.value.trim() === "") {
+      passwordError.textContent = "Password is required.";
+      hasError = true;
+    }
+
+    if (hasError) {
+      return; // stop if errors
+    }
     const formData = new FormData(form);
 
     fetch("../Server/Process/login-process.php", {
@@ -143,7 +208,6 @@ document.addEventListener("DOMContentLoaded", () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.success) {
-       
           Swal.fire({
             icon: "success",
             title: `<span style="
@@ -175,13 +239,11 @@ document.addEventListener("DOMContentLoaded", () => {
               popup.style.padding = "1rem";
             },
 
-            
             willClose: () => {
               document.getElementById("authModal").classList.add("d-none");
 
               const action = sessionStorage.getItem("postLoginAction");
               sessionStorage.removeItem("postLoginAction");
-             
 
               const actionData2 = sessionStorage.getItem(
                 "postLoginActioncheckout"
@@ -196,7 +258,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 } else {
                   addToCart(productId);
                 }
-              }  else if (data.redirect) {
+              } else if (data.redirect) {
                 window.location.href = data.redirect;
               }
             },
@@ -217,4 +279,3 @@ document.addEventListener("DOMContentLoaded", () => {
       });
   });
 });
-

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 15, 2025 at 01:51 PM
+-- Generation Time: Jul 18, 2025 at 09:46 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -250,7 +250,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (40, 'E.I.F. SKIN Bright Icon Vitamin C + E + Ferulic Serum', 'BRIGHTENING SERUM: A radiance-boosting serum formulated with a triple threat of 15% vitamin C, 1% vitamin E and 0.5% ferulic acid.', 650.00, 89, '2025-06-28 01:21:33', 11, 2, 5),
 (41, 'E.I.F. SKIN  Clarify Facial Oil, Face Oil For Treating , Helps Calm Redness', 'CLARIFYING FACIAL OIL: Helps to help clarify clogged pores and treat and prevent new blackheads and breakouts without drying out your skin for a bright-looking, even-toned complexion.', 850.00, 89, '2025-06-28 01:29:34', 11, 2, 10),
 (42, 'E.I.F. SKIN Holy Hydration!  Set Hydration Kit, Travel Friendly Hydrating  Set', 'FOR ALL SKIN TYPES: This skincare set is perfectly compatible with all skin types.', 560.00, 89, '2025-06-28 01:34:06', 11, 2, 5),
-(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 9),
+(44, 'ANUA Heartleaf Quercetinol Pore Deep Cleansing Foam, Facial Cleanser,', 'Creates a delicate light foam infused with Heartleaf Extract, making it gentle yet effective, especially suitable for deeply cleansing oily and combination skin.', 570.00, 89, '2025-06-28 01:52:46', 12, 2, 8),
 (47, 'Comfy Shirts', 'Simply & regular shirt', 1500.00, 51, '2025-06-29 01:12:55', 15, 5, 5),
 (48, 'White Hoodie', 'White Warm comfy hoodie', 2000.00, 51, '2025-06-29 01:13:49', 15, 5, 5),
 (49, 'Green Hoodie', 'Green Soft Hoodie', 2000.00, 51, '2025-06-29 01:14:33', 15, 5, 5),
@@ -278,7 +278,7 @@ INSERT INTO `products` (`id`, `name`, `description`, `price`, `subcategory_id`, 
 (74, '32inch LCD', 'Apple 32inch LCD', 32000.00, 41, '2025-06-29 04:49:06', 1, 4, 5),
 (75, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:50:08', 5, 4, 5),
 (76, '40inch LCD', 'LG 40inch LCD', 40000.00, 41, '2025-06-29 04:52:38', 5, 4, 5),
-(77, 'Girly Watches ', 'Regular Wear Watch', 1500.00, 56, '2025-06-29 04:53:44', 18, 5, 5),
+(77, 'Girly Watches ', 'Regular Wear Watch', 1500.00, 56, '2025-06-29 04:53:44', 18, 5, 4),
 (78, 'Office Watches Girls', '', 2000.00, 56, '2025-06-29 04:54:35', 19, 5, 10),
 (79, 'Black Set Watch', 'Black Set Watch', 2000.00, 56, '2025-06-29 04:55:15', 19, 5, 5),
 (80, 'Cream Office Watch', 'Cream Office Watch', 2000.00, 56, '2025-06-29 04:56:05', 19, 5, 5),
@@ -409,7 +409,8 @@ CREATE TABLE `reviews` (
 INSERT INTO `reviews` (`id`, `user_id`, `product_id`, `rating`, `review_text`, `created_at`, `updated_at`) VALUES
 (188, 9, 44, 3, 'this is a girl product', '2025-07-09 14:59:15', '2025-07-09 14:59:15'),
 (194, 61, 44, 3, 'This product is best of best', '2025-07-15 09:48:07', '2025-07-15 09:48:07'),
-(195, 61, 42, 3, 'this is a best beauty kit', '2025-07-15 09:50:13', '2025-07-15 09:50:13');
+(195, 61, 42, 3, 'this is a best beauty kit', '2025-07-15 09:50:13', '2025-07-15 09:50:13'),
+(197, 9, 83, 3, 'This is abest Washed', '2025-07-18 19:44:37', '2025-07-18 19:44:37');
 
 -- --------------------------------------------------------
 
@@ -512,8 +513,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `role`, `status`, `created_at`, `updated_at`, `user_profile`, `gender`, `email_token`, `token_expiry`) VALUES
 (9, 'Haris', 'Haris333@gmail.com', '$2y$10$o1.w/PB0G7N3IcBxNzUa1.DBelcUaS/HYdVws84MQvVhyjs1mPtvS', '03128727336', 'user', 'active', '2025-07-04 09:07:46', '2025-07-15 13:32:12', '1752098352-Young man face avater vector illustration design _ Premium Vector.jpg', 'male', NULL, NULL),
 (37, 'Abdullah', 'abdullahsidzz333@gmail.com', '$2y$10$CRNrx0U.G7XHX21GIPp29.HVQ.wSj6lmI0k4FOYZZ8Kh5LUPEBA16', '03160117489', 'admin', 'active', '2025-07-06 04:40:34', '2025-07-15 13:32:32', '', 'male', NULL, NULL),
-(61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL),
-(66, 'Abdullah', 'abdullahsidzz444@gmail.com', '$2y$10$tPmoQa/OxbAazRYbZ/6CDeG9xUWRzQ09hbMhusxkQEy6xJAzYAxcK', NULL, 'user', 'active', '2025-07-15 16:38:24', '2025-07-15 16:50:17', '1752579527-boy.jpg', 'male', NULL, NULL);
+(61, 'Fozia Naz', 'fozianaz140@gmail.com', '$2y$10$6bBMJlDgHocssY0MSl2.7upQOeq4T5C4k7ZjWuxoLwQ7jtrcBqOGu', '03128727334', 'user', 'active', '2025-07-11 03:15:18', '2025-07-11 03:40:31', '1752187231-girl.jpg', 'male', NULL, NULL);
 
 --
 -- Indexes for dumped tables
@@ -605,7 +605,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `addresses`
 --
 ALTER TABLE `addresses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=31;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
 --
 -- AUTO_INCREMENT for table `brand`
@@ -623,37 +623,37 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=102;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=104;
 
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=147;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=149;
 
 --
 -- AUTO_INCREMENT for table `otp_verification`
 --
 ALTER TABLE `otp_verification`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=63;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=64;
 
 --
 -- AUTO_INCREMENT for table `products`
 --
 ALTER TABLE `products`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=108;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=109;
 
 --
 -- AUTO_INCREMENT for table `product_images`
 --
 ALTER TABLE `product_images`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=106;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=107;
 
 --
 -- AUTO_INCREMENT for table `reviews`
 --
 ALTER TABLE `reviews`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=196;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=198;
 
 --
 -- AUTO_INCREMENT for table `subcategories`
@@ -665,7 +665,7 @@ ALTER TABLE `subcategories`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=67;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=70;
 
 --
 -- Constraints for dumped tables
